@@ -1,0 +1,1095 @@
+{% extends 'base/base.html' %}
+
+
+
+{% block title %}Submit{% endblock title %}
+
+{% block head %}
+
+
+<!-- Select2 CSS --> 
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" /> 
+
+
+<!-- Select2 JS --> 
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/weathericons@2.1.0/css/weather-icons.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@3.9.0/dist/fullcalendar.min.css" rel="stylesheet" />
+
+
+
+
+<style>
+
+
+    table {
+        border-collapse: separate;
+        table-layout: fixed;
+        width: 100%;
+    }
+
+    .text{
+        margin : 0px 14px;
+    }
+
+    .form-control{
+        height : calc(1.9rem + 2px) !important;
+    }
+
+    .select2 {
+        width:100% !important;
+    }
+
+    .select2-selection{
+        height: calc(1.9rem + 2px) !important;
+    }
+
+    .select2-selection__rendered{
+        line-height : 2.3 !important;
+    }
+
+    .cus{
+        width:200px !important;
+    }
+
+    .se{
+        background-color : rgba(239, 239, 239, 0.3) !important;
+    }
+
+
+
+
+    fieldset {
+        display: block;
+        margin: 20px auto;
+        padding: 15px;
+        border: 0;
+        border: 1px solid black;
+        margin-top : 0px;
+        margin-bottom : 7px;
+        width : fit-content;
+      }
+      legend {
+        display: table;
+        min-width: 0px;
+        max-width: 70%;
+        position: relative;
+        margin: auto;
+        padding: 5px 20px;
+        font-weight: bold;
+        font-size: 14px;
+        padding-top: 0px !important;
+        text-align: center;
+      }
+
+      .card{
+        font-size: 14px !important;
+        font-weight: bold !important;
+      }
+
+      .card-body{
+        padding-top: 3px !important;
+
+      }
+
+      hr{
+        margin : 0px;
+      }
+
+      .content{
+        padding-top: 8px !important;
+      }
+
+
+      .input-wrapper {
+        position: relative;
+      }
+      
+      input {
+        border: 1px solid gray;
+        border-radius: 6px;
+        position: relative;
+        width: 231px;
+        margin: 10px;
+        line-height: 6ex;
+        padding-left: 14px;
+        height: 46px;
+      }
+
+      select {
+        border: 1px solid gray !important;
+        border-radius: 6px !important;
+        position: relative !important;
+        width: 231px !important;
+        margin: 10px !important;
+        line-height: 6ex !important;
+        padding-left: 14px !important;
+        height: 46px !important;
+      }
+      
+      label {
+        position: absolute;
+        top: 0.2ex;
+        z-index: 1;
+        left: 2em;
+        background-color: white;
+        padding: 0 5px;
+       
+      }
+
+
+</style>
+
+
+{% endblock %}
+
+{% block breadcrumbs %}
+{% endblock breadcrumbs %}
+
+{% block content %}
+
+<div>
+
+    {{ form_error }}
+    
+
+</div>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card" style="padding-top:0px;">
+           
+            <div class="card-body" style="padding-top:0px;">
+                <!-- Credit Card -->
+                <div id="pay-invoice">
+                    <div class="card-body">
+                        <form action="#" method="post" >
+                            {% csrf_token %}
+
+                            <div class="col-12">
+                            <h3 style="text-align: center;">  Add Builty</h3>
+
+                            </div>
+
+                            <br><br>
+
+                            <div class="col-12" style="display:flex;">
+
+                                <div class="col-6" style="border-right : 1px solid black">
+                                
+                                <table style="width:100%;">
+                            
+                                    <tr>
+                                        <td>
+                                            
+                                            <div class="input-wrapper" style="display:flex;">
+                                                <label for="first">Consignor</label>
+                                                {{ form.consignor }} <input type="button" data-toggle="modal" data-target="#myModal" style="width: 36px; padding: 1px; margin: 10px 0px;width: 36px;padding: 1px; margin: 10px 0px;background: #05386b;color: white;font-weight: bolder;font-size: 23px;text-align: center;line-height: 3px;" value="+">
+                                              </div>
+                                            
+                                        </td>
+                                        
+                                        <td>
+                                            
+                                            <div class="input-wrapper" style="display:flex;">
+                                                <label for="first">Article</label>
+                                                {{ form.article }} <input type="button" data-toggle="modal" data-target="#myModal_article" style="width: 36px; padding: 1px; margin: 10px 0px;width: 36px;padding: 1px; margin: 10px 0px;background: #05386b;color: white;font-weight: bolder;font-size: 23px;text-align: center;line-height: 3px;" value="+">
+                                              </div>
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td>
+                                            
+                                                <div class="input-wrapper" style="display:flex;">
+                                                    <label for="first">Builty No</label>
+                                                    {{ form.builty_no }}
+                                                  </div>
+                                            
+
+                                        </td>
+                                        <td>
+                                            
+                                                <div class="input-wrapper" style="display:flex;">
+                                                    <label for="first">Date</label>
+                                                    {{ form.DC_date }}
+
+                                                  </div>
+                                            
+                                        </td>
+
+                                    </tr>
+                        
+                                
+                                    <tr>
+
+                                        <td>
+                                            
+                                                <div class="input-wrapper" style="display:flex;">
+                                                    <label for="first">Truck No</label>
+                                                    {{ form.truck_details }} <input type="button" data-toggle="modal" data-target="#myModal_truck_details" style="width: 36px; padding: 1px; margin: 10px 0px;width: 36px;padding: 1px; margin: 10px 0px;background: #05386b;color: white;font-weight: bolder;font-size: 23px;text-align: center;line-height: 3px;" value="+">
+                                                  </div>
+                                        </td>
+
+                                        <td>
+                                            
+                                                <div class="input-wrapper" style="display:flex;">
+                                                    <label for="first">Truck Owner</label>
+                                                    {{ form.truck_owner }} <input type="button" data-toggle="modal" data-target="#myModal_truck_owner" style="width: 36px; padding: 1px; margin: 10px 0px;width: 36px;padding: 1px; margin: 10px 0px;background: #05386b;color: white;font-weight: bolder;font-size: 23px;text-align: center;line-height: 3px;" value="+">
+                                                  </div>
+                                            
+                                        </td>
+
+                                    </tr>
+                                    <tr>
+
+                                        <td>
+                                            
+                                                <div class="input-wrapper" style="display:flex;">
+                                                    <label for="first">From Station</label>
+                                                    {{ form.station_from }} <input type="button" data-toggle="modal" data-target="#myModal_station" style="width: 36px; padding: 1px; margin: 10px 0px;width: 36px;padding: 1px; margin: 10px 0px;background: #05386b;color: white;font-weight: bolder;font-size: 23px;text-align: center;line-height: 3px;" value="+">
+                                                  </div>
+                                            
+                                        </td>
+                                        <td>
+                                            
+                                                <div class="input-wrapper" style="display:flex;">
+                                                    <label for="first">To Desti</label>
+                                                    {{ form.station_to }} <input type="button" data-toggle="modal" data-target="#myModal_station" style="width: 36px; padding: 1px; margin: 10px 0px;width: 36px;padding: 1px; margin: 10px 0px;background: #05386b;color: white;font-weight: bolder;font-size: 23px;text-align: center;line-height: 3px;" value="+">
+                                                  </div>
+                                            
+                                        </td>
+
+
+                                    </tr>
+
+                                    <tr>
+
+                                        <td>
+                                            
+                                            <div class="input-wrapper" style="display:flex;">
+                                                <label for="first">Taluka</label>
+                                                {{ form.taluka }} <input type="button" data-toggle="modal" data-target="#myModal_taluka" style="width: 36px; padding: 1px; margin: 10px 0px;width: 36px;padding: 1px; margin: 10px 0px;background: #05386b;color: white;font-weight: bolder;font-size: 23px;text-align: center;line-height: 3px;" value="+">
+                                              </div>
+                                        
+                                        </td>
+                                        <td>
+                                            
+                                                <div class="input-wrapper" style="display:flex;">
+                                                    <label for="first">District</label>
+                                                    {{ form.district }} <input type="button" data-toggle="modal" data-target="#myModal_district"  style="width: 36px; padding: 1px; margin: 10px 0px;width: 36px;padding: 1px; margin: 10px 0px;background: #05386b;color: white;font-weight: bolder;font-size: 23px;text-align: center;line-height: 3px;" value="+">
+                                                  </div>
+                                            
+                                        </td>
+
+
+                                    </tr>
+                                    
+                                    
+
+                                    <tr>
+                                        <td>
+                                            
+                                                <div class="input-wrapper" style="display:flex;">
+                                                    <label for="first">Consignee</label>
+                                                    {{ form.consignee }}
+                                                  </div>
+                                            
+                                        </td>
+
+                                        <td>
+                                            
+                                            <div class="input-wrapper" style="display:flex;">
+                                                <label for="first">Onaccount</label>
+                                                {{ form.onaccount }} <input type="button" data-toggle="modal" data-target="#myModal_onaccount" style="width: 36px; padding: 1px; margin: 10px 0px;width: 36px;padding: 1px; margin: 10px 0px;background: #05386b;color: white;font-weight: bolder;font-size: 23px;text-align: center;line-height: 3px;" value="+">
+                                              </div>
+                                        
+                                    </td>
+                                    </tr>
+
+                                  
+                                    
+                                </table>
+
+                            </div>
+
+                            <div class="col-6">
+
+                               
+
+                                    <div class="col-6">
+
+                                        <div style="display: flex;
+                                        column-gap: 7px;margin-bottom: 4px;">
+
+                                            <div class="input-wrapper" style="display:flex;">
+                                                <label for="first">Qty (bags)</label>
+                                                {{ form.bags }}
+                                              </div>
+                                                
+                                              <div class="input-wrapper" style="display:flex;">
+                                                <label for="first">MT</label>
+                                                {{ form.mt }}
+                                              </div>
+
+                                        </div>
+                                      
+                                        <div style="display: flex;
+                                        column-gap: 7px;margin-bottom: 4px;">
+
+                                             
+                                            <div class="input-wrapper" style="display:flex;">
+                                                <label for="first">Delivery No</label>
+                                                {{ form.delivery_no }}
+                                              </div>
+                                        
+                                            <div class="input-wrapper" style="display:flex;">
+                                                <label for="first">Note</label>
+                                                {{ form.note }}
+                                              </div>
+                                        
+                                        </div>
+                                        
+                                        <div style="display: flex;
+                                        column-gap: 7px;margin-bottom: 0px;margin-top: 14px;">
+
+                                             
+                                            <div class="input-wrapper" style="display:flex;">
+                                                <label for="first">EX/For</label>
+                                                {{ form.ex_for }}
+                                              </div>
+                                        
+                                        
+                                             
+                                            <div class="input-wrapper" style="display:flex;">
+                                                <label for="first">Mode</label>
+                                                {{ form.mode }}
+                                              </div>
+                                        
+                                        </div>
+                                      
+                                
+
+                                        <div>
+
+                                            <fieldset><legend>Truck Driver Advance</legend>
+
+
+                                                <div style="display: flex;
+                                                column-gap: 7px;margin-bottom: 4px;">
+            
+                                                    
+
+                                                      <div class="input-wrapper" style="display:flex;">
+                                                        <label for="first">Rate</label>
+                                                        {{ form.rate }}
+                                                      </div>
+
+                                                    <div class="input-wrapper" style="display:flex;">
+                                                        <label for="first">Freight</label>
+                                                        {{ form.freight }}
+                                                      </div>
+                                                
+                                                </div>
+
+                                                <div style="display: flex;
+                                                column-gap: 7px;margin-bottom: 4px;">
+                
+                                                    <div class="input-wrapper" style="display:flex;">
+                                                        <label for="first"> Less Advance</label>
+                                                        {{ form.less_advance }}
+                                                      </div>
+
+                                                    <div class="input-wrapper" style="display:flex;">
+                                                        <label for="first"> Less TDS</label>
+                                                        {{ form.less_tds }}
+                                                      </div>
+                                                </div>
+
+                                                <div style="display: flex;
+                                                column-gap: 7px;margin-bottom: 4px;">
+        
+                                                    <div class="input-wrapper" style="display:flex;">
+                                                        <label for="first">Balance</label>
+                                                        {{ form.balance }}
+                                                      </div>
+                                                                
+                                                    <div class="input-wrapper" style="display:flex;">
+                                                        <label for="first">Diesel</label>
+                                                        {{ form.diesel }}
+                                                      </div>
+                                                </div>
+                                        </fieldset>
+
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+<br>
+
+{% comment %}                             
+
+                            <div class="form-group">
+                                <label for="name" class="control-label mb-1">Bags</label>
+                                {{ form.bags }}
+                            </div>
+
+                            <div class="form-group">
+                                <label for="name" class="control-label mb-1">Delivery No</label>
+                                {{ form.delivery_no }}
+                            </div>
+
+                            <div class="form-group">
+                                <label for="name" class="control-label mb-1">ex/for</label>
+                                {{ form.ex_for }}
+                            </div>
+
+                            <div class="form-group">
+                                <label for="name" class="control-label mb-1">Mode</label>
+                                {{ form.mode }}
+                            </div>
+
+                            <div class="form-group">
+                                <label for="name" class="control-label mb-1">Note</label>
+                                {{ form.note }}
+                            </div>
+ {% endcomment %}
+
+                            
+
+                            <div style="display: flex;
+                            gap: 75px;justify-content: center;">
+                                
+                                <button id="payment-button" type="submit"  style="height: 44px;
+                                width: 300px;
+                                background: #05386b;
+                                border: none;
+                                color: white;
+                                font-weight: bold;
+                                font-size: 14px;">
+                                    <span id="payment-button-amount">Create Builty</span>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div> <!-- .card -->
+
+    </div><!--/.col-->
+</div>
+
+
+<!-- ====================== card ================================= -->
+
+<!-- ====================== consignor ================================= -->
+
+
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add Consignor</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="consignor_form">
+            
+                        <input type="hidden" id="builty_id">
+            
+                        <div class="input-wrapper" style="display:flex;">
+                            <label for="first"> Company Name</label>
+                        {{ form.company }} 
+
+            
+                        </div>
+
+                        <div class="input-wrapper" style="display:flex;">
+                            <label for="first">Consignor Name</label>
+                            <input type="text"name="name" id="consignor_name" class="cus" required="">
+                        </div>
+                        
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                    </form>
+  
+                </div>
+            </div>
+        </div>
+    </div>
+
+<!-- ====================== consignor end ================================= -->
+  
+
+
+<!-- ====================== article ================================= -->
+
+
+    <div class="modal fade" id="myModal_article" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add Article</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="sub_trip">
+            
+                        <div class="input-wrapper" style="display:flex;">
+                            <label for="first">Company Name</label>
+
+                            <select name="company" id="article_company" required="">
+                                <option value="" selected="">---------</option>
+                                
+                                {% for i in company_data %}
+    
+                                <option value="{{ i.id }}"> {{ i.company_name }} </option>
+    
+                                {% endfor %}
+                              
+                              
+                              </select>
+                        </div>
+                        
+                          <div class="input-wrapper" style="display:flex;">
+                            <label for="first">Consignor Name</label>
+                            <select name="company" id="article_consignor" required="">
+                                <option value="" selected="">---------</option>
+                            </select>
+                                
+                        </div>
+
+                        <div class="input-wrapper" style="display:flex;">
+                            <label for="first">Article Name</label>
+                            <input type="text"name="name" id="article_name" class="cus" required="">
+                        </div>
+                        
+                        
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                    </form>
+  
+                </div>
+            </div>
+        </div>
+    </div>
+
+<!-- ====================== article end ================================= -->
+
+
+
+<!-- ====================== truck_details ================================= -->
+
+
+<div class="modal fade" id="myModal_truck_details" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add Truck Details</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="sub_trip">
+
+                    <div class="input-wrapper" style="display:flex;">
+                            <label for="first">Consignor Name</label>
+                        {{ form_truck_details.company }}
+                    </div>
+                   
+                    <div class="input-wrapper" style="display:flex;">
+                        <label for="first">Truck Number</label>
+
+                        {{ form_truck_details.truck_number }}
+                    </div>
+
+                    <div class="input-wrapper" style="display:flex;">
+                        <label for="first">Truck Owner</label>
+                        {{ form_truck_details.truck_owner }}
+                    </div>
+                   
+                    <div class="input-wrapper" style="display:flex;">
+                        <label for="first">Insurance Number</label>
+                        {{ form_truck_details.insurance_number }}
+                    </div>
+                   
+                    <div class="input-wrapper" style="display:flex;">
+                        <label for="first">Permit Number</label>
+                        {{ form_truck_details.permit_number }}
+                    </div>
+
+                    <div class="input-wrapper" style="display:flex;">
+                        <label for="first">PUC Number</label>
+                        {{ form_truck_details.puc_number }}
+                    </div>
+
+                    <div class="input-wrapper" style="display:flex;">
+                        <label for="first">Fitness</label>
+                        {{ form_truck_details.fitness }}
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ====================== truck_details end ================================= -->
+
+
+
+
+<!-- ====================== truck_owner ================================= -->
+
+
+<div class="modal fade" id="myModal_truck_owner" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add Truck Owner</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="sub_trip">
+        
+
+                    <div class="input-wrapper" style="display:flex;">
+                        <label for="first">Owner Name</label>
+                        {{ form_truck_owner.owner_name }}
+                    </div>
+
+                    <div class="input-wrapper" style="display:flex;">
+                        <label for="first">Bank Acc No</label>
+                        {{ form_truck_owner.bank_acc }}
+                    </div>
+
+                    <div class="input-wrapper" style="display:flex;">
+                        <label for="first">Address</label>
+                        {{ form_truck_owner.address }}
+                    </div>
+
+                    <div class="input-wrappoer" style="display:flex;">
+                        <label for="first">Mobile Number</label>
+                        {{ form_truck_owner.mobile_number }}
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ====================== truck_owners end ================================= -->
+
+
+
+<!-- ====================== station ================================= -->
+
+
+<div class="modal fade" id="myModal_station" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add Station</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="sub_trip">
+        
+                    
+
+
+                            <div class="input-wrapper" style="display:flex;">
+                                <label for="first">Station name</label>
+                                {{ station_Form.name }}
+                            </div>
+
+                    
+                    
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ====================== station end ================================= -->
+
+
+
+<!-- ====================== taluka ================================= -->
+
+
+<div class="modal fade" id="myModal_taluka" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add Taluka</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="sub_trip">
+        
+                    
+                        
+
+                    <div class="input-wrapper" style="display:flex;">
+                        <label for="first"> District Name</label>
+                        {{ form_taluka.district }}
+                    </div>
+
+                    <div class="input-wrapper" style="display:flex;">
+                        <label for="first"> Taluka Name </label>
+                        {{ form_taluka.name }}
+                    </div>
+                    
+                    
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ====================== taluka end ================================= -->
+
+<!-- ====================== distirct ================================= -->
+
+
+<div class="modal fade" id="myModal_district" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add Station</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="sub_trip">
+        
+                    
+
+
+                            <div class="input-wrapper" style="display:flex;">
+                                <label for="first">District name</label>
+                                {{ form_district.name }}
+                            </div>
+
+                    
+                    
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- ====================== onaccount ================================= -->
+
+
+<div class="modal fade" id="myModal_onaccount" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add Onaccount</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="sub_trip">
+        
+                    
+                        
+
+                    <div class="input-wrapper" style="display:flex;">
+                        <label for="first"> Company Name</label>
+                        {{ form_onaccount.company }}
+                    </div>
+
+                    <div class="input-wrapper" style="display:flex;">
+                        <label for="first"> Onaccount Name </label>
+                        {{ form_onaccount.name }}
+                    </div>
+                    
+                    
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ====================== onaccount end ================================= -->
+
+
+    {% endblock content %}
+
+
+    {% block js %}
+
+<script>
+
+
+    $("#article_company").change(function () {
+        const comapnyID = $(this).val();  // get the selected subject ID from the HTML dropdown list 
+        $.ajax({                       // initialize an AJAX request
+            type: "POST",
+            url: "{% url 'get_consignor_ajax' %}",
+            data: {
+                'company_id': comapnyID,       // add the country id to the POST parameters
+                'csrfmiddlewaretoken':$('input[name=csrfmiddlewaretoken]').val(),
+            },
+            success: function (data) {   // `data` is from `get_topics_ajax` view function
+                let html_data = '<option value="" selected disabled>------------</option>';
+                data.forEach(function (data) {
+            
+                    html_data += `<option value="${data.id}" >${data.name}</option>` 
+                });
+                $("#article_consignor").html(html_data); // replace the contents of the topic input with the data that came from the server
+            }
+        });
+    });
+
+    
+
+    
+      
+
+    $("#taluka").change(function () {
+        talukaid = ($(this).val());
+
+        
+
+
+        $.ajax({   
+            cache: false,                    // initialize an AJAX request
+            type: "POST",
+            url: "{% url 'get_district' %}",
+            data: { 'csrfmiddlewaretoken':$('input[name=csrfmiddlewaretoken]').val(), 'taluka_id' : talukaid },     // add the country id to the POST parameters
+
+            success: function (data) {   // `data` is from `get_topics_ajax` view function
+
+                    console.log('------------------------')
+                    console.log(data)
+
+                    
+                    var a = JSON.parse(data.data)
+                    
+
+                    let_html = '<option value="' + a[0].pk + '" selected>' + a[0].fields.name + '</option>'
+
+                    $('#district').html(let_html);
+
+                
+               
+            }
+
+        });
+
+
+    });
+
+
+    
+    $("#truck_details").change(function () {
+        truckid = ($(this).val());
+
+            
+
+        $.ajax({   
+            cache: false,                    // initialize an AJAX request
+            type: "POST",
+            url: "{% url 'get_owner' %}",
+            data: { 'csrfmiddlewaretoken':$('input[name=csrfmiddlewaretoken]').val(), 'truck_id' : truckid },     // add the country id to the POST parameters
+
+            success: function (data) {   // `data` is from `get_topics_ajax` view function
+
+                    console.log('------------------------')
+                    console.log(data)
+
+                    
+                    var a = JSON.parse(data.data)
+                    
+
+                    let_html = '<option value="' + a[0].pk + '" selected>' + a[0].fields.owner_name + '</option>'
+
+                    $('#truck_owner').html(let_html);
+
+                
+            
+            }
+
+        });
+
+
+    });
+
+
+    let global_mt = 0
+    let global_freight = 0
+
+    bags.addEventListener("input", function (e) {
+
+        
+        let bags = this.value;
+
+        global_mt = bags / 20;
+
+        document.getElementById("mt").value = global_mt;
+
+        rate = document.getElementById('rate').value;
+        
+        global_freight =  global_mt * rate;
+
+        document.getElementById("freight").value = global_freight;
+    });
+    
+
+    rate.addEventListener("input", function (e) {
+
+        
+        let rate = this.value;
+
+        global_freight =  global_mt * rate;
+
+        document.getElementById("freight").value = global_freight;
+        
+    });
+
+    less_advance.addEventListener("input", function (e) {
+
+        
+        let less_advance = this.value;
+        let less_tds = document.getElementById('less_tds').value;
+
+        let balance = global_freight - less_advance - less_tds;
+
+        document.getElementById("balance").value = balance;
+
+    });
+
+    less_tds.addEventListener("input", function (e) {
+
+        
+        let less_tds = this.value;
+        let less_advance = document.getElementById('less_advance').value;
+
+        let balance = global_freight - less_advance - less_tds;
+
+        document.getElementById("balance").value = balance;
+
+    });
+    
+
+
+    
+   
+    document.getElementById('consignor_form').addEventListener('submit', function(evt){
+        
+        evt.preventDefault();
+
+        var data = $('#consignor_form').serialize();
+
+        $.ajax({                       
+            type: "POST",
+            url: "{% url 'add_consignor_ajax' %}",
+            data : $(this).serialize(),
+            success: function (status) {   // `data` is from `get_topics_ajax` view function
+              
+              if(data.status = 'True'){
+                $('#myModal').modal('hide');
+                
+                console.log('----------------')
+
+                console.log(data)
+                console.log(data.id)
+                console.log('----------------')
+                console.log(data.value)
+                console.log('----------------')
+                    
+                var a = JSON.parse(data)
+                console.log(a)
+                    
+                console.log('----------------')
+
+
+                let_html = '<option value="' + data.id + '" selected>' + data.value + '</option>'
+
+                $('#consignor').append(let_html);
+
+                
+                
+              }
+              
+              else{
+                
+                alert("error")
+              }
+            }
+        });
+    })
+
+
+
+
+
+
+    document.querySelectorAll('.form-control').forEach(item => item.classList.remove('form-control'));
+
+
+
+
+    $("#truck_owner").css("pointer-events","none");
+    $("#district").css("pointer-events","none");
+
+    
+</script>
+
+{% endblock js %}

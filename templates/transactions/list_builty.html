@@ -1,0 +1,407 @@
+{% extends 'base/base.html' %}
+{% load i18n %}
+
+{% block title %}Product List{% endblock title %}
+
+
+{% block head %}
+
+<head>
+{% comment %} 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script> {% endcomment %}
+
+    <style>
+
+        .menu-nav {
+       
+            display: flex;
+            justify-content: space-between;
+          }
+          
+          .menu-item {
+            color: #FCC;
+            padding: 3px;
+          }
+          
+          .three-dots:after {
+            cursor: pointer;
+            color: #444;
+            content: '\2807';
+            font-size: 20px;
+            padding: 0 5px;
+          }
+          
+          a {
+            text-decoration: none;
+            color: white;
+          }
+          
+          a div {
+            padding: 2px;
+          }
+         
+          
+          .dropdownn {
+            position: absolute;
+            right: 10px;
+            background-color: #868e96;
+            
+            outline: none;
+            opacity: 0;
+            z-index: -1;
+            max-height: 0;
+            transition: opacity 0.1s, z-index 0.1s, max-height: 5s;
+          }
+          
+          .dropdownn-container:focus {
+            outline: none;
+          }
+          
+          .dropdownn-container:focus .dropdownn {
+            opacity: 1;
+            z-index: 100;
+            max-height: 100vh;
+            transition: opacity 0.2s, z-index 0.2s, max-height: 0.2s;
+          }
+
+          .logged-in {
+            color: orange;
+            font-size: 21px;
+          }
+          
+
+    </style>
+
+</head>
+
+{% endblock head %}
+
+{% block breadcrumbs %}
+<div class="breadcrumbs">
+    <div class="breadcrumbs-inner">
+        <div class="row m-0">
+            
+            {% comment %} <div class="col-sm-8">
+                <div class="page-header float-right">
+                    <div class="page-title">
+                        <ol class="breadcrumb text-right">
+                            <li><a href="#">Dashboard</a></li>
+                            <li><a href="#">Product</a></li>
+                            <li class="active">List</li>
+                        </ol>
+                    </div>
+                </div>
+            </div> {% endcomment %}
+        </div>
+    </div>
+</div>
+{% endblock breadcrumbs %}
+
+{% block content %}
+<div style="justify-content: center;display: flex;align-items: center;">
+   <a href="{% url 'add_transaction' %}"> <button id="payment-button" style="background-color: #05386b; border: green; padding: 10px;border-radius: 12px;" type="button" class="btn-info ">
+         <span id="payment-button-amount">Add Builty  +</span>
+     </button> </a>
+   
+</div><br>
+
+<p>
+    
+    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+      Filters
+    </button>
+  </p>
+  <div class="collapse" id="collapseExample">
+    <div class="card card-body">
+      
+
+        <form method="get" action="" style="padding:15px;">
+
+            {% csrf_token %}
+
+            <div class="form-group" style="display: flex;
+            gap: 14px;">
+
+            <label for="name" class="control-label mb-1" style="margin-left : 0px;">Builty No</label>
+                    {{ builty_filter.form.builty_no }}
+                        
+                    
+                <label for="name" class="control-label mb-1" style="margin-left : 0px;">Truck No</label>
+                {{ builty_filter.form.truck_details }}
+                       
+                <label for="name" class="control-label mb-1">Consignor</label>
+                {{ builty_filter.form.consignor }}
+            
+                
+                <label for="name" class="control-label mb-1 la">Article</label>
+                {{ builty_filter.form.article }}
+ 
+                
+                                            
+                    
+                </div>
+            
+                    <div class-"form-group" style="display: flex;
+                    gap: 14px;">
+                                        
+                    <label for="name" class="control-label mb-1" style="margin-left : 0px;">Date From</label>
+                    {{ builty_filter.form.DC_date_start__date }}
+                
+
+
+                <label for="name" class="control-label mb-1">Date To</label>
+                                                {{ builty_filter.form.DC_date_end__date }}
+
+
+
+            </div>
+
+            <br>
+          
+            <button class="btn btn-primary" type="submit" > Request Edit </button>
+
+        </form>
+    </div>
+  </div>
+  
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="sub_trip">
+          <div class="form-group">
+            <label for="location_from" class="col-form-label">Location From</label>
+            {{ form.station_from }}
+          </div>
+          <div class="form-group">
+            <label for="location_to" class="col-form-label">Location To</label>
+            {{ form.station_to }}
+          </div>
+          <input type = "hidden" id="builty_id" value = "">
+          <div class="form-group">
+            <label for="diesel" class="col-form-label">Diesel</label>
+            <input type="number" class="form-control" id="diesel" required>
+          </div>
+          <div class="form-group">
+            <label for="note" class="col-form-label">Note</label>
+            <textarea class="form-control" id="note" required></textarea>
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </div>
+    </form>
+
+    </div>
+  </div>
+</div>
+
+<div class="row">
+    <div class="col-xl-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="box-title">Builty List </h4>
+            </div>
+            <div class="card-body--">
+                <div class="table-stats order-table ov-h">
+                    <table class="table ">
+                        <thead>
+                            <tr>
+                                <th class="serial">#</th>
+                                <th>Builty No</th>
+                                <th>Date</th>
+                                <th>Truck No</th>
+                                <th>Owner</th>
+                                <th>From</th>
+                                <th>To</th>
+                                <th>Taluka</th>
+                                <th>District</th>
+                                <th>Consignor</th>
+                                <th>Consigne</th>
+                                <th>Account</th>
+                                <th>Article</th>
+                                <th>#</th>
+                                
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% if data %}
+                            {% for i in data %}
+                            <tr>
+
+                              {% if i.has_request.all %}
+
+                                {% for z in i.has_request.all %}
+
+                                  {% if z.status == False %}
+
+                                    <td class="serial">  <span class="logged-in">●</span>   {{ forloop.parentloop.counter }}</td>
+                                 
+                                  {% endif %}
+
+
+                                {% endfor %}
+
+                              {% else %}
+
+                                <td class="serial" style=""><input type="checkbox" value="{{ i.id }}" /> {{ forloop.counter }}</td>
+
+                              {% endif %}
+                  
+                                
+                                <td>{{ i.builty_no }}</td>
+                                <td>{{ i.DC_date }}</td>
+                                <td>{{ i.truck_details }}</td>
+                                <td>{{ i.truck_owner }}</td>
+                                <td>{{ i.station_from }}</td>
+                                <td>{{ i.station_to }}</td>
+                                <td>{{ i.taluka }}</td>
+                                <td>{{ i.district }}</td>
+                                <td>{{ i.consignor }}</td>
+                                <td>{{ i.consignee }}</td>
+                                <td>{{ i.onaccount }}</td>
+                                <td>{{ i.article }}</td>
+                                
+                                <td>  
+
+                                    
+                                    <a href="{% url 'update_builty' i.id %}"><button style="background-color: #05386b; border: green; padding: 10px;border-radius: 12px;" type="button" class="btn-info ">
+                                        <span id="payment-button-amount">View</span>
+                                    </button>  </a>
+                                    
+                                    
+                                </td>
+                               
+                               
+                            </tr>
+                            {% endfor %}
+                            {% else %}
+                                <tr><td>No Product Data</td></tr>
+                            {% endif %}
+                        </tbody>
+                    </table>
+                    <footer class="site-footer">
+                      <div class="footer-inner bg-white">
+                          <div class="row" style="float: right;">
+                              <p style="font-weight: 700;
+                              color: black;"> Total :- {{ total }} RS</p>
+                          </div>
+                          <button style="background-color: #05386b; border: green; padding: 10px;border-radius: 12px;" class="btn-info" onclick="mass_edit_request();" > Submit </button>
+                      </div>
+                  </footer>
+                          
+  {% if data.has_other_pages %}
+  <nav>
+    <ul class="pagination justify-content-center">
+      {% if data.has_previous %}
+        <li class="page-item">
+          <a class="page-link" href="?page={{ data.previous_page_number }}" aria-label="Previous">
+            <span aria-hidden="true">&laquo;</span>
+          </a>
+        </li>
+      {% else %}
+        <li class="page-item disabled">
+            <span class="page-link" aria-hidden="true">&laquo;</span>
+        </li>
+      {% endif %}
+
+      {% for p in data.paginator.page_range %}
+        {% if data.number == p %}
+          <li class="page-item"><a class="page-link" style="color: red;" href="#">{{ p }}</a></li>
+        {% else %}
+          <li class="page-item"><a class="page-link" href="?page={{ p }}">{{ p }}</a></li>
+        {% endif %}
+      {% endfor %}
+
+      {% if data.has_next %}
+        <li class="page-item">
+          <a class="page-link" href="?page={{ data.next_page_number }}" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+          </a>
+        </li>
+      {% else %}
+        <li class="page-item disabled">
+          <span class="page-link" aria-hidden="true">&raquo;</span>
+        </li>
+      {% endif %}
+  </ul>
+  </nav>
+{% endif %}
+
+
+
+
+                </div> <!-- /.table-stats -->
+            </div>
+        </div> <!-- /.card -->
+    </div>  <!-- /.col-lg-8 -->
+
+    
+</div>
+
+
+
+<script>
+
+
+    function sdvccx(builty_id){
+      alert(builty_id)
+      
+      $('#station_from').addClass('form-control');
+      $('#station_to').addClass('form-control');
+      $('#myModal').modal('show');
+
+      document.getElementById("builty_id").value = builty_id;
+
+    }
+
+    function mass_edit_request(){
+
+      builty_id_arr = []
+
+      $("input:checkbox[name=type]:checked").each(function(){
+        builty_id_arr.push($(this).val());
+      });
+
+
+      var checkboxes = document.querySelectorAll('input[type=checkbox]:checked')
+
+      for (var i = 0; i < checkboxes.length; i++) {
+        builty_id_arr.push(checkboxes[i].value)
+      }
+
+      alert(builty_id_arr)
+
+      $.ajax({                       // initialize an AJAX request
+        type: "POST",
+        url: '{% url "mass_edit_request" %}',
+        data: {
+            'builty_id': builty_id_arr,       // add the country id to the POST parameters
+            'csrfmiddlewaretoken':$('input[name=csrfmiddlewaretoken]').val(),
+        },
+        success: function (data) {   // `data` is from `get_topics_ajax` view function
+
+            location.reload()
+            
+        }
+
+        });
+
+}
+
+
+    
+</script>
+
+
+
+{% endblock content %}

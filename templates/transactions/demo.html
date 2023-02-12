@@ -1,0 +1,609 @@
+{% extends 'base/base.html' %}
+
+
+
+{% block title %}Submit{% endblock title %}
+
+{% block head %}
+
+
+<!-- Select2 CSS --> 
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" /> 
+
+<!-- jQuery --> <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> 
+
+<!-- Select2 JS --> 
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/weathericons@2.1.0/css/weather-icons.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@3.9.0/dist/fullcalendar.min.css" rel="stylesheet" />
+
+<style>
+
+
+    table {
+        border-collapse: separate;
+        table-layout: fixed;
+        width: 100%;
+    }
+
+    .text{
+        margin : 0px 14px;
+    }
+
+    .form-control{
+        height : calc(1.9rem + 2px) !important;
+    }
+
+    .select2 {
+        width:100% !important;
+    }
+
+    .select2-selection{
+        height: calc(1.9rem + 2px) !important;
+    }
+
+    .select2-selection__rendered{
+        line-height : 2.3 !important;
+    }
+
+    .cus{
+        width:200px !important;
+    }
+
+
+
+
+
+    fieldset {
+        display: block;
+        margin: 20px auto;
+        padding: 15px;
+        border: 0;
+        border: 1px solid black;
+        margin-top : 0px;
+        margin-bottom : 7px;
+        width : fit-content;
+      }
+      legend {
+        display: table;
+        min-width: 0px;
+        max-width: 70%;
+        position: relative;
+        margin: auto;
+        padding: 5px 20px;
+        font-weight: bold;
+        font-size: 14px;
+        padding-top: 0px !important;
+        text-align: center;
+      }
+
+      .card{
+        font-size: 13px !important;
+        font-weight: bold !important;
+      }
+
+      .card-body{
+        padding-top: 3px !important;
+
+      }
+
+      hr{
+        margin : 0px;
+      }
+
+      .content{
+        padding-top: 8px !important;
+      }
+
+
+      .input-wrapper {
+        position: relative;
+      }
+      
+      input {
+        border: 1px solid gray;
+        border-radius: 6px;
+        position: relative;
+        width: 200px;
+        margin: 10px;
+        line-height: 6ex;
+        padding-left: 14px;
+        height: 39px;
+      }
+
+      select {
+        border: 1px solid gray !important;
+        border-radius: 6px !important;
+        position: relative !important;
+        width: 200px !important;
+        margin: 10px !important;
+        line-height: 6ex !important;
+        padding-left: 14px !important;
+        height: 39px !important;
+      }
+      
+      label {
+        position: absolute;
+        top: 0.2ex;
+        z-index: 1;
+        left: 2em;
+        background-color: white;
+        padding: 0 5px;
+       
+      }
+
+
+</style>
+
+
+{% endblock %}
+
+{% block breadcrumbs %}
+{% endblock breadcrumbs %}
+
+{% block content %}
+
+<div>
+
+    {{ form_error }}
+    
+
+</div>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card" style="padding-top:0px;">
+           
+            <div class="card-body" style="padding-top:0px;">
+                <!-- Credit Card -->
+                <div id="pay-invoice">
+                    <div class="card-body">
+                        <form action="#" method="post" >
+                            {% csrf_token %}
+
+                            <div class="col-12">
+                            <h3 style="text-align: center;">  Add Builty</h3>
+
+                            </div>
+
+                            <br><br>
+
+                            <div class="col-12" style="display:flex;">
+
+                                <div class="col-6" style="border-right : 1px solid black">
+                                
+                                <table style="width:100%;">
+                            
+                                    <tr>
+                                        <td>
+                                            
+                                            <div class="input-wrapper">
+                                                <label for="first">Consignor</label>
+                                                <input type="text">
+                                              </div>
+                                            
+                                        </td>
+                                        
+                                        <td>
+                                            
+                                            <div class="input-wrapper">
+                                                <label for="first">Article</label>
+                                                <select name="truck_details" id="truck_details">
+                                                    <option value="" selected="">---------</option>
+                                                  
+                                                    <option value="1">1</option>
+                                                  
+                                                  </select>
+                                              </div>
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td>
+                                            
+                                                <div class="input-wrapper">
+                                                    <label for="first">Builty No</label>
+                                                    <input type="text">
+                                                  </div>
+                                            
+
+                                        </td>
+                                        <td>
+                                            
+                                                <div class="input-wrapper">
+                                                    <label for="first">Date</label>
+                                                    <input type="text">
+                                                  </div>
+                                            
+                                        </td>
+
+                                    </tr>
+                        
+                                
+                                    <tr>
+
+                                        <td>
+                                            
+                                                <div class="input-wrapper">
+                                                    <label for="first">Truck No</label>
+                                                    <input type="text">
+                                                  </div>
+                                        </td>
+
+                                        <td>
+                                            
+                                                <div class="input-wrapper">
+                                                    <label for="first">Truck Other</label>
+                                                    <input type="text">
+                                                  </div>
+                                            
+                                        </td>
+
+                                    </tr>
+                                    <tr>
+
+                                        <td>
+                                            
+                                                <div class="input-wrapper">
+                                                    <label for="first">From Station</label>
+                                                    <input type="text">
+                                                  </div>
+                                            
+                                        </td>
+                                        <td>
+                                            
+                                                <div class="input-wrapper">
+                                                    <label for="first">To Desti</label>
+                                                    <input type="text">
+                                                  </div>
+                                            
+                                        </td>
+
+
+                                    </tr>
+
+                                    <tr>
+
+                                        <td>
+                                            
+                                            <div class="input-wrapper">
+                                                <label for="first">Taluka</label>
+                                                <input type="text">
+                                              </div>
+                                        
+                                        </td>
+                                        <td>
+                                            
+                                                <div class="input-wrapper">
+                                                    <label for="first">District</label>
+                                                    <input type="text">
+                                                  </div>
+                                            
+                                        </td>
+
+
+                                    </tr>
+                                    
+                                    
+
+                                    <tr>
+                                        <td>
+                                            
+                                                <div class="input-wrapper">
+                                                    <label for="first">Consignee</label>
+                                                    <input type="text">
+                                                  </div>
+                                            
+                                        </td>
+
+                                        <td>
+                                            
+                                            <div class="input-wrapper">
+                                                <label for="first">Onaccount</label>
+                                                <input type="text">
+                                              </div>
+                                        
+                                    </td>
+                                    </tr>
+
+                                  
+                                    
+                                </table>
+
+                            </div>
+
+                            <div class="col-6">
+
+                               
+
+                                    <div class="col-6">
+
+                                        <div style="display: flex;
+                                        column-gap: 7px;margin-bottom: 4px;">
+
+                                            <div class="input-wrapper">
+                                                <label for="first">Qty (bags)</label>
+                                                <input type="text " class="cus">
+                                              </div>
+                                                
+                                            <div class="input-wrapper">
+                                                <label for="first">Rate</label>
+                                                <input type="text " class="cus">
+                                              </div>
+
+                                        </div>
+                                      
+                                        <div style="display: flex;
+                                        column-gap: 7px;margin-bottom: 4px;">
+
+                                             
+                                            <div class="input-wrapper">
+                                                <label for="first">Delivery No</label>
+                                                <input type="text " class="cus">
+                                              </div>
+                                        
+                                            <div class="input-wrapper">
+                                                <label for="first">Note</label>
+                                                <input type="text " class="cus">
+                                              </div>
+                                        
+                                        </div>
+                                        
+                                        <div style="display: flex;
+                                        column-gap: 7px;margin-bottom: 0px;margin-top: 14px;">
+
+                                             
+                                            <div class="input-wrapper">
+                                                <label for="first">EX/For</label>
+                                                <input type="text " class="cus">
+                                              </div>
+                                        
+                                        
+                                             
+                                            <div class="input-wrapper">
+                                                <label for="first">Mode</label>
+                                                <input type="text " class="cus">
+                                              </div>
+                                        
+                                        </div>
+                                      
+                                
+
+                                        <div>
+
+                                            <fieldset><legend>Truck Driver Advance</legend>
+
+
+                                                <div style="display: flex;
+                                                column-gap: 7px;margin-bottom: 4px;">
+            
+                                                    <div class="input-wrapper">
+                                                        <label for="first">MT</label>
+                                                        <input type="text " class="cus">
+                                                      </div>
+
+                                                    <div class="input-wrapper">
+                                                        <label for="first">Freight</label>
+                                                        <input type="text " class="cus">
+                                                      </div>
+                                                
+                                                </div>
+
+                                                <div style="display: flex;
+                                                column-gap: 7px;margin-bottom: 4px;">
+                
+                                                    <div class="input-wrapper">
+                                                        <label for="first"> Less Advance</label>
+                                                        <input type="text " class="cus">
+                                                      </div>
+
+                                                    <div class="input-wrapper">
+                                                        <label for="first"> Less TDS</label>
+                                                        <input type="text " class="cus">
+                                                      </div>
+                                                </div>
+
+                                                <div style="display: flex;
+                                                column-gap: 7px;margin-bottom: 4px;">
+        
+                                                    <div class="input-wrapper">
+                                                        <label for="first">Balance</label>
+                                                        <input type="text " class="cus">
+                                                      </div>
+                                                                
+                                                    <div class="input-wrapper">
+                                                        <label for="first">Diesel</label>
+                                                        <input type="text " class="cus">
+                                                      </div>
+                                                </div>
+                                        </fieldset>
+
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+<br>
+
+{% comment %}                             
+
+                            <div class="form-group">
+                                <label for="name" class="control-label mb-1">Bags</label>
+                                {{ form.bags }}
+                            </div>
+
+                            <div class="form-group">
+                                <label for="name" class="control-label mb-1">Delivery No</label>
+                                {{ form.delivery_no }}
+                            </div>
+
+                            <div class="form-group">
+                                <label for="name" class="control-label mb-1">ex/for</label>
+                                {{ form.ex_for }}
+                            </div>
+
+                            <div class="form-group">
+                                <label for="name" class="control-label mb-1">Mode</label>
+                                {{ form.mode }}
+                            </div>
+
+                            <div class="form-group">
+                                <label for="name" class="control-label mb-1">Note</label>
+                                {{ form.note }}
+                            </div>
+ {% endcomment %}
+
+                            
+
+                            <div style="display: flex;
+                            gap: 75px;justify-content: center;">
+                                <a href="{% url 'request_edit' 1 %}"><button id="payment-button" style="height: 44px;
+                                    width: 200px;
+                                    background: #05386b;
+                                    border: none;
+                                    color: white;
+                                    font-weight: bold;
+                                    font-size: 14px;" type="button">
+                                    <span id="payment-button-amount">Request Edit</span>
+                                </button> </a>
+                                <button id="payment-button" type="submit"  style="height: 44px;
+                                width: 300px;
+                                background: #05386b;
+                                border: none;
+                                color: white;
+                                font-weight: bold;
+                                font-size: 14px;">
+                                    <span id="payment-button-amount">Create Builty</span>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div> <!-- .card -->
+
+    </div><!--/.col-->
+</div>
+
+
+<script>
+    
+   
+
+    $("#company").change(function () {
+        const comapnyID = $(this).val();  // get the selected subject ID from the HTML dropdown list 
+        $.ajax({                       // initialize an AJAX request
+            type: "POST",
+            url: '',
+            data: {
+                'company_id': comapnyID,       // add the country id to the POST parameters
+                'csrfmiddlewaretoken':$('input[name=csrfmiddlewaretoken]').val(),
+            },
+            success: function (data) {   // `data` is from `get_topics_ajax` view function
+                let html_data = '<option value="" selected disabled>------------</option>';
+                data.forEach(function (data) {
+            
+                    html_data += `<option value="${data.id}" >${data.name}</option>` 
+                });
+                $("#company_goods").html(html_data); // replace the contents of the topic input with the data that came from the server
+            }
+        });
+    });
+
+    $("#company_goods").change(function () {
+        const comapny_goods_ID = $(this).val();  // get the selected subject ID from the HTML dropdown list 
+        var e = document.getElementById("company");
+        var comapnyID = e.value;
+        $.ajax({                       // initialize an AJAX request
+            type: "POST",
+            url: '',
+            data: {
+                'company_id': comapnyID, 
+                'company_goods': comapny_goods_ID,       // add the country id to the POST parameters
+                'csrfmiddlewaretoken':$('input[name=csrfmiddlewaretoken]').val(),
+            },
+            success: function (data) {   // `data` is from `get_topics_ajax` view function
+                let html_data = '<option value="" selected disabled>------------</option>';
+                data.forEach(function (data) {
+            
+                    html_data += `<option value="${data.id}" >${data.goods_company_name}</option>` 
+                });
+                $("#goods_company").html(html_data); // replace the contents of the topic input with the data that came from the server
+            }
+        });
+    });
+
+
+    $("#company").change(function () {
+        const comapnyID = $(this).val();  // get the selected subject ID from the HTML dropdown list 
+        $.ajax({                       // initialize an AJAX request
+            type: "POST",
+            url: '',
+            data: {
+                'company_id': comapnyID,       // add the country id to the POST parameters
+                'csrfmiddlewaretoken':$('input[name=csrfmiddlewaretoken]').val(),
+            },
+            success: function (data) {   // `data` is from `get_topics_ajax` view function
+                let html_data = '<option value="" selected disabled>------------</option>';
+                data.forEach(function (data) {
+            
+                    html_data += `<option value="${data.id}" >${data.name}</option>` 
+                });
+                $("#agent").html(html_data); // replace the contents of the topic input with the data that came from the server
+            }
+        });
+    });
+
+    
+
+    
+    $(document).ready(function(){
+  
+        // Initialize select2
+       
+        
+      });
+
+
+      if("{{ form.instance.editable }}" == "False"){
+
+            
+            $("#company").attr("disabled", true) ;
+            $("#builty_no").attr("disabled", true) ;
+            $("#truck_details").attr("disabled", true) ;
+            $("#truck_owner").attr("disabled", true) ;
+            $("#consignor").attr("disabled", true) ;
+            $("#location_from").attr("disabled", true) ;
+            $("#location_to").attr("disabled", true) ;
+            $("#onaccount").attr("disabled", true) ;
+            $("#taluka").attr("disabled", true) ;
+            $("#district").attr("disabled", true) ;
+            $("#consignee").attr("disabled", true) ;
+            $("#bags").attr("disabled", true) ;
+            $("#rate").attr("disabled", true) ;
+            $("#delievry_no").attr("disabled", true) ;
+            $("#note").attr("disabled", true) ;
+            $("#rate").attr("disabled", true) ;
+            $("#mt").attr("disabled", true);
+            $("#freight").attr("disabled", true);
+            $("#rate").attr("disabled", true);
+            $("#less_advance").attr("disabled", true);
+            $("#less_tds").attr("disabled", true);
+            $("#mode").attr("disabled", true);
+            $("#ex_for").attr("disabled", true);
+            $("#delivery_no").attr("disabled", true);
+            $("#diesel").attr("disabled", true);
+            $("#balance").attr("disabled", true);
+            $("#article").attr("disabled", true);
+            $("#DC_date").attr("disabled", true);
+
+            }
+    
+
+
+    
+</script>
+
+{% endblock content %}
