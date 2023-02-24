@@ -265,11 +265,12 @@ def add_consignor_ajax(request):
             print(a)
 
          
-            return JsonResponse(json.dumps({'status' : 'True', 'id' : a.company.id,'value' : a.name}), content_type="application/json") 
+            return JsonResponse(json.dumps({'status' : 'True', 'id' : a.id,'value' : a.name}), safe=False, content_type="application/json") 
 
         else:
-            print(forms.errors)
-            return redirect('add_consignor')
+            error = forms.errors.as_json()
+            print(error)
+            return JsonResponse({'error' : error}, safe=False)
     
     else:
 
@@ -375,6 +376,43 @@ def add_article(request):
 
         return render(request, 'store/add_article.html', context)
 
+
+@login_required(login_url='login')
+@user_is_active
+@csrf_exempt
+def add_article_ajax(request):
+    
+    if request.method == 'POST':
+
+        print()
+
+        forms = article_Form(request.POST)
+
+        if forms.is_valid():
+            a = forms.save()
+
+            print(a)
+            return JsonResponse(json.dumps({'status' : 'True', 'id' : a.id,'value' : a.name}), safe=False, content_type="application/json") 
+
+        else:
+            
+            error = forms.errors.as_json()
+            print(error)
+            return JsonResponse({'error' : error}, safe=False)
+    
+    else:
+
+        forms = article_Form()
+        data = company.objects.all()
+        print(data)
+
+        context = {
+            'form': forms,
+            'data' : data,
+        }
+
+        return render(request, 'store/add_article.html', context)
+
 @login_required(login_url='login')
 @user_is_active
 def update_article(request, article_id):
@@ -451,6 +489,49 @@ def add_truck_details(request):
 
             print(forms.errors)
             return redirect('list_truck_details')
+    
+    else:
+
+        forms = truck_details_Form()
+        print('--------------------------------------------------')
+
+        
+        print(forms)
+        print('-----------------------------3---------------------')
+
+        company_data = company.objects.all()
+
+        context = {
+            'form': forms,
+            'company' : company_data
+        }
+
+        return render(request, 'store/add_truck_details.html', context)
+
+
+
+
+
+@login_required(login_url='login')
+@user_is_active
+def add_truck_details_ajax(request):
+    
+    if request.method == 'POST':
+
+        forms = truck_details_Form(request.POST)
+        print('-----------------------------1---------------------')
+        if forms.is_valid():
+            a = forms.save()
+            return JsonResponse(json.dumps({'status' : 'True', 'id' : a.id,'value' : a.truck_number}), safe=False, content_type="application/json") 
+
+        else:
+            print('-----------------------------2---------------------')
+
+            
+            error = forms.errors.as_json()
+            print(error)
+            return JsonResponse({'error' : error}, safe=False)
+    
     
     else:
 

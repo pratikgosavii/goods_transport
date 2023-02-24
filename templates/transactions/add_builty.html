@@ -542,12 +542,12 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form id="sub_trip">
+                    <form id="article_form">
             
                         <div class="input-wrapper" style="display:flex;">
                             <label for="first">Company Name</label>
 
-                            <select name="company" id="article_company" required="">
+                            <select name="company" name="company_name" id="article_company" required="">
                                 <option value="" selected="">---------</option>
                                 
                                 {% for i in company_data %}
@@ -562,7 +562,7 @@
                         
                           <div class="input-wrapper" style="display:flex;">
                             <label for="first">Consignor Name</label>
-                            <select name="company" id="article_consignor" required="">
+                            <select name="" id="article_consignor" required="">
                                 <option value="" selected="">---------</option>
                             </select>
                                 
@@ -686,9 +686,8 @@
                         <label for="first">Address</label>
                         {{ form_truck_owner.address }}
                     </div>
-
-                    <div class="input-wrappoer" style="display:flex;">
-                        <label for="first">Mobile Number</label>
+                    <div class="input-wrapper" style="display:flex;">
+                        <label for="first">Mobile No</label>
                         {{ form_truck_owner.mobile_number }}
                     </div>
 
@@ -1041,21 +1040,14 @@
             type: "POST",
             url: "{% url 'add_consignor_ajax' %}",
             data : $(this).serialize(),
-            success: function (status) {   // `data` is from `get_topics_ajax` view function
+            success: function (data) {   // `data` is from `get_topics_ajax` view function
               
               if(data.status = 'True'){
                 $('#myModal').modal('hide');
                 
-                console.log('----------------')
-
+              
+                var data = JSON.parse(data)
                 console.log(data)
-                console.log(data.id)
-                console.log('----------------')
-                console.log(data.value)
-                console.log('----------------')
-                    
-                var a = JSON.parse(data)
-                console.log(a)
                     
                 console.log('----------------')
 
@@ -1071,6 +1063,60 @@
               else{
                 
                 alert("error")
+              }
+            }
+        });
+    })
+   
+    document.getElementById('article_form').addEventListener('submit', function(evt){
+        
+        evt.preventDefault();
+
+        alert('here')
+
+        var data = $('#article_form').serialize();
+
+        $.ajax({                       
+            type: "POST",
+            url: "{% url 'add_article_ajax' %}",
+            data : $(this).serialize(),
+            success: function (data) {   // `data` is from `get_topics_ajax` view function
+              
+              if(data.status == 'True'){
+                alert('ersd')
+                $('#myModal_article').modal('hide');
+                
+              
+                var data = JSON.parse(data)
+                console.log(data)
+                    
+                console.log('----------------')
+
+
+                let_html = '<option value="' + data.id + '" selected>' + data.value + '</option>'
+
+                $('#article').append(let_html);
+
+                
+                
+              }
+              
+              else if (data.error !== undefined){
+
+                alert('347384389')
+
+                var data_e = data.error
+                console.log(data_e)
+
+                for (var z in data_e) {
+                    for (var i in data_e[z]) {
+                      // object message error django
+                      console.log(z)
+                      console.log(i)
+                    }
+                  }
+
+                  
               }
             }
         });

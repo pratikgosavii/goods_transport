@@ -22,11 +22,13 @@ urlpatterns = [
 
     
     path('add-article/', add_article, name='add_article'),
+    path('add-article-ajax/', add_article_ajax, name='add_article_ajax'),
     path('update-article/<article_id>', update_article, name='update_article'),
     path('delete-article/<article_id>', delete_article, name='delete_article'),
     path('list-article/', list_article, name='list_article'),
 
     path('add-truck-details/', add_truck_details, name='add_truck_details'),
+    path('add-truck-details-ajax/', add_truck_details_ajax, name='add_truck_details_ajax'),
     path('update-truck-details/<truck_details_id>', update_truck_details, name='update_truck_details'),
     path('delete-truck-details/<truck_details_id>', delete_truck_details, name='delete_truck_details'),
     path('list-truck-details/', list_truck_details, name='list_truck_details'),
