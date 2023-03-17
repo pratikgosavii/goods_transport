@@ -28,7 +28,7 @@
     <div class="col-xl-12">
         <div class="card">
             <div class="card-body">
-                <h4 class="box-title"> List Consignor</h4>
+                <h4 class="box-title"> List Petrol Pump</h4>
             </div>
             <div class="card-body--">
                 <div class="table-stats order-table ov-h">
@@ -36,9 +36,7 @@
                         <thead>
                             <tr>
                                 <th class="serial">#</th>
-                                <th>Company Name</th>
-                                <th>Builty Code</th>
-                                <th>Consignor Name</th>
+                                <th>Name</th>
                                 <th>Actions</th>
                                 
                             </tr>
@@ -48,11 +46,9 @@
                             {% for i in data %}
                             <tr>
                                 <td class="serial">{{ forloop.counter }}</td>
-                                <td>{{ i.company.company_name }}</td>
-                                <td>{{ i.builty_code }}</td>
                                 <td>{{ i.name }}</td>
                                 <td>  
-                                   <a href="{% url 'update_consignor' i.id %}"> <button id="payment-button"  style="background-color: #05386b; border: green; padding: 10px;border-radius: 12px;" type="submit" class="btn-info ">
+                                   <a href="{% url 'update_petrol_pump' i.id %}"> <button id="payment-button"  style="background-color: #05386b; border: green; padding: 10px;border-radius: 12px;" type="submit" class="btn-info ">
                                         <span id="payment-button-amount">View</span>
                                     </button>  </a>
                                     

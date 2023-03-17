@@ -24,25 +24,11 @@
 {% endblock breadcrumbs %}
 
 {% block content %}
-
-
-
-  
-<form method="post" action="{% url 'download' %}">
-
-    {% csrf_token %}
-
-    <input type="hidden" value="{{ link }}" name="link">
-    <button class="btn btn-primary" type="submit">
-        Download Report
-    </button> 
-</form> <br>
-
 <div class="row">
     <div class="col-xl-12">
         <div class="card">
             <div class="card-body">
-                <h4 class="box-title">Daily Report </h4>
+                <h4 class="box-title"> List rate </h4>
             </div>
             <div class="card-body--">
                 <div class="table-stats order-table ov-h">
@@ -50,14 +36,12 @@
                         <thead>
                             <tr>
                                 <th class="serial">#</th>
-                                <th>Company Name</th>
-                                <th>Crop</th>
-                                <th>Variety</th>
-                                <th>Inward</th>
-                                <th>Outward</th>
-                                <th>Return</th>
-                                <th>Stock</th>
-
+                                
+                                <th>From Station</th>
+                                <th>To Staion</th>
+                                <th>Company Rate</th>
+                                <th>Own Rate</th>
+                                <th>Actions</th>
                                 
                             </tr>
                         </thead>
@@ -66,13 +50,17 @@
                             {% for i in data %}
                             <tr>
                                 <td class="serial">{{ forloop.counter }}</td>
-                                <td>{{ i.0 }}</td>
-                                <td>{{ i.1 }}</td>
-                                <td>{{ i.2 }}</td>
-                                <td>{{ i.3 }}</td>
-                                <td>{{ i.4 }}</td>
-                                <td>{{ i.5 }}</td>
-                                <td>{{ i.6 }}</td>
+                                <td>{{ i.from_station }}</td>
+                                <td>{{ i.to_station }}</td>
+                                <td>{{ i.company_rate }}</td>
+                                <td>{{ i.own_rate }}</td>
+                                <td>  
+                                   <a href="{% url 'update_rate' i.id %}"> <button id="payment-button"  style="background-color: #05386b; border: green; padding: 10px;border-radius: 12px;" type="submit" class="btn-info ">
+                                        <span id="payment-button-amount">View</span>
+                                    </button>  </a>
+                                    
+                                </td>
+                               
                                
                             </tr>
                             {% endfor %}

@@ -29,6 +29,9 @@ class builty_Form(forms.ModelForm):
             'consignor': forms.Select(attrs={
                 'id': 'consignor'
             }),
+            'petrol_pump': forms.Select(attrs={
+                'id': 'petrol_pump'
+            }),
             'station_from': forms.Select(attrs={
                 'id': 'station_from'
             }),
@@ -88,7 +91,7 @@ class builty_Form(forms.ModelForm):
             'freight': forms.NumberInput(attrs={
                 'step': "0.01",
                 'id': 'freight',
-                'class' : 'cus',
+                'class' : 'se cus',
                 'readonly':'readonly'
             }),
             'less_advance': forms.NumberInput(attrs={

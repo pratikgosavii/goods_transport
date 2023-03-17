@@ -113,7 +113,7 @@
     </button>
   </p>
   <div class="collapse" id="collapseExample">
-    <div class="card card-body">
+    <div class="card card-body" style="width: fit-content;">
       
 
         <form method="get" action="" style="padding:15px;">
@@ -145,13 +145,32 @@
                     <div class-"form-group" style="display: flex;
                     gap: 14px;">
                                         
-                    <label for="name" class="control-label mb-1" style="margin-left : 0px;">Date From</label>
+                    <label for="name" class="control-label mb-1" style="margin-left : 0px;">Builty Date From</label>
                     {{ builty_filter.form.DC_date_start__date }}
                 
 
 
-                <label for="name" class="control-label mb-1">Date To</label>
-                                                {{ builty_filter.form.DC_date_end__date }}
+                <label for="name" class="control-label mb-1">Builty Date To</label>
+                {{ builty_filter.form.DC_date_end__date }}
+
+
+
+
+
+            </div>
+            
+                    <div class-"form-group" style="display: flex;
+                    gap: 14px;">
+                                        
+                    <label for="name" class="control-label mb-1" style="margin-left : 0px;">Challan Date From</label>
+                    {{ builty_filter.form.challan_date_start__date }}
+                
+
+
+                <label for="name" class="control-label mb-1">Challan Date To</label>
+                {{ builty_filter.form.challan_date_end__date }}
+
+
 
 
 
@@ -159,7 +178,7 @@
 
             <br>
           
-            <button class="btn btn-primary" type="submit" > Request Edit </button>
+            <button class="btn btn-primary" type="submit" > Submit </button>
 
         </form>
     </div>
@@ -229,6 +248,9 @@
                                 <th>Consigne</th>
                                 <th>Account</th>
                                 <th>Article</th>
+                                <th>Freight</th>
+                                <th>Advance</th>
+                                <th>Balance</th>
                                 <th>#</th>
                                 
                             </tr>
@@ -238,19 +260,10 @@
                             {% for i in data %}
                             <tr>
 
-                              {% if i.has_request.all %}
+                              {% if i.has_request.all.0.status == False %}
 
-                                {% for z in i.has_request.all %}
-
-                                  {% if z.status == False %}
-
-                                    <td class="serial">  <span class="logged-in">●</span>   {{ forloop.parentloop.counter }}</td>
+                                  <td class="serial">  <span class="logged-in">●</span>   {{ forloop.counter }}</td>
                                  
-                                  {% endif %}
-
-
-                                {% endfor %}
-
                               {% else %}
 
                                 <td class="serial" style=""><input type="checkbox" value="{{ i.id }}" /> {{ forloop.counter }}</td>
@@ -270,6 +283,9 @@
                                 <td>{{ i.consignee }}</td>
                                 <td>{{ i.onaccount }}</td>
                                 <td>{{ i.article }}</td>
+                                <td>{{ i.freight }}</td>
+                                <td>{{ i.less_advance }}</td>
+                                <td>{{ i.balance }}</td>
                                 
                                 <td>  
 

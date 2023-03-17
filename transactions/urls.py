@@ -37,5 +37,11 @@ urlpatterns = [
 
     path('generate_bill', generate_bill, name='generate_bill'),
 
+    path('download', download, name='download'),
+
+    path('truck-report', truck_report, name='truck_report'),
+    path('diesel-report', diesel_report, name='diesel_report'),
+
+
 
 ]

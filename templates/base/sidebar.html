@@ -3,8 +3,6 @@
         <div id="main-menu" class="main-menu collapse navbar-collapse">
             <ul class="nav navbar-nav">
 
-                {% if request.user.is_staff %}
-
                 <li class="active">
                     <a href="{% url 'dashboard' %}"><i class="menu-icon fa fa-laptop"></i>Dashboard </a>
                 </li>
@@ -19,13 +17,23 @@
                     </ul>
                 </li>
 
+                {% if request.user.is_superuser %}
+
                 <li class="">
-                    <a href="{% url 'request_list' %}"><i class="menu-icon fa fa-laptop"></i>Edit Requests </a>
+                    <a href="{% url 'admin_request_list' %}"><i class="menu-icon fa fa-laptop"></i>Edit Requests </a>
                 </li>
 
                 <li class="">
                     <a href="{% url 'list_ack' %}"><i class="menu-icon fa fa-laptop"></i> Acknowledgement </a>
                 </li>
+
+                {% else %}
+
+                <li class="">
+                    <a href="{% url 'request_list' %}"><i class="menu-icon fa fa-laptop"></i>Edit Requests </a>
+                </li>
+
+                {% endif %}
                 
 {% comment %}
                 <li class="menu-item-has-children dropdown">
@@ -59,6 +67,23 @@
                         <li><i class="fa fa-th"></i><a href="{% url 'delete_dashboard' %}">View</a></li>
                     </ul>
                 </li> {% endcomment %}
+
+
+
+                <li class="menu-title">Reports</li><!-- /.menu-title -->
+
+                
+                <li class="menu-item-has-children dropdown">
+                    <a href="{% url 'truck_report' %}"><i class="menu-icon fa fa-laptop"></i> Transport wise dispatch </a>
+                    
+                </li>
+                
+                <li class="menu-item-has-children dropdown">
+                    <a href="{% url 'diesel_report' %}"><i class="menu-icon fa fa-laptop"></i> Diesel </a>
+                    
+                </li>
+
+
 
                 <li class="menu-title">Setting</li><!-- /.menu-title -->
 
@@ -140,7 +165,30 @@
                     </ul>
                 </li>
 
-                {% endif %}
+                <li class="menu-item-has-children dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-users"></i>Rate</a>
+                    <ul class="sub-menu children dropdown-menu">
+                        <li><i class="fa fa-id-card-o"></i><a href="{% url 'add_rate' %}">Add</a></li>
+                        <li><i class="fa fa-th"></i><a href="{% url 'list_rate' %}">View</a></li>
+                    </ul>
+                </li>
+
+                <li class="menu-item-has-children dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-users"></i>Petrol Pump</a>
+                    <ul class="sub-menu children dropdown-menu">
+                        <li><i class="fa fa-id-card-o"></i><a href="{% url 'add_petrol_pump' %}">Add</a></li>
+                        <li><i class="fa fa-th"></i><a href="{% url 'list_petrol_pump' %}">View</a></li>
+                    </ul>
+                </li>
+
+                <li class="menu-item-has-children dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-users"></i>Driver</a>
+                    <ul class="sub-menu children dropdown-menu">
+                        <li><i class="fa fa-id-card-o"></i><a href="{% url 'add_driver' %}">Add</a></li>
+                        <li><i class="fa fa-th"></i><a href="{% url 'list_driver' %}">View</a></li>
+                    </ul>
+                </li>
+
 
             </ul>
         </div><!-- /.navbar-collapse -->

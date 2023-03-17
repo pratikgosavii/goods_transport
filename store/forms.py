@@ -25,6 +25,9 @@ class consignor_Form(forms.ModelForm):
             'company': forms.Select(attrs={
                 'class': 'form-control', 'id': 'company'
             }),
+            'builty_code': forms.TextInput(attrs={
+                'class': 'form-control', 'id': 'builty_code'
+            }),
             'name': forms.TextInput(attrs={
                 'class': 'form-control', 'id': 'name'
             }),
@@ -117,9 +120,6 @@ class truck_details_Form(forms.ModelForm):
         model = truck_details
         fields = '__all__'
         widgets = {
-            'company': forms.Select(attrs={
-                'class': 'form-control', 'id': 'company'
-            }),
             'truck_owner': forms.Select(attrs={
                 'class': 'form-control', 'id': 'truck_owner'
             }),
@@ -157,6 +157,72 @@ class truck_owner_Form(forms.ModelForm):
                 'class': 'form-control', 'id': 'company'
             }),
             'mobile_number': forms.NumberInput(attrs={
+                'class': 'form-control', 'id': 'mobile_number'
+            }),
+            
+
+        }
+           
+
+class rate_Form(forms.ModelForm):
+    class Meta:
+        model = rate
+        fields = '__all__'
+        widgets = {
+           
+            'from_station': forms.Select(attrs={
+                'class': 'form-control', 'id': 'truck_owner'
+            }),
+            'to_station': forms.Select(attrs={
+                'class': 'form-control', 'id': 'truck_owner'
+            }),
+            
+            'company_rate': forms.NumberInput(attrs={
+                'class': 'form-control', 'id': 'mobile_number'
+            }),
+            
+            
+            'own_rate': forms.NumberInput(attrs={
+                'class': 'form-control', 'id': 'mobile_number'
+            }),
+            
+            
+            'own_rate': forms.NumberInput(attrs={
+                'class': 'form-control', 'id': 'mobile_number'
+            }),
+            
+
+        }
+           
+
+class petrol_pump_Form(forms.ModelForm):
+    class Meta:
+        model = petrol_pump
+        fields = '__all__'
+        widgets = {
+            'name': forms.TextInput(attrs={
+                'class': 'form-control', 'id': 'mobile_number'
+            }),
+            
+
+        }
+           
+
+class driver_Form(forms.ModelForm):
+    class Meta:
+        model = driver
+        fields = '__all__'
+        widgets = {
+            'name': forms.TextInput(attrs={
+                'class': 'form-control', 'id': 'mobile_number'
+            }),
+            'adhar_card': forms.TextInput(attrs={
+                'class': 'form-control', 'id': 'mobile_number'
+            }),
+            'address': forms.TextInput(attrs={
+                'class': 'form-control', 'id': 'mobile_number'
+            }),
+            'mobile_no': forms.NumberInput(attrs={
                 'class': 'form-control', 'id': 'mobile_number'
             }),
             

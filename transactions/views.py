@@ -52,6 +52,7 @@ def add_transaction(request):
 
         forms = builty_Form(request.POST)
         DC_date = request.POST.get('DC_date')
+        consignor_value = request.POST.get('consignor')
 
 
         if DC_date:
@@ -64,7 +65,14 @@ def add_transaction(request):
         print(date_time)
         print('---------------------')
         updated_request = request.POST.copy()
-        updated_request.update({'DC_date': date_time, 'builty_no' : '2323', 'company' : request.user.company, 'user' : request.user})
+
+        consignor_value = consignor.objects.get(id = consignor_value)
+        builty_code = consignor_value.builty_code
+
+        consignor_builty_count = builty.objects.filter(consignor = consignor_value).count()
+        builty_code = builty_code + '-' + str(consignor_builty_count + 1)
+
+        updated_request.update({'DC_date': date_time, 'builty_no' : builty_code, 'company' : request.user.company, 'user' : request.user})
         forms = builty_Form(updated_request)
         if forms.is_valid():
 
@@ -77,15 +85,44 @@ def add_transaction(request):
             print(forms.errors)
             company_data = company.objects.all()
 
+            from_truck_details = truck_details_Form()
+            form_truck_owner = truck_owner_Form()
+            form_station= station_Form()
+            form_taluka = taluka_Form()
+            form_district = district_Form()
+            form_onaccount = onaccount_Form()
+            form_article = article_Form()
+
+            if request.user.is_superuser:
+
+                article_data = article.objects.all()
+                consignor_data = consignor.objects.all()
+                onaccount_data = onaccount.objects.all()
+
+            else:
+
+                article_data = article.objects.filter(company_name = request.user.company)
+                consignor_data = consignor.objects.filter(company = request.user.company)
+                onaccount_data = onaccount.objects.filter(company = request.user.company)
 
             context = {
                 'form': forms,
-                'company_data' : company_data
-
-
+                'company_data' : company_data,
+                'form_truck_details' : from_truck_details,
+                'form_truck_owner' : form_truck_owner,
+                'station_Form' : form_station,
+                'form_onaccount' : form_onaccount,
+                'form_taluka' : form_taluka,
+                'form_district' : form_district,
+                'form_article' : form_article,
+                'article_data' : article_data,
+                'consignor_data' : consignor_data,
+                'onaccount_data' : onaccount_data,
             }
             return render(request, 'transactions/add_builty.html', context)
-    
+
+
+        
 
     else:
 
@@ -101,6 +138,18 @@ def add_transaction(request):
         form_onaccount = onaccount_Form()
         form_article = article_Form()
 
+        if request.user.is_superuser:
+
+            article_data = article.objects.all()
+            consignor_data = consignor.objects.all()
+            onaccount_data = onaccount.objects.all()
+
+        else:
+
+            article_data = article.objects.filter(company_name = request.user.company)
+            consignor_data = consignor.objects.filter(company = request.user.company)
+            onaccount_data = onaccount.objects.filter(company = request.user.company)
+
         context = {
             'form': forms,
             'company_data' : company_data,
@@ -110,7 +159,10 @@ def add_transaction(request):
             'form_onaccount' : form_onaccount,
             'form_taluka' : form_taluka,
             'form_district' : form_district,
-            'form_article' : form_district,
+            'form_article' : form_article,
+            'article_data' : article_data,
+            'consignor_data' : consignor_data,
+            'onaccount_data' : onaccount_data,
         }
         return render(request, 'transactions/add_builty.html', context)
 
@@ -163,8 +215,24 @@ def update_builty(request, bulity_id):
 
         print(forms.instance.editable)
 
+        if request.user.is_superuser:
+
+            article_data = article.objects.all()
+            consignor_data = consignor.objects.all()
+            onaccount_data = onaccount.objects.all()
+
+        else:
+
+            article_data = article.objects.filter(company_name = request.user.company)
+            consignor_data = consignor.objects.filter(company = request.user.company)
+            onaccount_data = onaccount.objects.filter(company = request.user.company)
+
+
         context = {
-            'form': forms
+            'form': forms,
+            'article_data' : article_data,
+            'consignor_data' : consignor_data,
+            'onaccount_data' : onaccount_data,
         }
         return render(request, 'transactions/update_builty.html', context)
 
@@ -176,8 +244,15 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 @user_is_active
 def list_transaction(request):
 
+    if request.user.is_superuser:
 
-    data = builty.objects.filter(user = request.user)
+        data = builty.objects.all()
+
+    else:
+
+        data = builty.objects.filter(user = request.user)
+
+
     print(data)
 
     builty_filters = builty_filter(request.GET, queryset=data)
@@ -204,6 +279,7 @@ def list_transaction(request):
     total = 0
 
     for i in data:
+        
         total = total + i.freight
 
 
@@ -233,7 +309,7 @@ def add_request_edit(request, bulity_id):
 
     builty_instance = builty.objects.get(id = bulity_id)
 
-    data = request_edit.objects.filter(builty = builty_instance, status = False)
+    data = request_edit.objects.filter(builty = builty_instance, status = False, history = True)
 
     if data:
 
@@ -244,7 +320,7 @@ def add_request_edit(request, bulity_id):
 
     else:
 
-        request_edit.objects.create(builty = builty_instance, user = request.user)
+        request_edit.objects.create(builty = builty_instance, user = request.user, history = True)
 
         return redirect('request_list')
 
@@ -322,6 +398,7 @@ def approve_edit(request, request_id):
 
     request_instance = request_edit.objects.get(id = request_id)
     request_instance.status = True
+    request_instance.history = True
     request_instance.save()
 
     builty_instance = request_instance.builty
@@ -330,7 +407,7 @@ def approve_edit(request, request_id):
 
 
 
-    return redirect('request_list')
+    return redirect('admin_request_list')
 
 
 
@@ -445,13 +522,21 @@ def update_ack(request, challan_id):
 
         return render(request, 'transactions/update_ack.html', context)
 
+
+from datetime import date
+
+
 @user_is_active
 def add_ack(request):
 
+    date_time =date.today()
+
+    updated_request = request.POST.copy()
+    updated_request.update({'challan_date': date_time})
 
 
 
-    form = ack_Form(request.POST)
+    form = ack_Form(updated_request)
 
 
 
@@ -602,3 +687,300 @@ def generate_bill(request):
         response['Content-Disposition'] = 'attachment; filename=receipt.pdf'
 
     return response
+
+
+
+
+
+
+def download(request):
+    # fill these variables with real values
+
+    print('--------------downalodddd-----------------')
+    print('--------------downalodddd-----------------')
+    print('--------------downalodddd-----------------')
+    print('--------------downalodddd-----------------')
+    print('--------------downalodddd-----------------')
+    print('--------------downalodddd-----------------')
+    print('--------------downalodddd-----------------')
+    print('--------------downalodddd-----------------')
+    print('--------------downalodddd-----------------')
+    print('--------------downalodddd-----------------')
+    print('--------------downalodddd-----------------')
+    print('--------------downalodddd-----------------')
+    print('--------------downalodddd-----------------')
+    print('--------------downalodddd-----------------')
+    print('--------------downalodddd-----------------')
+    print('--------------downalodddd-----------------')
+    print('--------------downalodddd-----------------')
+    print('--------------downalodddd-----------------')
+    print('--------------downalodddd-----------------')
+    print('--------------downalodddd-----------------')
+    print('--------------downalodddd-----------------')
+    print('--------------downalodddd-----------------')
+    print('--------------downalodddd-----------------')
+    print('--------------downalodddd-----------------')
+    print('--------------downalodddd-----------------')
+    print('--------------downalodddd-----------------')
+
+    if request.method == 'POST':
+
+        fl_path =  request.POST.get('link')
+
+
+        if os.path.exists(fl_path):
+
+            with open(fl_path, 'r' ) as fh:
+                mime_type  = mimetypes.guess_type(fl_path)
+                print('---------donwlaod-----------')
+                print(mime_type)
+                response = HttpResponse(fh.read(), content_type=mime_type)
+                response['Content-Disposition'] = 'attachment;filename=' + str(fl_path)
+
+                return response
+
+
+
+        else:
+            print('sdfdsds')
+            messages.error(request, 'path does not exist')
+
+
+
+
+
+
+
+import csv
+
+
+def truck_report(request):
+
+
+    if request.method == 'GET':
+
+        print('------------------------')
+
+
+
+
+        data = builty.objects.all().order_by("builty_no")
+
+        builty_filters = builty_filter(request.GET, queryset=data)
+        builty_filters_data1 = list(builty_filters.qs.values_list('builty_no', 'DC_date', 'truck_details__truck_number', 'truck_owner__owner_name', 'station_from__name', 'station_to__name', 'district__name', 'consignor__name', 'onaccount__name', 'have_ack__challan_date', 'mt', 'rate', 'freight'))
+        print('--------------------------')
+
+        print(builty_filters_data1)
+        print('--------------------------')
+        builty_filters_data = list(map(list, builty_filters_data1))
+       
+
+        vals = []
+            
+        vals1 = []
+        vals1.append("Sr No")
+        vals1.append("Builty No")
+        vals1.append("Date")
+        vals1.append("Truck No")
+        vals1.append("Owner")
+        vals1.append("Station From")
+        vals1.append("Station To")
+        vals1.append("District")
+        vals1.append("Consignor")
+        vals1.append("Account")
+        vals1.append("Chal Date")
+        vals1.append("MT")
+        vals1.append("Rate")
+        vals1.append("Freight")
+        vals.append(vals1)
+
+        counteer = 1
+
+        for i in builty_filters_data:
+            print(builty_filters_data)
+            vals1 = []
+            vals1.append(counteer)
+            counteer = counteer + 1
+            vals1.append(i[0])
+            vals1.append([1])
+            vals1.append(i[2])
+            vals1.append(i[3])
+            vals1.append(i[4])
+            vals1.append(i[5])
+            vals1.append(i[6])
+            vals1.append(i[7])
+            vals1.append(i[8])
+            vals1.append(i[9])
+            vals1.append(i[10])
+            vals1.append(i[11])
+            vals1.append(i[12])
+            vals.append(vals1)
+
+
+
+
+
+        total_balance = 0
+        total_advance = 0
+
+        data = builty_filters.qs
+
+
+        for i in data:
+
+            if i.have_ack:
+
+                print('--------------ack--------------')
+                    
+                total_advance = total_advance + i.less_advance + i.balance
+            else:
+
+                
+                total_balance = total_balance + i.balance
+                total_advance = total_advance + i.less_advance
+            
+        name = "Report.csv"
+        path = os.path.join(BASE_DIR) + '\static\csv\\' + name
+        with open(path,  'w', newline="") as f:
+            writer = csv.writer(f)
+            writer.writerows(vals)
+
+
+        link = os.path.join(BASE_DIR) + '\static\csv\\' + name
+
+        context = {
+            'builty_filter' : builty_filters,
+            'link' : link,
+            'data' : data,
+            'total_balance' : total_balance,
+            'total_advance' : total_advance,
+            'builty_filter' : builty_filters,
+        }
+
+        return render(request, 'report/truck_report.html', context)
+
+
+    else:
+
+        data = builty.objects.all()
+
+        builty_filters = builty_filter()
+
+        total_balance = 0
+        total_advance = 0
+
+        for i in data:
+            total_balance = total_balance + i.balance
+            total_advance = total_advance + i.less_advance
+
+
+        context = {
+            'data' : data,
+            'total_balance' : total_balance,
+            'total_advance' : total_advance,
+            'builty_filter' : builty_filters,
+        }
+
+
+        return render(request, 'report/truck_report.html', context)
+
+
+def diesel_report(request):
+
+
+    if request.method == 'GET':
+
+        print('------------------------')
+
+
+        data = builty.objects.all().order_by("builty_no")
+
+        builty_filters = builty_filter(request.GET, queryset=data)
+        builty_filters_data1 = list(builty_filters.qs.values_list('builty_no', 'DC_date', 'truck_details__truck_number', 'station_from__name', 'station_to__name', 'consignor__name', 'onaccount__name', 'diesel', 'petrol_pump__name'))
+        builty_filters_data = list(map(list, builty_filters_data1))
+       
+
+        vals = []
+            
+        vals1 = []
+      
+        vals1.append("Sr No")
+        vals1.append("Builty No")
+        vals1.append("Date")
+        vals1.append("Truck No")
+        vals1.append("Station From")
+        vals1.append("Station To")
+        vals1.append("Consignor")
+        vals1.append("Account")
+        vals1.append("Diesel")
+        vals1.append("Petrol Pump")
+        vals.append(vals1)
+
+        counteer = 1
+
+        for i in builty_filters_data:
+            print(builty_filters_data)
+            vals1 = []
+            vals1.append(counteer)
+            counteer = counteer + 1
+            vals1.append(i[0])
+            vals1.append(i[1])
+            vals1.append(i[2])
+            vals1.append(i[3])
+            vals1.append(i[4])
+            vals1.append(i[5])
+            vals1.append(i[6])
+            vals1.append(i[7])
+            vals1.append(i[8])
+            vals.append(vals1)
+
+
+
+        total_diesel = 0
+
+        data = builty_filters.qs
+
+        for i in data:
+            total_diesel = total_diesel + i.diesel
+            
+        name = "Diesel_Report.csv"
+        path = os.path.join(BASE_DIR) + '\static\csv\\' + name
+        with open(path,  'w', newline="") as f:
+            writer = csv.writer(f)
+            writer.writerows(vals)
+
+
+        link = os.path.join(BASE_DIR) + '\static\csv\\' + name
+
+        context = {
+            'builty_filter' : builty_filters,
+            'link' : link,
+            'data' : data,
+            'total_diesel' : total_diesel,
+            'builty_filter' : builty_filters,
+        }
+
+        return render(request, 'report/diesel_report.html', context)
+
+
+    else:
+
+        data = builty.objects.all()
+
+        builty_filters = builty_filter()
+
+       
+        data = builty_filters.qs
+
+        for i in data:
+            total_diesel = total_diesel + i.diesel
+       
+
+        context = {
+            'data' : data,
+            'total_diesel' : total_diesel,
+            'builty_filter' : builty_filters,
+        }
+
+
+        return render(request, 'report/diesel_report.html', context)

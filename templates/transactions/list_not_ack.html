@@ -183,6 +183,14 @@
             <input type="text" class="form-control" id="challan_number" required>
 
           </div>
+
+          <div>
+
+            <p>Total Amount :- <span style="color: black;font-weight: 800;" id="freight_val"></spam></p>
+            <p>Advance Paid :- <span style="color: black;font-weight: 800;" id="advance_val"></spam></p>
+            <p>Balance :- <span style="color: black;font-weight: 800;" id="balance_val"></spam></p>
+          </div>
+
           
       </div>
       <div class="modal-footer">
@@ -248,7 +256,7 @@
                                 <td>  
 
                                     
-                                    <a onclick="sdvccx({{ i.id }});"><button style="background-color: #05386b; border: green; padding: 10px;border-radius: 12px;" type="button" class="btn-info ">
+                                    <a onclick="sdvccx({{ i.id }}, {{ i.freight }}, {{ i.less_advance }}, {{ i.balance }});"><button style="background-color: #05386b; border: green; padding: 10px;border-radius: 12px;" type="button" class="btn-info ">
                                         <span id="payment-button-amount">ACk</span>
                                     </button>  </a>
                                     
@@ -323,13 +331,21 @@
 <script>
 
 
-    function sdvccx(builty_id){
+    function sdvccx(builty_id, freight, advance, balance){
       
       $('#station_from').addClass('form-control');
       $('#station_to').addClass('form-control');
       $('#myModal').modal('show');
 
+      console.log(freight)
+      console.log(advance)
+
+
       document.getElementById("builty_id").value = builty_id;
+
+      document.getElementById("freight_val").innerHTML = freight;
+      document.getElementById("advance_val").innerHTML = advance;
+      document.getElementById("balance_val").innerHTML = balance;
 
     }
 

@@ -386,7 +386,19 @@ def add_article_ajax(request):
 
         print()
 
-        forms = article_Form(request.POST)
+        if not request.user.is_superuser:
+            
+            forms = article_Form(request.POST)
+
+                
+        else:
+
+            updated_request = request.POST.copy()
+            updated_request.update({'company_name': request.user.company})
+            forms = article_Form(updated_request)
+
+
+
 
         if forms.is_valid():
             a = forms.save()
@@ -514,24 +526,28 @@ def add_truck_details(request):
 
 @login_required(login_url='login')
 @user_is_active
+@csrf_exempt
 def add_truck_details_ajax(request):
     
     if request.method == 'POST':
 
         forms = truck_details_Form(request.POST)
+        
         print('-----------------------------1---------------------')
         if forms.is_valid():
+
+            print('------------is valid------------')
+          
             a = forms.save()
-            return JsonResponse(json.dumps({'status' : 'True', 'id' : a.id,'value' : a.truck_number}), safe=False, content_type="application/json") 
+            
+            return JsonResponse(json.dumps({'status' : 'True', 'id' : a.id,'value' : a.truck_number, 'owner_name' : a.truck_owner.owner_name, 'owner_id' : a.truck_owner.id}), safe=False, content_type="application/json") 
 
         else:
-            print('-----------------------------2---------------------')
-
-            
+           
             error = forms.errors.as_json()
             print(error)
             return JsonResponse({'error' : error}, safe=False)
-    
+
     
     else:
 
@@ -636,6 +652,46 @@ def add_truck_owner(request):
 
         return render(request, 'store/add_truck_owner.html', context)
 
+@login_required(login_url='login')
+@user_is_active
+@csrf_exempt
+def add_truck_owner_ajax(request):
+    
+    if request.method == 'POST':
+
+        forms = truck_owner_Form(request.POST)
+        print('-----------------------------1---------------------')
+        if forms.is_valid():
+            a = forms.save()
+            return JsonResponse(json.dumps({'status' : 'True', 'id' : a.id,'value' : a.owner_name}), safe=False, content_type="application/json") 
+
+        else:
+            
+            print('-----------------------------2---------------------')
+
+            error = forms.errors.as_json()
+            print(error)
+            return JsonResponse({'error' : error}, safe=False)
+    
+    
+    else:
+
+        forms = truck_owner_Form()
+        print('--------------------------------------------------')
+
+        
+        print(forms)
+        print('-----------------------------3---------------------')
+
+        company_data = company.objects.all()
+
+        context = {
+            'form': forms,
+            'company' : company_data
+        }
+
+        return render(request, 'store/add_truck_owner.html', context)
+
 
 @login_required(login_url='login')
 @user_is_active
@@ -672,7 +728,6 @@ def delete_truck_owner(request, truck_owner_id):
 
     return HttpResponseRedirect(reverse('list_truck_owner_delete'))
 
-
 @login_required(login_url='login')
 @user_is_active
 def list_truck_owner(request):
@@ -685,6 +740,132 @@ def list_truck_owner(request):
 
 
     return render(request, 'store/list_truck_owner.html', context)
+
+
+@login_required(login_url='login')
+@user_is_active
+def add_rate(request):
+    
+    if request.method == 'POST':
+
+        forms = rate_Form(request.POST)
+        print('-----------------------------1---------------------')
+        if forms.is_valid():
+            forms.save()
+            return redirect('list_rate')
+        else:
+            print('-----------------------------2---------------------')
+
+            print(forms.errors)
+            return redirect('list_rate')
+    
+    else:
+
+        forms = rate_Form()
+        print('--------------------------------------------------')
+
+        
+        print(forms)
+        print('-----------------------------3---------------------')
+
+        company_data = company.objects.all()
+
+        context = {
+            'form': forms,
+            'company' : company_data
+        }
+
+        return render(request, 'store/add_rate.html', context)
+
+@login_required(login_url='login')
+@user_is_active
+@csrf_exempt
+def add_rate_ajax(request):
+    
+    if request.method == 'POST':
+
+        forms = rate_Form(request.POST)
+        print('-----------------------------1---------------------')
+        if forms.is_valid():
+            a = forms.save()
+            return JsonResponse(json.dumps({'status' : 'True', 'id' : a.id,'value' : a.owner_name}), safe=False, content_type="application/json") 
+
+        else:
+            
+            print('-----------------------------2---------------------')
+
+            error = forms.errors.as_json()
+            print(error)
+            return JsonResponse({'error' : error}, safe=False)
+    
+    
+    else:
+
+        forms = rate_Form()
+        print('--------------------------------------------------')
+
+        
+        print(forms)
+        print('-----------------------------3---------------------')
+
+        company_data = company.objects.all()
+
+        context = {
+            'form': forms,
+            'company' : company_data
+        }
+
+        return render(request, 'store/add_rate.html', context)
+
+
+@login_required(login_url='login')
+@user_is_active
+def update_rate(request, rate_id):
+
+    if request.method == 'POST':
+
+        instance = rate.objects.get(id=rate_id)
+
+        forms = rate_Form(request.POST, instance = instance)
+
+        if forms.is_valid():
+            forms.save()
+            return redirect('list_rate')
+    
+    else:
+
+        instance = rate.objects.get(id=rate_id)
+
+        forms = rate_Form(instance = instance)
+
+        context = {
+            'form': forms
+        }
+
+        return render(request, 'store/add_rate.html', context)
+
+
+@login_required(login_url='login')
+@user_is_active
+def delete_rate(request, rate_id):
+    
+    rate.objects.get(id=rate_id).delete()
+
+    return HttpResponseRedirect(reverse('list_rate_delete'))
+
+
+@login_required(login_url='login')
+@user_is_active
+def list_rate(request):
+    
+    data = rate.objects.all()
+
+    context = {
+            'data': data
+        }
+
+
+    return render(request, 'store/list_rate.html', context)
 
 
 @login_required(login_url='login')
@@ -703,6 +884,49 @@ def add_station(request):
 
             print(forms.errors)
             return redirect('list_station')
+    
+    else:
+
+        forms = station_Form()
+        print('--------------------------------------------------')
+
+        
+        print(forms)
+        print('-----------------------------3---------------------')
+
+        company_data = company.objects.all()
+
+        context = {
+            'form': forms,
+            'company' : company_data
+        }
+
+        return render(request, 'store/add_station.html', context)
+
+
+
+
+
+@login_required(login_url='login')
+@user_is_active
+@csrf_exempt
+def add_station_ajax(request):
+    
+    if request.method == 'POST':
+
+        forms = station_Form(request.POST)
+        print('-----------------------------1---------------------')
+        if forms.is_valid():
+            a = forms.save()
+            return JsonResponse(json.dumps({'status' : 'True', 'id' : a.id,'value' : a.name}), safe=False, content_type="application/json") 
+
+        else:
+            print('-----------------------------2---------------------')
+
+            error = forms.errors.as_json()
+            print(error)
+            return JsonResponse({'error' : error}, safe=False)
+    
     
     else:
 
@@ -895,6 +1119,53 @@ def add_taluka(request):
         return render(request, 'store/add_taluka.html', context)
 
 
+
+@login_required(login_url='login')
+@user_is_active
+@csrf_exempt
+def add_taluka_ajax(request):
+    
+    if request.method == 'POST':
+
+        forms = taluka_Form(request.POST)
+        print('-----------------------------1---------------------')
+        if forms.is_valid():
+            a = forms.save()
+            
+
+            print(a.district.name)
+
+            return JsonResponse(json.dumps({'status' : 'True', 'id' : a.id,'value' : a.name, 'district_id' : a.district.id, 'district_name' : a.district.name}), safe=False, content_type="application/json") 
+
+
+
+        else:
+            
+            
+            error = forms.errors.as_json()
+            print(error)
+            return JsonResponse({'error' : error}, safe=False)
+    
+    
+    else:
+
+        forms = taluka_Form()
+        print('--------------------------------------------------')
+
+        
+        print(forms)
+        print('-----------------------------3---------------------')
+
+        company_data = company.objects.all()
+
+        context = {
+            'form': forms,
+            'company' : company_data
+        }
+
+        return render(request, 'store/add_taluka.html', context)
+
+
 @login_required(login_url='login')
 @user_is_active
 def update_taluka(request, taluka_id):
@@ -983,6 +1254,59 @@ def add_onaccount(request):
 
 @login_required(login_url='login')
 @user_is_active
+@csrf_exempt
+def add_onaccount_ajax(request):
+    
+    if request.method == 'POST':
+
+        if not request.user.is_superuser:
+            
+            forms = onaccount_Form(request.POST)
+
+                
+        else:
+
+            updated_request = request.POST.copy()
+            updated_request.update({'company': request.user.company})
+            forms = onaccount_Form(updated_request)
+
+
+        print('-----------------------------1---------------------')
+        if forms.is_valid():
+            a = forms.save()
+            
+            
+            return JsonResponse(json.dumps({'status' : 'True', 'id' : a.id,'value' : a.name}), safe=False, content_type="application/json") 
+
+        else:
+
+
+            error = forms.errors.as_json()
+            print(error)
+            return JsonResponse({'error' : error}, safe=False)
+    
+    
+    else:
+
+        forms = onaccount_Form()
+        print('--------------------------------------------------')
+
+        
+        print(forms)
+        print('-----------------------------3---------------------')
+
+        company_data = company.objects.all()
+
+        context = {
+            'form': forms,
+            'company' : company_data
+        }
+
+        return render(request, 'store/add_onaccount.html', context)
+
+
+@login_required(login_url='login')
+@user_is_active
 def update_onaccount(request, onaccount_id):
 
     if request.method == 'POST':
@@ -1029,6 +1353,217 @@ def list_onaccount(request):
 
 
     return render(request, 'store/list_onaccount.html', context)
+
+@login_required(login_url='login')
+@user_is_active
+def add_driver(request):
+    
+    if request.method == 'POST':
+
+        forms = driver_Form(request.POST)
+        print('-----------------------------1---------------------')
+        if forms.is_valid():
+            forms.save()
+            return redirect('list_driver')
+        else:
+            print('-----------------------------2---------------------')
+
+            print(forms.errors)
+            return redirect('list_driver')
+    
+    else:
+
+        forms = driver_Form()
+        print('--------------------------------------------------')
+
+        
+        print(forms)
+        print('-----------------------------3---------------------')
+
+        company_data = company.objects.all()
+
+        context = {
+            'form': forms,
+            'company' : company_data
+        }
+
+        return render(request, 'store/add_driver.html', context)
+
+@login_required(login_url='login')
+@user_is_active
+def update_driver(request, driver_id):
+
+    if request.method == 'POST':
+
+        instance = driver.objects.get(id=driver_id)
+
+        forms = driver_Form(request.POST, instance = instance)
+
+        if forms.is_valid():
+            forms.save()
+            return redirect('list_driver')
+    
+    else:
+
+        instance = driver.objects.get(id=driver_id)
+
+        forms = driver_Form(instance = instance)
+
+        context = {
+            'form': forms
+        }
+
+        return render(request, 'store/add_driver.html', context)
+
+
+@login_required(login_url='login')
+@user_is_active
+def delete_driver(request, driver_id):
+    
+    driver.objects.get(id=driver_id).delete()
+
+    return HttpResponseRedirect(reverse('list_driver_delete'))
+
+
+@login_required(login_url='login')
+@user_is_active
+def list_driver(request):
+    
+    data = driver.objects.all()
+
+    context = {
+            'data': data
+        }
+
+
+    return render(request, 'store/list_driver.html', context)
+
+
+@login_required(login_url='login')
+@user_is_active
+def add_petrol_pump(request):
+    
+    if request.method == 'POST':
+
+        forms = petrol_pump_Form(request.POST)
+        print('-----------------------------1---------------------')
+        if forms.is_valid():
+            forms.save()
+            return redirect('list_petrol_pump')
+        else:
+            print('-----------------------------2---------------------')
+
+            print(forms.errors)
+            return redirect('list_petrol_pump')
+    
+    else:
+
+        forms = petrol_pump_Form()
+        print('--------------------------------------------------')
+
+        
+        print(forms)
+        print('-----------------------------3---------------------')
+
+        company_data = company.objects.all()
+
+        context = {
+            'form': forms,
+            'company' : company_data
+        }
+
+        return render(request, 'store/add_petrol_pump.html', context)
+
+
+@login_required(login_url='login')
+@user_is_active
+@csrf_exempt
+def add_petrol_pump_ajax(request):
+    
+    if request.method == 'POST':
+    
+        forms = petrol_pump_Form(request.POST)
+
+
+        print('-----------------------------1---------------------')
+        if forms.is_valid():
+            a = forms.save()
+            
+            
+            return JsonResponse(json.dumps({'status' : 'True', 'id' : a.id,'value' : a.name}), safe=False, content_type="application/json") 
+
+        else:
+
+
+            error = forms.errors.as_json()
+            print(error)
+            return JsonResponse({'error' : error}, safe=False)
+    
+    
+    else:
+
+        forms = petrol_pump_Form()
+        print('--------------------------------------------------')
+
+        
+        print(forms)
+        print('-----------------------------3---------------------')
+
+        context = {
+            'form': forms,
+        }
+
+        return render(request, 'store/add_petrol_pump.html', context)
+
+
+@login_required(login_url='login')
+@user_is_active
+def update_petrol_pump(request, petrol_pump_id):
+
+    if request.method == 'POST':
+
+        instance = petrol_pump.objects.get(id=petrol_pump_id)
+
+        forms = petrol_pump_Form(request.POST, instance = instance)
+
+        if forms.is_valid():
+            forms.save()
+            return redirect('list_petrol_pump')
+    
+    else:
+
+        instance = petrol_pump.objects.get(id=petrol_pump_id)
+
+        forms = petrol_pump_Form(instance = instance)
+
+        context = {
+            'form': forms
+        }
+
+        return render(request, 'store/add_petrol_pump.html', context)
+
+
+@login_required(login_url='login')
+@user_is_active
+def delete_petrol_pump(request, petrol_pump_id):
+    
+    petrol_pump.objects.get(id=petrol_pump_id).delete()
+
+    return HttpResponseRedirect(reverse('list_petrol_pump_delete'))
+
+
+@login_required(login_url='login')
+@user_is_active
+def list_petrol_pump(request):
+    
+    data = petrol_pump.objects.all()
+
+    context = {
+            'data': data
+        }
+
+
+    return render(request, 'store/list_petrol_pump.html', context)
 
 
 

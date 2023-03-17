@@ -55,8 +55,40 @@ class builty_filter(django_filters.FilterSet):
 
     
 
-    DC_date_start__date = django_filters.NumberFilter( lookup_expr='year__gt')
-    DC_date_end__date = django_filters.NumberFilter( lookup_expr='year__lt')
+    DC_date_start__date = DateFilter(field_name="DC_date", lookup_expr='gte', widget=forms.DateInput(
+            attrs={
+                'id': 'datepicker1212',
+                'type': 'date',
+                'class' : 'form-control'
+            }
+        ))
+
+
+    DC_date_end__date = DateFilter(field_name="DC_date", lookup_expr='lte', widget=forms.DateInput(
+            attrs={
+            'id': 'datepicker1212',
+            'type': 'date',
+                'class' : 'form-control'
+            }
+        ))
+    challan_date_start__date = DateFilter(field_name="have_ack__challan_date", lookup_expr='gte', widget=forms.DateInput(
+            attrs={
+                'id': 'datepicker1212',
+                'type': 'date',
+                'class' : 'form-control'
+            }
+        ))
+
+
+    challan_date_end__date = DateFilter(field_name="have_ack__challan_date", lookup_expr='lte', widget=forms.DateInput(
+            attrs={
+            'id': 'datepicker1212',
+            'type': 'date',
+                'class' : 'form-control'
+            }
+        ))
+
+    
 
 
     class Meta:

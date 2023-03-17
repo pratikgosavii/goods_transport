@@ -34,16 +34,35 @@ urlpatterns = [
     path('list-truck-details/', list_truck_details, name='list_truck_details'),
     
     path('add-truck-other/', add_truck_owner, name='add_truck_owner'),
+    path('add-truck-other-ajax/', add_truck_owner_ajax, name='add_truck_owner_ajax'),
     path('update-truck-other/<truck_owner_id>', update_truck_owner, name='update_truck_owner'),
     path('delete-truck-other/<truck_owner_id>', delete_truck_owner, name='delete_truck_owner'),
     path('list-truck-other/', list_truck_owner, name='list_truck_owner'),
     
+    path('add-rate/', add_rate, name='add_rate'),
+    path('update-rate/<rate_id>', update_rate, name='update_rate'),
+    # path('delete-truck-other/<rate_id>', delete_rate, name='delete_rate'),
+    path('list-rate/', list_rate, name='list_rate'),
+    
     path('add-onaccount/', add_onaccount, name='add_onaccount'),
+    path('add-onaccount-ajax/', add_onaccount_ajax, name='add_onaccount_ajax'),
     path('update-onaccount/<onaccount_id>', update_onaccount, name='update_onaccount'),
     path('delete-onaccount/<onaccount_id>', delete_onaccount, name='delete_onaccount'),
     path('list-onaccount/', list_onaccount, name='list_onaccount'),
     
+    path('add-driver/', add_driver, name='add_driver'),
+    path('update-driver/<driver_id>', update_driver, name='update_driver'),
+    path('delete-driver/<driver_id>', delete_driver, name='delete_driver'),
+    path('list-driver/', list_driver, name='list_driver'),
+    
+    path('add-petrol_pump/', add_petrol_pump, name='add_petrol_pump'),
+    path('add-petrol_pump-ajax/', add_petrol_pump_ajax, name='add_petrol_pump_ajax'),
+    path('update-petrol_pump/<petrol_pump_id>', update_petrol_pump, name='update_petrol_pump'),
+    path('delete-petrol_pump/<petrol_pump_id>', delete_petrol_pump, name='delete_petrol_pump'),
+    path('list-petrol_pump/', list_petrol_pump, name='list_petrol_pump'),
+    
     path('add-station/', add_station, name='add_station'),
+    path('add-station-ajax/', add_station_ajax, name='add_station_ajax'),
     path('update-station/<station_id>', update_station, name='update_station'),
     path('delete-station/<station_id>', delete_station, name='delete_station'),
     path('list-station/', list_station, name='list_station'),
@@ -54,6 +73,7 @@ urlpatterns = [
     path('list-district/', list_district, name='list_district'),
     
     path('add-taluka/', add_taluka, name='add_taluka'),
+    path('add-taluka-ajax/', add_taluka_ajax, name='add_taluka_ajax'),
     path('update-taluka/<taluka_id>', update_taluka, name='update_taluka'),
     path('delete-taluka/<taluka_id>', delete_taluka, name='delete_taluka'),
     path('list-taluka/', list_taluka, name='list_taluka'),

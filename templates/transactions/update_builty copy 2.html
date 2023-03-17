@@ -120,21 +120,6 @@
         height: 46px;
       }
 
-      .select2-container--open{
-        top: 203.2px;
-        left: 190.6px;
-      }
-
-      .select2-selection{
-        border: 1px solid gray !important;
-        border-radius: 6px !important;
-        position: relative !important;
-        margin: 10px !important;
-        line-height: 6ex !important;
-        padding-left: 14px !important;
-        height: 46px !important;
-      }
-
       select {
         border: 1px solid gray !important;
         border-radius: 6px !important;
@@ -220,7 +205,7 @@
                                             
                                             <div class="input-wrapper" style="display:flex;">
                                                 <label for="first">Consignor</label>
-                                                <select name="consignor" class="sele" id="consignor" required="">
+                                                <select name="consignor" id="consignor" required="">
                                                     <option value="" selected="">---------</option>
                                                     
                                                     {% for i in consignor_data %}
@@ -249,7 +234,27 @@
                                         </td>
                                     </tr>
                                     
-                                   
+                                    <tr>
+                                        <td>
+                                            
+                                                <div class="input-wrapper" style="display:flex;">
+                                                    <label for="first">Builty No</label>
+                                                    {{ form.builty_no }}
+                                                  </div>
+                                            
+
+                                        </td>
+                                        <td>
+                                            
+                                                <div class="input-wrapper" style="display:flex;">
+                                                    <label for="first">Date</label>
+                                                    {{ form.DC_date }}
+
+                                                  </div>
+                                            
+                                        </td>
+
+                                    </tr>
                         
                                 
                                     <tr>
@@ -346,20 +351,6 @@
                                     </td>
                                     </tr>
 
-                                    <tr>
-                                        
-                                        <td>
-                                            
-                                                <div class="input-wrapper" style="display:flex;">
-                                                    <label for="first">Date</label>
-                                                    {{ form.DC_date }}
-
-                                                  </div>
-                                            
-                                        </td>
-
-                                    </tr>
-
                                   
                                     
                                 </table>
@@ -453,9 +444,9 @@
                                                         {{ form.less_advance }}
                                                       </div>
 
-                                                      <div class="input-wrapper" style="display:flex;">
-                                                        <label for="first">Petrol Pump</label>
-                                                        {{ form.petrol_pump }}
+                                                    <div class="input-wrapper" style="display:flex;">
+                                                        <label for="first"> Less TDS</label>
+                                                        {{ form.less_tds }}
                                                       </div>
                                                 </div>
 
@@ -472,7 +463,10 @@
                                                         {{ form.diesel }}
                                                       </div>
 
-                                                   
+                                                    <div class="input-wrapper" style="display:flex;">
+                                                        <label for="first">Petrol Pump</label>
+                                                        {{ form.petrol_pump }}
+                                                      </div>
                                                 </div>
                                         </fieldset>
 
@@ -566,11 +560,6 @@
                         {% endif %}
 
             
-                        </div>
-
-                        <div class="input-wrapper" style="display:flex;">
-                            <label for="first">Builty Code</label>
-                            <input type="text"name="builty_code" id="consignor_builty_code" class="cus" required="">
                         </div>
 
                         <div class="input-wrapper" style="display:flex;">
@@ -943,10 +932,28 @@
                     </div>
                     
                     
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                    </div>
+
+                    <div style="display: flex;
+                            gap: 75px;justify-content: center;">
+                                <a href="{% url 'request_edit' 1 %}"><button id="payment-button" style="height: 44px;
+                                    width: 200px;
+                                    background: #05386b;
+                                    border: none;
+                                    color: white;
+                                    font-weight: bold;
+                                    font-size: 14px;" type="button">
+                                    <span id="payment-button-amount">Request Edit</span>
+                                </button> </a>
+                                <button id="payment-button" type="submit"  style="height: 44px;
+                                width: 300px;
+                                background: #05386b;
+                                border: none;
+                                color: white;
+                                font-weight: bold;
+                                font-size: 14px;">
+                                    <span id="payment-button-amount">Update Builty</span>
+                                </button>
+                            </div>
                 </form>
 
             </div>
@@ -1392,12 +1399,20 @@
 
 
 
+
+
+    $("#less_tds, #less_advance, #rate").change(function(e){
+            
+        let less_advance = document.getElementById('less_advance').value;
+        let less_tds = document.getElementById('less_tds').value;
+        let less_freight = document.getElementById('freight').value;
+
+        let balance = parseFloat((global_freight - less_advance - less_tds).toFixed(2));
         
-    $(document).ready(function () {
-    $('.sele').select2();
+        document.getElementById("balance").value = balance;
+
     });
-
-
+        
 
 
 

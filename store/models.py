@@ -22,6 +22,7 @@ class company(models.Model):
 class consignor(models.Model):
 
     company = models.ForeignKey(company , on_delete=models.CASCADE, related_name='event_ticket')
+    builty_code = models.CharField(max_length=120)
     name = models.CharField(max_length=120, unique=False)
     
     
@@ -54,13 +55,34 @@ class article(models.Model):
 class truck_owner(models.Model):
 
     owner_name = models.CharField(max_length=120, unique=True)
-    bank_acc = models.CharField(max_length=120, unique=True)
-    address = models.CharField(max_length=120, unique=True)
-    mobile_number =  models.IntegerField(unique=False)
+    bank_acc = models.CharField(max_length=120, unique=True, null=True, blank=True)
+    address = models.CharField(max_length=120, unique=False, null=True, blank=True)
+    mobile_number =  models.IntegerField(unique=False, null=True, blank=True)
 
        
     def __str__(self):
         return self.owner_name
+
+
+class petrol_pump(models.Model):
+
+    name = models.CharField(max_length=120, unique=True)
+   
+       
+    def __str__(self):
+        return self.name
+
+
+class driver(models.Model):
+
+    name = models.CharField(max_length=120, unique=True)
+    address = models.CharField(max_length=120, unique=True)
+    adhar_card = models.CharField(max_length=120, unique=True)
+    mobile_no = models.IntegerField()
+   
+       
+    def __str__(self):
+        return self.name
 
 
 
@@ -69,12 +91,11 @@ class truck_owner(models.Model):
 class truck_details(models.Model):
 
     truck_owner = models.ForeignKey(truck_owner , on_delete=models.CASCADE, related_name='ddfdf')
-    company = models.ForeignKey(company , on_delete=models.CASCADE, related_name='ddfdf')
     truck_number = models.CharField(max_length=120, unique=True)
-    insurance_number = models.CharField(max_length=120, unique=True)
-    permit_number = models.CharField(max_length=120, unique=True)
-    puc_number = models.CharField(max_length=120, unique=True)
-    fitness = models.CharField(max_length=120, unique=True)
+    insurance_number = models.CharField(max_length=120, unique=True, null=True, blank=True)
+    permit_number = models.CharField(max_length=120, unique=True, null=True, blank=True)
+    puc_number = models.CharField(max_length=120, unique=True, null=True, blank=True)
+    fitness = models.CharField(max_length=120, null=True, blank=True)
    
     
     def __str__(self):
@@ -109,6 +130,20 @@ class taluka(models.Model):
         
     def __str__(self):
         return self.name
+ 
+
+ 
+
+class rate(models.Model):
+
+    from_station =  models.ForeignKey(station, related_name="dfgfdfdf", on_delete=models.CASCADE)
+    to_station =  models.ForeignKey(station, related_name="dfgfddsdedfdf", on_delete=models.CASCADE)
+    company_rate =  models.IntegerField()
+    own_rate =  models.IntegerField()
+
+        
+    def __str__(self):
+        return self.from_station.name
  
 
  
