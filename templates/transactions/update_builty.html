@@ -1374,36 +1374,64 @@
 
 //-----------------------------------------------------------
     
+   
+
+
     let global_mt = 0
     let global_freight = 0
 
     bags.addEventListener("input", function (e) {
 
-        
+
         let bags = this.value;
 
-        global_mt = parseFloat((bags / 20).toFixed(2));
+        global_mt = bags / 20;
 
         document.getElementById("mt").value = global_mt;
 
         rate = document.getElementById('rate').value;
-        
-        global_freight =  parseFloat((global_mt * rate).toFixed(2));
+
+        global_freight =  global_mt * rate;
 
         document.getElementById("freight").value = global_freight;
     });
-    
+
 
     rate.addEventListener("input", function (e) {
 
-        
+
         let rate = this.value;
 
-        global_freight =  parseFloat((global_mt * rate).toFixed(2));
+        global_freight =  global_mt * rate;
 
         document.getElementById("freight").value = global_freight;
-        
+
     });
+
+    less_advance.addEventListener("input", function (e) {
+
+
+        let less_advance = this.value;
+        let less_tds = document.getElementById('less_tds').value;
+
+        let balance = global_freight - less_advance - less_tds;
+
+        document.getElementById("balance").value = balance;
+
+    });
+
+    less_tds.addEventListener("input", function (e) {
+
+
+        let less_tds = this.value;
+        let less_advance = document.getElementById('less_advance').value;
+
+        let balance = global_freight - less_advance - less_tds;
+
+        document.getElementById("balance").value = balance;
+
+    });
+
 
 
 

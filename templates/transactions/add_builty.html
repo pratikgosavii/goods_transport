@@ -1353,6 +1353,7 @@
 
 //-----------------------------------------------------------
     
+        
     let global_mt = 0
     let global_freight = 0
 
@@ -1371,7 +1372,7 @@
 
         document.getElementById("freight").value = global_freight;
     });
-    
+
 
     rate.addEventListener("input", function (e) {
 
@@ -1383,6 +1384,24 @@
         document.getElementById("freight").value = global_freight;
         
     });
+
+
+
+
+
+    $("#less_tds, #less_advance, #rate").change(function(e){
+            
+        let less_advance = document.getElementById('less_advance').value;
+        let less_tds = document.getElementById('less_tds').value;
+        let less_freight = document.getElementById('freight').value;
+
+        let balance = parseFloat((global_freight - less_advance - less_tds).toFixed(2));
+        
+        document.getElementById("balance").value = balance;
+
+    });
+        
+
 
 
 
