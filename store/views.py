@@ -386,7 +386,7 @@ def add_article_ajax(request):
 
         print()
 
-        if not request.user.is_superuser:
+        if request.user.is_superuser:
             
             forms = article_Form(request.POST)
 
@@ -1259,7 +1259,7 @@ def add_onaccount_ajax(request):
     
     if request.method == 'POST':
 
-        if not request.user.is_superuser:
+        if request.user.is_superuser:
             
             forms = onaccount_Form(request.POST)
 
