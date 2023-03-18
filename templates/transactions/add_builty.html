@@ -123,6 +123,12 @@
     }
 
 
+    
+    .select2-container--default .select2-selection--single .select2-selection__rendered {
+        color: #444;
+        line-height: 46px;
+    }
+
       select {
         border: 1px solid gray !important;
         border-radius: 6px !important;
@@ -757,6 +763,11 @@
                     </div>
 
                     <div class="input-wrapper" style="display:flex;">
+                        <label for="first">Pan Card No</label>
+                        {{ form_truck_owner.pan_card }}
+                    </div>
+
+                    <div class="input-wrapper" style="display:flex;">
                         <label for="first">Address</label>
                         {{ form_truck_owner.address }}
                     </div>
@@ -1100,9 +1111,6 @@
                 
                 var data = JSON.parse(data)
                 
-                console.log(data)
-                console.log(data.status)
-              
               if(data.status == 'True'){
                 $('#myModal_article').modal('hide');
                 console.log(data)
@@ -1168,7 +1176,6 @@
                 }
                 else{
 
-                    alert('here')
 
                     $("#message_div").css("display", "contents");
                     console.log('--------------------------------------------------------------')
@@ -1232,7 +1239,6 @@
         
         evt.preventDefault();
 
-        alert('here')
 
         var data = $('#taluka_form').serialize();
 

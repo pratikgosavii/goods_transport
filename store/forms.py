@@ -153,6 +153,9 @@ class truck_owner_Form(forms.ModelForm):
             'bank_acc': forms.TextInput(attrs={
                 'class': 'form-control', 'id': 'company'
             }),
+            'pan_card': forms.TextInput(attrs={
+                'class': 'form-control', 'id': 'pan_card'
+            }),
             'address': forms.TextInput(attrs={
                 'class': 'form-control', 'id': 'company'
             }),
