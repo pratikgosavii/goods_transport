@@ -77,6 +77,7 @@ class driver(models.Model):
 
     name = models.CharField(max_length=120, unique=True)
     address = models.CharField(max_length=120, unique=True)
+    driving_licence = models.CharField(max_length=120, unique=True)
     adhar_card = models.CharField(max_length=120, unique=True)
     mobile_no = models.IntegerField()
    
