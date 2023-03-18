@@ -174,12 +174,18 @@ def add_transaction(request):
 def update_builty(request, bulity_id):
 
     instance = builty.objects.get(id = bulity_id)
+    consignor_value = request.POST.get('consignor')
+
 
     if request.method == 'POST':
 
         forms = builty_Form(request.POST, instance = instance)
         DC_date = request.POST.get('DC_date')
 
+        builty_code = consignor_value.builty_code
+
+        consignor_builty_count = builty.objects.filter(consignor = consignor_value).count()
+        builty_code = builty_code + '-' + str(consignor_builty_count + 1)
 
         if DC_date:
 
@@ -191,7 +197,7 @@ def update_builty(request, bulity_id):
         print(date_time)
         print('---------------------')
         updated_request = request.POST.copy()
-        updated_request.update({'DC_date': date_time, 'builty_no' : '2323', 'company' : request.user.company, 'user' : request.user, 'editable' : False})
+        updated_request.update({'DC_date': date_time, 'builty_no' : builty_code, 'company' : request.user.company, 'user' : request.user, 'editable' : False})
         forms = builty_Form(updated_request, instance = instance)
         if forms.is_valid():
 
@@ -201,13 +207,29 @@ def update_builty(request, bulity_id):
 
         else:
 
-            print(forms.errors)
+            if request.user.is_superuser:
+
+                article_data = article.objects.all()
+                consignor_data = consignor.objects.all()
+                onaccount_data = onaccount.objects.all()
+
+            else:
+
+                article_data = article.objects.filter(company_name = request.user.company)
+                consignor_data = consignor.objects.filter(company = request.user.company)
+                onaccount_data = onaccount.objects.filter(company = request.user.company)
+
 
             context = {
-                'form': forms
+                'form': forms,
+                'article_data' : article_data,
+                'consignor_data' : consignor_data,
+                'onaccount_data' : onaccount_data,
             }
+
+            
             return render(request, 'transactions/update_builty.html', context)
-    
+
 
     else:
 
@@ -567,7 +589,7 @@ def mass_edit_request(request):
     for i in builty_id:
 
         builty_instance = builty.objects.get(id = i)
-        request_edit.objects.create(builty = builty_instance, user = request.user)
+        request_edit.objects.create(builty = builty_instance, user = request.user, history = True)
     print('--------------------')
     return JsonResponse({'status' : 'done'})
 
