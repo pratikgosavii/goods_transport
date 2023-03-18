@@ -219,6 +219,9 @@ class driver_Form(forms.ModelForm):
             'adhar_card': forms.TextInput(attrs={
                 'class': 'form-control', 'id': 'mobile_number'
             }),
+            'driving_licence': forms.TextInput(attrs={
+                'class': 'form-control', 'id': 'driving_licence'
+            }),
             'address': forms.TextInput(attrs={
                 'class': 'form-control', 'id': 'mobile_number'
             }),
