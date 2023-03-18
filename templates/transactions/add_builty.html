@@ -7,17 +7,6 @@
 {% block head %}
 
 
-<!-- Select2 CSS --> 
-<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" /> 
-
-
-<!-- Select2 JS --> 
-<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/weathericons@2.1.0/css/weather-icons.css" rel="stylesheet" />
-    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@3.9.0/dist/fullcalendar.min.css" rel="stylesheet" />
-
-
-
 
 <style>
 
@@ -36,17 +25,7 @@
         height : calc(1.9rem + 2px) !important;
     }
 
-    .select2 {
-        width:100% !important;
-    }
-
-    .select2-selection{
-        height: calc(1.9rem + 2px) !important;
-    }
-
-    .select2-selection__rendered{
-        line-height : 2.3 !important;
-    }
+   
 
     .cus{
         width:200px !important;
@@ -120,10 +99,6 @@
         height: 46px;
       }
 
-      .select2-container--open{
-        top: 203.2px;
-        left: 190.6px;
-      }
 
       .select2-selection{
         border: 1px solid gray !important;
@@ -134,6 +109,19 @@
         padding-left: 14px !important;
         height: 46px !important;
       }
+
+    .select2-container--open .select2-dropdown {
+        left: 10px;
+        top: -7px;
+    }
+
+
+    .select2-search--dropdown{
+    justify-items: center;
+    justify-content: center;
+    display: flex;
+    }
+
 
       select {
         border: 1px solid gray !important;
@@ -1393,9 +1381,9 @@
 
 
         
-    $(document).ready(function () {
     $('.sele').select2();
-    });
+
+    
 
 
 

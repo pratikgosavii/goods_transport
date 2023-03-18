@@ -37,7 +37,7 @@ class builty_filter(django_filters.FilterSet):
                 'id' : 'company'
             })
     )
-    truck_owner = django_filters.ModelChoiceFilter(
+    truck_owner = django_filters.ModelMultipleChoiceFilter(
         queryset=truck_owner.objects.all(),
         widget=forms.Select(
             attrs={

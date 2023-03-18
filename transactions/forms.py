@@ -20,26 +20,34 @@ class builty_Form(forms.ModelForm):
                 'readonly':'readonly'
             }),
             'truck_details': forms.Select(attrs={
-                'id': 'truck_details'
+                'id': 'truck_details',
+                'class' : 'sele',
+
             }),
             'truck_owner': forms.Select(attrs={
                 'id': 'truck_owner', 'class' : 'se',
 
             }),
             'consignor': forms.Select(attrs={
-                'id': 'consignor'
+                'id': 'consignor',
+                'class' : 'sele',
             }),
             'petrol_pump': forms.Select(attrs={
-                'id': 'petrol_pump'
+                'id': 'petrol_pump',
+                'class' : 'sele',
             }),
             'station_from': forms.Select(attrs={
-                'id': 'station_from'
+                'id': 'station_from',
+                'class' : 'sele',
             }),
             'station_to': forms.Select(attrs={
-                'id': 'station_to'
+                'id': 'station_to',
+                'class' : 'sele',
+
             }),
             'taluka': forms.Select(attrs={
-                'id': 'taluka'
+                'id': 'taluka',
+                'class' : 'sele',
             }),
             'district': forms.Select(attrs={
                 'id': 'district', 'class' : 'se'
@@ -48,10 +56,12 @@ class builty_Form(forms.ModelForm):
                 'id': 'consignee'
             }),
             'onaccount': forms.Select(attrs={
-                'id': 'onaccount'
+                'id': 'onaccount',
+                'class' : 'sele',
             }),
             'article': forms.Select(attrs={
-                'id': 'article'
+                'id': 'article',                
+                'class' : 'sele',
             }),
             'bags': forms.NumberInput(attrs={
                 'value' : 0.0,
