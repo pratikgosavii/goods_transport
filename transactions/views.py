@@ -259,6 +259,17 @@ def update_builty(request, bulity_id):
         return render(request, 'transactions/update_builty.html', context)
 
 
+
+def delete_transaction(request, builty_id):
+
+
+    builty_instance = builty.objects.get(id = builty_id)
+    builty_instance.deleted = True
+    builty_instance.save()
+
+    return redirect('list_transaction')
+
+
 from .filters import *
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
@@ -268,11 +279,11 @@ def list_transaction(request):
 
     if request.user.is_superuser:
 
-        data = builty.objects.all()
+        data = builty.objects.filter(deleted = False)
 
     else:
 
-        data = builty.objects.filter(user = request.user)
+        data = builty.objects.filter(user = request.user, deleted = False)
 
 
     print(data)
@@ -475,7 +486,7 @@ def add_subtrip(request):
 @user_is_active
 def list_ack_all(request):
 
-    data = builty.objects.all()
+    data = builty.objects.filter(deleted = False)
     
     builty_filters = builty_filter(request.GET, queryset=data)
 
@@ -572,7 +583,7 @@ def list_ack(request):
 @user_is_active
 def list_not_ack(request):
 
-    data = builty.objects.all()
+    data = builty.objects.filter(deleted = False)
 
     builty_filters = builty_filter(request.GET, queryset=data)
     data = builty_filters.qs
@@ -831,7 +842,7 @@ def render_to_file(path: str, params: dict):
        
 def generate_bill(request):
 
-    sales = builty.objects.all()
+    sales = builty.objects.filter(deleted = False)
     params = {
         'today': 'today',
         'sales': sales,
@@ -926,7 +937,7 @@ def truck_report(request):
 
 
 
-    data = builty.objects.all().order_by("builty_no")
+    data = builty.objects.filter(deleted = False).order_by("builty_no")
 
     builty_filters = builty_filter(request.GET, queryset=data)
     builty_filters_data1 = list(builty_filters.qs.values_list('builty_no', 'DC_date', 'truck_details__truck_number', 'truck_owner__owner_name', 'station_from__name', 'station_to__name', 'district__name', 'consignor__name', 'onaccount__name', 'have_ack__challan_date', 'mt', 'rate', 'freight'))
@@ -1037,7 +1048,7 @@ def diesel_report(request):
     print('------------------------')
 
 
-    data = builty.objects.all().order_by("builty_no")
+    data = builty.objects.filter(deleted = False).order_by("builty_no")
 
     builty_filters = builty_filter(request.GET, queryset=data)
     builty_filters_data1 = list(builty_filters.qs.values_list('builty_no', 'DC_date', 'truck_details__truck_number', 'station_from__name', 'station_to__name', 'consignor__name', 'onaccount__name', 'diesel', 'petrol_pump__name'))
@@ -1115,7 +1126,7 @@ def porch_report(request):
     print('------------------------')
 
 
-    data = builty.objects.all().order_by("builty_no")
+    data = builty.objects.filter(deleted = False).order_by("builty_no")
 
     builty_filters = builty_filter(request.GET, queryset=data)
     builty_filters_data1 = list(builty_filters.qs.values_list('builty_no', 'DC_date', 'have_ack__challan_number', 'have_ack__challan_date', 'truck_details__truck_number', 'station_to__name', 'mt', 'rate', 'freight', 'less_advance', 'balance'))

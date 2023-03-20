@@ -4,14 +4,14 @@
 
 {% block content %}
 
-
+{% comment %} 
     <a href=""> <button class="btn btn-primary" type="submit">
         Daily Report
     </button> </a>
     
     <a href=""> <button class="btn btn-primary" type="submit">
         Monthly Report
-    </button> </a><br><br>
+    </button> </a><br><br> {% endcomment %}
 
     <!-- Widgets  -->
     <div class="row">
@@ -79,7 +79,7 @@
             <div class="col-xl-12">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="box-title">Orders </h4>
+                        <h4 class="box-title">Master list </h4>
                     </div>
                     <div class="card-body--">
                         <div class="table-stats order-table ov-h">
@@ -87,46 +87,106 @@
                                 <thead>
                                     <tr>
                                         <th class="serial">#</th>
-                                        <th>Supplier</th>
-                                        <th>Product</th>
-                                        <th>Design</th>
-                                        <th>Color</th>
-                                        <th>Buyer</th>
-                                        <th>Season</th>
-                                        <th>Drop</th>
+                                        <th>Builty No</th>
                                         <th>Date</th>
-                                        <th>Status</th>
+                                        <th>Truck No</th>
+                                        <th>Owner</th>
+                                        <th>From</th>
+                                        <th>To</th>
+                                        <th>Taluka</th>
+                                        <th>District</th>
+                                        <th>Consignor</th>
+                                        <th>Consigne</th>
+                                        <th>Account</th>
+                                        <th>Article</th>
+                                        <th>Freight</th>
+                                        <th>Advance</th>
+                                        <th>Balance</th>
+                                        <th>#</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {% if orders %}
-                                    {% for order in orders %}
-                                    <tr>
+                                    {% if data %}
+                                    {% for i in data %}
+
+                                    {% if i.deleted == True %}
+
+                                    <tr style="background: #ffb2bc;">
+
                                         <td class="serial">{{ forloop.counter }}</td>
-                                        <td>{{ order.supplier }}</td>
-                                        <td>{{ order.product }}</td>
-                                        <td>{{ order.design }}</td>
-                                        <td>{{ order.color }}</td>
-                                        <td>{{ order.buyer }}</td>
-                                        <td>{{ order.season }}</td>
-                                        <td>{{ order.drop }}</td>
-                                        <td>{{ order.created_date }}</td>
-                                        <td>
-                                            {% if order.status == 'pending' %}
-                                                <a class="btn btn-warning" href="">{{ order.status }}</a>
-                                            {% elif order.status == 'decline' %}
-                                                <a class="btn btn-danger" href="">{{ order.status }}</a>
-                                            {% elif order.status == 'complete' %}
-                                                <a class="btn btn-success" href="">{{ order.status }}</a>
-                                            {% elif order.status == 'approved' %}
-                                                <a class="btn btn-primary" href="">{{ order.status }}</a>
-                                            {% elif order.status == 'bulk' %}
-                                                <a class="btn btn-secondary" href="">{{ order.status }}</a>
-                                            {% else %}
-                                                <a class="btn btn-info" href="">{{ order.status }}</a>
-                                            {% endif %}
+                              
+                                        <td>{{ i.builty_no }}</td>
+                                        <td>{{ i.DC_date }}</td>
+                                        <td>{{ i.truck_details }}</td>
+                                        <td>{{ i.truck_owner }}</td>
+                                        <td>{{ i.station_from }}</td>
+                                        <td>{{ i.station_to }}</td>
+                                        <td>{{ i.taluka }}</td>
+                                        <td>{{ i.district }}</td>
+                                        <td>{{ i.consignor }}</td>
+                                        <td>{{ i.consignee }}</td>
+                                        <td>{{ i.onaccount }}</td>
+                                        <td>{{ i.article }}</td>
+                                        <td>{{ i.freight }}</td>
+                                        <td>{{ i.less_advance }}</td>
+                                        <td>{{ i.balance }}</td>
+                                      
                                         </td>
                                     </tr>
+
+                                    {% elif i.has_request.all.0 %}
+
+                                    <tr style="background: #9fb4ff;">
+
+                                        <td class="serial">{{ forloop.counter }}</td>
+                              
+                                        <td>{{ i.builty_no }}</td>
+                                        <td>{{ i.DC_date }}</td>
+                                        <td>{{ i.truck_details }}</td>
+                                        <td>{{ i.truck_owner }}</td>
+                                        <td>{{ i.station_from }}</td>
+                                        <td>{{ i.station_to }}</td>
+                                        <td>{{ i.taluka }}</td>
+                                        <td>{{ i.district }}</td>
+                                        <td>{{ i.consignor }}</td>
+                                        <td>{{ i.consignee }}</td>
+                                        <td>{{ i.onaccount }}</td>
+                                        <td>{{ i.article }}</td>
+                                        <td>{{ i.freight }}</td>
+                                        <td>{{ i.less_advance }}</td>
+                                        <td>{{ i.balance }}</td>
+                                      
+                                        </td>
+                                    </tr>
+
+                                    {% else %}
+
+                                    <tr>
+
+                                        <td class="serial" style="">{{ forloop.counter }}</td>
+                              
+                                        <td>{{ i.builty_no }}</td>
+                                        <td>{{ i.DC_date }}</td>
+                                        <td>{{ i.truck_details }}</td>
+                                        <td>{{ i.truck_owner }}</td>
+                                        <td>{{ i.station_from }}</td>
+                                        <td>{{ i.station_to }}</td>
+                                        <td>{{ i.taluka }}</td>
+                                        <td>{{ i.district }}</td>
+                                        <td>{{ i.consignor }}</td>
+                                        <td>{{ i.consignee }}</td>
+                                        <td>{{ i.onaccount }}</td>
+                                        <td>{{ i.article }}</td>
+                                        <td>{{ i.freight }}</td>
+                                        <td>{{ i.less_advance }}</td>
+                                        <td>{{ i.balance }}</td>
+                                      
+                                        </td>
+                                    </tr>
+
+                                    {% endif%}
+
+
                                     {% endfor %}
                                     {% else %}
                                         <tr><td>No Order Data</td></tr>
