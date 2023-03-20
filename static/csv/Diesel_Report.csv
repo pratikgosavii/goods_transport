@@ -1,4 +1,10 @@
-Sr No,Builty No,Challan No,Challan Date,Truck No,From,To,MT,Rate,Freight,Advance,Balance
-1,1-1,,,weds,Akola,Akola,0.0,0.0,0.0,0.0,0.0
-2,1-2,,,weds,wsdfvbvds,wsdfvbvds,25.0,500.0,12500.0,0.0,12500.0
-3,2323.0,,,wedsdfvcb,wsdfvbvds,wsdfvbvds,0.0,0.0,0.0,0.0,0.0
+Sr No,Builty No,Builty Date,Challan No,Challan Date,Truck No,To,MT,Rate,Freight,Advance,Balance
+1,1-1,2023-03-17,,,weds,Akola,0.0,0.0,0.0,0.0,0.0
+2,1-2,2023-03-20,,,weds,wsdfvbvds,25.0,500.0,12500.0,0.0,12500.0
+3,1-5,2023-03-19,1234567890,2023-03-20,weds,Akola,25.0,50.0,1250.0,100.0,1150.0
+4,2323,2023-03-18,1234567890,2023-03-19,MH 30 ss hssss,Akola,0.0,0.0,0.0,0.0,0.0
+5,2323.0,2023-03-09,34rtyuiol,,MH30L2820,Balapur,23.0,0.0,0.0,0.0,0.0
+6,2323.0,2023-04-09,1234567890,,MH18AA7031,akot,25.0,430.0,10750.0,8000.0,2740.0
+7,2323.0,2023-03-11,345y,2023-03-11,weds,wsdfvbvds,1.15,0.0,0.0,0.0,23.0
+8,2323.0,2023-03-16,1234567890,2023-03-19,sd,sf,0.0,0.0,0.0,0.0,34.0
+9,2323.0,2023-03-16,,,wedsdfvcb,wsdfvbvds,0.0,0.0,0.0,0.0,0.0
