@@ -37,12 +37,20 @@ class builty_filter(django_filters.FilterSet):
                 'id' : 'company'
             })
     )
-    truck_owner = django_filters.ModelMultipleChoiceFilter(
+    truck_owner = django_filters.ModelChoiceFilter(
         queryset=truck_owner.objects.all(),
         widget=forms.Select(
             attrs={
                 'class' : 'form-control',
                 'id' : 'company'
+            })
+    )
+    petrol_pump = django_filters.ModelChoiceFilter(
+        queryset=petrol_pump.objects.all(),
+        widget=forms.Select(
+            attrs={
+                'class' : 'form-control',
+                'id' : 'petrol_pump'
             })
     )
     builty_no = django_filters.NumberFilter(
@@ -94,6 +102,101 @@ class builty_filter(django_filters.FilterSet):
     class Meta:
         model = builty
         fields = ['company', 'consignor', 'builty_no']
+       
+   
+
+class ack_filter(django_filters.FilterSet):
+
+    builty__consignor = django_filters.ModelChoiceFilter(
+        queryset=consignor.objects.all(),
+        widget=forms.Select(
+            attrs={
+                'class' : 'form-control',
+                'id' : 'company'
+            })
+    )
+
+    builty__article = django_filters.ModelChoiceFilter(
+        queryset=article.objects.all(),
+        widget=forms.Select(
+            attrs={
+                'class' : 'form-control',
+                'id' : 'company'
+            })
+    )
+   
+    builty__truck_details = django_filters.ModelChoiceFilter(
+        queryset=truck_details.objects.all(),
+        widget=forms.Select(
+            attrs={
+                'class' : 'form-control',
+                'id' : 'company'
+            })
+    )
+    builty__truck_owner = django_filters.ModelChoiceFilter(
+        queryset=truck_owner.objects.all(),
+        widget=forms.Select(
+            attrs={
+                'class' : 'form-control',
+                'id' : 'company'
+            })
+    )
+    builty__petrol_pump = django_filters.ModelChoiceFilter(
+        queryset=petrol_pump.objects.all(),
+        widget=forms.Select(
+            attrs={
+                'class' : 'form-control',
+                'id' : 'petrol_pump'
+            })
+    )
+
+    builty__builty_no = django_filters.NumberFilter(
+        widget=forms.NumberInput(
+            attrs={
+                'class' : 'form-control',
+                'id' : 'company'
+            })
+    )
+
+    builty__DC_date_start__date = DateFilter(field_name="DC_date", lookup_expr='gte', widget=forms.DateInput(
+            attrs={
+                'id': 'datepicker1212',
+                'type': 'date',
+                'class' : 'form-control'
+            }
+        ))
+
+
+    builty__DC_date_end__date = DateFilter(field_name="DC_date", lookup_expr='lte', widget=forms.DateInput(
+            attrs={
+            'id': 'datepicker1212',
+            'type': 'date',
+                'class' : 'form-control'
+            }
+        ))
+    challan_date_start__date = DateFilter(lookup_expr='gte', widget=forms.DateInput(
+            attrs={
+                'id': 'datepicker1212',
+                'type': 'date',
+                'class' : 'form-control'
+            }
+        ))
+
+
+    challan_date_end__date = DateFilter(lookup_expr='lte', widget=forms.DateInput(
+            attrs={
+            'id': 'datepicker1212',
+            'type': 'date',
+                'class' : 'form-control'
+            }
+        ))
+
+    
+
+
+    class Meta:
+        model = ack
+        fields = '__all__'
        
    
 

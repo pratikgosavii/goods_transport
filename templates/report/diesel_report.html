@@ -83,7 +83,7 @@
 <p>
     
     <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-      Diesel Report
+      Filter
     </button>
   </p>
   <div class="collapse" id="collapseExample">
@@ -105,6 +105,9 @@
 
                 <label for="name" class="control-label mb-1" style="margin-left : 0px;">Truck Owner</label>
                 {{ builty_filter.form.truck_owner }}
+                       
+                <label for="name" class="control-label mb-1" style="margin-left : 0px;">Petrol Pump</label>
+                {{ builty_filter.form.petrol_pump }}
                        
                 <label for="name" class="control-label mb-1">Consignor</label>
                 {{ builty_filter.form.consignor }}
@@ -159,7 +162,7 @@
 
     <input type="hidden" value="{{ link }}" name="link">
     <button class="btn btn-primary" type="submit">
-        Download Report
+        Download Diesel Report
     </button> 
 </form>
 
@@ -264,7 +267,7 @@
                       <div class="footer-inner bg-white">
                           <div class="row" style="float: right;">
                               <p style="font-weight: 700;
-                              color: black;"> Total Balance :- {{ total_diesel }} RS</p>
+                              color: black;"> Total Diesel Qty :- {{ total_diesel }} RS</p>
                           </div>
                           <button style="background-color: #05386b; border: green; padding: 10px;border-radius: 12px;" class="btn-info" onclick="mass_edit_request();" > Submit </button>
                       </div>

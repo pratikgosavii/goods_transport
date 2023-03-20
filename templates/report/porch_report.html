@@ -77,49 +77,22 @@
 
 {% endblock head %}
 
-{% block breadcrumbs %}
-<div class="breadcrumbs">
-    <div class="breadcrumbs-inner">
-        <div class="row m-0">
-            
-            {% comment %} <div class="col-sm-8">
-                <div class="page-header float-right">
-                    <div class="page-title">
-                        <ol class="breadcrumb text-right">
-                            <li><a href="#">Dashboard</a></li>
-                            <li><a href="#">Product</a></li>
-                            <li class="active">List</li>
-                        </ol>
-                    </div>
-                </div>
-            </div> {% endcomment %}
-        </div>
-    </div>
-</div>
-{% endblock breadcrumbs %}
-
 {% block content %}
-<div style="justify-content: center;display: flex;align-items: center;">
-   <a href="{% url 'add_transaction' %}"> <button id="payment-button" style="background-color: #05386b; border: green; padding: 10px;border-radius: 12px;" type="button" class="btn-info ">
-         <span id="payment-button-amount">Add Builty  +</span>
-     </button> </a>
-   
-</div><br>
+
 
 <p>
     
     <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-      Filters
+      Filter
     </button>
   </p>
   <div class="collapse" id="collapseExample">
-    <div class="card card-body" style="width: fit-content;">
+    <div class="card card-body">
       
 
         <form method="get" action="" style="padding:15px;">
 
             {% csrf_token %}
-
             <div class="form-group" style="display: flex;
             gap: 14px;">
 
@@ -129,6 +102,12 @@
                     
                 <label for="name" class="control-label mb-1" style="margin-left : 0px;">Truck No</label>
                 {{ builty_filter.form.truck_details }}
+
+                <label for="name" class="control-label mb-1" style="margin-left : 0px;">Truck Owner</label>
+                {{ builty_filter.form.truck_owner }}
+                       
+                <label for="name" class="control-label mb-1" style="margin-left : 0px;">Petrol Pump</label>
+                {{ builty_filter.form.petrol_pump }}
                        
                 <label for="name" class="control-label mb-1">Consignor</label>
                 {{ builty_filter.form.consignor }}
@@ -145,30 +124,13 @@
                     <div class-"form-group" style="display: flex;
                     gap: 14px;">
                                         
-                    <label for="name" class="control-label mb-1" style="margin-left : 0px;">Builty Date From</label>
+                    <label for="name" class="control-label mb-1" style="margin-left : 0px;">Date From</label>
                     {{ builty_filter.form.DC_date_start__date }}
                 
 
 
-                <label for="name" class="control-label mb-1">Builty Date To</label>
+                <label for="name" class="control-label mb-1">Date To</label>
                 {{ builty_filter.form.DC_date_end__date }}
-
-
-
-
-
-            </div>
-            
-                    <div class-"form-group" style="display: flex;
-                    gap: 14px;">
-                                        
-                    <label for="name" class="control-label mb-1" style="margin-left : 0px;">Challan Date From</label>
-                    {{ builty_filter.form.challan_date_start__date }}
-                
-
-
-                <label for="name" class="control-label mb-1">Challan Date To</label>
-                {{ builty_filter.form.challan_date_end__date }}
 
 
 
@@ -180,10 +142,34 @@
           
             <button class="btn btn-primary" type="submit" > Submit </button>
 
+
+
+
+
+
+
+            
         </form>
     </div>
   </div>
   
+
+  {% if link %}
+
+<form method="post" action="{% url 'download' %}">
+
+    {% csrf_token %}
+
+    <input type="hidden" value="{{ link }}" name="link">
+    <button class="btn btn-primary" type="submit">
+        Download Porch Report
+    </button> 
+</form>
+
+{% endif %}
+
+
+
 
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -224,6 +210,8 @@
   </div>
 </div>
 
+<br>
+
 <div class="row">
     <div class="col-xl-12">
         <div class="card">
@@ -237,21 +225,16 @@
                             <tr>
                                 <th class="serial">#</th>
                                 <th>Builty No</th>
-                                <th>Date</th>
+                                <th>Challan No</th>
+                                <th>Challan Date</th>
                                 <th>Truck No</th>
-                                <th>Owner</th>
                                 <th>From</th>
                                 <th>To</th>
-                                <th>Taluka</th>
-                                <th>District</th>
-                                <th>Consignor</th>
-                                <th>Consigne</th>
-                                <th>Account</th>
-                                <th>Article</th>
+                                <th>MT</th>
+                                <th>Rate</th>
                                 <th>Freight</th>
                                 <th>Advance</th>
                                 <th>Balance</th>
-                                <th>#</th>
                                 
                             </tr>
                         </thead>
@@ -260,43 +243,22 @@
                             {% for i in data %}
                             <tr>
 
-                              {% if i.has_request.all.0.status == False %}
+                             
 
-                                  <td class="serial">  <span class="logged-in">●</span>   {{ forloop.counter }}</td>
-                                 
-                              {% else %}
-
-                                <td class="serial" style=""><input type="checkbox" value="{{ i.id }}" /> {{ forloop.counter }}</td>
-
-                              {% endif %}
-                  
-                                
+                                <td class="serial" style="">{{ forloop.counter }}</td>
                                 <td>{{ i.builty_no }}</td>
-                                <td>{{ i.DC_date }}</td>
+                                <td>{{ i.have_ack.all.0.challan_number }}</td>
+                                <td>{{ i.have_ack.all.0.challan_date }}</td>
                                 <td>{{ i.truck_details }}</td>
-                                <td>{{ i.truck_owner }}</td>
                                 <td>{{ i.station_from }}</td>
                                 <td>{{ i.station_to }}</td>
-                                <td>{{ i.taluka }}</td>
-                                <td>{{ i.district }}</td>
-                                <td>{{ i.consignor }}</td>
-                                <td>{{ i.consignee }}</td>
-                                <td>{{ i.onaccount }}</td>
-                                <td>{{ i.article }}</td>
+                                <td>{{ i.mt }}</td>
+                                <td>{{ i.rate }}</td>
                                 <td>{{ i.freight }}</td>
                                 <td>{{ i.less_advance }}</td>
                                 <td>{{ i.balance }}</td>
                                 
-                                <td>  
-
-                                    
-                                    <a href="{% url 'update_builty' i.id %}"><button style="background-color: #05386b; border: green; padding: 10px;border-radius: 12px;" type="button" class="btn-info ">
-                                        <span id="payment-button-amount">View</span>
-                                    </button>  </a>
-                                    
-                                    
-                                </td>
-                               
+                            
                                
                             </tr>
                             {% endfor %}
@@ -315,7 +277,6 @@
                               <p style="font-weight: 700;
                               color: black;;margin-left:30px;border : 1px solid grey;padding : 10px;">  Balance :- {{ total_balance }} RS</p>
                           </div>
-                          <button style="background-color: #05386b; border: green; padding: 10px;border-radius: 12px;" class="btn-info" onclick="mass_edit_request();" > Submit </button>
                       </div>
                   </footer>
                           
@@ -371,53 +332,6 @@
 
 
 <script>
-
-
-    function sdvccx(builty_id){
-      alert(builty_id)
-      
-      $('#station_from').addClass('form-control');
-      $('#station_to').addClass('form-control');
-      $('#myModal').modal('show');
-
-      document.getElementById("builty_id").value = builty_id;
-
-    }
-
-    function mass_edit_request(){
-
-      builty_id_arr = []
-
-      $("input:checkbox[name=type]:checked").each(function(){
-        builty_id_arr.push($(this).val());
-      });
-
-
-      var checkboxes = document.querySelectorAll('input[type=checkbox]:checked')
-
-      for (var i = 0; i < checkboxes.length; i++) {
-        builty_id_arr.push(checkboxes[i].value)
-      }
-
-      alert(builty_id_arr)
-
-      $.ajax({                       // initialize an AJAX request
-        type: "POST",
-        url: '{% url "mass_edit_request" %}',
-        data: {
-            'builty_id': builty_id_arr,       // add the country id to the POST parameters
-            'csrfmiddlewaretoken':$('input[name=csrfmiddlewaretoken]').val(),
-        },
-        success: function (data) {   // `data` is from `get_topics_ajax` view function
-
-            location.reload()
-            
-        }
-
-        });
-
-}
-
 
     
 </script>

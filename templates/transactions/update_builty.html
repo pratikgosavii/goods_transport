@@ -124,7 +124,10 @@
 
     .select2-container--default .select2-selection--single .select2-selection__rendered {
         color: #444;
-        line-height: 46px;
+        line-height: 52px;
+    }
+    .select2-selection--single{
+        height: 50px !important;
     }
 
 
@@ -1066,6 +1069,42 @@
                     $('#truck_owner').html(let_html);
 
                 
+            
+            }
+
+        });
+
+
+    });
+
+
+    
+    $("#station_to").change(function () {
+        stationid = ($(this).val());
+
+            
+
+        $.ajax({   
+            cache: false,                    // initialize an AJAX request
+            type: "POST",
+            url: "{% url 'get_taluka_district' %}",
+            data: { 'csrfmiddlewaretoken':$('input[name=csrfmiddlewaretoken]').val(), 'station_id' : stationid },     // add the country id to the POST parameters
+
+            success: function (data) {   // `data` is from `get_topics_ajax` view function
+
+                    console.log('------------------------')
+                    console.log(data)
+
+                    
+                    var a = JSON.parse(data.data)
+                    
+
+                    let_html = '<option value="' + a[0].pk + '" selected>' + a[0].fields.name + '</option>'
+
+                    $('#taluka').html(let_html);
+
+                    document.getElementById('district').value = a[0].fields.district;
+
             
             }
 

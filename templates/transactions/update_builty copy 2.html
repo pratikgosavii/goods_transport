@@ -1401,13 +1401,12 @@
 
 
 
-    $("#less_tds, #less_advance, #rate").change(function(e){
+    $("#less_advance, #rate").change(function(e){
             
         let less_advance = document.getElementById('less_advance').value;
-        let less_tds = document.getElementById('less_tds').value;
         let less_freight = document.getElementById('freight').value;
 
-        let balance = parseFloat((global_freight - less_advance - less_tds).toFixed(2));
+        let balance = parseFloat((global_freight - less_advance).toFixed(2));
         
         document.getElementById("balance").value = balance;
 

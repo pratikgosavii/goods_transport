@@ -223,56 +223,56 @@
     <div class="col-xl-12">
         <div class="card">
             <div class="card-body">
-                <h4 class="box-title">Acknowleged List </h4>
+                <h4 class="box-title">All Acknowleged List </h4>
             </div>
             <div class="card-body--">
                 <div class="table-stats order-table ov-h">
                     <table class="table ">
                         <thead>
-                            <tr>
-                                <th class="serial">#</th>
-                                <th>Builty No</th>
-                                <th>Date</th>
-                                <th>Challan No</th>
-                                <th>Truck No</th>
-                                <th>Owner</th>
-                                <th>From</th>
-                                <th>To</th>
-                                <th>Consignor</th>
-                                <th>Consigne</th>
-                                <th>Account</th>
-                                <th>Freight</th>
-                                <th>Advance</th>
-                                <th>Balance</th>
-                                <th>Challan Date</th>
-                                <th>Action</th>
-                                
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% if data %}
+                          <tr>
+                            <th class="serial">#</th>
+                            <th>Builty No</th>
+                            <th>Date</th>
+                            <th>Truck No</th>
+                            <th>Owner</th>
+                            <th>From</th>
+                            <th>To</th>
+                            <th>Taluka</th>
+                            <th>District</th>
+                            <th>Consignor</th>
+                            <th>Consigne</th>
+                            <th>Account</th>
+                            <th>Article</th>
+                            <th>Freight</th>
+                            <th>Advance</th>
+                            <th>Balance</th>
+                            <th>Action</th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% if data %}
 
-                            {% for i in data %}
+                        {% for i in data %}
 
 
-                            <tr>
-                                <td class="serial">{{ forloop.counter }}</td>
-                                <td>{{ i.builty.builty_no }}</td>
-                                <td>{{ i.builty.DC_date }}</td>
-                                <td>{{ i.challan_number }}</td>
-                                <td>{{ i.builty.truck_details }}</td>
-                                <td>{{ i.builty.truck_owner }}</td>
-                                <td>{{ i.builty.station_from }}</td>
-                                <td>{{ i.builty.station_to }}</td>
-                                <td>{{ i.builty.consignor }}</td>
-                                <td>{{ i.builty.consignee }}</td>
-                                <td>{{ i.builty.onaccount }}</td>
-                                <td>{{ i.builty.freight }}</td>
-                                <td>{{ i.builty.less_advance }}</td>
-                                <td>{{ i.builty.balance }}</td>
-                                <td>{{ i.challan_date }}</td>
-
-                                
+                        <tr>
+                            <td class="serial">{{ forloop.counter }}</td>
+                            <td>{{ i.builty_no }}</td>
+                            <td>{{ i.DC_date }}</td>
+                            <td>{{ i.truck_details }}</td>
+                            <td>{{ i.truck_owner }}</td>
+                            <td>{{ i.station_from }}</td>
+                            <td>{{ i.station_to }}</td>
+                            <td>{{ i.taluka }}</td>
+                            <td>{{ i.district }}</td>
+                            <td>{{ i.consignor }}</td>
+                            <td>{{ i.consignee }}</td>
+                            <td>{{ i.onaccount }}</td>
+                            <td>{{ i.article }}</td>
+                            <td>{{ i.freight }}</td>
+                            <td>{{ i.less_advance }}</td>
+                            <td>{{ i.balance }}</td>
                                 <td>  
 
                                     

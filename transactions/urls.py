@@ -19,12 +19,12 @@ urlpatterns = [
 
     path('add-ack', add_ack, name='add_ack'),
 
+    path('list-ack-all', list_ack_all, name='list_ack_all'),
     path('list-ack', list_ack, name='list_ack'),
     path('list-not-ack', list_not_ack, name='list_not_ack'),
     
     path('update-ack/<challan_id>', update_ack, name='update_ack'),
 
-    path('add-ack', add_ack, name='add_ack'),
     
     path('mass_edit_request', mass_edit_request, name='mass_edit_request'),
     path('mass_approve_request', mass_approve_request, name='mass_approve_request'),
@@ -33,6 +33,7 @@ urlpatterns = [
 
     path('get_district', get_district, name='get_district'),
     path('get_owner', get_owner, name='get_owner'),
+    path('get_taluka_district', get_taluka_district, name='get_taluka_district'),
 
 
     path('generate_bill', generate_bill, name='generate_bill'),
@@ -41,6 +42,7 @@ urlpatterns = [
 
     path('truck-report', truck_report, name='truck_report'),
     path('diesel-report', diesel_report, name='diesel_report'),
+    path('porch-report', porch_report, name='porch_report'),
 
 
 

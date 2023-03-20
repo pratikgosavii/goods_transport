@@ -126,7 +126,11 @@
     
     .select2-container--default .select2-selection--single .select2-selection__rendered {
         color: #444;
-        line-height: 46px;
+        line-height: 52px;
+    }
+
+    .select2-selection--single{
+        height: 50px !important;
     }
 
       select {
@@ -230,7 +234,7 @@
                                             
                                             <div class="input-wrapper" style="display:flex;">
                                                 <label for="first">Article</label>
-                                                <select name="article" id="article" required="">
+                                                <select name="article"  class="sele" id="article" required="">
                                                 <option value="" selected="">---------</option>
 
                                                 {% for i in article_data %}
@@ -327,7 +331,7 @@
                                            
                                             <div class="input-wrapper" style="display:flex;">
                                                 <label for="first">Onaccount</label>
-                                                <select name="onaccount" id="onaccount" required="">
+                                                <select name="onaccount" id="onaccount" class="sele" required="">
                                                     <option value="" selected="">---------</option>
 
                                                     
@@ -350,6 +354,19 @@
 
                                                   </div>
                                             
+                                                
+                                            
+                                        </td>
+
+                                        <td>
+
+                                            <div class="input-wrapper" style="display:flex;">
+                                                <label for="first">Mobile No</label>
+                                                {{ form.mobile_no }}
+
+                                              </div>
+
+                                              
                                         </td>
 
                                     </tr>
@@ -814,6 +831,11 @@
                                 {{ station_Form.name }}
                             </div>
 
+                            <div class="input-wrapper" style="display:flex;">
+                                <label for="first">Taluka name</label>
+                                {{ station_Form.taluka }}
+                            </div>
+
                     
                     
                     <div class="modal-footer">
@@ -1050,6 +1072,40 @@
                     $('#truck_owner').html(let_html);
 
                 
+            
+            }
+
+        });
+
+
+    });
+
+    $("#station_to").change(function () {
+        stationid = ($(this).val());
+
+            
+
+        $.ajax({   
+            cache: false,                    // initialize an AJAX request
+            type: "POST",
+            url: "{% url 'get_taluka_district' %}",
+            data: { 'csrfmiddlewaretoken':$('input[name=csrfmiddlewaretoken]').val(), 'station_id' : stationid },     // add the country id to the POST parameters
+
+            success: function (data) {   // `data` is from `get_topics_ajax` view function
+
+                    console.log('------------------------')
+                    console.log(data)
+
+                    
+                    var a = JSON.parse(data.data)
+                    
+
+                    let_html = '<option value="' + a[0].pk + '" selected>' + a[0].fields.name + '</option>'
+
+                    $('#taluka').html(let_html);
+
+                    document.getElementById('district').value = a[0].fields.district;
+
             
             }
 
@@ -1349,7 +1405,7 @@
     $("#truck_owner").css("pointer-events","none");
     $("#district").css("pointer-events","none");
 
-
+    document.getElementById("balance").readOnly = true
 
 //-----------------------------------------------------------
     
@@ -1389,13 +1445,12 @@
 
 
 
-    $("#less_tds, #less_advance, #rate").change(function(e){
+    $("#less_advance, #rate").change(function(e){
             
         let less_advance = document.getElementById('less_advance').value;
-        let less_tds = document.getElementById('less_tds').value;
         let less_freight = document.getElementById('freight').value;
 
-        let balance = parseFloat((global_freight - less_advance - less_tds).toFixed(2));
+        let balance = parseFloat((global_freight - less_advance).toFixed(2));
         
         document.getElementById("balance").value = balance;
 

@@ -106,14 +106,6 @@ class truck_details(models.Model):
    
  
 
-class station(models.Model):
-
-    name =  models.CharField(max_length=120, unique=True)
-
-        
-    def __str__(self):
-        return self.name
- 
 
 class district(models.Model):
 
@@ -134,6 +126,14 @@ class taluka(models.Model):
         return self.name
  
 
+ 
+class station(models.Model):
+
+    name =  models.CharField(max_length=120, unique=True)
+    taluka =  models.ForeignKey(taluka, related_name="fefdws", on_delete=models.CASCADE)
+        
+    def __str__(self):
+        return self.name
  
 
 class rate(models.Model):
