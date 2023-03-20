@@ -8,6 +8,7 @@ urlpatterns = [
    
     path('add-transaction/', add_transaction, name='add_transaction'),
     path('update-transaction/<bulity_id>', update_builty, name='update_builty'),
+    path('delete-transaction/<builty_id>', delete_transaction, name='delete_transaction'),
     path('list-transaction/', list_transaction, name='list_transaction'),
 
     path('request-edit-builty/<bulity_id>', add_request_edit, name='request_edit'),

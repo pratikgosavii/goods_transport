@@ -14,9 +14,12 @@ def dashboard(request):
     truck_count = truck_details.objects.all().count()
     user_count = User.objects.all().count()
 
+    builty_data = builty.objects.all()
+
 
     context = {
         
+        'data': builty_data,
         'truck_count': truck_count,
         'builty_count': builty_count,
         'user_count': user_count,
