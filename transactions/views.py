@@ -1115,10 +1115,10 @@ def porch_report(request):
     print('------------------------')
 
 
-    data = builty.objects.filter(have_ack = None).order_by("builty_no")
+    data = builty.objects.all().order_by("builty_no")
 
     builty_filters = builty_filter(request.GET, queryset=data)
-    builty_filters_data1 = list(builty_filters.qs.values_list('builty_no', 'have_ack__challan_number', 'have_ack__challan_date', 'truck_details__truck_number', 'station_from__name', 'station_to__name', 'mt', 'rate', 'freight', 'less_advance', 'balance'))
+    builty_filters_data1 = list(builty_filters.qs.values_list('builty_no', 'DC_date', 'have_ack__challan_number', 'have_ack__challan_date', 'truck_details__truck_number', 'station_to__name', 'mt', 'rate', 'freight', 'less_advance', 'balance'))
     builty_filters_data = list(map(list, builty_filters_data1))
     
 
@@ -1128,10 +1128,10 @@ def porch_report(request):
     
     vals1.append("Sr No")
     vals1.append("Builty No")
+    vals1.append("Builty Date")
     vals1.append("Challan No")
     vals1.append("Challan Date")
     vals1.append("Truck No")
-    vals1.append("From")
     vals1.append("To")
     vals1.append("MT")
     vals1.append("Rate")

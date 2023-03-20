@@ -225,10 +225,10 @@
                             <tr>
                                 <th class="serial">#</th>
                                 <th>Builty No</th>
+                                <th>Builty Date</th>
                                 <th>Challan No</th>
                                 <th>Challan Date</th>
                                 <th>Truck No</th>
-                                <th>From</th>
                                 <th>To</th>
                                 <th>MT</th>
                                 <th>Rate</th>
@@ -247,11 +247,11 @@
 
                                 <td class="serial" style="">{{ forloop.counter }}</td>
                                 <td>{{ i.builty_no }}</td>
+                                <td>{{ i.DC_date }}</td>
                                 <td>{{ i.have_ack.all.0.challan_number }}</td>
                                 <td>{{ i.have_ack.all.0.challan_date }}</td>
                                 <td>{{ i.truck_details }}</td>
                                 <td>{{ i.station_from }}</td>
-                                <td>{{ i.station_to }}</td>
                                 <td>{{ i.mt }}</td>
                                 <td>{{ i.rate }}</td>
                                 <td>{{ i.freight }}</td>
