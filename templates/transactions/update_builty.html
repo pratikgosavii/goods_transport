@@ -124,7 +124,10 @@
 
     .select2-container--default .select2-selection--single .select2-selection__rendered {
         color: #444;
-        line-height: 46px;
+        line-height: 52px;
+    }
+    .select2-selection--single{
+        height: 50px !important;
     }
 
 
@@ -1076,6 +1079,42 @@
 
 
     
+    $("#station_to").change(function () {
+        stationid = ($(this).val());
+
+            
+
+        $.ajax({   
+            cache: false,                    // initialize an AJAX request
+            type: "POST",
+            url: "{% url 'get_taluka_district' %}",
+            data: { 'csrfmiddlewaretoken':$('input[name=csrfmiddlewaretoken]').val(), 'station_id' : stationid },     // add the country id to the POST parameters
+
+            success: function (data) {   // `data` is from `get_topics_ajax` view function
+
+                    console.log('------------------------')
+                    console.log(data)
+
+                    
+                    var a = JSON.parse(data.data)
+                    
+
+                    let_html = '<option value="' + a[0].pk + '" selected>' + a[0].fields.name + '</option>'
+
+                    $('#taluka').html(let_html);
+
+                    document.getElementById('district').value = a[0].fields.district;
+
+            
+            }
+
+        });
+
+
+    });
+
+
+    
    
     document.getElementById('consignor_form').addEventListener('submit', function(evt){
         
@@ -1374,36 +1413,64 @@
 
 //-----------------------------------------------------------
     
+   
+
+
     let global_mt = 0
     let global_freight = 0
 
     bags.addEventListener("input", function (e) {
 
-        
+
         let bags = this.value;
 
-        global_mt = parseFloat((bags / 20).toFixed(2));
+        global_mt = bags / 20;
 
         document.getElementById("mt").value = global_mt;
 
         rate = document.getElementById('rate').value;
-        
-        global_freight =  parseFloat((global_mt * rate).toFixed(2));
+
+        global_freight =  global_mt * rate;
 
         document.getElementById("freight").value = global_freight;
     });
-    
+
 
     rate.addEventListener("input", function (e) {
 
-        
+
         let rate = this.value;
 
-        global_freight =  parseFloat((global_mt * rate).toFixed(2));
+        global_freight =  global_mt * rate;
 
         document.getElementById("freight").value = global_freight;
-        
+
     });
+
+    less_advance.addEventListener("input", function (e) {
+
+
+        let less_advance = this.value;
+        let less_tds = document.getElementById('less_tds').value;
+
+        let balance = global_freight - less_advance - less_tds;
+
+        document.getElementById("balance").value = balance;
+
+    });
+
+    less_tds.addEventListener("input", function (e) {
+
+
+        let less_tds = this.value;
+        let less_advance = document.getElementById('less_advance').value;
+
+        let balance = global_freight - less_advance - less_tds;
+
+        document.getElementById("balance").value = balance;
+
+    });
+
 
 
 

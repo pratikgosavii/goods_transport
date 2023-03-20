@@ -39,6 +39,7 @@ class builty(models.Model):
     article = models.ForeignKey(article , on_delete=models.CASCADE, related_name='dffdcxvc')
     bags = models.FloatField()
     delivery_no = models.FloatField()
+    mobile_no = models.FloatField(null = True, blank = True, default=0)
     ex_for = models.CharField(max_length=50, choices=ex_for, default="for")
     mode = models.CharField(max_length=50, choices=mode, default="cash")
     note = models.CharField(null = True, blank = True, max_length=50)
@@ -64,7 +65,7 @@ class ack(models.Model):
     challan_date = models.DateField(blank = True, null = True, auto_now_add=False)
 
     def __str__(self):
-        return self.builty
+        return self.builty.builty_no
 
 class request_edit(models.Model):
 

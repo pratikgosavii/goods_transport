@@ -87,6 +87,9 @@ class station_Form(forms.ModelForm):
             'name': forms.TextInput(attrs={
                 'class': 'form-control', 'id': 'name'
             }),
+            'taluka': forms.Select(attrs={
+                'class': 'form-control', 'id': 'taluka'
+            }),
             
             
         }

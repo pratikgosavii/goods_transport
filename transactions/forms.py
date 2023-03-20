@@ -47,7 +47,7 @@ class builty_Form(forms.ModelForm):
             }),
             'taluka': forms.Select(attrs={
                 'id': 'taluka',
-                'class' : 'sele',
+                'class' : 'se',
             }),
             'district': forms.Select(attrs={
                 'id': 'district', 'class' : 'se'
@@ -58,6 +58,10 @@ class builty_Form(forms.ModelForm):
             'onaccount': forms.Select(attrs={
                 'id': 'onaccount',
                 'class' : 'sele',
+            }),
+             'mobile_no': forms.NumberInput(attrs={
+                
+
             }),
             'article': forms.Select(attrs={
                 'id': 'article',                
@@ -74,6 +78,8 @@ class builty_Form(forms.ModelForm):
                 'value' : 0.0
 
             }),
+
+           
             'delivery_no': forms.NumberInput(attrs={
                 'step': "0.01",
                 'id': 'delivery_no',
@@ -120,7 +126,7 @@ class builty_Form(forms.ModelForm):
             'balance': forms.NumberInput(attrs={
                 'step': "0.01",
                 'id': 'balance',
-                'class' : 'cus'
+                'class' : 'se cus'
             }),
             'diesel': forms.NumberInput(attrs={
                 'step': "0.01",

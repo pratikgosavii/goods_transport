@@ -100,58 +100,84 @@
 
 
     
-    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample" style="margin-bottom:10px;">
-      Filters
-    </button>
+<p>
+    
+  <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+    Filters
+  </button>
+</p>
+<div class="collapse" id="collapseExample">
+  <div class="card card-body" style="width: fit-content;">
+    
 
-  <div class="collapse" id="collapseExample">
-    <div class="card card-body">
-      
+      <form method="get" action="" style="padding:15px;">
 
-        <form method="get" action="" style="padding:15px;">
+          {% csrf_token %}
 
-            {% csrf_token %}
+          <div class="form-group" style="display: flex;
+          gap: 14px;">
 
-            <div class="form-group" style="display: flex;
-            gap: 14px;">
-                                            
-                <label for="name" class="control-label mb-1">Consignor</label>
-                {{ builty_filter.form.consignor }}
+          <label for="name" class="control-label mb-1" style="margin-left : 0px;">Builty No</label>
+                  {{ builty_filter.form.builty_no }}
+                      
+                  
+              <label for="name" class="control-label mb-1" style="margin-left : 0px;">Truck No</label>
+              {{ builty_filter.form.truck_details }}
+                 
+              <label for="name" class="control-label mb-1" style="margin-left : 0px;">Truck Owner</label>
+              {{ builty_filter.form.builty__truck_owner }}
+               
+
+              <label for="name" class="control-label mb-1">Consignor</label>
+              {{ builty_filter.form.consignor }}
+          
             
-                
-                <label for="name" class="control-label mb-1 la">Article</label>
-                {{ builty_filter.form.article }}
+                                          
+                  
+              </div>
+          
+                  <div class-"form-group" style="display: flex;
+                  gap: 14px;">
+                                      
+                  <label for="name" class="control-label mb-1" style="margin-left : 0px;">Builty Date From</label>
+                  {{ builty_filter.form.DC_date_start__date }}
+              
+
+
+              <label for="name" class="control-label mb-1">Builty Date To</label>
+              {{ builty_filter.form.DC_date_end__date }}
 
 
 
-                                            
-                    <label for="name" class="control-label mb-1" style="margin-left : 0px;">Builty No</label>
-                    {{ builty_filter.form.builty_no }}
-                </div>
-            
-                    <div class-"form-group" style="display: flex;
-                    gap: 14px;">
-                                        
-                    <label for="name" class="control-label mb-1" style="margin-left : 0px;">Date From</label>
-                    {{ builty_filter.form.DC_date_start__date }}
-                
 
 
-                <label for="name" class="control-label mb-1">Date To</label>
-                                                {{ builty_filter.form.DC_date_end__date }}
+          </div>
+          
+                  <div class-"form-group" style="display: flex;
+                  gap: 14px;">
+                                      
+                  <label for="name" class="control-label mb-1" style="margin-left : 0px;">Challan Date From</label>
+                  {{ builty_filter.form.challan_date_start__date }}
+              
+
+
+              <label for="name" class="control-label mb-1">Challan Date To</label>
+              {{ builty_filter.form.challan_date_end__date }}
 
 
 
-            </div>
 
-            <br>
-           
-            
-            <button class="btn btn-primary" type="submit" > Search </button>
 
-        </form>
-    </div>
+          </div>
+
+          <br>
+        
+          <button class="btn btn-primary" type="submit" > Submit </button>
+
+      </form>
   </div>
+</div>
+
 
 
   <div class="dropdown">
@@ -159,6 +185,7 @@
       {{ value }}
     </button>
     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+      <a class="dropdown-item" href="{% url 'list_ack_all' %}">----- All ----- </a>
       <a class="dropdown-item" href="{% url 'list_ack' %}">Acknowleged </a>
       <a class="dropdown-item" href="{% url 'list_not_ack' %}">Not Acknowleged </a>
     </div>
@@ -227,6 +254,9 @@
                                 <th>Consigne</th>
                                 <th>Account</th>
                                 <th>Article</th>
+                                <th>Freight</th>
+                                <th>Advance</th>
+                                <th>Balance</th>
                                 <th>Action</th>
                                 
                             </tr>
@@ -252,7 +282,9 @@
                                 <td>{{ i.consignee }}</td>
                                 <td>{{ i.onaccount }}</td>
                                 <td>{{ i.article }}</td>
-                                
+                                <td>{{ i.freight }}</td>
+                                <td>{{ i.less_advance }}</td>
+                                <td>{{ i.balance }}</td>
                                 <td>  
 
                                     
@@ -275,7 +307,19 @@
                             {% endif %}
                         </tbody>
                     </table>
-
+                    <footer class="site-footer">
+                      <div class="footer-inner bg-white">
+                          <div class="row" style="float: right;">
+                              <p style="font-weight: 700;
+                              color: black;;margin-left:30px;border : 1px solid grey;padding : 10px;"> Total Freight :- {{ total_freight }} RS</p>
+                              <p style="font-weight: 700;
+                              color: black;margin-left:30px;border : 1px solid grey;padding : 10px;">  Advance :- {{ total_advance }} RS</p><br>
+                              <p style="font-weight: 700;
+                              color: black;;margin-left:30px;border : 1px solid grey;padding : 10px;">  Balance :- {{ total_balance }} RS</p>
+                          </div>
+                          <button style="background-color: #05386b; border: green; padding: 10px;border-radius: 12px;" class="btn-info" onclick="mass_edit_request();" > Submit </button>
+                      </div>
+                  </footer>
                           
   {% if data.has_other_pages %}
   <nav>

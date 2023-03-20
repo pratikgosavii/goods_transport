@@ -297,22 +297,28 @@ def list_transaction(request):
         data = paginator.page(paginator.num_pages)
     
     print('-------------------')
-    
-    total = 0
+
+    total_freight = 0
+    total_advance = 0
+    total_balance = 0
 
     for i in data:
-        
-        total = total + i.freight
 
+        if not i.have_ack.filter():
+       
+            total_balance = total_balance + i.balance
 
-    print(total)
+        total_freight = total_freight + i.freight
+        total_advance = total_advance + i.less_advance
 
     
     context = {
         'data' : data,
         'builty_filter' : builty_filters,
         'form' : builty_Form(),
-        'total' : total,
+        'total_freight' : total_freight,
+        'total_advance' : total_advance,
+        'total_balance' : total_balance,
     }
 
 
@@ -467,14 +473,95 @@ def add_subtrip(request):
 
 
 @user_is_active
+def list_ack_all(request):
+
+    data = builty.objects.all()
+    
+    builty_filters = builty_filter(request.GET, queryset=data)
+
+    data = builty_filters.qs
+
+
+   
+
+
+    page = request.GET.get('page', 1)
+    paginator = Paginator(data, 50)
+
+    try:
+        data = paginator.page(page)
+    except PageNotAnInteger:
+        data = paginator.page(1)
+    except EmptyPage:
+        data = paginator.page(paginator.num_pages)
+    
+    total_freight = 0
+    total_advance = 0
+    total_balance = 0
+
+    for i in data:
+
+        if not i.have_ack.filter():
+       
+            total_balance = total_balance + i.balance
+
+        total_freight = total_freight + i.freight
+        total_advance = total_advance + i.less_advance
+
+    context = {
+        'data' : builty_filters.qs,
+        'value' : '----- All -----',
+        'builty_filter' : builty_filters,
+        'total_freight' : total_freight,
+        'total_advance' : total_advance,
+        'total_balance' : total_balance,
+
+        
+    }
+
+
+    return render(request, 'transactions/list_ack_all.html', context)
+
+@user_is_active
 def list_ack(request):
 
     data = ack.objects.all()
+    
+    builty_filters = ack_filter(request.GET, queryset=data)
+    data = builty_filters.qs
+
+    page = request.GET.get('page', 1)
+    paginator = Paginator(data, 50)
+
+    try:
+        data = paginator.page(page)
+    except PageNotAnInteger:
+        data = paginator.page(1)
+    except EmptyPage:
+        data = paginator.page(paginator.num_pages)
+    
+    total_freight = 0
+    total_advance = 0
+    total_balance = 0
+
+    for i in data:
+
+        if not i.have_ack.filter():
+       
+            total_balance = total_balance + i.balance
+
+        total_freight = total_freight + i.freight
+        total_advance = total_advance + i.less_advance
 
     
     context = {
-        'data' : data,
-        'value' : 'Acknowlegde'
+        'data' : builty_filters.qs,
+        'value' : 'Acknowlegde',
+        'builty_filter' : builty_filters,
+        'total_freight' : total_freight,
+        'total_advance' : total_advance,
+        'total_balance' : total_balance,
+
 
         
     }
@@ -487,10 +574,45 @@ def list_not_ack(request):
 
     data = builty.objects.all()
 
+    builty_filters = builty_filter(request.GET, queryset=data)
+    data = builty_filters.qs
+
+
+   
+
+
+    page = request.GET.get('page', 1)
+    paginator = Paginator(data, 50)
+
+    try:
+        data = paginator.page(page)
+    except PageNotAnInteger:
+        data = paginator.page(1)
+    except EmptyPage:
+        data = paginator.page(paginator.num_pages)
     
+    total_freight = 0
+    total_advance = 0
+    total_balance = 0
+
+    for i in data:
+
+        if not i.have_ack.filter():
+       
+            total_balance = total_balance + i.balance
+
+        total_freight = total_freight + i.freight
+        total_advance = total_advance + i.less_advance
+
     context = {
-        'data' : data,
-        'value' : 'Not Acknowlegde'
+        'data' : builty_filters.qs,
+        'value' : 'Not Acknowlegde',
+        'builty_filter' : builty_filters,
+        'total_freight' : total_freight,
+        'total_advance' : total_advance,
+        'total_balance' : total_balance,
+
+
 
         
     }
@@ -655,6 +777,25 @@ def get_owner(request):
         
 
 
+@user_is_active
+def get_taluka_district(request):
+
+    station_id = request.POST.get('station_id')
+
+    station_instance = station.objects.get(id = station_id)
+
+    instance = station_instance.taluka
+
+    
+    data = serializers.serialize('json', [instance])
+
+    print(data)
+   
+
+    return JsonResponse({'data' : data})
+        
+
+
 
 from django.views.generic import View
 from django.utils import timezone
@@ -779,230 +920,286 @@ import csv
 def truck_report(request):
 
 
-    if request.method == 'GET':
 
-        print('------------------------')
-
+    print('------------------------')
 
 
 
-        data = builty.objects.all().order_by("builty_no")
 
-        builty_filters = builty_filter(request.GET, queryset=data)
-        builty_filters_data1 = list(builty_filters.qs.values_list('builty_no', 'DC_date', 'truck_details__truck_number', 'truck_owner__owner_name', 'station_from__name', 'station_to__name', 'district__name', 'consignor__name', 'onaccount__name', 'have_ack__challan_date', 'mt', 'rate', 'freight'))
-        print('--------------------------')
+    data = builty.objects.all().order_by("builty_no")
 
-        print(builty_filters_data1)
-        print('--------------------------')
-        builty_filters_data = list(map(list, builty_filters_data1))
-       
+    builty_filters = builty_filter(request.GET, queryset=data)
+    builty_filters_data1 = list(builty_filters.qs.values_list('builty_no', 'DC_date', 'truck_details__truck_number', 'truck_owner__owner_name', 'station_from__name', 'station_to__name', 'district__name', 'consignor__name', 'onaccount__name', 'have_ack__challan_date', 'mt', 'rate', 'freight'))
+    builty_filters_data = list(map(list, builty_filters_data1))
+    
 
-        vals = []
-            
+    vals = []
+        
+    vals1 = []
+    vals1.append("Sr No")
+    vals1.append("Builty No")
+    vals1.append("Date")
+    vals1.append("Truck No")
+    vals1.append("Owner")
+    vals1.append("Station From")
+    vals1.append("Station To")
+    vals1.append("District")
+    vals1.append("Consignor")
+    vals1.append("Account")
+    vals1.append("Chal Date")
+    vals1.append("MT")
+    vals1.append("Rate")
+    vals1.append("Freight")
+    vals.append(vals1)
+
+    counteer = 1
+
+    for i in builty_filters_data:
+        print(builty_filters_data)
         vals1 = []
-        vals1.append("Sr No")
-        vals1.append("Builty No")
-        vals1.append("Date")
-        vals1.append("Truck No")
-        vals1.append("Owner")
-        vals1.append("Station From")
-        vals1.append("Station To")
-        vals1.append("District")
-        vals1.append("Consignor")
-        vals1.append("Account")
-        vals1.append("Chal Date")
-        vals1.append("MT")
-        vals1.append("Rate")
-        vals1.append("Freight")
+        vals1.append(counteer)
+        counteer = counteer + 1
+        vals1.append(i[0])
+        vals1.append([1])
+        vals1.append(i[2])
+        vals1.append(i[3])
+        vals1.append(i[4])
+        vals1.append(i[5])
+        vals1.append(i[6])
+        vals1.append(i[7])
+        vals1.append(i[8])
+        vals1.append(i[9])
+        vals1.append(i[10])
+        vals1.append(i[11])
+        vals1.append(i[12])
         vals.append(vals1)
 
-        counteer = 1
-
-        for i in builty_filters_data:
-            print(builty_filters_data)
-            vals1 = []
-            vals1.append(counteer)
-            counteer = counteer + 1
-            vals1.append(i[0])
-            vals1.append([1])
-            vals1.append(i[2])
-            vals1.append(i[3])
-            vals1.append(i[4])
-            vals1.append(i[5])
-            vals1.append(i[6])
-            vals1.append(i[7])
-            vals1.append(i[8])
-            vals1.append(i[9])
-            vals1.append(i[10])
-            vals1.append(i[11])
-            vals1.append(i[12])
-            vals.append(vals1)
 
 
 
+    total_freight = 0
+    total_advance = 0
+    total_balance = 0
+
+    for i in data:
+
+        if not i.have_ack.filter():
+    
+            total_balance = total_balance + i.balance
+
+        total_freight = total_freight + i.freight
+        total_advance = total_advance + i.less_advance
+
+    total_balance = 0
+    total_advance = 0
+
+    data = builty_filters.qs
 
 
-        total_balance = 0
-        total_advance = 0
+    for i in data:
 
-        data = builty_filters.qs
+        if i.have_ack:
 
-
-        for i in data:
-
-            if i.have_ack:
-
-                print('--------------ack--------------')
-                    
-                total_advance = total_advance + i.less_advance + i.balance
-            else:
-
+            print('--------------ack--------------')
                 
-                total_balance = total_balance + i.balance
-                total_advance = total_advance + i.less_advance
+            total_advance = total_advance + i.less_advance + i.balance
+        else:
+
             
-        name = "Report.csv"
-        path = os.path.join(BASE_DIR) + '\static\csv\\' + name
-        with open(path,  'w', newline="") as f:
-            writer = csv.writer(f)
-            writer.writerows(vals)
-
-
-        link = os.path.join(BASE_DIR) + '\static\csv\\' + name
-
-        context = {
-            'builty_filter' : builty_filters,
-            'link' : link,
-            'data' : data,
-            'total_balance' : total_balance,
-            'total_advance' : total_advance,
-            'builty_filter' : builty_filters,
-        }
-
-        return render(request, 'report/truck_report.html', context)
-
-
-    else:
-
-        data = builty.objects.all()
-
-        builty_filters = builty_filter()
-
-        total_balance = 0
-        total_advance = 0
-
-        for i in data:
             total_balance = total_balance + i.balance
             total_advance = total_advance + i.less_advance
+        
+    name = "Report.csv"
+    path = os.path.join(BASE_DIR) + '\static\csv\\' + name
+    with open(path,  'w', newline="") as f:
+        writer = csv.writer(f)
+        writer.writerows(vals)
 
 
-        context = {
-            'data' : data,
-            'total_balance' : total_balance,
-            'total_advance' : total_advance,
-            'builty_filter' : builty_filters,
-        }
+    link = os.path.join(BASE_DIR) + '\static\csv\\' + name
 
+    context = {
+        'builty_filter' : builty_filters,
+        'link' : link,
+        'data' : data,
+        'total_balance' : total_balance,
+        'total_advance' : total_advance,
+        'builty_filter' : builty_filters,
+    }
 
-        return render(request, 'report/truck_report.html', context)
+    return render(request, 'report/truck_report.html', context)
 
 
 def diesel_report(request):
 
 
-    if request.method == 'GET':
 
-        print('------------------------')
+    print('------------------------')
 
 
-        data = builty.objects.all().order_by("builty_no")
+    data = builty.objects.all().order_by("builty_no")
 
-        builty_filters = builty_filter(request.GET, queryset=data)
-        builty_filters_data1 = list(builty_filters.qs.values_list('builty_no', 'DC_date', 'truck_details__truck_number', 'station_from__name', 'station_to__name', 'consignor__name', 'onaccount__name', 'diesel', 'petrol_pump__name'))
-        builty_filters_data = list(map(list, builty_filters_data1))
-       
+    builty_filters = builty_filter(request.GET, queryset=data)
+    builty_filters_data1 = list(builty_filters.qs.values_list('builty_no', 'DC_date', 'truck_details__truck_number', 'station_from__name', 'station_to__name', 'consignor__name', 'onaccount__name', 'diesel', 'petrol_pump__name'))
+    builty_filters_data = list(map(list, builty_filters_data1))
+    
 
-        vals = []
-            
+    vals = []
+        
+    vals1 = []
+    
+    vals1.append("Sr No")
+    vals1.append("Builty No")
+    vals1.append("Date")
+    vals1.append("Truck No")
+    vals1.append("Station From")
+    vals1.append("Station To")
+    vals1.append("Consignor")
+    vals1.append("Account")
+    vals1.append("Diesel")
+    vals1.append("Petrol Pump")
+    vals.append(vals1)
+
+    counteer = 1
+
+    for i in builty_filters_data:
+        print(builty_filters_data)
         vals1 = []
-      
-        vals1.append("Sr No")
-        vals1.append("Builty No")
-        vals1.append("Date")
-        vals1.append("Truck No")
-        vals1.append("Station From")
-        vals1.append("Station To")
-        vals1.append("Consignor")
-        vals1.append("Account")
-        vals1.append("Diesel")
-        vals1.append("Petrol Pump")
+        vals1.append(counteer)
+        counteer = counteer + 1
+        vals1.append(i[0])
+        vals1.append(i[1])
+        vals1.append(i[2])
+        vals1.append(i[3])
+        vals1.append(i[4])
+        vals1.append(i[5])
+        vals1.append(i[6])
+        vals1.append(i[7])
+        vals1.append(i[8])
         vals.append(vals1)
 
-        counteer = 1
-
-        for i in builty_filters_data:
-            print(builty_filters_data)
-            vals1 = []
-            vals1.append(counteer)
-            counteer = counteer + 1
-            vals1.append(i[0])
-            vals1.append(i[1])
-            vals1.append(i[2])
-            vals1.append(i[3])
-            vals1.append(i[4])
-            vals1.append(i[5])
-            vals1.append(i[6])
-            vals1.append(i[7])
-            vals1.append(i[8])
-            vals.append(vals1)
 
 
+    total_diesel = 0
 
-        total_diesel = 0
+    data = builty_filters.qs
 
-        data = builty_filters.qs
-
-        for i in data:
-            total_diesel = total_diesel + i.diesel
-            
-        name = "Diesel_Report.csv"
-        path = os.path.join(BASE_DIR) + '\static\csv\\' + name
-        with open(path,  'w', newline="") as f:
-            writer = csv.writer(f)
-            writer.writerows(vals)
-
-
-        link = os.path.join(BASE_DIR) + '\static\csv\\' + name
-
-        context = {
-            'builty_filter' : builty_filters,
-            'link' : link,
-            'data' : data,
-            'total_diesel' : total_diesel,
-            'builty_filter' : builty_filters,
-        }
-
-        return render(request, 'report/diesel_report.html', context)
+    for i in data:
+        total_diesel = total_diesel + i.diesel
+        
+    name = "Diesel_Report.csv"
+    path = os.path.join(BASE_DIR) + '\static\csv\\' + name
+    with open(path,  'w', newline="") as f:
+        writer = csv.writer(f)
+        writer.writerows(vals)
 
 
-    else:
+    link = os.path.join(BASE_DIR) + '\static\csv\\' + name
 
-        data = builty.objects.all()
+    context = {
+        'builty_filter' : builty_filters,
+        'link' : link,
+        'data' : data,
+        'total_diesel' : total_diesel,
+        'builty_filter' : builty_filters,
+    }
 
-        builty_filters = builty_filter()
+    return render(request, 'report/diesel_report.html', context)
 
+
+
+def porch_report(request):
+
+
+
+    print('------------------------')
+
+
+    data = builty.objects.filter(have_ack = None).order_by("builty_no")
+
+    builty_filters = builty_filter(request.GET, queryset=data)
+    builty_filters_data1 = list(builty_filters.qs.values_list('builty_no', 'have_ack__challan_number', 'have_ack__challan_date', 'truck_details__truck_number', 'station_from__name', 'station_to__name', 'mt', 'rate', 'freight', 'less_advance', 'balance'))
+    builty_filters_data = list(map(list, builty_filters_data1))
+    
+
+    vals = []
+        
+    vals1 = []
+    
+    vals1.append("Sr No")
+    vals1.append("Builty No")
+    vals1.append("Challan No")
+    vals1.append("Challan Date")
+    vals1.append("Truck No")
+    vals1.append("From")
+    vals1.append("To")
+    vals1.append("MT")
+    vals1.append("Rate")
+    vals1.append("Freight")
+    vals1.append("Advance")
+    vals1.append("Balance")
+    vals.append(vals1)
+
+    counteer = 1
+
+    for i in builty_filters_data:
+        print(builty_filters_data)
+        vals1 = []
+        vals1.append(counteer)
+        counteer = counteer + 1
+        vals1.append(i[0])
+        vals1.append(i[1])
+        vals1.append(i[2])
+        vals1.append(i[3])
+        vals1.append(i[4])
+        vals1.append(i[5])
+        vals1.append(i[6])
+        vals1.append(i[7])
+        vals1.append(i[8])
+        vals1.append(i[9])
+        vals1.append(i[10])
+        vals.append(vals1)
+
+
+
+    total_diesel = 0
+
+    data = builty_filters.qs
+
+    
+    total_freight = 0
+    total_advance = 0
+    total_balance = 0
+
+    for i in data:
+
+        if not i.have_ack.filter():
        
-        data = builty_filters.qs
+            total_balance = total_balance + i.balance
 
-        for i in data:
-            total_diesel = total_diesel + i.diesel
-       
+        total_freight = total_freight + i.freight
+        total_advance = total_advance + i.less_advance
 
-        context = {
-            'data' : data,
-            'total_diesel' : total_diesel,
-            'builty_filter' : builty_filters,
-        }
+    
+    name = "Diesel_Report.csv"
+    path = os.path.join(BASE_DIR) + '\static\csv\\' + name
+    with open(path,  'w', newline="") as f:
+        writer = csv.writer(f)
+        writer.writerows(vals)
 
 
-        return render(request, 'report/diesel_report.html', context)
+    link = os.path.join(BASE_DIR) + '\static\csv\\' + name
+
+    context = {
+        'builty_filter' : builty_filters,
+        'link' : link,
+        'data' : data,
+        'total_diesel' : total_diesel,
+        'builty_filter' : builty_filters,
+        'total_freight' : total_freight,
+        'total_advance' : total_advance,
+        'total_balance' : total_balance,
+    }
+
+    return render(request, 'report/porch_report.html', context)
+
