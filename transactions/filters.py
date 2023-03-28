@@ -19,9 +19,18 @@ class builty_filter(django_filters.FilterSet):
                 'id' : 'company'
             })
     )
-
+    
     article = django_filters.ModelChoiceFilter(
         queryset=article.objects.all(),
+        widget=forms.Select(
+            attrs={
+                'class' : 'form-control',
+                'id' : 'company'
+            })
+    )
+
+    district = django_filters.ModelChoiceFilter(
+        queryset=district.objects.all(),
         widget=forms.Select(
             attrs={
                 'class' : 'form-control',
@@ -53,8 +62,8 @@ class builty_filter(django_filters.FilterSet):
                 'id' : 'petrol_pump'
             })
     )
-    builty_no = django_filters.NumberFilter(
-        widget=forms.NumberInput(
+    builty_no = django_filters.CharFilter(
+        widget=forms.TextInput(
             attrs={
                 'class' : 'form-control',
                 'id' : 'company'
@@ -150,15 +159,15 @@ class ack_filter(django_filters.FilterSet):
             })
     )
 
-    builty__builty_no = django_filters.NumberFilter(
-        widget=forms.NumberInput(
+    builty__builty_no = django_filters.CharFilter(
+        widget=forms.TextInput(
             attrs={
                 'class' : 'form-control',
                 'id' : 'company'
             })
     )
 
-    builty__DC_date_start__date = DateFilter(field_name="DC_date", lookup_expr='gte', widget=forms.DateInput(
+    builty__DC_date_start__date = DateFilter(field_name="builty__DC_date", lookup_expr='gte', widget=forms.DateInput(
             attrs={
                 'id': 'datepicker1212',
                 'type': 'date',
@@ -167,7 +176,7 @@ class ack_filter(django_filters.FilterSet):
         ))
 
 
-    builty__DC_date_end__date = DateFilter(field_name="DC_date", lookup_expr='lte', widget=forms.DateInput(
+    builty__DC_date_end__date = DateFilter(field_name="builty__DC_date", lookup_expr='lte', widget=forms.DateInput(
             attrs={
             'id': 'datepicker1212',
             'type': 'date',
@@ -203,8 +212,8 @@ class ack_filter(django_filters.FilterSet):
 class request_edit_filter(django_filters.FilterSet):
 
     
-    builty_no = django_filters.NumberFilter(
-        widget=forms.NumberInput(
+    builty_no = django_filters.CharFilter(
+        widget=forms.TextInput(
             attrs={
                 'class' : 'form-control',
                 'id' : 'builty_no'

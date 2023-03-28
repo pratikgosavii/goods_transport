@@ -14,7 +14,7 @@ class builty_Form(forms.ModelForm):
             'company': forms.Select(attrs={
                 'id': 'company'
             }),
-            'builty_no': forms.NumberInput(attrs={
+            'builty_no': forms.TextInput(attrs={
                 'step': "0.01",
                 'id': 'builty_no',
                 'readonly':'readonly'

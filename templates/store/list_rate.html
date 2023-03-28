@@ -40,7 +40,6 @@
                                 <th>From Station</th>
                                 <th>To Staion</th>
                                 <th>Company Rate</th>
-                                <th>Own Rate</th>
                                 <th>Actions</th>
                                 
                             </tr>
@@ -53,7 +52,6 @@
                                 <td>{{ i.from_station }}</td>
                                 <td>{{ i.to_station }}</td>
                                 <td>{{ i.company_rate }}</td>
-                                <td>{{ i.own_rate }}</td>
                                 <td>  
                                    <a href="{% url 'update_rate' i.id %}"> <button id="payment-button"  style="background-color: #05386b; border: green; padding: 10px;border-radius: 12px;" type="submit" class="btn-info ">
                                         <span id="payment-button-amount">View</span>

@@ -1,4 +1,4 @@
-<!doctype html>
+{% comment %} <!doctype html>
 <html>
 <head>
     <meta charset="utf-8">
@@ -20,7 +20,7 @@
         .table td {
             padding: 5px;
             vertical-align: top;
-            border-top: 1px solid #000;
+            border-right: 1px solid #000;
             text-align: center;
         }
 
@@ -55,39 +55,199 @@
 
     </style>
 </head>
-<body>
 
-<div class="container">
+
+<body style="padding: 88px;">
+
+<div class="container" style="border: 1px solid black;
+padding: 37px;">
     <div class="card">
-        <div class="card-header">
-            <h3>Sales Report - sdsd</h3>
+        <div class="card-header col-12" style="display: flex;
+        ">
+            <div class="col-9" style="width: 100%;">
+            <h3>Sahani Goods and Transport</h3>
+            <p style="margin-bottom: 0px;"> TRANSPORT CONTRACTOR AND COMMISSION AGENT </p>
+            <p style="margin-top: 0px;"> Near railway station, Akola </p>
+            </div>
+            <div class="col-3" style="width: 100%;text-align: right;">
+                <p> Builty No :- </p>
+                <p> Date :- </p>
+                <p> Truck No :- </p>
+            </div>
+
         </div>
 
-        <div class="list-group">
-            <p>Name:sdsd</p>
-        </div>
+        <hr>
 
         <table class="table">
             <thead>
             <tr>
-                <th>Raised</th>
-                <th>Product</th>
+                <th>No of article</th>
+                <th>Description</th>
                 <th>Quantity</th>
-                <th>Price</th>
-                <th>Customer</th>
+                <th>Freight</th>
             </tr>
             </thead>
             <tbody>
-            {% for sale in sales %}
                 <tr>
                     <td>wdsdsd</td>
                     
                 </tr>
-            {% endfor %}
             </tbody>
         </table>
+
+        <div class="card-header col-12" style="display: flex;">
+            <div class="col-6" style="width: 100%;border: 1px solid black;padding: 10px;">
+            <h3>Terms</h3>
+            <p style="margin-bottom: 0px;">sddddddddddd sdsdnnbs dhs dsbd sbd sdu sdh sdbmsbdbsmhd shdhsgdhsg dsgdhs dsdjs</p>
+            </div>
+            <div class="col-3" style="width: 100%;text-align: right;border: 1px solid black;">
+                <p style="text-align: center;"> RECIEPT and Time Stamp</p>
+               
+            </div>
+
+            <div class="col-3" style="width: 100%;text-align: right;border: 1px solid black;">
+               
+            </div>
+
+        </div>
+
+
+        
     </div>
 </div>
 
+</body>
+</html> {% endcomment %}
+
+
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
+</head>
+
+<body>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td colspan="2"><img src="logo.png" width="150"  /></td>
+  </tr>
+  <tr>
+    <td colspan="2">&nbsp;</td>
+  </tr>
+  <tr>
+    <td width="49%"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td><table width="100%" border="0" cellspacing="0" cellpadding="0">
+          {% comment %} <tr>
+            <td style="font-family:Verdana, Geneva, sans-serif; font-weight:600; font-size:15px;">Invoice Receipt</td>
+          </tr>
+          <tr>
+            <td style="font-family:Verdana, Geneva, sans-serif; font-weight:300; font-size:13px;">Invoice Number: {{data.id}}</td>
+          </tr>
+          <tr> {% endcomment %}
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td style="font-family:Verdana, Geneva, sans-serif; font-weight:600; font-size:15px;">Sahani Goods and Transport </td>
+          </tr>
+          <tr>
+            <td style="font-family:Verdana, Geneva, sans-serif; font-weight:400; font-size:13px;">TRANSPORT CONTRACTOR AND COMMISSION AGENT </td>
+          </tr>
+
+            <td style="font-family:Verdana, Geneva, sans-serif; font-weight:300; font-size:12px;"> Near railway station, Akola  </td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+          </tr>
+          </table></td>
+      </tr>
+    </table></td>
+    <td width="51%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td align="right"><img src="logo.png" alt="" width="150"  /></td>
+      </tr>
+      <tr>
+        <td style="font-family:Verdana, Geneva, sans-serif; font-weight:300; font-size:13px;" align="right"></td>
+      </tr>
+      <tr>
+        <td style="font-family:Verdana, Geneva, sans-serif; font-weight:300; font-size:13px;"  align="right">&nbsp;</td>
+      </tr>
+      <tr>
+        <td style="font-family:Verdana, Geneva, sans-serif; font-weight:300; font-size:13px;"  align="right">Builty No : {{data.order_date}}</td>
+      </tr>
+      <tr>
+        <td style="font-family:Verdana, Geneva, sans-serif; font-weight:300; font-size:13px;"  align="right">Date : {{data.order_date}}</td>
+      </tr>
+      <tr>
+      <td style="font-family:Verdana, Geneva, sans-serif; font-weight:300; font-size:13px;"  align="right">Truck No : {{data.order_date}}</td>
+      </tr>
+      {% comment %} <tr>
+        <td style="font-family:Verdana, Geneva, sans-serif; font-weight:600; font-size:15px;" align="right">Customer Name</td>
+      </tr> {% endcomment %}
+     
+      
+
+    </table></td>
+  </tr>
+  <tr>
+    <td colspan="2">&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan="2"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td style="font-family:Verdana, Geneva, sans-serif; font-weight:600; font-size:13px; border-top:1px solid #333; border-bottom:1px solid #333; border-left:1px solid #333; border-right:1px solid #333;" width="34%" height="32" align="center">No of article</td>
+        <td style="font-family:Verdana, Geneva, sans-serif; font-weight:600; font-size:13px; border-top:1px solid #333; border-bottom:1px solid #333; border-right:1px solid #333;" width="30%" height="32" align="center">Description</td>
+        <td style="font-family:Verdana, Geneva, sans-serif; font-weight:600; font-size:13px; border-top:1px solid #333; border-bottom:1px solid #333; border-right:1px solid #333;" width="30%" align="center">Quantity</td>
+        <td style="font-family:Verdana, Geneva, sans-serif; font-weight:600; font-size:13px; border-top:1px solid #333; border-bottom:1px solid #333; border-right:1px solid #333;" width="30%" align="center">Freight</td>
+      </tr>
+      <tr>
+        <td style="font-family:Verdana, Geneva, sans-serif; font-weight:300; font-size:13px; border-bottom:1px solid #333; border-left:1px solid #333; border-right:1px solid #333;" height="32" align="center">{{data.description}}</td>
+        <td style="font-family:Verdana, Geneva, sans-serif; font-weight:300; font-size:13px; border-bottom:1px solid #333; border-right:1px solid #333;" align="center">{{data.amount}}</td>
+        <td style="font-family:Verdana, Geneva, sans-serif; font-weight:300; font-size:13px; border-bottom:1px solid #333; border-right:1px solid #333;" align="center">{{data.pay_method}}</td>
+        <td style="font-family:Verdana, Geneva, sans-serif; font-weight:300; font-size:13px; border-bottom:1px solid #333; border-right:1px solid #333;" align="center">{{data.pay_method}}</td>
+      </tr>
+    </table></td>
+  </tr>
+  <tr>
+    <td colspan="2">&nbsp;</td>
+  </tr> 
+  <tr>
+    <td colspan="2">&nbsp;</td>
+  </tr>
+  <tr>
+    <td style="font-family:Verdana, Geneva, sans-serif; font-weight:600; font-size:13px;" colspan="2">TERMS Note:</td>
+  </tr>
+  <tr>
+    <td style="font-family:Verdana, Geneva, sans-serif; font-weight:300; font-size:13px;" colspan="2">Dear Consumer, the bill payment will reflect in next 48 hours in your account. Please  contact our customer support for any queries regarding this order.</td>
+  </tr>
+  <tr>
+    <td colspan="2">&nbsp;</td>
+  </tr>
+  <tr>
+    <td style="font-family:Verdana, Geneva, sans-serif; font-weight:600; font-size:13px;" colspan="2">Thank you for using our service</td>
+  </tr>
+    <td colspan="2">&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan="2">&nbsp;</td>
+  </tr>
+  <tr>
+    <td style="font-family:Verdana, Geneva, sans-serif; font-weight:300; font-size:13px;" colspan="2" align="center">(Reciever Stamp) </td>
+  </tr>
+  <tr>
+    <td colspan="2">&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan="2">&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan="2">&nbsp;</td>
+  </tr>
+</table>
 </body>
 </html>

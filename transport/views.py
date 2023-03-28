@@ -14,8 +14,10 @@ def dashboard(request):
     truck_count = truck_details.objects.all().count()
     user_count = User.objects.all().count()
 
-    builty_data = builty.objects.all()
-
+    if request.user.is_superuser:
+        builty_data = builty.objects.all()
+    else:
+        builty_data = None
 
     context = {
         

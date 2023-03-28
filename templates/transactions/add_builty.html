@@ -132,6 +132,10 @@
     .select2-selection--single{
         height: 50px !important;
     }
+    .select2-search__field{
+        margin: 1px;
+        margin-top: 5px;
+    }
 
       select {
         border: 1px solid gray !important;
@@ -1282,7 +1286,9 @@
 
                     let_html = '<option value="' + data.id + '" selected>' + data.value + '</option>'
 
-                    $('#truck_owner').append(let_html);
+                    $('select[name="truck_owner"]').append(let_html);
+
+                    
 
                 }
                 else{
@@ -1404,6 +1410,7 @@
 
     $("#truck_owner").css("pointer-events","none");
     $("#district").css("pointer-events","none");
+    $("#taluka").css("pointer-events","none");
 
     document.getElementById("balance").readOnly = true
 

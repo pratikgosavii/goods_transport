@@ -186,18 +186,6 @@ class rate_Form(forms.ModelForm):
             'company_rate': forms.NumberInput(attrs={
                 'class': 'form-control', 'id': 'mobile_number'
             }),
-            
-            
-            'own_rate': forms.NumberInput(attrs={
-                'class': 'form-control', 'id': 'mobile_number'
-            }),
-            
-            
-            'own_rate': forms.NumberInput(attrs={
-                'class': 'form-control', 'id': 'mobile_number'
-            }),
-            
-
         }
            
 

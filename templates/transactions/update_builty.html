@@ -130,6 +130,10 @@
         height: 50px !important;
     }
 
+    .select2-search__field{
+        margin: 1px;
+        margin-top: 5px;
+    }
 
       select {
         border: 1px solid gray !important;
@@ -211,6 +215,19 @@
                                 <div class="col-6" style="border-right : 1px solid black">
                                 
                                 <table style="width:100%;">
+
+                                    <tr>
+
+                                        <td>
+                                            
+                                                <div class="input-wrapper" style="display:flex;">
+                                                    <label for="first">Builty No</label>
+                                                    {{ form.builty_no }} 
+                                                  </div>
+                                        </td>
+
+                                    </tr>
+
                             
                                     <tr>
                                         <td>
@@ -233,7 +250,7 @@
                                             
                                             <div class="input-wrapper" style="display:flex;">
                                                 <label for="first">Article</label>
-                                                <select name="article" id="article" required="">
+                                                <select name="article"  class="sele" id="article" required="">
                                                 <option value="" selected="">---------</option>
 
                                                 {% for i in article_data %}
@@ -247,27 +264,7 @@
                                     </tr>
                                     
                                    
-                                    <tr>
-                                        <td>
-                                            
-                                                <div class="input-wrapper" style="display:flex;">
-                                                    <label for="first">Builty No</label>
-                                                    {{ form.builty_no }}
-                                                  </div>
-                                            
-
-                                        </td>
-                                        <td>
-                                            
-                                                <div class="input-wrapper" style="display:flex;">
-                                                    <label for="first">Date</label>
-                                                    {{ form.DC_date }}
-
-                                                  </div>
-                                            
-                                        </td>
-
-                                    </tr>
+                        
                                 
                                     <tr>
 
@@ -350,7 +347,7 @@
                                            
                                             <div class="input-wrapper" style="display:flex;">
                                                 <label for="first">Onaccount</label>
-                                                <select name="onaccount" id="onaccount" required="">
+                                                <select name="onaccount" id="onaccount" class="sele" required="">
                                                     <option value="" selected="">---------</option>
 
                                                     
@@ -361,7 +358,36 @@
                                             </div>
                                         
                                     </td>
-                                    </tr>            
+                                    </tr>
+
+                                    <tr>
+                                        
+                                        <td>
+                                            
+                                                <div class="input-wrapper" style="display:flex;">
+                                                    <label for="first">Date</label>
+                                                    {{ form.DC_date }}
+
+                                                  </div>
+                                            
+                                                
+                                            
+                                        </td>
+
+                                        <td>
+
+                                            <div class="input-wrapper" style="display:flex;">
+                                                <label for="first">Mobile No</label>
+                                                {{ form.mobile_no }}
+
+                                              </div>
+
+                                              
+                                        </td>
+
+                                    </tr>
+
+                                  
                                     
                                 </table>
 
@@ -484,8 +510,6 @@
                                 </div>
                             </div>
 <br>
-
-
 {% comment %}                             
 
                             <div class="form-group">
@@ -540,7 +564,7 @@
             color: white;
             font-weight: bold;
             font-size: 14px;" type="button">
-            <span id="payment-button-amount">Request Edit</span>
+            <span id="payment-button-amount">Request sdsdd Edit</span>
         </button> </a>
 
      {% endif %}
@@ -1408,6 +1432,7 @@
 
     $("#truck_owner").css("pointer-events","none");
     $("#district").css("pointer-events","none");
+    $("#taluka").css("pointer-events","none");
 
 
 
@@ -1415,67 +1440,59 @@
     
    
 
+        
+let global_mt = 0
+let global_freight = 0
 
-    let global_mt = 0
-    let global_freight = 0
+bags.addEventListener("input", function (e) {
 
-    bags.addEventListener("input", function (e) {
+    
+    let bags = this.value;
 
+    global_mt = parseFloat((bags / 20).toFixed(2));
 
-        let bags = this.value;
+    document.getElementById("mt").value = global_mt;
 
-        global_mt = bags / 20;
+    rate = document.getElementById('rate').value;
+    
+    global_freight =  parseFloat((global_mt * rate).toFixed(2));
 
-        document.getElementById("mt").value = global_mt;
-
-        rate = document.getElementById('rate').value;
-
-        global_freight =  global_mt * rate;
-
-        document.getElementById("freight").value = global_freight;
-    });
-
-
-    rate.addEventListener("input", function (e) {
+    document.getElementById("freight").value = global_freight;
+});
 
 
-        let rate = this.value;
+rate.addEventListener("input", function (e) {
 
-        global_freight =  global_mt * rate;
+    
+    let rate = this.value;
 
-        document.getElementById("freight").value = global_freight;
+    global_freight =  parseFloat((global_mt * rate).toFixed(2));
 
-    });
-
-    less_advance.addEventListener("input", function (e) {
-
-
-        let less_advance = this.value;
-        let less_tds = document.getElementById('less_tds').value;
-
-        let balance = global_freight - less_advance - less_tds;
-
-        document.getElementById("balance").value = balance;
-
-    });
-
-    less_tds.addEventListener("input", function (e) {
-
-
-        let less_tds = this.value;
-        let less_advance = document.getElementById('less_advance').value;
-
-        let balance = global_freight - less_advance - less_tds;
-
-        document.getElementById("balance").value = balance;
-
-    });
+    document.getElementById("freight").value = global_freight;
+    
+});
 
 
 
+
+
+$("#less_advance, #rate").change(function(e){
+        
+    let less_advance = document.getElementById('less_advance').value;
+    let less_freight = document.getElementById('freight').value;
+
+    let balance = parseFloat((global_freight - less_advance).toFixed(2));
+    
+    document.getElementById("balance").value = balance;
+
+});
+    
+
+document.getElementById("consignor").value = {{ form.consignor.value }};
+document.getElementById("article").value = {{ form.article.value }};
+document.getElementById("onaccount").value = {{ form.onaccount.value }};
 
         
-    $('.sele').select2();
 {% comment %} 
     $(':input').attr('readonly','readonly');
     $(".sele").css("pointer-events","none");
@@ -1489,6 +1506,7 @@
     $("#mode").css("pointer-events","none");
     $("#petrol_pump").css("pointer-events","none"); {% endcomment %}
 
+    $('.sele').select2();
 
     
     {% if form.instance.editable == False %}
@@ -1497,7 +1515,6 @@
 
 
      {% endif %}
-
 
     
 </script>

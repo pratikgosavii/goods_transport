@@ -37,7 +37,7 @@ urlpatterns = [
     path('get_taluka_district', get_taluka_district, name='get_taluka_district'),
 
 
-    path('generate_bill', generate_bill, name='generate_bill'),
+    path('generate_bill/<id>', GeneratePdf.as_view(), name='generate_bill'),
 
     path('download', download, name='download'),
 

@@ -141,7 +141,6 @@ class rate(models.Model):
     from_station =  models.ForeignKey(station, related_name="dfgfdfdf", on_delete=models.CASCADE)
     to_station =  models.ForeignKey(station, related_name="dfgfddsdedfdf", on_delete=models.CASCADE)
     company_rate =  models.IntegerField()
-    own_rate =  models.IntegerField()
 
         
     def __str__(self):
