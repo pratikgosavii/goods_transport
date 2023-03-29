@@ -68,14 +68,14 @@ class builty_Form(forms.ModelForm):
                 'class' : 'sele',
             }),
             'bags': forms.NumberInput(attrs={
-                'value' : 0.0,
+                
                 'id': 'bags',
                 'class' : 'cus'
             }),
             'rate': forms.NumberInput(attrs={
                 'id': 'rate',
                 'class' : 'cus',
-                'value' : 0.0
+                
 
             }),
 
@@ -101,7 +101,7 @@ class builty_Form(forms.ModelForm):
                 'id': 'mt',
                 'class' : 'se cus',
                 'readonly':'readonly',
-                'value' : 0.0
+                
 
             }),
             'freight': forms.NumberInput(attrs={
@@ -114,13 +114,13 @@ class builty_Form(forms.ModelForm):
                 'step': "0.01",
                 'id': 'less_advance',
                 'class' : 'cus',
-                'value' : 0.0
+                
             }),
             'less_tds': forms.NumberInput(attrs={
                 'step': "0.01",
                 'id': 'less_tds',
                 'class' : 'cus',
-                'value' : 0.0
+                
 
             }),
             'balance': forms.NumberInput(attrs={
@@ -132,7 +132,7 @@ class builty_Form(forms.ModelForm):
                 'step': "0.01",
                 'id': 'diesel',
                 'class' : 'cus',
-                'value' : 0.0
+                
 
             }),
 
