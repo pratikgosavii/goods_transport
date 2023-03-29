@@ -452,7 +452,7 @@
 
                                         <div>
 
-                                            <fieldset><legend>Truck Driver Advance</legend>
+                                            <fieldset><legend>Payment Details</legend>
 
 
                                                 <div style="display: flex;
@@ -510,6 +510,7 @@
                                 </div>
                             </div>
 <br>
+
 {% comment %}                             
 
                             <div class="form-group">
@@ -564,7 +565,7 @@
             color: white;
             font-weight: bold;
             font-size: 14px;" type="button">
-            <span id="payment-button-amount">Request sdsdd Edit</span>
+            <span id="payment-button-amount">Request Edit</span>
         </button> </a>
 
      {% endif %}
@@ -1440,72 +1441,60 @@
     
    
 
+      
+    let global_mt = {{ form.instance.mt }}
+    let global_freight = 0
+
+    bags.addEventListener("input", function (e) {
+
         
-let global_mt = 0
-let global_freight = 0
+        let bags = this.value;
 
-bags.addEventListener("input", function (e) {
+        global_mt = parseFloat((bags / 20).toFixed(2));
 
-    
-    let bags = this.value;
+        document.getElementById("mt").value = global_mt;
 
-    global_mt = parseFloat((bags / 20).toFixed(2));
-
-    document.getElementById("mt").value = global_mt;
-
-    rate = document.getElementById('rate').value;
-    
-    global_freight =  parseFloat((global_mt * rate).toFixed(2));
-
-    document.getElementById("freight").value = global_freight;
-});
-
-
-rate.addEventListener("input", function (e) {
-
-    
-    let rate = this.value;
-
-    global_freight =  parseFloat((global_mt * rate).toFixed(2));
-
-    document.getElementById("freight").value = global_freight;
-    
-});
-
-
-
-
-
-$("#less_advance, #rate").change(function(e){
+        rate = document.getElementById('rate').value;
         
-    let less_advance = document.getElementById('less_advance').value;
-    let less_freight = document.getElementById('freight').value;
+        global_freight =  parseFloat((global_mt * rate).toFixed(2));
 
-    let balance = parseFloat((global_freight - less_advance).toFixed(2));
-    
-    document.getElementById("balance").value = balance;
+        document.getElementById("freight").value = global_freight;
+    });
 
-});
-    
+
+    rate.addEventListener("input", function (e) {
+
+        
+        let rate = this.value;
+
+        global_freight =  parseFloat((global_mt * rate).toFixed(2));
+
+        document.getElementById("freight").value = global_freight;
+        
+    });
+
+
+
+
+
+    $("#less_advance, #rate").change(function(e){
+            
+        let less_advance = document.getElementById('less_advance').value;
+        let less_freight = document.getElementById('freight').value;
+
+        let balance = parseFloat((global_freight - less_advance).toFixed(2));
+        
+        document.getElementById("balance").value = balance;
+
+    });
+        
+
 
 document.getElementById("consignor").value = {{ form.consignor.value }};
 document.getElementById("article").value = {{ form.article.value }};
 document.getElementById("onaccount").value = {{ form.onaccount.value }};
 
         
-{% comment %} 
-    $(':input').attr('readonly','readonly');
-    $(".sele").css("pointer-events","none");
-    $("#article").css("pointer-events","none");
-    $("#truck_details").css("pointer-events","none");
-    $("#onaccount").css("pointer-events","none");
-    $("#taluka").css("pointer-events","none");
-    $("#station_from").css("pointer-events","none");
-    $("#station_to").css("pointer-events","none");
-    $("#ex_for").css("pointer-events","none");
-    $("#mode").css("pointer-events","none");
-    $("#petrol_pump").css("pointer-events","none"); {% endcomment %}
-
     $('.sele').select2();
 
     

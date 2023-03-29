@@ -177,7 +177,9 @@
             </div>
 
             <br>
-          
+
+            <a href="{% url 'list_transaction' %}"><button class="btn btn-primary" type="button" > Reset </button></a>
+
             <button class="btn btn-primary" type="submit" > Submit </button>
 
         </form>
@@ -258,7 +260,16 @@
                         <tbody>
                             {% if data %}
                             {% for i in data %}
-                            <tr>
+
+                              {% if i.have_ack.all.0 %}
+
+                                <tr style="background: #ffd78f;">
+
+                              {% else %}
+
+                                <tr>
+
+                              {% endif %}
 
                               {% if i.has_request.all.0.status == False %}
 

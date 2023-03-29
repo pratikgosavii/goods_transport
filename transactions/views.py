@@ -37,6 +37,7 @@ def numOfDays(date1):
     return date1
 
 
+from django.contrib.auth.decorators import user_passes_test
 
 
 from .decorators import *
@@ -67,7 +68,7 @@ def add_transaction(request):
         updated_request = request.POST.copy()
 
         consignor_instance = consignor.objects.get(id = consignor_value)
-        builty_code = consignor_value.builty_code
+        builty_code = consignor_instance.builty_code
 
         consignor_builty_count = builty.objects.filter(consignor = consignor_value).count()
         builty_code = builty_code + '-' + str(consignor_builty_count + 1)
@@ -287,7 +288,10 @@ def list_transaction(request):
 
     for i in data:
 
-        total1_balance = total1_balance + i.balance
+        if not i.have_ack.filter():
+
+
+            total1_balance = total1_balance + i.balance
 
         total1_freight = total1_freight + i.freight
         total1_advance = total1_advance + i.less_advance
@@ -363,6 +367,7 @@ def add_request_edit(request, bulity_id):
 
 
 @user_is_active
+@user_passes_test(lambda u: u.is_superuser)
 def admin_list_request_edit(request):
 
     data = request_edit.objects.all()
@@ -430,6 +435,8 @@ def list_request_edit(request):
 
 
 @user_is_active
+@user_passes_test(lambda u: u.is_superuser)
+
 def approve_edit(request, request_id):
 
 
@@ -530,7 +537,7 @@ def list_ack_all(request):
 @user_is_active
 def list_ack(request):
 
-    data = ack.objects.all()
+    data = ack.objects.filter(builty__deleted = False)
 
     total1_freight = 0
     total1_advance = 0
@@ -843,7 +850,7 @@ def get_taluka_district(request):
 # import os
 # from random import randint
 
-# import mimetypes
+import mimetypes
 
 
 import os
@@ -1213,15 +1220,15 @@ def porch_report(request):
     data = builty.objects.filter(~Q(have_ack__challan_number = None), deleted = False).order_by("builty_no")
 
     
-    total_freight = 0
-    total_advance = 0
-    total_balance = 0
+    total1_freight = 0
+    total1_advance = 0
+    total1_balance = 0
 
     for i in data:
 
-        total_balance = total_balance + i.balance
-        total_freight = total_freight + i.freight
-        total_advance = total_advance + i.less_advance
+        total1_balance = total1_balance + i.balance
+        total1_freight = total1_freight + i.freight
+        total1_advance = total1_advance + i.less_advance
 
     print(data.count())
     print('------------------------')
@@ -1309,6 +1316,9 @@ def porch_report(request):
         'total_freight' : total_freight,
         'total_advance' : total_advance,
         'total_balance' : total_balance,
+        'total1_freight' : total1_freight,
+        'total1_advance' : total1_advance,
+        'total1_balance' : total1_balance,
     }
 
     return render(request, 'report/porch_report.html', context)
