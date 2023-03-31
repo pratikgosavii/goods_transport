@@ -921,15 +921,16 @@ def html_to_pdf(template_src, context_dict={}):
 def  GeneratePdf(request, builty_id):
     
     data = builty.objects.get(id = builty_id)
+
+    patee = os.path.join(BASE_DIR) + '/templates/transactions/temp.html'
     
-    open('templates/transactions/temp.html', "w").write(render_to_string('transactions/generate_bill.html', {'data' : data}))
+    open(patee, "w").write(render_to_string(patee, {'data' : data}))
 
     # Converting the HTML template into a PDF file
     pdf = html_to_pdf('transactions/temp.html')
         
         # rendering the template
     return HttpResponse(pdf, content_type='application/pdf')
-
 
 
 
