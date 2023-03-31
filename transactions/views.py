@@ -838,17 +838,17 @@ def get_taluka_district(request):
 
 
 
-# from django.views.generic import View
-# from django.utils import timezone
-# from .models import *
-# from threading import Thread, activeCount
+from django.views.generic import View
+from django.utils import timezone
+from .models import *
+from threading import Thread, activeCount
 
-# from io import BytesIO
-# from django.http import HttpResponse
-# from django.template.loader import get_template
-# import xhtml2pdf.pisa as pisa
-# import os
-# from random import randint
+from io import BytesIO
+from django.http import HttpResponse
+from django.template.loader import get_template
+import xhtml2pdf.pisa as pisa
+import os
+from random import randint
 
 import mimetypes
 
@@ -859,110 +859,39 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
-# def render_to_file(path: str, params: dict):
+def render_to_file(path: str, params: dict):
 
-#     template = get_template(path)
-#     html = template.render(params)
-#     file_path = os.path.join(BASE_DIR) + 'bill.pdf'
+    template = get_template(path)
+    html = template.render(params)
+    file_path = os.path.join(BASE_DIR) + 'bill.pdf'
     
-#     with open(file_path, 'wb') as pdf:
-#         pisa.pisaDocument(BytesIO(html.encode("UTF-8")), pdf)
-#         return file_path
+    with open(file_path, 'wb') as pdf:
+        pisa.pisaDocument(BytesIO(html.encode("UTF-8")), pdf)
+        return file_path
 
        
-# def generate_bill(request, id):
+def GeneratePdf(request, builty_id):
 
-#     sales = builty.objects.filter(deleted = False)
-#     params = {
-#         'today': 'today',
-#         'sales': sales,
-#         'request': request
-#     }
-#     file = render_to_file('transactions/generate_bill.html', params)
-
-
-
-
-
-    
-    # with open(file, 'rb') as fh:
-    #     mime_type  = mimetypes.guess_type('receipt.pdf')
-    #     response = HttpResponse(fh.read(), content_type=mime_type)
-    #     response['Content-Disposition'] = 'attachment; filename=receipt.pdf'
-
-    # return response
-
-
-
-
-# importing the necessary libraries
-from django.http import HttpResponse
-from django.views.generic import View
-from django.template.loader import render_to_string
-
-
-# importing the necessary libraries
-from io import BytesIO
-from django.http import HttpResponse
-from django.template.loader import get_template
-from xhtml2pdf import pisa  
-
-# defining the function to convert an HTML file to a PDF file
-def html_to_pdf(template_src, context_dict={}):
-     template = get_template(template_src)
-     html  = template.render(context_dict)
-     result = BytesIO()
-     pdf = pisa.pisaDocument(BytesIO(html.encode("ISO-8859-1")), result)
-     if not pdf.err:
-         return HttpResponse(result.getvalue(), content_type='application/pdf')
-     return None
-
-#Creating a class based view
-def  GeneratePdf(request, builty_id):
-    
     data = builty.objects.get(id = builty_id)
+    params = {
+        'data': data,
+    }
+    file = render_to_file('transactions/generate_bill.html', params)
 
-    patee = os.path.join(BASE_DIR) + '/templates/transactions/temp.html'
+
+
+
+
     
-    open(patee, "w").write(render_to_string(patee, {'data' : data}))
-
-    # Converting the HTML template into a PDF file
-    pdf = html_to_pdf('transactions/temp.html')
+    with open(file, 'rb') as fh:
         
-        # rendering the template
-    return HttpResponse(pdf, content_type='application/pdf')
+        return HttpResponse(fh, content_type='application/pdf')
+
 
 
 
 def download(request):
     # fill these variables with real values
-
-    print('--------------downalodddd-----------------')
-    print('--------------downalodddd-----------------')
-    print('--------------downalodddd-----------------')
-    print('--------------downalodddd-----------------')
-    print('--------------downalodddd-----------------')
-    print('--------------downalodddd-----------------')
-    print('--------------downalodddd-----------------')
-    print('--------------downalodddd-----------------')
-    print('--------------downalodddd-----------------')
-    print('--------------downalodddd-----------------')
-    print('--------------downalodddd-----------------')
-    print('--------------downalodddd-----------------')
-    print('--------------downalodddd-----------------')
-    print('--------------downalodddd-----------------')
-    print('--------------downalodddd-----------------')
-    print('--------------downalodddd-----------------')
-    print('--------------downalodddd-----------------')
-    print('--------------downalodddd-----------------')
-    print('--------------downalodddd-----------------')
-    print('--------------downalodddd-----------------')
-    print('--------------downalodddd-----------------')
-    print('--------------downalodddd-----------------')
-    print('--------------downalodddd-----------------')
-    print('--------------downalodddd-----------------')
-    print('--------------downalodddd-----------------')
-    print('--------------downalodddd-----------------')
 
     if request.method == 'POST':
 
