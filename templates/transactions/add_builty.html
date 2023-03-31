@@ -1126,6 +1126,7 @@
         evt.preventDefault();
 
         var data = $('#consignor_form').serialize();
+        console.log(data)
 
         $.ajax({                       
             type: "POST",
@@ -1133,6 +1134,8 @@
             data : $(this).serialize(),
             success: function (data) {   // `data` is from `get_topics_ajax` view function
                 var data = JSON.parse(data)
+
+                alert('in success')
               
               if(data.status == 'True'){
                 $('#myModal').modal('hide');
@@ -1149,8 +1152,10 @@
               }
               
               else{
-                
-                alert("error")
+
+                alert('error')
+
+               
               }
             }
         });
@@ -1355,6 +1360,9 @@
 
                     $('#station_from').append(let_html);
                     $('#station_to').append(let_html);
+
+                    document.getElementById("taluka").value = data.taluka;
+                    document.getElementById("district").value = data.district;
 
 
                 }

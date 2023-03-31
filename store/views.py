@@ -255,9 +255,17 @@ def add_consignor_ajax(request):
 
         print('------------------------------------')
 
-        forms = consignor_Form(request.POST)
         print(request.POST)
 
+        if request.user.is_superuser:
+            
+            forms = consignor_Form(request.POST)
+            
+        else:
+
+            updated_request = request.POST.copy()
+            updated_request.update({'company': request.user.company})
+            forms = consignor_Form(updated_request)
 
         if forms.is_valid():
             a = forms.save()
@@ -270,7 +278,7 @@ def add_consignor_ajax(request):
         else:
             error = forms.errors.as_json()
             print(error)
-            return JsonResponse({'error' : error}, safe=False)
+            return JsonResponse(json.dumps({'error' : error}), safe=False)
     
     else:
 
@@ -918,7 +926,7 @@ def add_station_ajax(request):
         print('-----------------------------1---------------------')
         if forms.is_valid():
             a = forms.save()
-            return JsonResponse(json.dumps({'status' : 'True', 'id' : a.id,'value' : a.name}), safe=False, content_type="application/json") 
+            return JsonResponse(json.dumps({'status' : 'True', 'id' : a.id,'value' : a.name, 'taluka' : a.taluka.id, 'district' : a.taluka.district.id}), safe=False, content_type="application/json") 
 
         else:
             print('-----------------------------2---------------------')
