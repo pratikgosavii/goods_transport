@@ -1,126 +1,3 @@
-{% comment %} <!doctype html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <title>Sales Report</title>
-    <style type="text/css">
-        @page {
-            size: A4;
-            margin: 1cm;
-        }
-
-        .table {
-            width: 100%;
-            max-width: 100%;
-            margin-bottom: 5px;
-            background-color: #fff;
-        }
-
-        .table th,
-        .table td {
-            padding: 5px;
-            vertical-align: top;
-            border-right: 1px solid #000;
-            text-align: center;
-        }
-
-        .table thead th {
-            vertical-align: bottom;
-            border-bottom: 2px solid #000;
-        }
-
-        .table tbody + tbody {
-            border-top: 2px solid #000;
-        }
-
-        .table .table {
-            background-color: #fff;
-        }
-
-        .list-group {
-            display: block;
-            width: 100%;
-            list-style: none;
-            margin-top: 15px;
-            margin-bottom: 15px;
-        }
-
-        .list-group p {
-            width: 100%;
-            height: 20px;
-            line-height: 20px;
-            list-style: none;
-            font-size: 1.1em;
-        }
-
-    </style>
-</head>
-
-
-<body style="padding: 88px;">
-
-<div class="container" style="border: 1px solid black;
-padding: 37px;">
-    <div class="card">
-        <div class="card-header col-12" style="display: flex;
-        ">
-            <div class="col-9" style="width: 100%;">
-            <h3>Sahani Goods and Transport</h3>
-            <p style="margin-bottom: 0px;"> TRANSPORT CONTRACTOR AND COMMISSION AGENT </p>
-            <p style="margin-top: 0px;"> Near railway station, Akola </p>
-            </div>
-            <div class="col-3" style="width: 100%;text-align: right;">
-                <p> Builty No :- </p>
-                <p> Date :- </p>
-                <p> Truck No :- </p>
-            </div>
-
-        </div>
-
-        <hr>
-
-        <table class="table">
-            <thead>
-            <tr>
-                <th>No of article</th>
-                <th>Description</th>
-                <th>Quantity</th>
-                <th>Freight</th>
-            </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>wdsdsd</td>
-                    
-                </tr>
-            </tbody>
-        </table>
-
-        <div class="card-header col-12" style="display: flex;">
-            <div class="col-6" style="width: 100%;border: 1px solid black;padding: 10px;">
-            <h3>Terms</h3>
-            <p style="margin-bottom: 0px;">sddddddddddd sdsdnnbs dhs dsbd sbd sdu sdh sdbmsbdbsmhd shdhsgdhsg dsgdhs dsdjs</p>
-            </div>
-            <div class="col-3" style="width: 100%;text-align: right;border: 1px solid black;">
-                <p style="text-align: center;"> RECIEPT and Time Stamp</p>
-               
-            </div>
-
-            <div class="col-3" style="width: 100%;text-align: right;border: 1px solid black;">
-               
-            </div>
-
-        </div>
-
-
-        
-    </div>
-</div>
-
-</body>
-</html> {% endcomment %}
-
-
 
 
 
@@ -132,13 +9,7 @@ padding: 37px;">
 </head>
 
 <body>
-<table width="100%" border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td colspan="2"><img src="logo.png" width="150"  /></td>
-  </tr>
-  <tr>
-    <td colspan="2">&nbsp;</td>
-  </tr>
+<table width="100%" border="" cellspacing="0"  cellpadding="0">
   <tr>
     <td width="49%"><table width="100%" border="0" cellspacing="0" cellpadding="0">
       <tr>
@@ -167,10 +38,9 @@ padding: 37px;">
           </table></td>
       </tr>
     </table></td>
-    <td width="51%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="0">
-      <tr>
-        <td align="right"><img src="logo.png" alt="" width="150"  /></td>
-      </tr>
+    
+    <td width="51%" valign="top"><table width="50%" border="0" cellspacing="0" cellpadding="0">
+      
       <tr>
         <td style="font-family:Verdana, Geneva, sans-serif; font-weight:300; font-size:13px;" align="right"></td>
       </tr>
@@ -178,21 +48,57 @@ padding: 37px;">
         <td style="font-family:Verdana, Geneva, sans-serif; font-weight:300; font-size:13px;"  align="right">&nbsp;</td>
       </tr>
       <tr>
-        <td style="font-family:Verdana, Geneva, sans-serif; font-weight:300; font-size:13px;"  align="right">Builty No : {{data.order_date}}</td>
+        <td style="font-family:Verdana, Geneva, sans-serif; font-weight:300; font-size:13px;"  align="right">Builty No &nbsp;&nbsp;&nbsp;: &nbsp;&nbsp;&nbsp;{{data.builty_no}}</td>
       </tr>
       <tr>
-        <td style="font-family:Verdana, Geneva, sans-serif; font-weight:300; font-size:13px;"  align="right">Date : {{data.order_date}}</td>
+        <td style="font-family:Verdana, Geneva, sans-serif; font-weight:300; font-size:13px;"  align="right">Date &nbsp;&nbsp;&nbsp;: &nbsp;&nbsp;&nbsp;{{data.DC_date}}</td>
       </tr>
       <tr>
-      <td style="font-family:Verdana, Geneva, sans-serif; font-weight:300; font-size:13px;"  align="right">Truck No : {{data.order_date}}</td>
+      <td style="font-family:Verdana, Geneva, sans-serif; font-weight:300; font-size:13px;"  align="right">Truck No &nbsp;&nbsp;&nbsp;: &nbsp;&nbsp;&nbsp;{{data.truck_details }}</td>
       </tr>
-      {% comment %} <tr>
-        <td style="font-family:Verdana, Geneva, sans-serif; font-weight:600; font-size:15px;" align="right">Customer Name</td>
-      </tr> {% endcomment %}
-     
       
+    
 
     </table></td>
+  </tr>
+  <tr>
+    <td width="100%">
+    <hr>
+    </td><td width="100%">
+      <hr>
+      </td>
+  </tr>
+  <tr>
+    <td colspan="2">&nbsp;</td>
+  </tr>
+
+  <tr>
+    <td colspan="2"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td style="font-family:Verdana, Geneva, sans-serif; font-weight:600; font-size:13px;" width="34%" height="32" align="left"><br> From &nbsp;&nbsp;&nbsp;: &nbsp;&nbsp;&nbsp;{{ data.station_from }}</td>
+        <td style="font-family:Verdana, Geneva, sans-serif; font-weight:600; font-size:13px;" width="30%" height="32" align="left"><br>To &nbsp;&nbsp;&nbsp;: &nbsp;&nbsp;&nbsp;{{ data.station_to }}</td>
+      </tr>
+      <tr>
+        <td style="font-family:Verdana, Geneva, sans-serif; font-weight:600; font-size:13px;" width="30%" height="32" align="left"><br>Consignor &nbsp;&nbsp;&nbsp;: &nbsp;&nbsp;&nbsp;{{ data.consignor }}</td>
+
+      </tr>
+      <tr>
+        <td style="font-family:Verdana, Geneva, sans-serif; font-weight:600; font-size:13px;" width="30%" height="32" align="left"><br>Consignee &nbsp;&nbsp;&nbsp;: &nbsp;&nbsp;&nbsp;{{ data.consignee }}</td>
+      </tr>
+      <tr>
+        <td style="font-family:Verdana, Geneva, sans-serif; font-weight:600; font-size:13px;" width="30%" height="32" align="left"><br>Ac &nbsp;&nbsp;&nbsp;: &nbsp;&nbsp;&nbsp;{{ data.onaccount }}</td>
+      </tr>
+    </table></td>
+  </tr>
+  <tr>
+    <td colspan="2">&nbsp;</td>
+  </tr>
+  <tr>
+    <td width="100%">
+    <hr>
+    </td><td width="100%">
+      <hr>
+      </td>
   </tr>
   <tr>
     <td colspan="2">&nbsp;</td>
@@ -200,16 +106,16 @@ padding: 37px;">
   <tr>
     <td colspan="2"><table width="100%" border="0" cellspacing="0" cellpadding="0">
       <tr>
-        <td style="font-family:Verdana, Geneva, sans-serif; font-weight:600; font-size:13px; border-top:1px solid #333; border-bottom:1px solid #333; border-left:1px solid #333; border-right:1px solid #333;" width="34%" height="32" align="center">No of article</td>
-        <td style="font-family:Verdana, Geneva, sans-serif; font-weight:600; font-size:13px; border-top:1px solid #333; border-bottom:1px solid #333; border-right:1px solid #333;" width="30%" height="32" align="center">Description</td>
-        <td style="font-family:Verdana, Geneva, sans-serif; font-weight:600; font-size:13px; border-top:1px solid #333; border-bottom:1px solid #333; border-right:1px solid #333;" width="30%" align="center">Quantity</td>
-        <td style="font-family:Verdana, Geneva, sans-serif; font-weight:600; font-size:13px; border-top:1px solid #333; border-bottom:1px solid #333; border-right:1px solid #333;" width="30%" align="center">Freight</td>
+        <td style="font-family:Verdana, Geneva, sans-serif; font-weight:600; font-size:13px; border-top:1px solid #333; border-bottom:1px solid #333; border-left:1px solid #333; border-right:1px solid #333;" width="34%" height="32" align="center"><br> No of article</td>
+        <td style="font-family:Verdana, Geneva, sans-serif; font-weight:600; font-size:13px; border-top:1px solid #333; border-bottom:1px solid #333; border-right:1px solid #333;" width="30%" height="32" align="center"><br>Description</td>
+        <td style="font-family:Verdana, Geneva, sans-serif; font-weight:600; font-size:13px; border-top:1px solid #333; border-bottom:1px solid #333; border-right:1px solid #333;" width="30%" align="center"><br>Quantity</td>
+        <td style="font-family:Verdana, Geneva, sans-serif; font-weight:600; font-size:13px; border-top:1px solid #333; border-bottom:1px solid #333; border-right:1px solid #333;" width="30%" align="center"><br>Freight</td>
       </tr>
       <tr>
         <td style="font-family:Verdana, Geneva, sans-serif; font-weight:300; font-size:13px; border-bottom:1px solid #333; border-left:1px solid #333; border-right:1px solid #333;" height="32" align="center">{{data.description}}</td>
-        <td style="font-family:Verdana, Geneva, sans-serif; font-weight:300; font-size:13px; border-bottom:1px solid #333; border-right:1px solid #333;" align="center">{{data.amount}}</td>
-        <td style="font-family:Verdana, Geneva, sans-serif; font-weight:300; font-size:13px; border-bottom:1px solid #333; border-right:1px solid #333;" align="center">{{data.pay_method}}</td>
-        <td style="font-family:Verdana, Geneva, sans-serif; font-weight:300; font-size:13px; border-bottom:1px solid #333; border-right:1px solid #333;" align="center">{{data.pay_method}}</td>
+        <td style="font-family:Verdana, Geneva, sans-serif; font-weight:300; font-size:13px; border-bottom:1px solid #333; border-right:1px solid #333;" align="center">{{ data.less_advance }}</td>
+        <td style="font-family:Verdana, Geneva, sans-serif; font-weight:300; font-size:13px; border-bottom:1px solid #333; border-right:1px solid #333;" align="center">{{ data.balance }}</td>
+        <td style="font-family:Verdana, Geneva, sans-serif; font-weight:300; font-size:13px; border-bottom:1px solid #333; border-right:1px solid #333;" align="center"> <br> Advance : {{ data.less_advance }} <br> Balance : {{ data.balance }}</td>
       </tr>
     </table></td>
   </tr>
