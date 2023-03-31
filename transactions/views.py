@@ -922,10 +922,10 @@ def  GeneratePdf(request, builty_id):
     
     data = builty.objects.get(id = builty_id)
     
-    open('templates/temp.html', "w").write(render_to_string('transactions/generate_bill.html', {'data' : data}))
+    open('templates/transactions/temp.html', "w").write(render_to_string('transactions/generate_bill.html', {'data' : data}))
 
     # Converting the HTML template into a PDF file
-    pdf = html_to_pdf('temp.html')
+    pdf = html_to_pdf('transactions/temp.html')
         
         # rendering the template
     return HttpResponse(pdf, content_type='application/pdf')
