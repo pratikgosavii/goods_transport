@@ -23,9 +23,7 @@
                     <a href="{% url 'admin_request_list' %}"><i class="menu-icon fa fa-laptop"></i>Edit Requests </a>
                 </li>
 
-                <li class="">
-                    <a href="{% url 'list_ack' %}"><i class="menu-icon fa fa-laptop"></i> Acknowledgement </a>
-                </li>
+               
 
                 {% else %}
 
@@ -34,6 +32,12 @@
                 </li>
 
                 {% endif %}
+
+
+
+                <li class="">
+                    <a href="{% url 'list_ack' %}"><i class="menu-icon fa fa-laptop"></i> Acknowledgement </a>
+                </li>
                 
 {% comment %}
                 <li class="menu-item-has-children dropdown">

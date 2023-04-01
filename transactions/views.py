@@ -537,7 +537,14 @@ def list_ack_all(request):
 @user_is_active
 def list_ack(request):
 
-    data = ack.objects.filter(builty__deleted = False)
+    if request.user.is_superuser:
+
+        data = ack.objects.filter(builty__deleted = False)
+
+
+    else:
+
+        data = ack.objects.filter(builty__deleted = False, builty__user = request.user)
 
     total1_freight = 0
     total1_advance = 0
@@ -611,7 +618,7 @@ def list_not_ack(request):
 
     for i in data:
 
-        if not i.have_ack.filter():
+        if not i.have_ack.all():
        
             total1_balance = total1_balance + i.balance
 
