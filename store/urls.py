@@ -77,6 +77,8 @@ urlpatterns = [
     path('update-taluka/<taluka_id>', update_taluka, name='update_taluka'),
     path('delete-taluka/<taluka_id>', delete_taluka, name='delete_taluka'),
     path('list-taluka/', list_taluka, name='list_taluka'),
+    
+    path('get_buily_code/', get_buily_code, name='get_buily_code'),
 
     # #delete urls 
 

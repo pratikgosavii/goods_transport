@@ -1447,7 +1447,8 @@
    
 
       
-    let global_mt = {{ form.instance.mt }}
+        
+    let global_mt = 0
     let global_freight = 0
 
     bags.addEventListener("input", function (e) {
@@ -1464,6 +1465,31 @@
         global_freight =  parseFloat((global_mt * rate).toFixed(2));
 
         document.getElementById("freight").value = global_freight;
+
+
+      
+        let less_advance = document.getElementById('less_advance').value;
+        let less_freight = document.getElementById('freight').value;
+
+
+        let balance = parseFloat((global_freight - less_advance).toFixed(2));
+
+        if (balance >= 0){
+
+            document.getElementById("balance").value = balance;
+
+
+        }else if(rate != 0 && rate != undefined && rate != '' ){
+        
+            document.getElementById("balance").value = balance;
+
+
+        }
+        else{
+            document.getElementById("balance").value = 0.0;
+
+        }
+        
     });
 
 
@@ -1475,23 +1501,63 @@
         global_freight =  parseFloat((global_mt * rate).toFixed(2));
 
         document.getElementById("freight").value = global_freight;
-        
-    });
 
 
-
-
-
-    $("#less_advance, #rate").change(function(e){
-            
         let less_advance = document.getElementById('less_advance').value;
         let less_freight = document.getElementById('freight').value;
 
         let balance = parseFloat((global_freight - less_advance).toFixed(2));
-        
-        document.getElementById("balance").value = balance;
 
+        if (balance >= 0){
+
+            document.getElementById("balance").value = balance;
+
+
+        }else if(rate != 0 && rate != undefined && rate != '' ){
+        
+            document.getElementById("balance").value = balance;
+
+
+        }
+        else{
+            document.getElementById("balance").value = 0.0;
+
+        }
+        
     });
+
+
+
+
+
+    less_advance.addEventListener("input", function (e) {
+
+            
+        let less_advance = document.getElementById('less_advance').value;
+        let less_freight = document.getElementById('freight').value;
+
+        let rate = document.getElementById('rate').value;
+
+        let balance = parseFloat((global_freight - less_advance).toFixed(2));
+
+        if (balance >= 0){
+
+            document.getElementById("balance").value = balance;
+
+
+        }else if(rate != 0 && rate != undefined && rate != '' ){
+        
+            document.getElementById("balance").value = balance;
+
+
+        }
+        else{
+            document.getElementById("balance").value = 0.0;
+
+        }
+    });
+        
+
         
 
 

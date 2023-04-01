@@ -216,6 +216,18 @@
                                 <div class="col-6" style="border-right : 1px solid black">
                                 
                                 <table style="width:100%;">
+
+                                    <tr>
+
+                                        <td>
+                                            
+                                                <div class="input-wrapper" style="display:flex;">
+                                                    <label for="first">Builty No</label>
+                                                    {{ form.builty_no }} 
+                                                  </div>
+                                        </td>
+
+                                    </tr>
                             
                                     <tr>
                                         <td>
@@ -1120,6 +1132,42 @@
 
 
     
+
+    $("#consignor").change(function () {
+        consignorid = ($(this).val());
+
+            
+
+        $.ajax({   
+            cache: false,                    // initialize an AJAX request
+            type: "POST",
+            url: "{% url 'get_buily_code' %}",
+            data: { 'csrfmiddlewaretoken':$('input[name=csrfmiddlewaretoken]').val(), 'consignor_id' : consignorid },     // add the country id to the POST parameters
+
+            success: function (data) {   // `data` is from `get_topics_ajax` view function
+
+                    console.log('------------------------')
+                    console.log(data)
+
+                    
+                    var a = JSON.parse(data)
+                    
+                    console.log(a)
+
+                 
+
+                    document.getElementById('builty_no').value = a.builty_code;
+
+            
+            }
+
+        });
+
+
+    });
+
+
+    
    
     document.getElementById('consignor_form').addEventListener('submit', function(evt){
         
@@ -1442,6 +1490,31 @@
         global_freight =  parseFloat((global_mt * rate).toFixed(2));
 
         document.getElementById("freight").value = global_freight;
+
+
+      
+        let less_advance = document.getElementById('less_advance').value;
+        let less_freight = document.getElementById('freight').value;
+
+
+        let balance = parseFloat((global_freight - less_advance).toFixed(2));
+
+        if (balance >= 0){
+
+            document.getElementById("balance").value = balance;
+
+
+        }else if(rate != 0 && rate != undefined && rate != '' ){
+        
+            document.getElementById("balance").value = balance;
+
+
+        }
+        else{
+            document.getElementById("balance").value = 0.0;
+
+        }
+        
     });
 
 
@@ -1453,25 +1526,62 @@
         global_freight =  parseFloat((global_mt * rate).toFixed(2));
 
         document.getElementById("freight").value = global_freight;
-        
-    });
 
 
-
-
-
-    $("#less_advance, #rate").change(function(e){
-            
         let less_advance = document.getElementById('less_advance').value;
         let less_freight = document.getElementById('freight').value;
 
         let balance = parseFloat((global_freight - less_advance).toFixed(2));
-        
-        document.getElementById("balance").value = balance;
 
+        if (balance >= 0){
+
+            document.getElementById("balance").value = balance;
+
+
+        }else if(rate != 0 && rate != undefined && rate != '' ){
+        
+            document.getElementById("balance").value = balance;
+
+
+        }
+        else{
+            document.getElementById("balance").value = 0.0;
+
+        }
+        
+    });
+
+
+
+
+
+    less_advance.addEventListener("input", function (e) {
+
+            
+        let less_advance = document.getElementById('less_advance').value;
+        let less_freight = document.getElementById('freight').value;
+
+        let rate = document.getElementById('rate').value;
+
+        let balance = parseFloat((global_freight - less_advance).toFixed(2));
+
+        if (balance >= 0){
+
+            document.getElementById("balance").value = balance;
+
+
+        }else if(rate != 0 && rate != undefined && rate != '' ){
+        
+            document.getElementById("balance").value = balance;
+
+
+        }
+        else{
+            document.getElementById("balance").value = 0.0;
+
+        }
     });
         
-
 
 
 

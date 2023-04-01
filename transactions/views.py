@@ -1013,19 +1013,22 @@ def truck_report(request):
     total_balance = 0
     total_mt = 0
 
-    for i in data:
+    for i in builty_filters.qs:
 
         if not i.have_ack.filter():
     
             total_balance = total_balance + i.balance
 
         total_freight = total_freight + i.freight
+            
+        print('mt-------')
+        print(i.mt)
         total_mt = total_mt + i.mt
-        total_advance = total_advance + i.less_advance
         total_advance = total_advance + i.less_advance
 
     print('total_advance')
     print(total_advance)
+    print(total_mt)
 
 
     data = builty_filters.qs
@@ -1040,6 +1043,16 @@ def truck_report(request):
 
 
     link = os.path.join(BASE_DIR) + '\static\csv\\' + name
+
+
+    total_balance = round(total_balance, 2)
+    total_advance = round(total_advance, 2)
+    total_freight = round(total_freight, 2)
+    total1_freight = round(total1_freight, 2)
+    total_mt = round(total_mt, 2)
+    total1_balance = round(total1_balance, 2)
+    total1_advance = round(total1_advance, 2)
+    total1_mt = round(total1_mt, 2)
 
     context = {
         'builty_filter' : builty_filters,
@@ -1242,6 +1255,16 @@ def porch_report(request):
 
 
     link = os.path.join(BASE_DIR) + '\static\csv\\' + name
+
+    
+
+    total_balance = round(total_balance, 2)
+    total_advance = round(total_advance, 2)
+    total_freight = round(total_freight, 2)
+    total1_freight = round(total1_freight, 2)
+    total1_balance = round(total1_balance, 2)
+    total1_advance = round(total1_advance, 2)
+    total_diesel = round(total_diesel, 2)
 
     context = {
         'builty_filter' : builty_filters,

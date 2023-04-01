@@ -433,6 +433,29 @@ def add_article_ajax(request):
 
         return render(request, 'store/add_article.html', context)
 
+
+from transactions.models import *
+
+
+@login_required(login_url='login')
+@user_is_active
+@csrf_exempt
+def get_buily_code(request):
+        
+    consignor_id = request.POST.get('consignor_id')
+
+    consignor_instance = consignor.objects.get(id = consignor_id)
+    
+    builty_code = consignor_instance.builty_code
+
+    consignor_builty_count = builty.objects.filter(consignor = consignor_instance).count()
+    builty_code = builty_code + '-' + str(consignor_builty_count + 1)
+
+    return JsonResponse(json.dumps({'builty_code' : builty_code}), safe=False, content_type="application/json") 
+
+
+
+
 @login_required(login_url='login')
 @user_is_active
 def update_article(request, article_id):

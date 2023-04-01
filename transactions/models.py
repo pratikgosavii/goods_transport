@@ -47,7 +47,7 @@ class builty(models.Model):
     mt = models.FloatField(default=0.0)
     freight = models.FloatField(default=0.0)
     less_advance = models.FloatField(default=0.0)
-    less_tds = models.FloatField(default=0.0)
+    less_tds = models.FloatField(null = True, blank = True, default=0.0)
     balance = models.FloatField(default=0)
     diesel = models.FloatField(default=0.0)
     editable = models.BooleanField(default=False)

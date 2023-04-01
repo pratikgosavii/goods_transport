@@ -17,7 +17,8 @@ class builty_Form(forms.ModelForm):
             'builty_no': forms.TextInput(attrs={
                 'step': "0.01",
                 'id': 'builty_no',
-                'readonly':'readonly'
+                'readonly':'readonly',
+                'class' : 'se'
             }),
             'truck_details': forms.Select(attrs={
                 'id': 'truck_details',
