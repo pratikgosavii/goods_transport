@@ -1198,12 +1198,14 @@ def porch_report(request):
     total1_freight = 0
     total1_advance = 0
     total1_balance = 0
+    total1_mt = 0
 
     for i in data:
 
         total1_balance = total1_balance + i.balance
         total1_freight = total1_freight + i.freight
         total1_advance = total1_advance + i.less_advance
+        total1_mt = total1_mt + i.mt
 
     print(data.count())
     print('------------------------')
@@ -1265,12 +1267,14 @@ def porch_report(request):
     total_freight = 0
     total_advance = 0
     total_balance = 0
+    total_mt = 0
 
     for i in data:
 
         total_balance = total_balance + i.balance
         total_freight = total_freight + i.freight
         total_advance = total_advance + i.less_advance
+        total_mt = total_mt + i.mt
 
     
     name = "Diesel_Report.csv"
@@ -1291,6 +1295,9 @@ def porch_report(request):
     total1_balance = round(total1_balance, 2)
     total1_advance = round(total1_advance, 2)
     total_diesel = round(total_diesel, 2)
+    total_diesel = round(total_diesel, 2)
+    total1_mt = round(total1_mt, 2)
+    total_mt = round(total_mt, 2)
 
     context = {
         'builty_filter' : builty_filters,
@@ -1304,6 +1311,8 @@ def porch_report(request):
         'total1_freight' : total1_freight,
         'total1_advance' : total1_advance,
         'total1_balance' : total1_balance,
+        'total1_mt' : total1_mt,
+        'total_mt' : total_mt,
     }
 
     return render(request, 'report/porch_report.html', context)
