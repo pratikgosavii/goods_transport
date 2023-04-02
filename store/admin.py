@@ -7,3 +7,4 @@ from .models import *
 admin.site.register(truck_details)
 admin.site.register(office_location)
 admin.site.register(district)
+admin.site.register(consignor)

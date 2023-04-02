@@ -34,7 +34,7 @@ class office_location(models.Model):
 class consignor(models.Model):
 
     company = models.ForeignKey(company , on_delete=models.CASCADE, related_name='event_ticket')
-    builty_code = models.CharField(max_length=120)
+    builty_code = models.CharField(max_length=120, unique = True)
     name = models.CharField(max_length=120, unique=False)
     office_location = models.ForeignKey(office_location, on_delete=models.CASCADE, related_name='sdsfwfe')
     
