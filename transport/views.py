@@ -6,9 +6,12 @@ from transactions.models import *
 from store.models import *
 from users.models import *
 
+from transactions.filters import *
+
 
 @login_required(login_url='login')
 def dashboard(request):
+
     
     builty_count = builty.objects.all().count()
     truck_count = truck_details.objects.all().count()
@@ -19,11 +22,17 @@ def dashboard(request):
     else:
         builty_data = None
 
+
+    builty_filters = builty_filter(request.GET, queryset=builty_data)
+    
+
     context = {
         
         'data': builty_data,
+        'builty_filter' : builty_filters,
         'truck_count': truck_count,
         'builty_count': builty_count,
+        'user_count': user_count,
         'user_count': user_count,
     }
     return render(request, 'dashboard.html', context)

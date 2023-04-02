@@ -4,6 +4,7 @@ from django.forms.widgets import DateInput
 from django import forms
 
 from .models import *
+from users.models import *
 from .forms import *
 
 
@@ -22,6 +23,15 @@ class builty_filter(django_filters.FilterSet):
     
     article = django_filters.ModelChoiceFilter(
         queryset=article.objects.all(),
+        widget=forms.Select(
+            attrs={
+                'class' : 'form-control',
+                'id' : 'company'
+            })
+    )
+
+    user = django_filters.ModelChoiceFilter(
+        queryset=User.objects.all(),
         widget=forms.Select(
             attrs={
                 'class' : 'form-control',
