@@ -277,10 +277,10 @@ def list_transaction(request):
   
     if request.user.is_superuser:
 
-        data = builty.objects.filter(deleted = False)
+        data = builty.objects.filter(deleted = False).order_by('builty_no')
     else:
 
-        data = builty.objects.filter(user = request.user, deleted = False)
+        data = builty.objects.filter(user = request.user, deleted = False).order_by('builty_no')
 
     total1_freight = 0
     total1_advance = 0
