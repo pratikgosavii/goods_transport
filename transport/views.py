@@ -29,7 +29,8 @@ def dashboard(request):
     context = {
         
         'data': builty_data,
-        'builty_filter' : builty_filters.qs,
+        'data' : builty_filters.qs,
+        'builty_filter' : builty_filters,
         'truck_count': truck_count,
         'builty_count': builty_count,
         'user_count': user_count,
