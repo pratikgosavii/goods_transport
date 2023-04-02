@@ -95,6 +95,7 @@ class driver(models.Model):
     driving_licence = models.CharField(max_length=120, unique=True)
     adhar_card = models.CharField(max_length=120, unique=True)
     mobile_no = models.IntegerField()
+    mobil1e_no = models.IntegerField()
    
        
     def __str__(self):
