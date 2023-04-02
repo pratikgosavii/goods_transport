@@ -1,0 +1,75 @@
+
+<div class="modal fade" id="myModal_article" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add Article</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="article_form">
+
+                    
+                    {% if user.is_superuser %}
+        
+                   
+
+        
+                    <div class="input-wrapper" style="display:flex;">
+                        <label for="first">Company Name</label>
+
+                        <select name="company_name" name="company_name" id="article_company" required="">
+                            <option value="" selected="">---------</option>
+                            
+                            {% for i in company_data %}
+
+                            <option value="{{ i.id }}"> {{ i.company_name }} </option>
+
+                            {% endfor %}
+                          
+                          
+                          </select>
+                    </div>
+
+                    {% endif %}
+
+                                        
+                    {% if user.is_superuser %}
+
+                        <div class="input-wrapper" style="display:flex;">
+                            <label for="first">Consignor Name</label>
+                            <select name="consignor" class="sele" id="article_consignor" required="">
+                                <option value="" selected="">---------</option>
+                            </select>
+                                
+                        </div>
+
+                    {% else %}
+
+                        <div class="input-wrapper" style="display:flex;">
+                            <label for="first">Consignor Name</label>
+                        {{ form_article.consignor }}
+                        </div>
+
+                    {% endif %}
+
+                    
+
+                    <div class="input-wrapper" style="display:flex;">
+                        <label for="first">Article Name</label>
+                        <input type="text" name="name" id="article_name" class="cus" required="">
+                    </div>
+                    
+                    
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
