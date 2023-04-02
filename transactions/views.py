@@ -285,6 +285,7 @@ def list_transaction(request):
     total1_freight = 0
     total1_advance = 0
     total1_balance = 0
+    total1_mt = 0
 
     for i in data:
 
@@ -295,6 +296,7 @@ def list_transaction(request):
 
         total1_freight = total1_freight + i.freight
         total1_advance = total1_advance + i.less_advance
+        total1_mt = total1_mt + i.mt
 
 
     builty_filters = builty_filter(request.GET, queryset=data)
@@ -314,6 +316,7 @@ def list_transaction(request):
     total_freight = 0
     total_advance = 0
     total_balance = 0
+    total_mt = 0
 
     for i in data:
 
@@ -323,6 +326,18 @@ def list_transaction(request):
 
         total_freight = total_freight + i.freight
         total_advance = total_advance + i.less_advance
+        total_mt = total_mt + i.mt
+
+    
+
+    total_balance = round(total_balance, 2)
+    total_advance = round(total_advance, 2)
+    total_freight = round(total_freight, 2)
+    total1_freight = round(total1_freight, 2)
+    total_mt = round(total_mt, 2)
+    total1_balance = round(total1_balance, 2)
+    total1_advance = round(total1_advance, 2)
+    total1_mt = round(total1_mt, 2)
 
     
     context = {
@@ -335,6 +350,8 @@ def list_transaction(request):
         'total1_freight' : total1_freight,
         'total1_advance' : total1_advance,
         'total1_balance' : total1_balance,
+        'total_mt' : total_mt,
+        'total1_mt' : total1_mt,
     }
 
 
@@ -648,6 +665,15 @@ def list_not_ack(request):
 
         total_freight = total_freight + i.freight
         total_advance = total_advance + i.less_advance
+
+
+    
+    total_balance = round(total_balance, 2)
+    total_advance = round(total_advance, 2)
+    total_freight = round(total_freight, 2)
+    total1_freight = round(total1_freight, 2)
+    total1_balance = round(total1_balance, 2)
+    total1_advance = round(total1_advance, 2)
 
     context = {
         'data' : builty_filters.qs,

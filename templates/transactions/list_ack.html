@@ -236,6 +236,7 @@
                                 <th>Builty No</th>
                                 <th>Date</th>
                                 <th>Challan No</th>
+                                <th>Challan Date</th>
                                 <th>Truck No</th>
                                 <th>Owner</th>
                                 <th>From</th>
@@ -246,7 +247,6 @@
                                 <th>Freight</th>
                                 <th>Advance</th>
                                 <th>Balance</th>
-                                <th>Challan Date</th>
                                 <th>Action</th>
                                 
                             </tr>
@@ -261,7 +261,8 @@
                                 <td class="serial">{{ forloop.counter }}</td>
                                 <td>{{ i.builty.builty_no }}</td>
                                 <td>{{ i.builty.DC_date }}</td>
-                                <td>{{ i.challan_number }}</td>
+                                <td style="background: #ffd78f;">{{ i.challan_number }}</td>
+                                <td style="background: #ffd78f;">{{ i.challan_date }}</td>
                                 <td>{{ i.builty.truck_details }}</td>
                                 <td>{{ i.builty.truck_owner }}</td>
                                 <td>{{ i.builty.station_from }}</td>
@@ -272,7 +273,6 @@
                                 <td>{{ i.builty.freight }}</td>
                                 <td>{{ i.builty.less_advance }}</td>
                                 <td>{{ i.builty.balance }}</td>
-                                <td>{{ i.challan_date }}</td>
 
                                 
                                 <td>  
