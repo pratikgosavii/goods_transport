@@ -529,7 +529,7 @@ def add_subtrip(request):
 @user_is_active
 def list_ack_all(request):
 
-    data = builty.objects.filter(deleted = False)
+    data = builty.objects.filter(deleted = False).order_by('builty_no')
     
     builty_filters = builty_filter(request.GET, queryset=data)
 
@@ -577,12 +577,12 @@ def list_ack(request):
 
     if request.user.is_superuser:
 
-        data = ack.objects.filter(builty__deleted = False)
+        data = ack.objects.filter(builty__deleted = False).order_by('builty__builty_no')
 
 
     else:
 
-        data = ack.objects.filter(builty__deleted = False, builty__user = request.user)
+        data = ack.objects.filter(builty__deleted = False, builty__user = request.user).order_by('builty__builty_no')
 
     total1_freight = 0
     total1_advance = 0
@@ -643,7 +643,7 @@ def list_ack(request):
 @user_is_active
 def list_not_ack(request):
 
-    data = builty.objects.filter(deleted = False)
+    data = builty.objects.filter(deleted = False).order_by('builty_no')
 
     builty_filters = builty_filter(request.GET, queryset=data)
     data = builty_filters.qs
@@ -719,7 +719,7 @@ def list_not_ack(request):
 @user_is_active
 def update_ack(request, challan_id):
 
-    instance = ack.objects.get(id = challan_id)
+    instance = ack.objects.get(id = challan_id).order_by('builty__builty_no')
 
     instance2 = instance.builty
 
@@ -805,7 +805,7 @@ def mass_edit_request(request):
 
     for i in builty_id:
 
-        builty_instance = builty.objects.get(id = i)
+        builty_instance = builty.objects.get(id = i).order_by('builty_no')
         request_edit.objects.create(builty = builty_instance, user = request.user, history = True)
     print('--------------------')
     return JsonResponse({'status' : 'done'})
