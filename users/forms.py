@@ -28,7 +28,7 @@ class registerForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ["username", "password1", "is_active", "company"]
+        fields = ["username", "password1", "is_active", "company", "office_location"]
 
 
         widgets = {
