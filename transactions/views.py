@@ -299,10 +299,10 @@ def list_transaction(request):
   
     if request.user.is_superuser:
 
-        data = builty.objects.filter(deleted = False).order_by('DC_date)
+        data = builty.objects.filter(deleted = False).order_by('DC_date')
     else:
 
-        data = builty.objects.filter(user = request.user, deleted = False).order_by('DC_date)
+        data = builty.objects.filter(user = request.user, deleted = False).order_by('DC_date')
 
     total1_freight = 0
     total1_advance = 0
@@ -530,7 +530,7 @@ def add_subtrip(request):
 @user_is_active
 def list_ack_all(request):
 
-    data = builty.objects.filter(deleted = False).order_by('DC_date)
+    data = builty.objects.filter(deleted = False).order_by('DC_date')
      
     total1_freight = 0
     total1_advance = 0
@@ -684,7 +684,7 @@ def list_ack(request):
 @user_is_active
 def list_not_ack(request):
 
-    data = builty.objects.filter(deleted = False).order_by('DC_date)
+    data = builty.objects.filter(deleted = False).order_by('DC_date')
 
     builty_filters = builty_filter(request.GET, queryset=data)
     data = builty_filters.qs
@@ -853,7 +853,7 @@ def mass_edit_request(request):
 
     for i in builty_id:
 
-        builty_instance = builty.objects.get(id = i).order_by('DC_date)
+        builty_instance = builty.objects.get(id = i).order_by('DC_date')
         request_edit.objects.create(builty = builty_instance, user = request.user, history = True)
     print('--------------------')
     return JsonResponse({'status' : 'done'})
