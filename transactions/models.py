@@ -51,7 +51,7 @@ class builty(models.Model):
     balance = models.FloatField(default=0)
     diesel = models.FloatField(default=0.0)
     editable = models.BooleanField(default=False)
-    deleted = models.BooleanField(default=False)
+    deleted = models.BooleanField(default=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):

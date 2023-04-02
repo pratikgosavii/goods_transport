@@ -16,6 +16,18 @@ class company_Form(forms.ModelForm):
         }
 
 
+class office_location_Form(forms.ModelForm):
+    class Meta:
+        model = office_location
+        fields = ['name']
+        widgets = {
+            'name': forms.TextInput(attrs={
+                'class': 'form-control', 'id': 'name'
+            }),
+            
+        }
+
+
 
 class consignor_Form(forms.ModelForm):
     class Meta:
@@ -36,6 +48,8 @@ class consignor_Form(forms.ModelForm):
      
             
         }
+
+   
 
 class onaccount_Form(forms.ModelForm):
     class Meta:
@@ -70,7 +84,7 @@ class taluka_Form(forms.ModelForm):
         fields = '__all__'
         widgets = {
             'district': forms.Select(attrs={
-                'class': 'form-control', 'id': 'district'
+                'class': 'form-control sele', 'id': 'district'
             }),
             'name': forms.TextInput(attrs={
                 'class': 'form-control', 'id': 'name'
@@ -78,6 +92,13 @@ class taluka_Form(forms.ModelForm):
             
             
         }
+
+         
+    def __init__(self, user, *args, **kwargs):
+        self.user = user  
+        super(taluka_Form,self).__init__(*args, **kwargs)
+        self.fields['district'].queryset = district.objects.filter(office_location = self.user.office_location)
+        
 
 class station_Form(forms.ModelForm):
     class Meta:
@@ -88,7 +109,7 @@ class station_Form(forms.ModelForm):
                 'class': 'form-control', 'id': 'name'
             }),
             'taluka': forms.Select(attrs={
-                'class': 'form-control', 'id': 'taluka'
+                'class': 'form-control sele', 'id': 'taluka'
             }),
             
             
@@ -96,6 +117,11 @@ class station_Form(forms.ModelForm):
 
 
 
+    def __init__(self, user, *args, **kwargs):
+        self.user = user  
+        super(station_Form,self).__init__(*args, **kwargs)
+        self.fields['taluka'].queryset = taluka.objects.filter(office_location = self.user.office_location)
+        
 
 class article_Form(forms.ModelForm):
     class Meta:
@@ -106,7 +132,7 @@ class article_Form(forms.ModelForm):
                 'class': 'form-control', 'id': 'company'
             }),
             'consignor': forms.Select(attrs={
-                'class': 'form-control', 'id': 'consignor'
+                'class': 'form-control sele', 'id': 'consignor_id'
             }),
             'name': forms.TextInput(attrs={
                 'class': 'form-control', 'id': 'name'
@@ -116,7 +142,12 @@ class article_Form(forms.ModelForm):
         }
 
 
-
+    
+    def __init__(self, user, *args, **kwargs):
+        self.user = user  
+        super(article_Form,self).__init__(*args, **kwargs)
+        self.fields['consignor'].queryset = consignor.objects.filter(office_location = self.user.office_location)
+        
 
 class truck_details_Form(forms.ModelForm):
     class Meta:

@@ -664,7 +664,7 @@
 
                             <div class="input-wrapper" style="display:flex;">
                                 <label for="first">Consignor Name</label>
-                                <select name="consignor" id="article_consignor" required="">
+                                <select name="consignor" class="sele" id="article_consignor" required="">
                                     <option value="" selected="">---------</option>
                                 </select>
                                     
@@ -674,7 +674,14 @@
 
                             <div class="input-wrapper" style="display:flex;">
                                 <label for="first">Consignor Name</label>
-                            {{ form_article.consignor }}
+                                <select name="consignor" class="sele" id="consignor_Sdsd" required="">
+                                    <option value="" selected="">---------</option>
+                                    
+                                    {% for i in consignor_data %}
+                                        <option value="{{ i.id }}">{{ i.name }}</option>
+                                    {% endfor %}
+
+                                </select>
                             </div>
 
                         {% endif %}
@@ -839,7 +846,11 @@
             <div class="modal-body">
                 <form id="station_Form">
         
-                    
+                        
+                        <div class="input-wrapper" style="display:flex;">
+                            <label for="first">Taluka name</label>
+                            {{ station_Form.taluka }}
+                        </div>
 
 
                             <div class="input-wrapper" style="display:flex;">
@@ -847,12 +858,7 @@
                                 {{ station_Form.name }}
                             </div>
 
-                            <div class="input-wrapper" style="display:flex;">
-                                <label for="first">Taluka name</label>
-                                {{ station_Form.taluka }}
-                            </div>
 
-                    
                     
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -924,7 +930,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form id="sub_trip">
+                <form id="district_form">
         
                     
 
@@ -1375,6 +1381,31 @@
                     let_html = '<option value="' + data.district_id + '" selected>' + data.district_name + '</option>'
                     $('#district').append(let_html);
 
+
+                }
+                else{
+                }
+                }
+            });
+        })
+
+    document.getElementById('district_form').addEventListener('submit', function(evt){
+        
+        evt.preventDefault();
+
+
+        var data = $('#district_form').serialize();
+
+        $.ajax({                       
+            type: "POST",
+            url: "{% url 'add_district_ajax' %}",
+            data : $(this).serialize(),
+            success: function (data) {   // `data` is from `get_topics_ajax` view function
+                console.log(data)
+                var data = JSON.parse(data)
+
+                if(data.status == 'True'){
+                    $('#myModal_district').modal('hide');
 
                 }
                 else{

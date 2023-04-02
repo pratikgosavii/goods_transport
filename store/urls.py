@@ -14,6 +14,11 @@ urlpatterns = [
     path('delete-company/<company_id>', delete_company, name='delete_company'),
     path('list-company/', list_company, name='list_company'),
 
+    path('add-office_location/', add_office_location, name='add_office_location'),
+    path('update-office_location/<office_location_id>', update_office_location, name='update_office_location'),
+    path('delete-office_location/<office_location_id>', delete_office_location, name='delete_office_location'),
+    path('list-office_location/', list_office_location, name='list_office_location'),
+
     path('add-company-consignor/', add_consignor, name='add_consignor'),
     path('add-company-consignor-ajax/', add_consignor_ajax, name='add_consignor_ajax'),
     path('update-company-consignor/<consignor_id>', update_consignor, name='update_consignor'),
@@ -68,6 +73,7 @@ urlpatterns = [
     path('list-station/', list_station, name='list_station'),
     
     path('add-district/', add_district, name='add_district'),
+    path('add-district-ajax/', add_district_ajax, name='add_district_ajax'),
     path('update-district/<district_id>', update_district, name='update_district'),
     path('delete-district/<district_id>', delete_district, name='delete_district'),
     path('list-district/', list_district, name='list_district'),

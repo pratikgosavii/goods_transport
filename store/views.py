@@ -35,7 +35,7 @@ def get_consignor_ajax(request):
         print(company_id)
         try:
             company_instance = company.objects.get(id= company_id)
-            dropdown1 = consignor.objects.filter(company = company_instance)
+            dropdown1 = consignor.objects.filter(company = company_instance, office_location = request.user.office_location)
             print('---------dropdown1')
             print(dropdown1)
         except Exception:
@@ -213,6 +213,82 @@ def list_company(request):
 
     return render(request, 'store/list_company.html', context)
 
+@login_required(login_url='login')
+@user_is_active
+def add_office_location(request):
+
+    if request.method == 'POST':
+
+        forms = office_location_Form(request.POST)
+
+        if forms.is_valid():
+            forms.save()
+            return redirect('list_office_location')
+        else:
+            print(forms.errors)
+    
+    else:
+
+        forms = office_location_Form()
+
+        context = {
+            'form': forms
+        }
+        return render(request, 'store/add_office_location.html', context)
+
+        
+
+@login_required(login_url='login')
+@user_is_active
+def update_office_location(request, office_location_id):
+
+    if request.method == 'POST':
+
+        instance = office_location.objects.get(id=office_location_id)
+
+        forms = office_location_Form(request.POST, instance=instance)
+
+        if forms.is_valid():
+            forms.save()
+            return redirect('list_office_location')
+        else:
+            print(forms.errors)
+    
+    else:
+
+        instance = office_location.objects.get(id=office_location_id)
+        forms = office_location_Form(instance=instance)
+
+        context = {
+            'form': forms
+        }
+        return render(request, 'store/add_office_location.html', context)
+
+        
+
+@login_required(login_url='login')
+@user_is_active
+def delete_office_location(request, office_location_id):
+
+    office_location.objects.get(id=office_location_id).delete()
+
+    return HttpResponseRedirect(reverse('list_office_location_delete'))
+
+
+        
+
+@login_required(login_url='login')
+@user_is_active
+def list_office_location(request):
+
+    data = office_location.objects.all()
+
+    context = {
+        'data': data
+    }
+
+    return render(request, 'store/list_office_location.html', context)
+
 
 
 @login_required(login_url='login')
@@ -220,8 +296,11 @@ def list_company(request):
 def add_consignor(request):
     
     if request.method == 'POST':
-
-        forms = consignor_Form(request.POST)
+  
+        updated_request = request.POST.copy()
+        updated_request.update({'office_location': request.user.office_location})
+       
+        forms = consignor_Form(updated_request)
 
         if forms.is_valid():
             forms.save()
@@ -255,15 +334,16 @@ def add_consignor_ajax(request):
 
         print('------------------------------------')
 
-        print(request.POST)
-
+        updated_request = request.POST.copy()
+        updated_request.update({'office_location': request.user.office_location})
+        print('==========--------------------')
+        print(updated_request)
         if request.user.is_superuser:
             
-            forms = consignor_Form(request.POST)
+            forms = consignor_Form(updated_request)
             
         else:
 
-            updated_request = request.POST.copy()
             updated_request.update({'company': request.user.company})
             forms = consignor_Form(updated_request)
 
@@ -279,20 +359,7 @@ def add_consignor_ajax(request):
             error = forms.errors.as_json()
             print(error)
             return JsonResponse(json.dumps({'error' : error}), safe=False)
-    
-    else:
-
-        print('-------------------1-----------------')
-
-
-        forms = consignor_Form()
-
-        context = {
-            'form': forms
-        }
-
-        return render(request, 'store/add_consignor.html', context)
-
+  
 
 @user_is_active
 def update_consignor(request, consignor_id):
@@ -300,8 +367,11 @@ def update_consignor(request, consignor_id):
     if request.method == 'POST':
 
         instance = consignor.objects.get(id=consignor_id)
-
-        forms = consignor_Form(request.POST, instance = instance)
+        
+        updated_request = request.POST.copy()
+        updated_request.update({'office_location': request.user.office_location})
+        
+        forms = consignor_Form(updated_request, instance = instance)
 
         if forms.is_valid():
             forms.save()
@@ -362,7 +432,10 @@ def add_article(request):
     
     if request.method == 'POST':
 
-        forms = article_Form(request.POST)
+        updated_request = request.POST.copy()
+        updated_request.update({'office_location': request.user.office_location})
+        
+        forms = article_Form(request.user, updated_request)
 
         if forms.is_valid():
             forms.save()
@@ -373,7 +446,7 @@ def add_article(request):
     
     else:
 
-        forms = article_Form()
+        forms = article_Form(user = request.user)
         data = company.objects.all()
         print(data)
 
@@ -394,16 +467,19 @@ def add_article_ajax(request):
 
         print()
 
+        updated_request = request.POST.copy()
+        updated_request.update({'office_location': request.user.office_location})
+
+        
         if request.user.is_superuser:
             
-            forms = article_Form(request.POST)
+            forms = article_Form(request.user, updated_request)
 
                 
         else:
 
-            updated_request = request.POST.copy()
             updated_request.update({'company_name': request.user.company})
-            forms = article_Form(updated_request)
+            forms = article_Form( request.user, updated_request)
 
 
 
@@ -422,7 +498,7 @@ def add_article_ajax(request):
     
     else:
 
-        forms = article_Form()
+        forms = article_Form(user = request.user)
         data = company.objects.all()
         print(data)
 
@@ -464,7 +540,10 @@ def update_article(request, article_id):
 
         instance = article.objects.get(id=article_id)
 
-        forms = article_Form(request.POST, instance = instance)
+        updated_request = request.POST.copy()
+        updated_request.update({'office_location': request.user.office_location})
+
+        forms = article_Form(updated_request, instance = instance, user = request.user)
 
         if forms.is_valid():
             forms.save()
@@ -476,7 +555,7 @@ def update_article(request, article_id):
 
         
 
-        forms = article_Form(instance = instance)
+        forms = article_Form(instance = instance, user = request.user)
         consignor_ID = instance.consignor.id
 
         print('-----------------')
@@ -904,8 +983,13 @@ def list_rate(request):
 def add_station(request):
     
     if request.method == 'POST':
+            
 
-        forms = station_Form(request.POST)
+        updated_request = request.POST.copy()
+        updated_request.update({'office_location': request.user.office_location})
+
+        forms = station_Form(request.user, updated_request)
+
         print('-----------------------------1---------------------')
         if forms.is_valid():
             forms.save()
@@ -918,7 +1002,7 @@ def add_station(request):
     
     else:
 
-        forms = station_Form()
+        forms = station_Form(user = request.user)
         print('--------------------------------------------------')
 
         
@@ -945,7 +1029,11 @@ def add_station_ajax(request):
     
     if request.method == 'POST':
 
-        forms = station_Form(request.POST)
+        updated_request = request.POST.copy()
+        updated_request.update({'office_location': request.user.office_location})
+
+
+        forms = station_Form(request.user, updated_request)
         print('-----------------------------1---------------------')
         if forms.is_valid():
             a = forms.save()
@@ -961,7 +1049,7 @@ def add_station_ajax(request):
     
     else:
 
-        forms = station_Form()
+        forms = station_Form(user = request.user)
         print('--------------------------------------------------')
 
         
@@ -986,7 +1074,7 @@ def update_station(request, station_id):
 
         instance = station.objects.get(id=station_id)
 
-        forms = station_Form(request.POST, instance = instance)
+        forms = station_Form(request.user, request.POST, instance = instance)
 
         if forms.is_valid():
             forms.save()
@@ -996,7 +1084,7 @@ def update_station(request, station_id):
 
         instance = station.objects.get(id=station_id)
 
-        forms = station_Form(instance = instance)
+        forms = station_Form(request.user, instance = instance)
 
         context = {
             'form': forms
@@ -1035,8 +1123,12 @@ def add_district(request):
     
     if request.method == 'POST':
 
-        forms = district_Form(request.POST)
-        print('-----------------------------1---------------------')
+        updated_request = request.POST.copy()
+        updated_request.update({'office_location': request.user.office_location})
+        print(updated_request)
+        forms = district_Form(updated_request)
+        print(forms)
+
         if forms.is_valid():
             forms.save()
             return redirect('list_district')
@@ -1067,13 +1159,56 @@ def add_district(request):
 
 @login_required(login_url='login')
 @user_is_active
+@csrf_exempt
+def add_district_ajax(request):
+
+    updated_request = request.POST.copy()
+    updated_request.update({'office_location': request.user.office_location})
+
+    if request.method == 'POST':
+
+        print()
+
+        if request.user.is_superuser:
+            
+            forms = district_Form(updated_request)
+
+                
+        else:
+
+            updated_request.update({'company_name': request.user.company})
+            forms = district_Form(updated_request)
+
+
+
+
+        if forms.is_valid():
+            a = forms.save()
+
+            print(a)
+            return JsonResponse(json.dumps({'status' : 'True'}), safe=False, content_type="application/json") 
+
+        else:
+            
+            error = forms.errors.as_json()
+            print(error)
+            return JsonResponse({'error' : error}, safe=False)
+    
+    
+
+@login_required(login_url='login')
+@user_is_active
 def update_district(request, district_id):
 
     if request.method == 'POST':
 
         instance = district.objects.get(id=district_id)
 
-        forms = district_Form(request.POST, instance = instance)
+        updated_request = request.POST.copy()
+        updated_request.update({'office_location': request.user.office_location})
+        print(updated_request)
+
+        forms = district_Form(updated_request, instance = instance)
 
         if forms.is_valid():
             forms.save()
@@ -1120,7 +1255,12 @@ def add_taluka(request):
     
     if request.method == 'POST':
 
-        forms = taluka_Form(request.POST)
+        updated_request = request.POST.copy()
+        updated_request.update({'office_location': request.user.office_location})
+        print(updated_request)
+        forms = taluka_Form(request.user, updated_request)
+
+
         print('-----------------------------1---------------------')
         if forms.is_valid():
             forms.save()
@@ -1133,7 +1273,7 @@ def add_taluka(request):
     
     else:
 
-        forms = taluka_Form()
+        forms = taluka_Form(user = request.user)
         print('--------------------------------------------------')
 
         
@@ -1158,7 +1298,11 @@ def add_taluka_ajax(request):
     
     if request.method == 'POST':
 
-        forms = taluka_Form(request.POST)
+        updated_request = request.POST.copy()
+        updated_request.update({'office_location': request.user.office_location})
+
+        print(updated_request)
+        forms = taluka_Form(request.user, updated_request)
         print('-----------------------------1---------------------')
         if forms.is_valid():
             a = forms.save()
@@ -1178,24 +1322,6 @@ def add_taluka_ajax(request):
             return JsonResponse({'error' : error}, safe=False)
     
     
-    else:
-
-        forms = taluka_Form()
-        print('--------------------------------------------------')
-
-        
-        print(forms)
-        print('-----------------------------3---------------------')
-
-        company_data = company.objects.all()
-
-        context = {
-            'form': forms,
-            'company' : company_data
-        }
-
-        return render(request, 'store/add_taluka.html', context)
-
 
 @login_required(login_url='login')
 @user_is_active
@@ -1205,7 +1331,7 @@ def update_taluka(request, taluka_id):
 
         instance = taluka.objects.get(id=taluka_id)
 
-        forms = taluka_Form(request.POST, instance = instance)
+        forms = taluka_Form(request.POST, instance = instance, user = request.user)
 
         if forms.is_valid():
             forms.save()
@@ -1215,7 +1341,7 @@ def update_taluka(request, taluka_id):
 
         instance = taluka.objects.get(id=taluka_id)
 
-        forms = taluka_Form(instance = instance)
+        forms = taluka_Form(instance = instance, user = request.user)
 
         context = {
             'form': forms
@@ -1252,8 +1378,10 @@ def list_taluka(request):
 def add_onaccount(request):
     
     if request.method == 'POST':
-
-        forms = onaccount_Form(request.POST)
+        
+        updated_request = request.POST.copy()
+        updated_request.update({'office_location': request.user.office_location})
+        forms = onaccount_Form(updated_request)
         print('-----------------------------1---------------------')
         if forms.is_valid():
             forms.save()
@@ -1290,14 +1418,18 @@ def add_onaccount_ajax(request):
     
     if request.method == 'POST':
 
+            
+        updated_request = request.POST.copy()
+        updated_request.update({'office_location': request.user.office_location})
+        forms = onaccount_Form(updated_request)
+
         if request.user.is_superuser:
             
-            forms = onaccount_Form(request.POST)
+            forms = onaccount_Form(updated_request)
 
                 
         else:
 
-            updated_request = request.POST.copy()
             updated_request.update({'company': request.user.company})
             forms = onaccount_Form(updated_request)
 
@@ -1343,8 +1475,11 @@ def update_onaccount(request, onaccount_id):
     if request.method == 'POST':
 
         instance = onaccount.objects.get(id=onaccount_id)
-
-        forms = onaccount_Form(request.POST, instance = instance)
+        
+        updated_request = request.POST.copy()
+        updated_request.update({'office_location': request.user.office_location})
+        
+        forms = onaccount_Form(updated_request, instance = instance)
 
         if forms.is_valid():
             forms.save()

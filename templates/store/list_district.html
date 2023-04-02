@@ -46,6 +46,7 @@
                                 <th class="serial">#</th>
                                
                                 <th>Name</th>
+                                <th>Office Location</th>
                                 <th>Action</th>
                                 
                             </tr>
@@ -57,6 +58,7 @@
                                 <td class="serial">{{ forloop.counter }}</td>
                                
                                 <td>{{i.name }}</td>
+                                <td>{{i.office_location }}</td>
 
                                 <td>  
                                    <a href="{% url 'update_district' i.id %}"> <button id="payment-button"  style="background-color: #05386b; border: green; padding: 10px;border-radius: 12px;" type="submit" class="btn-info ">

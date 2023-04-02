@@ -51,7 +51,7 @@ def add_transaction(request):
 
     if request.method == 'POST':
 
-        forms = builty_Form(request.POST)
+        forms = builty_Form(request.user, request.POSTr)
         DC_date = request.POST.get('DC_date')
         consignor_value = request.POST.get('consignor')
 
@@ -74,7 +74,7 @@ def add_transaction(request):
         builty_code = builty_code + '-' + str(consignor_builty_count + 1)
 
         updated_request.update({'DC_date': date_time, 'builty_no' : builty_code, 'company' : request.user.company, 'user' : request.user})
-        forms = builty_Form(updated_request)
+        forms = builty_Form(request.user, updated_request)
         if forms.is_valid():
 
             forms.save()
@@ -88,11 +88,11 @@ def add_transaction(request):
 
             from_truck_details = truck_details_Form()
             form_truck_owner = truck_owner_Form()
-            form_station= station_Form()
-            form_taluka = taluka_Form()
+            form_station= station_Form(user = request.user)
+            form_taluka = taluka_Form(user = request.user)
             form_district = district_Form()
             form_onaccount = onaccount_Form()
-            form_article = article_Form()
+            form_article = article_Form(user = request.user)
 
             if request.user.is_superuser:
 
@@ -102,9 +102,9 @@ def add_transaction(request):
 
             else:
 
-                article_data = article.objects.filter(company_name = request.user.company)
-                consignor_data = consignor.objects.filter(company = request.user.company)
-                onaccount_data = onaccount.objects.filter(company = request.user.company)
+                article_data = article.objects.filter(company_name = request.user.company, office_location = request.user.office_location)
+                consignor_data = consignor.objects.filter(company = request.user.company, office_location = request.user.office_location)
+                onaccount_data = onaccount.objects.filter(company = request.user.company, office_location = request.user.office_location)
 
             context = {
                 'form': forms,
@@ -127,17 +127,17 @@ def add_transaction(request):
 
     else:
 
-        forms = builty_Form()
+        forms = builty_Form(user = request.user)
 
         company_data = company.objects.all()
 
         from_truck_details = truck_details_Form()
         form_truck_owner = truck_owner_Form()
-        form_station= station_Form()
-        form_taluka = taluka_Form()
+        form_station= station_Form(user = request.user)
+        form_taluka = taluka_Form(user = request.user)
         form_district = district_Form()
         form_onaccount = onaccount_Form()
-        form_article = article_Form()
+        form_article = article_Form(user = request.user)
 
         if request.user.is_superuser:
 
@@ -147,9 +147,9 @@ def add_transaction(request):
 
         else:
 
-            article_data = article.objects.filter(company_name = request.user.company)
-            consignor_data = consignor.objects.filter(company = request.user.company)
-            onaccount_data = onaccount.objects.filter(company = request.user.company)
+            article_data = article.objects.filter(company_name = request.user.company, office_location = request.user.office_location)
+            consignor_data = consignor.objects.filter(company = request.user.company, office_location= request.user.office_location)
+            onaccount_data = onaccount.objects.filter(company = request.user.company, office_location= request.user.office_location)
 
         context = {
             'form': forms,
@@ -176,9 +176,11 @@ def update_builty(request, bulity_id):
 
     instance = builty.objects.get(id = bulity_id)
 
+    form_article = article_Form(user = request.user)
+
     if request.method == 'POST':
 
-        forms = builty_Form(request.POST, instance = instance)
+        forms = builty_Form(request.user, request.POST, instance = instance)
         DC_date = request.POST.get('DC_date')
 
         if DC_date:
@@ -192,7 +194,7 @@ def update_builty(request, bulity_id):
         print('---------------------')
         updated_request = request.POST.copy()
         updated_request.update({'DC_date': date_time, 'company' : request.user.company, 'user' : request.user, 'editable' : False})
-        forms = builty_Form(updated_request, instance = instance)
+        forms = builty_Form(request.user, updated_request, instance = instance)
         if forms.is_valid():
 
             forms.save()
@@ -209,9 +211,9 @@ def update_builty(request, bulity_id):
 
             else:
 
-                article_data = article.objects.filter(company_name = request.user.company)
-                consignor_data = consignor.objects.filter(company = request.user.company)
-                onaccount_data = onaccount.objects.filter(company = request.user.company)
+                article_data = article.objects.filter(company_name = request.user.company, office_location = request.user.office_location)
+                consignor_data = consignor.objects.filter(company = request.user.company, office_location = request.user.office_location)
+                onaccount_data = onaccount.objects.filter(company = request.user.company, office_location = request.user.office_location)
 
 
             context = {
@@ -219,6 +221,8 @@ def update_builty(request, bulity_id):
                 'article_data' : article_data,
                 'consignor_data' : consignor_data,
                 'onaccount_data' : onaccount_data,
+                'form_article' : form_article,
+
             }
 
             
@@ -227,7 +231,9 @@ def update_builty(request, bulity_id):
 
     else:
 
-        forms = builty_Form(instance = instance)
+        forms = builty_Form(request.user, instance = instance)
+        
+        company_data = company.objects.all()
 
         print('-----------------------------------')
         print('-----------------------------------')
@@ -242,16 +248,31 @@ def update_builty(request, bulity_id):
 
         else:
 
-            article_data = article.objects.filter(company_name = request.user.company)
-            consignor_data = consignor.objects.filter(company = request.user.company)
-            onaccount_data = onaccount.objects.filter(company = request.user.company)
-
+            article_data = article.objects.filter(company_name = request.user.company, office_location = request.user.office_location)
+            consignor_data = consignor.objects.filter(company = request.user.company, office_location = request.user.office_location)
+            onaccount_data = onaccount.objects.filter(company = request.user.company, office_location = request.user.office_location)
+        
+        from_truck_details = truck_details_Form()
+        form_truck_owner = truck_owner_Form()
+        form_station= station_Form(user = request.user)
+        form_taluka = taluka_Form(user = request.user)
+        form_district = district_Form()
+        form_onaccount = onaccount_Form()
+        form_article = article_Form(user = request.user)
 
         context = {
             'form': forms,
+            'form_truck_details' : from_truck_details,
+            'form_truck_owner' : form_truck_owner,
+            'station_Form' : form_station,
+            'form_onaccount' : form_onaccount,
+            'form_taluka' : form_taluka,
+            'form_district' : form_district,
+            'company_data' : company_data,
             'article_data' : article_data,
             'consignor_data' : consignor_data,
             'onaccount_data' : onaccount_data,
+            'form_article' : form_article,
         }
         return render(request, 'transactions/update_builty.html', context)
 
@@ -343,7 +364,7 @@ def list_transaction(request):
     context = {
         'data' : data,
         'builty_filter' : builty_filters,
-        'form' : builty_Form(),
+        'form' : builty_Form(user = request.user),
         'total_freight' : total_freight,
         'total_advance' : total_advance,
         'total_balance' : total_balance,
@@ -729,7 +750,7 @@ def update_ack(request, challan_id):
 
     else:
 
-        form = builty_Form(instance=instance2)
+        form = builty_Form(request.user, instance=instance2)
         form2 = ack_Form(instance=instance)
 
         context = {

@@ -39,6 +39,7 @@
                                 <th>Company Name</th>
                                 <th>Builty Code</th>
                                 <th>Consignor Name</th>
+                                <th>Office Location </th>
                                 <th>Actions</th>
                                 
                             </tr>
@@ -51,6 +52,7 @@
                                 <td>{{ i.company.company_name }}</td>
                                 <td>{{ i.builty_code }}</td>
                                 <td>{{ i.name }}</td>
+                                <td>{{ i.office_location }}</td>
                                 <td>  
                                    <a href="{% url 'update_consignor' i.id %}"> <button id="payment-button"  style="background-color: #05386b; border: green; padding: 10px;border-radius: 12px;" type="submit" class="btn-info ">
                                         <span id="payment-button-amount">View</span>

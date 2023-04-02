@@ -539,8 +539,27 @@
                             </div>
  {% endcomment %}
 
-                            
+                  
+ 
+ 
+ <div style="display: flex;
+ gap: 75px;justify-content: center;">
 
+
+        <button id="payment-button" type="submit"  style="height: 44px;
+        width: 300px;
+        background: #05386b;
+        border: none;
+        color: white;
+        font-weight: bold;
+        font-size: 14px;">
+            <span id="payment-button-amount">Update Builty</span>
+        </button>
+
+   
+
+
+{% comment %} 
  <div style="display: flex;
  gap: 75px;justify-content: center;">
 
@@ -568,7 +587,7 @@
             <span id="payment-button-amount">Request Edit</span>
         </button> </a>
 
-     {% endif %}
+     {% endif %} {% endcomment %}
 
  </div>
                         </form>
@@ -680,7 +699,7 @@
 
                         <div class="input-wrapper" style="display:flex;">
                             <label for="first">Consignor Name</label>
-                            <select name="consignor" id="article_consignor" required="">
+                            <select name="consignor" class="sele" id="article_consignor" required="">
                                 <option value="" selected="">---------</option>
                             </select>
                                 
@@ -851,7 +870,10 @@
             <form id="station_Form">
     
                 
-
+                <div class="input-wrapper" style="display:flex;">
+                    <label for="first">Taluka name</label>
+                    {{ station_Form.taluka }}
+                </div>
 
                         <div class="input-wrapper" style="display:flex;">
                             <label for="first">Station name</label>
@@ -1565,16 +1587,7 @@ document.getElementById("consignor").value = {{ form.consignor.value }};
 document.getElementById("article").value = {{ form.article.value }};
 document.getElementById("onaccount").value = {{ form.onaccount.value }};
 
-        
     $('.sele').select2();
-
-    
-    {% if form.instance.editable == False %}
-
-        $("#disable_form :input").prop("disabled", true)
-
-
-     {% endif %}
 
     
 </script>

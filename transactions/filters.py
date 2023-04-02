@@ -122,7 +122,10 @@ class builty_filter(django_filters.FilterSet):
         model = builty
         fields = '__all__'
        
-   
+    # def __init__(self, *args, **kwargs):
+    #     super(builty_filter,self).__init__(*args, **kwargs)
+    #     request = kwargs['request']
+    #     self.filters['user'].queryset = User.objects.filter(manager_id=username, location=userlocation)
 
 class ack_filter(django_filters.FilterSet):
 

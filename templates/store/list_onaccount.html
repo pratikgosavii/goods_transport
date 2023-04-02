@@ -38,6 +38,7 @@
                                 <th class="serial">#</th>
                                 <th>Company Name</th>
                                 <th>Onaccount</th>
+                                <th>Office location</th>
                                 <th>Actions</th>
                                 
                             </tr>
@@ -49,6 +50,7 @@
                                 <td class="serial">{{ forloop.counter }}</td>
                                 <td>{{ i.company.company_name }}</td>
                                 <td>{{ i.name }}</td>
+                                <td>{{ i.office_location }}</td>
                                 <td>  
                                    <a href="{% url 'update_onaccount' i.id %}"> <button id="payment-button"  style="background-color: #05386b; border: green; padding: 10px;border-radius: 12px;" type="submit" class="btn-info ">
                                         <span id="payment-button-amount">View</span>
