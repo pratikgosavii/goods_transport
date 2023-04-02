@@ -35,9 +35,7 @@ class registerForm(forms.ModelForm):
             'company': forms.Select(attrs={
                 'class': 'form-control', 'id': 'company_goods', 'required' : 'True'
             }),
-            'office_location': forms.Select(attrs={
-                'class': 'form-control', 'id': 'company_goods', 'required' : 'True'
-            }),
+            
 
         }
     

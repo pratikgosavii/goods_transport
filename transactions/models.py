@@ -38,7 +38,6 @@ class builty(models.Model):
     onaccount = models.ForeignKey(onaccount , on_delete=models.CASCADE, related_name='wfdfgfdgv')
     article = models.ForeignKey(article , on_delete=models.CASCADE, related_name='dffdcxvc')
     bags = models.FloatField()
-    bags1 = models.FloatField()
     delivery_no = models.FloatField()
     mobile_no = models.FloatField(null = True, blank = True)
     ex_for = models.CharField(max_length=50, choices=ex_for, default="for")
