@@ -120,7 +120,7 @@ class builty_filter(django_filters.FilterSet):
 
     class Meta:
         model = builty
-        fields = ['company', 'consignor', 'builty_no']
+        fields = '__all__'
        
    
 
