@@ -291,6 +291,7 @@ def delete_transaction(request, builty_id):
 from .filters import *
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
+from django.db.models.functions import Substr
 
 @user_is_active
 def list_transaction(request):
@@ -298,10 +299,10 @@ def list_transaction(request):
   
     if request.user.is_superuser:
 
-        data = builty.objects.filter(deleted = False).order_by('builty_no')
+        data = builty.objects.filter(deleted = False).order_by(Substr('builty_no',5))
     else:
 
-        data = builty.objects.filter(user = request.user, deleted = False).order_by('builty_no')
+        data = builty.objects.filter(user = request.user, deleted = False).order_by(Substr('builty_no',4))
 
     total1_freight = 0
     total1_advance = 0
@@ -529,7 +530,7 @@ def add_subtrip(request):
 @user_is_active
 def list_ack_all(request):
 
-    data = builty.objects.filter(deleted = False).order_by('builty_no')
+    data = builty.objects.filter(deleted = False).order_by(Substr('builty_no',5))
      
     total1_freight = 0
     total1_advance = 0
@@ -602,12 +603,12 @@ def list_ack(request):
 
     if request.user.is_superuser:
 
-        data = ack.objects.filter(builty__deleted = False).order_by('builty__builty_no')
+        data = ack.objects.filter(builty__deleted = False).order_by(Substr('builty__builty_no',5))
 
 
     else:
 
-        data = ack.objects.filter(builty__deleted = False, builty__user = request.user).order_by('builty__builty_no')
+        data = ack.objects.filter(builty__deleted = False, builty__user = request.user).order_by(Substr('builty__builty_no',5))
 
     total1_freight = 0
     total1_advance = 0
@@ -683,7 +684,7 @@ def list_ack(request):
 @user_is_active
 def list_not_ack(request):
 
-    data = builty.objects.filter(deleted = False).order_by('builty_no')
+    data = builty.objects.filter(deleted = False).order_by(Substr('builty_no',5))
 
     builty_filters = builty_filter(request.GET, queryset=data)
     data = builty_filters.qs
@@ -852,7 +853,7 @@ def mass_edit_request(request):
 
     for i in builty_id:
 
-        builty_instance = builty.objects.get(id = i).order_by('builty_no')
+        builty_instance = builty.objects.get(id = i).order_by(Substr('builty_no',5))
         request_edit.objects.create(builty = builty_instance, user = request.user, history = True)
     print('--------------------')
     return JsonResponse({'status' : 'done'})

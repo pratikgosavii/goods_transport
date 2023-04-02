@@ -9,6 +9,9 @@ from users.models import *
 from transactions.filters import *
 
 
+from django.db.models.functions import Substr
+
+
 @login_required(login_url='login')
 def dashboard(request):
 
@@ -18,7 +21,7 @@ def dashboard(request):
     user_count = User.objects.all().count()
 
     if request.user.is_superuser:
-        builty_data = builty.objects.all().order_by('builty_no')
+        builty_data = builty.objects.all().order_by(Substr('builty_no',5))
     else:
         builty_data = None
 
