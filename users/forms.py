@@ -28,14 +28,16 @@ class registerForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ["username", "password1", "is_active", "company", "office_location"]
+        fields = ["username", "password1", "is_active", "company"]
 
 
         widgets = {
             'company': forms.Select(attrs={
                 'class': 'form-control', 'id': 'company_goods', 'required' : 'True'
             }),
-            
+            'office_location': forms.Select(attrs={
+                'class': 'form-control', 'id': 'company_goods', 'required' : 'True'
+            }),
 
         }
     
