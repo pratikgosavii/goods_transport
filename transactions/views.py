@@ -51,7 +51,7 @@ def add_transaction(request):
 
     if request.method == 'POST':
 
-        forms = builty_Form(request.user, request.POSTr)
+        forms = builty_Form(request.user, request.POST)
         DC_date = request.POST.get('DC_date')
         consignor_value = request.POST.get('consignor')
 
