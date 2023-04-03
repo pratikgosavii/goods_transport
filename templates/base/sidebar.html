@@ -95,6 +95,7 @@
 
 
                 <li class="menu-title">Setting</li><!-- /.menu-title -->
+                {% if request.user.is_superuser %}
 
                 <li class="menu-item-has-children dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-building"></i>Name of Company</a>
@@ -111,6 +112,8 @@
                         <li><i class="fa fa-th"></i><a href="{% url 'list_office_location' %}">View</a></li>
                     </ul>
                 </li>
+
+                {% endif %}
 
                  <li class="menu-item-has-children dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa  fa-leaf"></i>Consignor</a>

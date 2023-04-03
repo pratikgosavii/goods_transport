@@ -59,12 +59,8 @@ def add_transaction(request):
         if DC_date:
 
             date_time = numOfDays(DC_date)
-            print('in if')
         else:
             date_time = datetime.now(IST)
-        print('-----------------------------------------------date_time')
-        print(date_time)
-        print('---------------------')
         updated_request = request.POST.copy()
 
         consignor_instance = consignor.objects.get(id = consignor_value)
