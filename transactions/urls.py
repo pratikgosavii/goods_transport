@@ -39,6 +39,8 @@ urlpatterns = [
 
     path('generate_bill/<builty_id>', GeneratePdf, name='generate_bill'),
 
+    path('generate_bill-akola/<builty_id>', GeneratePdf_akola, name='generate_bill_akola'),
+
     path('download', download, name='download'),
 
     path('truck-report', truck_report, name='truck_report'),

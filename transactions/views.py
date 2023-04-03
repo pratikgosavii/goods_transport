@@ -985,6 +985,24 @@ def GeneratePdf(request, builty_id):
         
         return HttpResponse(fh, content_type='application/pdf')
 
+       
+def GeneratePdf_akola(request, builty_id):
+
+    data = builty.objects.get(id = builty_id)
+    params = {
+        'data': data,
+    }
+    file = render_to_file('transactions/generate_bill_akola.html', params)
+
+
+
+
+
+    
+    with open(file, 'rb') as fh:
+        
+        return HttpResponse(fh, content_type='application/pdf')
+
 
 
 
