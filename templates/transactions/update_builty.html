@@ -191,7 +191,7 @@
 
 
 
-                        <form action="#" method="post" id="disable_form">
+                        <form action="#" method="post" onsubmit="myButton.disabled = true; return true;" id="disable_form">
                             {% csrf_token %}
 
                             <div class="col-12">
@@ -546,7 +546,7 @@
  gap: 75px;justify-content: center;">
 
 
-        <button id="payment-button" type="submit"  style="height: 44px;
+        <button id="myButton" type="submit"  name="myButton"  style="height: 44px;
         width: 300px;
         background: #05386b;
         border: none;
