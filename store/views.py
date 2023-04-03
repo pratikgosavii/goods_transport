@@ -399,7 +399,7 @@ def update_consignor(request, consignor_id):
             
         }
 
-        return render(request, 'store/update_consignor.html', context)
+        return render(request, 'store/add_consignor.html', context)
 
 
 @login_required(login_url='login')
@@ -415,7 +415,7 @@ def delete_consignor(request, consignor_id):
 @user_is_active
 def list_consignor(request):
     
-    data = consignor.objects.all().order_by('company__company_name')
+    data = consignor.objects.filter(office_location = request.user.office_location).order_by('company__company_name')
 
     context = {
             'data': data
@@ -583,7 +583,7 @@ def delete_article(request, company_goods_id):
 @user_is_active
 def list_article(request):
     
-    data = article.objects.all().order_by('company_name__company_name')
+    data = article.objects.filter(office_location = request.user.office_location).order_by('company_name__company_name')
 
     context = {
             'data': data
@@ -1106,7 +1106,7 @@ def delete_station(request, station_id):
 @user_is_active
 def list_station(request):
     
-    data = station.objects.all()
+    data = station.objects.filter(office_location = request.user.office_location)
 
     context = {
             'data': data
@@ -1240,7 +1240,7 @@ def delete_district(request, district_id):
 @user_is_active
 def list_district(request):
     
-    data = district.objects.all()
+    data = district.objects.filter(office_location = request.user.office_location)
 
     context = {
             'data': data
@@ -1363,7 +1363,7 @@ def delete_taluka(request, taluka_id):
 @user_is_active
 def list_taluka(request):
     
-    data = taluka.objects.all()
+    data = taluka.objects.filter(office_location = request.user.office_location)
 
     context = {
             'data': data
@@ -1511,7 +1511,7 @@ def delete_onaccount(request, onaccount_id):
 @user_is_active
 def list_onaccount(request):
     
-    data = onaccount.objects.all()
+    data = onaccount.objects.filter(office_location = request.user.office_location)
 
     context = {
             'data': data
