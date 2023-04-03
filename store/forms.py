@@ -141,7 +141,6 @@ class article_Form(forms.ModelForm):
             
         }
 
-
     
     def __init__(self, user, *args, **kwargs):
         self.user = user  

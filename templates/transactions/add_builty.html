@@ -192,7 +192,7 @@
 
 
 
-                        <form action="#" onsubmit="myButton.disabled = true; return true;" method="post" >
+                        <form action="#" onsubmit="myButton.disabled = true; return true;" id="mains" method="post" >
                             {% csrf_token %}
 
                             <div class="col-12">
@@ -1009,6 +1009,7 @@
 
 
     $("#article_company").change(function () {
+
         const comapnyID = $(this).val();  // get the selected subject ID from the HTML dropdown list 
         $.ajax({                       // initialize an AJAX request
             type: "POST",
@@ -1072,6 +1073,7 @@
     $("#truck_details").change(function () {
         truckid = ($(this).val());
 
+        $('#station_from').select2('open');
             
 
         $.ajax({   
@@ -1128,10 +1130,14 @@
 
                     document.getElementById('district').value = a[0].fields.district;
 
+
+                    document.getElementById("consignee").focus();
+
             
             }
 
         });
+
 
 
     });
@@ -1142,7 +1148,7 @@
     $("#consignor").change(function () {
         consignorid = ($(this).val());
 
-            
+        $('#article').select2('open');
 
         $.ajax({   
             cache: false,                    // initialize an AJAX request
@@ -1501,6 +1507,136 @@
 
     document.getElementById("balance").readOnly = true
 
+
+    $('#article').change(function(){
+        $('#truck_details').select2('open');
+    })
+
+    $('#station_from').change(function(){
+        $('#station_to').select2('open');
+    })
+
+
+
+    $(document).on('keyup keypress', 'form input[type="text"], input[type="number"]', function(e) {
+        if(e.which == 13) {
+          e.preventDefault();
+
+          return false;
+        }
+      });
+
+
+      const inputEl = document.getElementById("consignee");
+
+      inputEl.addEventListener("keyup", manageEnter);
+      
+      function manageEnter(evt) {
+        evt.preventDefault();
+        if (evt.keyCode === 13) {
+            $('#onaccount').select2('open');
+
+        }
+      }
+
+      $('#onaccount').change(function(){
+
+
+        document.getElementById("id_DC_date").showPicker();
+
+        
+      })
+
+      
+      $('#id_DC_date').change(function(){
+
+
+        document.getElementById("id_mobile_no").focus();
+
+
+      })
+
+      $('#id_DC_date').change(function(){
+
+        document.getElementById("id_mobile_no").focus();
+
+
+      })
+      
+      const inputE2 = document.getElementById("id_mobile_no");
+
+      inputE2.addEventListener("keyup", manageEnter2);
+      
+      function manageEnter2(evt) {
+        evt.preventDefault();
+        if (evt.keyCode === 13) {
+            $('#bags').focus();
+
+        }
+      }
+      
+      const inputE3 = document.getElementById("bags");
+
+      inputE3.addEventListener("keyup", manageEnter3);
+      
+      function manageEnter3(evt) {
+        evt.preventDefault();
+        if (evt.keyCode === 13) {
+            $('#delivery_no').focus();
+
+        }
+      }
+      
+      const inputE4 = document.getElementById("delivery_no");
+
+      inputE4.addEventListener("keyup", manageEnter4);
+      
+      function manageEnter4(evt) {
+        evt.preventDefault();
+        if (evt.keyCode === 13) {
+            $('#rate').focus();
+
+        }
+      }
+      
+
+      const inputE5 = document.getElementById("rate");
+
+      inputE5.addEventListener("keyup", manageEnter5);
+      
+      function manageEnter5(evt) {
+        evt.preventDefault();
+        if (evt.keyCode === 13) {
+            $('#less_advance').focus();
+
+        }
+      }
+      
+      const inputE6 = document.getElementById("less_advance");
+
+      inputE6.addEventListener("keyup", manageEnter6);
+      
+      function manageEnter6(evt) {
+        evt.preventDefault();
+        if (evt.keyCode === 13) {
+
+            $('#petrol_pump').select2('open');
+
+        }
+      }
+      
+
+      
+      $('#petrol_pump').change(function(){
+
+
+        document.getElementById('diesel').focus();
+ 
+ 
+       })
+ 
+      
+      
 //-----------------------------------------------------------
     
         
