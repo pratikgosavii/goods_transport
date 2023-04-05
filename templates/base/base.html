@@ -153,24 +153,24 @@
 
 
             {% if form.errors %}
-            {% for field in form %}
-                {% for error in field.errors %} 
-                   <div class="alert alert-danger">
+                {% for field in form %}
+                    {% for error in field.errors %} 
+                    <div class="alert alert-danger">
 
-                    <div>
-                        <strong> {{ field.label }}</strong>
-                        <strong style="color:black;margin-left:10px;"> {{ error|escape }} </strong>
-                    
-                    </div>
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                            </button>
-
-
+                        <div>
+                            <strong> {{ field.label }}</strong>
+                            <strong style="color:black;margin-left:10px;"> {{ error|escape }} </strong>
+                        
                         </div>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                                </button>
+
+
+                            </div>
+                    {% endfor %}
                 {% endfor %}
-            {% endfor %}
-         {% endif %}
+            {% endif %}
 {% comment %} 
             {% if messages %}
             <ul class="messages">
