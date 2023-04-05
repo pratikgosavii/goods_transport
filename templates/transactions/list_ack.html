@@ -226,6 +226,17 @@
         <div class="card">
             <div class="card-body">
                 <h4 class="box-title">Acknowleged List </h4>
+
+                
+            <form style="display:flex;">
+              <label for="location_to" class="col-form-label">Location From </label>
+              {{ form.station_from }}  
+            
+        <a href="{% url 'list_transaction' %}"><button class="btn btn-primary" type="button" > Reset </button></a>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+
+      </form>
             </div>
             <div class="card-body--">
                 <div class="table-stats order-table ov-h">
