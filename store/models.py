@@ -36,7 +36,7 @@ class consignor(models.Model):
     company = models.ForeignKey(company , on_delete=models.CASCADE, related_name='event_ticket')
     builty_code = models.CharField(max_length=120, unique = True)
     name = models.CharField(max_length=120, unique=False)
-    office_location = models.ForeignKey(office_location, on_delete=models.CASCADE, related_name='sdsfwfe')
+    office_location = models.ForeignKey(office_location, on_delete=models.CASCADE, blank = True, null = True,related_name='sdsfwfe')
     
     def __str__(self):
         return self.name
@@ -45,7 +45,7 @@ class onaccount(models.Model):
 
     company = models.ForeignKey(company , on_delete=models.CASCADE, related_name='scsdsds')
     name = models.CharField(max_length=120, unique=False)
-    office_location = models.ForeignKey(office_location, on_delete=models.CASCADE, related_name='sefedsfwfe')
+    office_location = models.ForeignKey(office_location, on_delete=models.CASCADE, blank = True, null = True,related_name='sefedsfwfe')
     
     
     def __str__(self):
@@ -57,7 +57,7 @@ class article(models.Model):
     company_name = models.ForeignKey(company, on_delete=models.CASCADE, related_name='sfsf')
     consignor = models.ForeignKey(consignor , on_delete=models.CASCADE, related_name='sds')
     name = models.CharField(max_length=120, unique=False)
-    office_location = models.ForeignKey(office_location, on_delete=models.CASCADE, related_name='fefefe4gefd')
+    office_location = models.ForeignKey(office_location, on_delete=models.CASCADE, blank = True, null = True,related_name='fefefe4gefd')
 
     def __str__(self):
         return self.name
@@ -131,7 +131,7 @@ class district(models.Model):
 class taluka(models.Model):
 
     district = models.ForeignKey(district, on_delete=models.CASCADE)
-    office_location = models.ForeignKey(office_location, on_delete=models.CASCADE, related_name='ddfdf')
+    office_location = models.ForeignKey(office_location, on_delete=models.CASCADE, blank = True, null = True,related_name='ddfdf')
 
     name =  models.CharField(max_length=120, unique=True)
 
@@ -144,7 +144,7 @@ class taluka(models.Model):
 class station(models.Model):
 
     name =  models.CharField(max_length=120, unique=True)
-    office_location = models.ForeignKey(office_location, on_delete=models.CASCADE, related_name='eeredfed')
+    office_location = models.ForeignKey(office_location, on_delete=models.CASCADE, blank = True, null = True,related_name='eeredfed')
     taluka =  models.ForeignKey(taluka, related_name="fefdws", on_delete=models.CASCADE)
         
     def __str__(self):

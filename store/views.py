@@ -1349,17 +1349,23 @@ def update_taluka(request, taluka_id):
 
         instance = taluka.objects.get(id=taluka_id)
 
-        forms = taluka_Form(request.POST, instance = instance, user = request.user)
+        forms = taluka_Form(request.user, request.POST, instance = instance)
 
         if forms.is_valid():
             forms.save()
             return redirect('list_taluka')
-    
+        else:
+            
+            context = {
+                'form': forms
+            }
+
+            return render(request, 'store/add_taluka.html', context)
     else:
 
         instance = taluka.objects.get(id=taluka_id)
 
-        forms = taluka_Form(instance = instance, user = request.user)
+        forms = taluka_Form(request.user, instance = instance)
 
         context = {
             'form': forms
