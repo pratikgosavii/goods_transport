@@ -98,7 +98,7 @@ class taluka_Form(forms.ModelForm):
         self.user = user  
         super(taluka_Form,self).__init__(*args, **kwargs)
 
-        if user.is_superuser:
+        if not user.is_superuser:
             self.fields['district'].queryset = district.objects.filter(office_location = self.user.office_location)
         
 
