@@ -20,6 +20,15 @@ class builty_filter(django_filters.FilterSet):
                 'id' : 'company'
             })
     )
+
+    station_from = django_filters.ModelChoiceFilter(
+        queryset=station.objects.all(),
+        widget=forms.Select(
+            attrs={
+                'class' : 'form-control sele',
+                'id' : 'company'
+            })
+    )
     
     article = django_filters.ModelChoiceFilter(
         queryset=article.objects.all(),
@@ -152,7 +161,7 @@ class ack_filter(django_filters.FilterSet):
         widget=forms.Select(
             attrs={
                 'class' : 'form-control sele',
-                'id' : 'company'
+                'id' : 'truck_no'
             })
     )
     builty__truck_owner = django_filters.ModelChoiceFilter(
@@ -160,7 +169,7 @@ class ack_filter(django_filters.FilterSet):
         widget=forms.Select(
             attrs={
                 'class' : 'form-control sele',
-                'id' : 'company'
+                'id' : 'truck_owner'
             })
     )
     builty__petrol_pump = django_filters.ModelChoiceFilter(
