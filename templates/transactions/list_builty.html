@@ -241,6 +241,16 @@
               <label for="location_to" class="col-form-label">Location From </label>
               {{ form.station_from }}  
             </div>
+            
+           
+                                
+            <label for="name" class="control-label mb-1" style="margin-left : 0px;">Builty Date From</label>
+            {{ builty_filter.form.DC_date_start__date }}
+        
+
+
+        <label for="name" class="control-label mb-1">Builty Date To</label>
+        {{ builty_filter.form.DC_date_end__date }}
         <button type="submit" class="btn btn-primary">Submit</button>
 
           </from>
@@ -263,10 +273,14 @@
                                 <th>Account</th>
                                 <th>Article</th>
                                 <th>MT</th>
+                                {% if hbuilty_filteras.filter %}
+
                                 <th>Rate</th>
                                 <th>Freight</th>
                                 <th>Advance</th>
                                 <th>Balance</th>
+
+                                {% endif %}
                                 <th>#</th>
                                 
                             </tr>
@@ -309,10 +323,15 @@
                                 <td>{{ i.onaccount }}</td>
                                 <td>{{ i.article }}</td>
                                 <td>{{ i.mt }}</td>
+
+                                {% if hbuilty_filteras.filter %}
+
                                 <td>{{ i.rate }}</td>
                                 <td>{{ i.freight }}</td>
                                 <td>{{ i.less_advance }}</td>
                                 <td>{{ i.balance }}</td>
+
+                                {% endif %}
                                 
                                 <td style="display: flex; gap: 11px;height: 86px;">  
 
