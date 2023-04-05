@@ -151,13 +151,15 @@ class builty_Form(forms.ModelForm):
     def __init__(self, user, *args, **kwargs):
         self.user = user  
         super(builty_Form,self).__init__(*args, **kwargs)
-        self.fields['district'].queryset = district.objects.filter(office_location = self.user.office_location)
-        self.fields['taluka'].queryset = taluka.objects.filter(office_location = self.user.office_location)
-        self.fields['station_from'].queryset = station.objects.filter(office_location = self.user.office_location)
-        self.fields['station_to'].queryset = station.objects.filter(office_location = self.user.office_location)
-        self.fields['onaccount'].queryset = onaccount.objects.filter(office_location = self.user.office_location)
-        self.fields['consignor'].queryset = consignor.objects.filter(office_location = self.user.office_location)
-        self.fields['article'].queryset = article.objects.filter(office_location = self.user.office_location)
+
+        if not self.user.is_superuser:
+            self.fields['district'].queryset = district.objects.filter(office_location = self.user.office_location)
+            self.fields['taluka'].queryset = taluka.objects.filter(office_location = self.user.office_location)
+            self.fields['station_from'].queryset = station.objects.filter(office_location = self.user.office_location)
+            self.fields['station_to'].queryset = station.objects.filter(office_location = self.user.office_location)
+            self.fields['onaccount'].queryset = onaccount.objects.filter(office_location = self.user.office_location)
+            self.fields['consignor'].queryset = consignor.objects.filter(office_location = self.user.office_location)
+            self.fields['article'].queryset = article.objects.filter(office_location = self.user.office_location)
 
 class ack_Form(forms.ModelForm):
     class Meta:

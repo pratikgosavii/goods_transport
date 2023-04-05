@@ -69,9 +69,6 @@ class article(models.Model):
 class truck_owner(models.Model):
 
     owner_name = models.CharField(max_length=120, unique=True)
-    bank_acc = models.CharField(max_length=120, unique=True, null=True, blank=True)
-    pan_card = models.CharField(max_length=120, unique=True, null=True, blank=True)
-    address = models.CharField(max_length=120, unique=False, null=True, blank=True)
     mobile_number =  models.IntegerField(unique=False, null=True, blank=True)
 
        

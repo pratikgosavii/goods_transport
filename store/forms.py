@@ -97,7 +97,9 @@ class taluka_Form(forms.ModelForm):
     def __init__(self, user, *args, **kwargs):
         self.user = user  
         super(taluka_Form,self).__init__(*args, **kwargs)
-        self.fields['district'].queryset = district.objects.filter(office_location = self.user.office_location)
+
+        if not self.user.is_superuser:
+            self.fields['district'].queryset = district.objects.filter(office_location = self.user.office_location)
         
 
 class station_Form(forms.ModelForm):
@@ -120,7 +122,9 @@ class station_Form(forms.ModelForm):
     def __init__(self, user, *args, **kwargs):
         self.user = user  
         super(station_Form,self).__init__(*args, **kwargs)
-        self.fields['taluka'].queryset = taluka.objects.filter(office_location = self.user.office_location)
+
+        if not self.user.is_superuser:
+            self.fields['taluka'].queryset = taluka.objects.filter(office_location = self.user.office_location)
         
 
 class article_Form(forms.ModelForm):
@@ -145,7 +149,9 @@ class article_Form(forms.ModelForm):
     def __init__(self, user, *args, **kwargs):
         self.user = user  
         super(article_Form,self).__init__(*args, **kwargs)
-        self.fields['consignor'].queryset = consignor.objects.filter(office_location = self.user.office_location)
+
+        if not self.user.is_superuser:
+            self.fields['consignor'].queryset = consignor.objects.filter(office_location = self.user.office_location)
         
 
 class truck_details_Form(forms.ModelForm):
