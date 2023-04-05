@@ -1349,7 +1349,7 @@ def update_taluka(request, taluka_id):
 
         instance = taluka.objects.get(id=taluka_id)
 
-        forms = taluka_Form(request.user, request.POST, instance = instance)
+        forms = taluka_Form(request.POST, instance = instance)
 
         if forms.is_valid():
             forms.save()
@@ -1365,7 +1365,7 @@ def update_taluka(request, taluka_id):
 
         instance = taluka.objects.get(id=taluka_id)
 
-        forms = taluka_Form(request.user, instance = instance)
+        forms = taluka_Form(instance = instance)
 
         context = {
             'form': forms
