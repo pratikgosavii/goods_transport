@@ -69,7 +69,17 @@ def add_transaction(request):
         consignor_builty_count = builty.objects.filter(consignor = consignor_value).count()
         builty_code = builty_code + '-' + str(consignor_builty_count + 1)
 
-        updated_request.update({'DC_date': date_time, 'builty_no' : builty_code, 'company' : request.user.company, 'user' : request.user})
+        if request.user.is_superuser:
+
+            user_id = request.POST.get('user')
+            user_instance = User.objects.get(id = user_id)
+
+            updated_request.update({'DC_date': date_time, 'builty_no' : builty_code, 'company' : user_instance.company})
+        
+        else:
+
+            updated_request.update({'DC_date': date_time, 'builty_no' : builty_code, 'company' : request.user.company, 'user' : request.user})
+       
         forms = builty_Form(request.user, updated_request)
         if forms.is_valid():
 
@@ -189,7 +199,21 @@ def update_builty(request, bulity_id):
         print(date_time)
         print('---------------------')
         updated_request = request.POST.copy()
-        updated_request.update({'DC_date': date_time, 'company' : request.user.company, 'user' : request.user, 'editable' : False})
+
+        if request.user.is_superuser:
+
+            user_id = request.POST.get('user')
+            print('--------------------------')
+            print(user_id)
+            user_instance = User.objects.get(id = user_id)
+            print(user_instance)
+
+            updated_request.update({'DC_date': date_time, 'company' : user_instance.company, 'editable' : False})
+        
+        else:
+
+            updated_request.update({'DC_date': date_time, 'company' : request.user.company, 'user' : request.user, 'editable' : False})
+       
         forms = builty_Form(request.user, updated_request, instance = instance)
         if forms.is_valid():
 

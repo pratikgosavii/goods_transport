@@ -14,6 +14,11 @@ class builty_Form(forms.ModelForm):
             'company': forms.Select(attrs={
                 'id': 'company'
             }),
+             'user': forms.Select(attrs={
+                'id': 'user',
+                'class' : 'sele',
+
+            }),
             'builty_no': forms.TextInput(attrs={
                 'step': "0.01",
                 'id': 'builty_no',

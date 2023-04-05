@@ -358,7 +358,7 @@ def add_consignor_ajax(request):
         else:
             error = forms.errors.as_json()
             print(error)
-            return JsonResponse(json.dumps({'error' : error}), safe=False)
+            return JsonResponse(json.dumps(json.dumps({'error' : error})), safe=False)
   
 
 @user_is_active
@@ -494,7 +494,7 @@ def add_article_ajax(request):
             
             error = forms.errors.as_json()
             print(error)
-            return JsonResponse({'error' : error}, safe=False)
+            return JsonResponse(json.dumps({'error' : error}), safe=False)
     
     else:
 
@@ -656,7 +656,7 @@ def add_truck_details_ajax(request):
            
             error = forms.errors.as_json()
             print(error)
-            return JsonResponse({'error' : error}, safe=False)
+            return JsonResponse(json.dumps({'error' : error}), safe=False)
 
     
     else:
@@ -781,7 +781,7 @@ def add_truck_owner_ajax(request):
 
             error = forms.errors.as_json()
             print(error)
-            return JsonResponse({'error' : error}, safe=False)
+            return JsonResponse(json.dumps({'error' : error}), safe=False)
     
     
     else:
@@ -906,7 +906,7 @@ def add_rate_ajax(request):
 
             error = forms.errors.as_json()
             print(error)
-            return JsonResponse({'error' : error}, safe=False)
+            return JsonResponse(json.dumps({'error' : error}), safe=False)
     
     
     else:
@@ -1044,7 +1044,7 @@ def add_station_ajax(request):
 
             error = forms.errors.as_json()
             print(error)
-            return JsonResponse({'error' : error}, safe=False)
+            return JsonResponse(json.dumps({'error' : error}), safe=False)
     
     
     else:
@@ -1192,7 +1192,7 @@ def add_district_ajax(request):
             
             error = forms.errors.as_json()
             print(error)
-            return JsonResponse({'error' : error}, safe=False)
+            return JsonResponse(json.dumps({'error' : error}), safe=False)
     
     
 
@@ -1319,7 +1319,7 @@ def add_taluka_ajax(request):
             
             error = forms.errors.as_json()
             print(error)
-            return JsonResponse({'error' : error}, safe=False)
+            return JsonResponse(json.dumps({'error' : error}), safe=False)
     
     
 
@@ -1446,7 +1446,7 @@ def add_onaccount_ajax(request):
 
             error = forms.errors.as_json()
             print(error)
-            return JsonResponse({'error' : error}, safe=False)
+            return JsonResponse(json.dumps({'error' : error}), safe=False)
     
     
     else:
@@ -1663,7 +1663,7 @@ def add_petrol_pump_ajax(request):
 
             error = forms.errors.as_json()
             print(error)
-            return JsonResponse({'error' : error}, safe=False)
+            return JsonResponse(json.dumps({'error' : error}), safe=False)
     
     
     else:

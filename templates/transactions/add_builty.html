@@ -226,6 +226,19 @@
                                                     {{ form.builty_no }} 
                                                   </div>
                                         </td>
+                                        
+                                        {% if request.user.is_superuser %}
+
+                                            <td>
+                                                
+                                                <div class="input-wrapper" style="display:flex;">
+                                                    <label for="first">User</label>
+                                                    {{ form.user }}
+                                                </div>
+                                            
+                                            </td>
+
+                                        {% endif %}
 
                                     </tr>
                             
@@ -579,7 +592,14 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
+                
                 <div class="modal-body">
+
+                    <ul style="padding-left: 18px;color: red;" id="consignor_form_error">
+                        
+                    </ul>
+
+
                     <form id="consignor_form">
             
                         <input type="hidden" id="builty_id">
@@ -633,6 +653,12 @@
                     </button>
                 </div>
                 <div class="modal-body">
+
+                    <ul style="padding-left: 18px;color: red;" id="article_form_error">
+                        
+                    </ul>
+
+
                     <form id="article_form">
 
                         
@@ -722,6 +748,11 @@
                 </button>
             </div>
             <div class="modal-body">
+
+                <ul style="padding-left: 18px;color: red;" id="truck_details_form_error">
+                        
+                </ul>
+
                 <form id="truck_details_form">
 
                     <div class="input-wrapper" style="display:flex;">
@@ -789,6 +820,11 @@
                 </button>
             </div>
             <div class="modal-body">
+
+                <ul style="padding-left: 18px;color: red;" id="truc_owner_Form_error">
+                        
+                </ul>
+
                 <form id="truc_owner_Form">
         
 
@@ -844,6 +880,12 @@
                 </button>
             </div>
             <div class="modal-body">
+
+                <ul style="padding-left: 18px;color: red;" id="station_Form_error">
+                        
+                </ul>
+
+
                 <form id="station_Form">
         
                         
@@ -888,6 +930,13 @@
                 </button>
             </div>
             <div class="modal-body">
+
+
+                <ul style="padding-left: 18px;color: red;" id="taluka_form_error">
+                        
+                </ul>
+
+
                 <form id="taluka_form">
         
                     
@@ -924,12 +973,22 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Add Station</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Add District</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
+
+
+
+
+
+                <ul style="padding-left: 18px;color: red;" id="district_form_error">
+                        
+                </ul>
+
+                
                 <form id="district_form">
         
                     
@@ -967,6 +1026,11 @@
                 </button>
             </div>
             <div class="modal-body">
+
+                <ul style="padding-left: 18px;color: red;" id="onaccount_Form_error">
+                        
+                </ul>
+
                 <form id="onaccount_Form">
         
                     
@@ -1195,8 +1259,6 @@
             success: function (data) {   // `data` is from `get_topics_ajax` view function
                 var data = JSON.parse(data)
 
-                alert('in success')
-              
               if(data.status == 'True'){
                 $('#myModal').modal('hide');
                 
@@ -1213,8 +1275,13 @@
               
               else{
 
-                alert('error')
 
+                var a = JSON.parse(data.error)
+
+                $.each(a, function(i, val) {
+
+                    $("#consignor_form_error").append( "<li> <strong>" + i + "</strong> &nbsp;&nbsp;" + val[0].message + "</li>"); //append results to element
+                    })
                
               }
             }
@@ -1253,20 +1320,16 @@
                 
               }
               
-              else if (data.error !== undefined){
+              else{
 
-                var data_e = data.error
-                console.log(data_e)
 
-                for (var z in data_e) {
-                    for (var i in data_e[z]) {
-                      // object message error django
-                      console.log(z)
-                      console.log(i)
-                    }
-                  }
+                var a = JSON.parse(data.error)
 
-                  
+                $.each(a, function(i, val) {
+
+                    $("#article_form_error").append( "<li> <strong>" + i + "</strong> &nbsp;&nbsp;" + val[0].message + "</li>"); //append results to element
+                    })
+               
               }
             }
         });
@@ -1302,32 +1365,15 @@
                 else{
 
 
-                    $("#message_div").css("display", "contents");
-                    console.log('--------------------------------------------------------------')
+                    var a = JSON.parse(data.error)
+    
+                    $.each(a, function(i, val) {
+    
+                        $("#truck_details_form_error").append( "<li> <strong>" + i + "</strong> &nbsp;&nbsp;" + val[0].message + "</li>"); //append results to element
+                        })
+                   
+                  }
 
-          var a = JSON.parse(data1.error);
-          console.log('--------------------------------------------------------------')
-
-          console.log(a)
-          console.log('--------------------------------------------------------------')
-
-          var div = document.getElementById("message");
-          for (var name in a) {
-            for (var i in a[name]) {
-              console.log(name);
-              div.innerHTML +=
-                `<div class="alert alert-danger alert-dismissible fade show" id="message" role="alert"> <strong>` +
-                name +
-                ` ` +
-                `</strong>` +
-                a[name][i].message +
-                `<button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">&times;</span></button>`;
-              console.log(a[name][i].message);
-            }
-          }
-
-
-                    }
                 }
             });
         })
@@ -1357,7 +1403,16 @@
 
                 }
                 else{
-                }
+
+
+                    var a = JSON.parse(data.error)
+    
+                    $.each(a, function(i, val) {
+    
+                        $("#truc_owner_Form_error").append( "<li> <strong>" + i + "</strong> &nbsp;&nbsp;" + val[0].message + "</li>"); //append results to element
+                        })
+                   
+                  }
                 }
             });
         })
@@ -1390,7 +1445,18 @@
 
                 }
                 else{
-                }
+
+
+                    var a = JSON.parse(data.error)
+
+                    console.log(a)
+    
+                    $.each(a, function(i, val) {
+    
+                        $("#taluka_form_error").append( "<li> <strong>" + i + "</strong> &nbsp;&nbsp;" + val[0].message + "</li>"); //append results to element
+                        })
+                   
+                  }
                 }
             });
         })
@@ -1415,7 +1481,16 @@
 
                 }
                 else{
-                }
+
+
+                    var a = JSON.parse(data.error)
+    
+                    $.each(a, function(i, val) {
+    
+                        $("#district_form_error").append( "<li> <strong>" + i + "</strong> &nbsp;&nbsp;" + val[0].message + "</li>"); //append results to element
+                        })
+                   
+                  }
                 }
             });
         })
@@ -1452,7 +1527,16 @@
 
                 }
                 else{
-                }
+
+
+                    var a = JSON.parse(data.error)
+    
+                    $.each(a, function(i, val) {
+    
+                        $("#station_Form_error").append( "<li> <strong>" + i + "</strong> &nbsp;&nbsp;" + val[0].message + "</li>"); //append results to element
+                        })
+                   
+                  }
                 }
             });
         })
@@ -1485,8 +1569,16 @@
 
                 }
                 else{
-                  
-                }
+
+
+                    var a = JSON.parse(data.error)
+    
+                    $.each(a, function(i, val) {
+    
+                        $("#onaccount_Form_error").append( "<li> <strong>" + i + "</strong> &nbsp;&nbsp;" + val[0].message + "</li>"); //append results to element
+                        })
+                   
+                  }
                 }
             });
         })
