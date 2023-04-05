@@ -1286,8 +1286,16 @@ def add_taluka(request):
         else:
             print('-----------------------------2---------------------')
 
-            print(forms.errors)
-            return redirect('list_taluka')
+            company_data = company.objects.all()
+
+
+
+            context = {
+                        'form': forms,
+                        'company' : company_data
+                    }
+
+            return render(request, 'store/add_taluka.html', context)
     
     else:
 
