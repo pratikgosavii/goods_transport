@@ -414,8 +414,14 @@ def delete_consignor(request, consignor_id):
 @login_required(login_url='login')
 @user_is_active
 def list_consignor(request):
+
+    if request.user.is_superuser:
+
+        data =  consignor.objects.all()
+
+    else:
     
-    data = consignor.objects.filter(office_location = request.user.office_location).order_by('company__company_name')
+        data = consignor.objects.filter(office_location = request.user.office_location).order_by('company__company_name')
 
     context = {
             'data': data
@@ -582,8 +588,14 @@ def delete_article(request, company_goods_id):
 @login_required(login_url='login')
 @user_is_active
 def list_article(request):
-    
-    data = article.objects.filter(office_location = request.user.office_location).order_by('company_name__company_name')
+
+    if request.user.is_superuser:
+
+        data = article.objects.all()
+
+    else:
+
+        data = article.objects.filter(office_location = request.user.office_location).order_by('company_name__company_name')
 
     context = {
             'data': data
@@ -1105,8 +1117,14 @@ def delete_station(request, station_id):
 @login_required(login_url='login')
 @user_is_active
 def list_station(request):
+
+    if request.user.is_superuser:
+
+        data = station.objects.all()
     
-    data = station.objects.filter(office_location = request.user.office_location)
+    else:
+    
+        data = station.objects.filter(office_location = request.user.office_location)
 
     context = {
             'data': data
@@ -1362,8 +1380,14 @@ def delete_taluka(request, taluka_id):
 @login_required(login_url='login')
 @user_is_active
 def list_taluka(request):
+
+    if request.user.is_superuser:
+
+        data = taluka.objects.all()
     
-    data = taluka.objects.filter(office_location = request.user.office_location)
+    else:
+
+        data = taluka.objects.filter(office_location = request.user.office_location)
 
     context = {
             'data': data
@@ -1510,8 +1534,14 @@ def delete_onaccount(request, onaccount_id):
 @login_required(login_url='login')
 @user_is_active
 def list_onaccount(request):
+
+    if request.user.is_superuser:
+
+        data = onaccount.objects.all()
+
+    else:
     
-    data = onaccount.objects.filter(office_location = request.user.office_location)
+        data = onaccount.objects.filter(office_location = request.user.office_location)
 
     context = {
             'data': data
