@@ -98,7 +98,10 @@ def update_user(request, user_id):
 
                 return redirect('list_user')
         else:
-            print(forms.errors)
+            context = {'form': forms}
+
+            return render(request, 'users/update_user.html', context)
+
     else:
         print(forms.as_p)
 

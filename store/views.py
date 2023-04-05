@@ -150,6 +150,10 @@ def add_company(request):
             return redirect('list_company')
         else:
             print(forms.errors)
+            context = {
+                'form': forms
+            }
+            return render(request, 'store/add_company.html', context)
     
     else:
 
@@ -177,6 +181,11 @@ def update_company(request, company_id):
             return redirect('list_company')
         else:
             print(forms.errors)
+
+            context = {
+                'form': forms
+            }
+            return render(request, 'store/add_company.html', context)
     
     else:
 
@@ -226,7 +235,10 @@ def add_office_location(request):
             return redirect('list_office_location')
         else:
             print(forms.errors)
-    
+            context = {
+                    'form': forms
+                }
+            return render(request, 'store/add_office_location.html', context)
     else:
 
         forms = office_location_Form()
@@ -253,7 +265,11 @@ def update_office_location(request, office_location_id):
             return redirect('list_office_location')
         else:
             print(forms.errors)
-    
+            context = {
+                    'form': forms
+                }
+            return render(request, 'store/add_office_location.html', context)
+
     else:
 
         instance = office_location.objects.get(id=office_location_id)
@@ -307,7 +323,11 @@ def add_consignor(request):
             return redirect('list_consignor')
         else:
             print(forms.errors)
-            return redirect('add_consignor')
+            context = {
+                'form': forms
+            }
+
+            return render(request, 'store/add_consignor.html', context)
     
     else:
 
@@ -379,7 +399,22 @@ def update_consignor(request, consignor_id):
 
         else:
             print(forms.errors)
-    
+
+
+            comapnyID = instance.company.id
+            comapny_consignor_ID = instance.id
+
+            print(comapnyID)
+            print(comapny_consignor_ID)
+
+            context = {
+                'form': forms,
+                'comapnyID' : comapnyID,
+                'comapny_consignor_ID' : comapny_consignor_ID
+                
+            }
+
+            return render(request, 'store/add_consignor.html', context)
     else:
 
         instance = consignor.objects.get(id=consignor_id)
@@ -448,7 +483,15 @@ def add_article(request):
             return redirect('list_article')
         else:
             print(forms.errors)
-            return redirect('list_article')
+            data = company.objects.all()
+            print(data)
+
+            context = {
+                'form': forms,
+                'data' : data,
+            }
+
+            return render(request, 'store/add_article.html', context)
     
     else:
 
@@ -622,7 +665,17 @@ def add_truck_details(request):
             print('-----------------------------2---------------------')
 
             print(forms.errors)
-            return redirect('list_truck_details')
+            print(forms)
+            print('-----------------------------3---------------------')
+
+            company_data = company.objects.all()
+
+            context = {
+                'form': forms,
+                'company' : company_data
+            }
+
+            return render(request, 'store/add_truck_details.html', context)
     
     else:
 
@@ -754,7 +807,14 @@ def add_truck_owner(request):
             print('-----------------------------2---------------------')
 
             print(forms.errors)
-            return redirect('list_truck_owner')
+            company_data = company.objects.all()
+
+            context = {
+                'form': forms,
+                'company' : company_data
+            }
+
+            return render(request, 'store/add_truck_owner.html', context)
     
     else:
 
@@ -879,7 +939,14 @@ def add_rate(request):
             print('-----------------------------2---------------------')
 
             print(forms.errors)
-            return redirect('list_rate')
+            company_data = company.objects.all()
+
+            context = {
+                'form': forms,
+                'company' : company_data
+            }
+
+            return render(request, 'store/add_rate.html', context)
     
     else:
 
@@ -1010,8 +1077,15 @@ def add_station(request):
             print('-----------------------------2---------------------')
 
             print(forms.errors)
-            return redirect('list_station')
-    
+            company_data = company.objects.all()
+
+            context = {
+                'form': forms,
+                'company' : company_data
+            }
+
+            return render(request, 'store/add_station.html', context)
+        
     else:
 
         forms = station_Form(user = request.user)
@@ -1154,8 +1228,15 @@ def add_district(request):
             print('-----------------------------2---------------------')
 
             print(forms.errors)
-            return redirect('list_district')
-    
+            company_data = company.objects.all()
+
+            context = {
+                'form': forms,
+                'company' : company_data
+            }
+
+            return render(request, 'store/add_district.html', context)
+        
     else:
 
         forms = district_Form()
@@ -1428,7 +1509,14 @@ def add_onaccount(request):
             print('-----------------------------2---------------------')
 
             print(forms.errors)
-            return redirect('list_onaccount')
+            company_data = company.objects.all()
+
+            context = {
+                'form': forms,
+                'company' : company_data
+            }
+
+            return render(request, 'store/add_onaccount.html', context)
     
     else:
 
@@ -1579,8 +1667,15 @@ def add_driver(request):
             print('-----------------------------2---------------------')
 
             print(forms.errors)
-            return redirect('list_driver')
-    
+            company_data = company.objects.all()
+
+            context = {
+                'form': forms,
+                'company' : company_data
+            }
+
+            return render(request, 'store/add_driver.html', context)
+        
     else:
 
         forms = driver_Form()
@@ -1664,8 +1759,16 @@ def add_petrol_pump(request):
             print('-----------------------------2---------------------')
 
             print(forms.errors)
-            return redirect('list_petrol_pump')
-    
+            
+            company_data = company.objects.all()
+
+            context = {
+                'form': forms,
+                'company' : company_data
+            }
+
+            return render(request, 'store/add_petrol_pump.html', context)
+        
     else:
 
         forms = petrol_pump_Form()
