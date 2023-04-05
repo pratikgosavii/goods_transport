@@ -244,9 +244,17 @@
                                 <th>Consignor</th>
                                 <th>Consigne</th>
                                 <th>Account</th>
+                                <th>MT</th>
+                                
+                                {% if builty_filter.filter %}
+
+                                <th>Rate</th>
                                 <th>Freight</th>
                                 <th>Advance</th>
                                 <th>Balance</th>
+
+                                {% endif %}
+
                                 <th>Action</th>
                                 
                             </tr>
@@ -270,10 +278,15 @@
                                 <td>{{ i.builty.consignor }}</td>
                                 <td>{{ i.builty.consignee }}</td>
                                 <td>{{ i.builty.onaccount }}</td>
-                                <td>{{ i.builty.freight }}</td>
-                                <td>{{ i.builty.less_advance }}</td>
-                                <td>{{ i.builty.balance }}</td>
+                                <td>{{ i.builty.mt }}</td>
+                                 {% if builty_filter.filter %}
 
+                                <td>{{ i.rate }}</td>
+                                <td>{{ i.freight }}</td>
+                                <td>{{ i.less_advance }}</td>
+                                <td>{{ i.balance }}</td>
+
+                                {% endif %}
                                 
                                 <td>  
 

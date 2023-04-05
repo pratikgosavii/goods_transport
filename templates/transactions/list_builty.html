@@ -309,7 +309,8 @@
                                 <th>Account</th>
                                 <th>Article</th>
                                 <th>MT</th>
-                                {% if hbuilty_filteras.filter %}
+
+                                {% if builty_filter.filter %}
 
                                 <th>Rate</th>
                                 <th>Freight</th>
@@ -360,7 +361,7 @@
                                 <td>{{ i.article }}</td>
                                 <td>{{ i.mt }}</td>
 
-                                {% if hbuilty_filteras.filter %}
+                                {% if builty_filter.filter %}
 
                                 <td>{{ i.rate }}</td>
                                 <td>{{ i.freight }}</td>
