@@ -6,12 +6,59 @@
 
 {% block head %}
 
-<head>
-{% comment %} 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script> {% endcomment %}
-
     <style>
+
+
+
+      .select2-selection{
+        border: 1px solid gray !important;
+        border-radius: 6px !important;
+        position: relative !important;
+        margin: 10px !important;
+        line-height: 6ex !important;
+        padding-left: 14px !important;
+        height: 46px !important;
+      }
+
+    .select2-container--open .select2-dropdown {
+        left: 10px;
+        top: -7px;
+    }
+
+
+    .select2-search--dropdown{
+    justify-items: center;
+    justify-content: center;
+    display: flex;
+    }
+
+
+    
+    .select2-container--default .select2-selection--single .select2-selection__rendered {
+        color: #444;
+        line-height: 52px;
+    }
+
+    .select2-selection--single{
+        height: 50px !important;
+    }
+    .select2-search__field{
+        margin: 1px;
+        margin-top: 5px;
+    }
+
+      select {
+        border: 1px solid gray !important;
+        border-radius: 6px !important;
+        position: relative !important;
+        width: 231px !important;
+        margin: 10px !important;
+        line-height: 6ex !important;
+        padding-left: 14px !important;
+        height: 46px !important;
+      }
+
+      
 
         .menu-nav {
        
@@ -73,7 +120,6 @@
 
     </style>
 
-</head>
 
 {% endblock head %}
 
@@ -82,17 +128,7 @@
     <div class="breadcrumbs-inner">
         <div class="row m-0">
             
-            {% comment %} <div class="col-sm-8">
-                <div class="page-header float-right">
-                    <div class="page-title">
-                        <ol class="breadcrumb text-right">
-                            <li><a href="#">Dashboard</a></li>
-                            <li><a href="#">Product</a></li>
-                            <li class="active">List</li>
-                        </ol>
-                    </div>
-                </div>
-            </div> {% endcomment %}
+         
         </div>
     </div>
 </div>
@@ -236,24 +272,24 @@
                 <h4 class="box-title">Builty List </h4>
             </div>
 
-            <form>
-            <div class="form-group">
-              <label for="location_to" class="col-form-label">Location From </label>
-              {{ form.station_from }}  
-            </div>
-            
-           
-                                
-            <label for="name" class="control-label mb-1" style="margin-left : 0px;">Builty Date From</label>
-            {{ builty_filter.form.DC_date_start__date }}
-        
+            <form style="display:flex;">
+                    <label for="location_to" class="col-form-label">Location From </label>
+                    {{ form.station_from }}  
+                  
+                
+                                      
+                  <label for="name" class="control-label mb-1" style="margin-left : 0px;">Builty Date From</label>
+                  {{ builty_filter.form.DC_date_start__date }}
+              
 
 
-        <label for="name" class="control-label mb-1">Builty Date To</label>
-        {{ builty_filter.form.DC_date_end__date }}
-        <button type="submit" class="btn btn-primary">Submit</button>
+              <label for="name" class="control-label mb-1">Builty Date To</label>
+              {{ builty_filter.form.DC_date_end__date }}
+              <a href="{% url 'list_transaction' %}"><button class="btn btn-primary" type="button" > Reset </button></a>
 
-          </from>
+          <button type="submit" class="btn btn-primary">Submit</button>
+
+            </form>
             <div class="card-body--">
                 <div class="table-stats order-table ov-h">
                     <table class="table ">
@@ -509,6 +545,9 @@
         });
 
 }
+
+
+$('.sele').select2();
 
 
     

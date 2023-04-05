@@ -16,7 +16,7 @@ class builty_filter(django_filters.FilterSet):
         queryset=consignor.objects.all(),
         widget=forms.Select(
             attrs={
-                'class' : 'form-control',
+                'class' : 'form-control sele',
                 'id' : 'company'
             })
     )
@@ -25,7 +25,7 @@ class builty_filter(django_filters.FilterSet):
         queryset=article.objects.all(),
         widget=forms.Select(
             attrs={
-                'class' : 'form-control',
+                'class' : 'form-control sele',
                 'id' : 'company'
             })
     )
@@ -34,7 +34,7 @@ class builty_filter(django_filters.FilterSet):
         queryset=User.objects.all(),
         widget=forms.Select(
             attrs={
-                'class' : 'form-control',
+                'class' : 'form-control sele',
                 'id' : 'company'
             })
     )
@@ -43,7 +43,7 @@ class builty_filter(django_filters.FilterSet):
         queryset=district.objects.all(),
         widget=forms.Select(
             attrs={
-                'class' : 'form-control',
+                'class' : 'form-control sele',
                 'id' : 'company'
             })
     )
@@ -52,7 +52,7 @@ class builty_filter(django_filters.FilterSet):
         queryset=truck_details.objects.all(),
         widget=forms.Select(
             attrs={
-                'class' : 'form-control',
+                'class' : 'form-control sele',
                 'id' : 'company'
             })
     )
@@ -60,7 +60,7 @@ class builty_filter(django_filters.FilterSet):
         queryset=truck_owner.objects.all(),
         widget=forms.Select(
             attrs={
-                'class' : 'form-control',
+                'class' : 'form-control sele',
                 'id' : 'company'
             })
     )
@@ -68,14 +68,14 @@ class builty_filter(django_filters.FilterSet):
         queryset=petrol_pump.objects.all(),
         widget=forms.Select(
             attrs={
-                'class' : 'form-control',
+                'class' : 'form-control sele',
                 'id' : 'petrol_pump'
             })
     )
     builty_no = django_filters.CharFilter(
         widget=forms.TextInput(
             attrs={
-                'class' : 'form-control',
+                'class' : 'form-control sele',
                 'id' : 'company'
             })
     )
@@ -86,7 +86,7 @@ class builty_filter(django_filters.FilterSet):
             attrs={
                 'id': 'datepicker1212',
                 'type': 'date',
-                'class' : 'form-control'
+                'class' : 'form-control sele'
             }
         ))
 
@@ -95,14 +95,14 @@ class builty_filter(django_filters.FilterSet):
             attrs={
             'id': 'datepicker1212',
             'type': 'date',
-                'class' : 'form-control'
+                'class' : 'form-control sele'
             }
         ))
     challan_date_start__date = DateFilter(field_name="have_ack__challan_date", lookup_expr='gte', widget=forms.DateInput(
             attrs={
                 'id': 'datepicker1212',
                 'type': 'date',
-                'class' : 'form-control'
+                'class' : 'form-control sele'
             }
         ))
 
@@ -111,7 +111,7 @@ class builty_filter(django_filters.FilterSet):
             attrs={
             'id': 'datepicker1212',
             'type': 'date',
-                'class' : 'form-control'
+                'class' : 'form-control sele'
             }
         ))
 
@@ -133,7 +133,7 @@ class ack_filter(django_filters.FilterSet):
         queryset=consignor.objects.all(),
         widget=forms.Select(
             attrs={
-                'class' : 'form-control',
+                'class' : 'form-control sele',
                 'id' : 'company'
             })
     )
@@ -142,7 +142,7 @@ class ack_filter(django_filters.FilterSet):
         queryset=article.objects.all(),
         widget=forms.Select(
             attrs={
-                'class' : 'form-control',
+                'class' : 'form-control sele',
                 'id' : 'company'
             })
     )
@@ -151,7 +151,7 @@ class ack_filter(django_filters.FilterSet):
         queryset=truck_details.objects.all(),
         widget=forms.Select(
             attrs={
-                'class' : 'form-control',
+                'class' : 'form-control sele',
                 'id' : 'company'
             })
     )
@@ -159,7 +159,7 @@ class ack_filter(django_filters.FilterSet):
         queryset=truck_owner.objects.all(),
         widget=forms.Select(
             attrs={
-                'class' : 'form-control',
+                'class' : 'form-control sele',
                 'id' : 'company'
             })
     )
@@ -167,7 +167,7 @@ class ack_filter(django_filters.FilterSet):
         queryset=petrol_pump.objects.all(),
         widget=forms.Select(
             attrs={
-                'class' : 'form-control',
+                'class' : 'form-control sele',
                 'id' : 'petrol_pump'
             })
     )
@@ -175,7 +175,7 @@ class ack_filter(django_filters.FilterSet):
     builty__builty_no = django_filters.CharFilter(
         widget=forms.TextInput(
             attrs={
-                'class' : 'form-control',
+                'class' : 'form-control sele',
                 'id' : 'company'
             })
     )
@@ -184,7 +184,7 @@ class ack_filter(django_filters.FilterSet):
             attrs={
                 'id': 'datepicker1212',
                 'type': 'date',
-                'class' : 'form-control'
+                'class' : 'form-control sele'
             }
         ))
 
@@ -193,14 +193,14 @@ class ack_filter(django_filters.FilterSet):
             attrs={
             'id': 'datepicker1212',
             'type': 'date',
-                'class' : 'form-control'
+                'class' : 'form-control sele'
             }
         ))
     challan_date_start__date = DateFilter(lookup_expr='gte', widget=forms.DateInput(
             attrs={
                 'id': 'datepicker1212',
                 'type': 'date',
-                'class' : 'form-control'
+                'class' : 'form-control sele'
             }
         ))
 
@@ -209,7 +209,7 @@ class ack_filter(django_filters.FilterSet):
             attrs={
             'id': 'datepicker1212',
             'type': 'date',
-                'class' : 'form-control'
+                'class' : 'form-control sele'
             }
         ))
 
@@ -228,7 +228,7 @@ class request_edit_filter(django_filters.FilterSet):
     builty_no = django_filters.CharFilter(
         widget=forms.TextInput(
             attrs={
-                'class' : 'form-control',
+                'class' : 'form-control sele',
                 'id' : 'builty_no'
             })
     )
