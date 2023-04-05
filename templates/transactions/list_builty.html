@@ -310,7 +310,7 @@
                                 <th>Article</th>
                                 <th>MT</th>
 
-                                {% if builty_filter.filter %}
+                                {% if has_filter %}
 
                                 <th>Rate</th>
                                 <th>Freight</th>
@@ -318,6 +318,7 @@
                                 <th>Balance</th>
 
                                 {% endif %}
+                                
                                 <th>#</th>
                                 
                             </tr>
@@ -361,7 +362,7 @@
                                 <td>{{ i.article }}</td>
                                 <td>{{ i.mt }}</td>
 
-                                {% if builty_filter.filter %}
+                                {% if has_filter %}
 
                                 <td>{{ i.rate }}</td>
                                 <td>{{ i.freight }}</td>

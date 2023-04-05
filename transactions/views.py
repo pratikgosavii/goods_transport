@@ -381,6 +381,8 @@ def list_transaction(request):
     total1_advance = round(total1_advance, 2)
     total1_mt = round(total1_mt, 2)
 
+    has_filter = any(field in request.GET for field in set(builty_filters.get_fields()))
+
     
     context = {
         'data' : data,
@@ -394,6 +396,7 @@ def list_transaction(request):
         'total1_balance' : total1_balance,
         'total_mt' : total_mt,
         'total1_mt' : total1_mt,
+        'has_filter' : has_filter,
     }
 
 
