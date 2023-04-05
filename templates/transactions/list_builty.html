@@ -338,7 +338,7 @@
                                 
                                 <td style="display: flex; gap: 11px;height: 86px;">  
 
-                                  {% comment %} {% if request.user.office_location.name == "Akola" %}
+                                  {% if request.user.office_location.name == "Akola" %}
                                   
                                     <a href="{% url 'generate_bill_akola' i.id %}"><button style="background-color: #05386b; border: green; padding: 10px;border-radius: 12px;" type="button" class="btn-info ">
                                       <span id="payment-button-amount">Print Akola</span>
@@ -350,12 +350,7 @@
                                         <span id="payment-button-amount">Print</span>
                                     </button>  </a>
 
-                                  {% endif %} {% endcomment %}
-
-                                  <a href="{% url 'generate_bill_akola' i.id %}"><button style="background-color: #05386b; border: green; padding: 10px;border-radius: 12px;" type="button" class="btn-info ">
-                                    <span id="payment-button-amount">Print Akola</span>
-                                  </button>  </a>
-
+                                  {% endif %}
 
                                     <a href="{% url 'update_builty' i.id %}"><button style="background-color: #05386b; border: green; padding: 10px;border-radius: 12px;" type="button" class="btn-info ">
                                         <span id="payment-button-amount">View</span>
