@@ -21,7 +21,7 @@ def dashboard(request):
     user_count = User.objects.all().count()
 
     if request.user.is_superuser:
-        builty_data = builty.objects.all().order_by('-DC_date')
+        builty_data = builty.objects.all().order_by('-id')
     else:
         builty_data = None
 
