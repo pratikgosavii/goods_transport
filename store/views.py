@@ -452,7 +452,7 @@ def add_article(request):
     
     else:
 
-        forms = article_Form(user = request.user)
+        forms = article_Form(request.user)
         data = company.objects.all()
         print(data)
 
@@ -504,7 +504,7 @@ def add_article_ajax(request):
     
     else:
 
-        forms = article_Form(user = request.user)
+        forms = article_Form(request.user)
         data = company.objects.all()
         print(data)
 
@@ -549,7 +549,7 @@ def update_article(request, article_id):
         updated_request = request.POST.copy()
         updated_request.update({'office_location': request.user.office_location})
 
-        forms = article_Form(updated_request, instance = instance, user = request.user)
+        forms = article_Form(request.user, updated_request, instance = instance)
 
         if forms.is_valid():
             forms.save()
@@ -561,7 +561,7 @@ def update_article(request, article_id):
 
         
 
-        forms = article_Form(instance = instance, user = request.user)
+        forms = article_Form(request.user, instance = instance)
         consignor_ID = instance.consignor.id
 
         print('-----------------')
@@ -1291,7 +1291,7 @@ def add_taluka(request):
     
     else:
 
-        forms = taluka_Form(user = request.user)
+        forms = taluka_Form(request.user)
         print('--------------------------------------------------')
 
         
@@ -1349,7 +1349,7 @@ def update_taluka(request, taluka_id):
 
         instance = taluka.objects.get(id=taluka_id)
 
-        forms = taluka_Form(request.POST, instance = instance)
+        forms = taluka_Form(request.user, request.POST, instance = instance)
 
         if forms.is_valid():
             forms.save()
@@ -1365,7 +1365,7 @@ def update_taluka(request, taluka_id):
 
         instance = taluka.objects.get(id=taluka_id)
 
-        forms = taluka_Form(instance = instance)
+        forms = taluka_Form(request.user, instance = instance)
 
         context = {
             'form': forms
