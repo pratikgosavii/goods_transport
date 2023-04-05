@@ -144,7 +144,7 @@ class builty_Form(forms.ModelForm):
 
 
 
-            'DC_date': DateTimeInput(attrs={'type': 'date'}, format = '%Y-%m-%d'),
+            'DC_date': DateTimeInput(attrs={'type': 'date', 'class' : 'date_css'}, format = '%Y-%m-%d'),
             
         }
 

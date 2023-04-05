@@ -84,7 +84,7 @@ class builty_filter(django_filters.FilterSet):
     builty_no = django_filters.CharFilter(
         widget=forms.TextInput(
             attrs={
-                'class' : 'form-control sele',
+                'class' : 'form-control sele date_css',
                 'id' : 'company'
             })
     )
@@ -95,7 +95,7 @@ class builty_filter(django_filters.FilterSet):
             attrs={
                 'id': 'datepicker1212',
                 'type': 'date',
-                'class' : 'form-control sele'
+                'class' : 'form-control sele date_css'
             }
         ))
 
@@ -104,14 +104,14 @@ class builty_filter(django_filters.FilterSet):
             attrs={
             'id': 'datepicker1212',
             'type': 'date',
-                'class' : 'form-control sele'
+                'class' : 'form-control sele date_css'
             }
         ))
     challan_date_start__date = DateFilter(field_name="have_ack__challan_date", lookup_expr='gte', widget=forms.DateInput(
             attrs={
                 'id': 'datepicker1212',
                 'type': 'date',
-                'class' : 'form-control sele'
+                'class' : 'form-control sele date_css'
             }
         ))
 
@@ -120,7 +120,7 @@ class builty_filter(django_filters.FilterSet):
             attrs={
             'id': 'datepicker1212',
             'type': 'date',
-                'class' : 'form-control sele'
+                'class' : 'form-control sele date_css'
             }
         ))
 

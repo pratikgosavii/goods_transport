@@ -107,66 +107,80 @@
   <div class="card card-body" style="width: fit-content;">
     
 
-      <form method="get" action="" style="padding:15px;">
+    <form method="get" action="" style="padding:15px;">
 
-          {% csrf_token %}
+      {% csrf_token %}
 
-          <div class="form-group" style="display: flex;
-          gap: 14px;">
+      <div class="form-group" style="display: flex;
+      gap: 14px;">
 
-          <label for="name" class="control-label mb-1" style="margin-left : 0px;">Builty No</label>
-                  {{ builty_filter.form.builty_no }}
-                      
+      <label for="name" class="control-label mb-1" style="margin-left : 0px;">Builty No</label>
+              {{ builty_filter.form.builty_no }}
                   
-              <label for="name" class="control-label mb-1" style="margin-left : 0px;">Truck No</label>
-              {{ builty_filter.form.truck_details }}
               
-              <label for="name" class="control-label mb-1" style="margin-left : 0px;">Truck Owner</label>
-              {{ builty_filter.form.truck_owner }}
-                     
-              <label for="name" class="control-label mb-1">Consignor</label>
-              {{ builty_filter.form.consignor }}
-          
-              
-                                          
+      <label for="name" class="control-label mb-1" style="margin-left : 0px;">Station From</label>
+              {{ builty_filter.form.station_from }}
                   
-              </div>
-          
-                  <div class-"form-group" style="display: flex;
-                  gap: 14px;">
-                                      
-                  <label for="name" class="control-label mb-1" style="margin-left : 0px;">Builty Date From</label>
-                  {{ builty_filter.form.DC_date_start__date }}
               
-
-
-              <label for="name" class="control-label mb-1">Builty Date To</label>
-              {{ builty_filter.form.DC_date_end__date }}
-
-
-
-
-
-          </div>
-          
-                  <div class-"form-group" style="display: flex;
-                  gap: 14px;">
+          <label for="name" class="control-label mb-1" style="margin-left : 0px;">Truck No</label>
+          {{ builty_filter.form.truck_details }}
+       
                                       
-                  <label for="name" class="control-label mb-1" style="margin-left : 0px;">Challan Date From</label>
-                  {{ builty_filter.form.challan_date_start__date }}
               
-
-
-              <label for="name" class="control-label mb-1">Challan Date To</label>
-              {{ builty_filter.form.challan_date_end__date }}
-
-
-
-
-
           </div>
 
-          <br>
+
+          <div class-"form-group" style="display: flex;">
+
+            <label for="name" class="control-label mb-1" style="margin-left : 0px;">Truck Owner</label>
+            {{ builty_filter.form.truck_owner }}
+                   
+            <label for="name" class="control-label mb-1">Consignor</label>
+            {{ builty_filter.form.consignor }}
+        
+            
+            <label for="name" class="control-label mb-1 la">Article</label>
+            {{ builty_filter.form.article }}
+
+          
+          </div><br>
+      
+              <div class-"form-group" style="display: flex;
+              gap: 14px;">
+                                  
+              <label for="name" class="control-label mb-1" style="margin-left : 0px;">Builty Date From</label>
+              {{ builty_filter.form.DC_date_start__date }}
+          
+
+
+          <label for="name" class="control-label mb-1">Builty Date To</label>
+          {{ builty_filter.form.DC_date_end__date }}
+
+
+
+
+
+      </div><br>
+      
+              <div class-"form-group" style="display: flex;
+              gap: 14px;">
+                                  
+              <label for="name" class="control-label mb-1" style="margin-left : 0px;">Challan Date From</label>
+              {{ builty_filter.form.challan_date_start__date }}
+          
+
+
+          <label for="name" class="control-label mb-1">Challan Date To</label>
+          {{ builty_filter.form.challan_date_end__date }}
+
+
+
+
+
+      </div>
+
+      <br>
+
         
           <button class="btn btn-primary" type="submit" > Submit </button>
 

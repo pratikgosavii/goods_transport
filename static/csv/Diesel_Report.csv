@@ -1,5 +1,2 @@
-Sr No,Builty No,Date,Truck No,Station From,Station To,Consignor,Account,Diesel,Petrol Pump
-1,1-2,2023-03-31,weds,wsdfvbvds,wsdfvbvds,Grupit consignor,sdvf,0.0,
-2,1-3,2023-03-28,3434r,Akola MIDC,KHAMGAON,Ultra tech,Ultra tech,0.0,
-3,1-3,2023-04-01,weds,Akola MIDC,Akola MIDC,Grupit consignor,Govind Traders,0.0,
-4,1-5,2023-04-01,weds,Akola MIDC,Akola MIDC,Ultra tech,Ultra tech,0.0,
+Sr No,Builty No,Builty Date,Challan No,Challan Date,Truck No,To,MT,Rate,Freight,Advance,Balance
+1,1-3,2023-03-28,456,2023-03-28,3434r,KHAMGAON,25.0,500.7,0.0,10000.7,-10000.7

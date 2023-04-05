@@ -110,52 +110,62 @@
   <div class="card card-body" style="width: fit-content;">
     
 
-      <form method="get" action="" style="padding:15px;">
+      < <form method="get" action="" style="padding:15px;">
 
-          {% csrf_token %}
+        {% csrf_token %}
 
-          <div class="form-group" style="display: flex;
-          gap: 14px;">
+        <div class="form-group" style="display: flex;
+        gap: 14px;">
 
-          <label for="name" class="control-label mb-1" style="margin-left : 0px;">Builty No</label>
-                  {{ builty_filter.form.builty_no }}
-                      
-                  
-              <label for="name" class="control-label mb-1" style="margin-left : 0px;">Truck No</label>
-              {{ builty_filter.form.truck_details }}
-                 
+        <label for="name" class="control-label mb-1" style="margin-left : 0px;">Builty No</label>
+                {{ builty_filter.form.builty_no }}
+                    
+                
+        <label for="name" class="control-label mb-1" style="margin-left : 0px;">Station From</label>
+                {{ builty_filter.form.station_from }}
+                    
+                
+            <label for="name" class="control-label mb-1" style="margin-left : 0px;">Truck No</label>
+            {{ builty_filter.form.truck_details }}
+         
+                                        
+                
+            </div>
+
+
+            <div class-"form-group" style="display: flex;">
+
               <label for="name" class="control-label mb-1" style="margin-left : 0px;">Truck Owner</label>
-              {{ builty_filter.form.builty__truck_owner }}
-               
-
+              {{ builty_filter.form.truck_owner }}
+                     
               <label for="name" class="control-label mb-1">Consignor</label>
               {{ builty_filter.form.consignor }}
           
-            
-                                          
-                  
-              </div>
-          
-                  <div class-"form-group" style="display: flex;
-                  gap: 14px;">
-                                      
-                  <label for="name" class="control-label mb-1" style="margin-left : 0px;">Builty Date From</label>
-                  {{ builty_filter.form.DC_date_start__date }}
               
+              <label for="name" class="control-label mb-1 la">Article</label>
+              {{ builty_filter.form.article }}
 
-
-              <label for="name" class="control-label mb-1">Builty Date To</label>
-              {{ builty_filter.form.DC_date_end__date }}
-
-
-
-
-
-          </div>
-          
+            
+            </div><br>
+        
+                <div class-"form-group" style="display: flex;
+                gap: 14px;">
+                                    
+                <label for="name" class="control-label mb-1" style="margin-left : 0px;">Builty Date From</label>
+                {{ builty_filter.form.DC_date_start__date }}
             
 
-          <br>
+
+            <label for="name" class="control-label mb-1">Builty Date To</label>
+            {{ builty_filter.form.DC_date_end__date }}
+
+
+
+
+
+        </div>
+
+        <br>
           <a href="{% url 'list_not_ack' %}"><button class="btn btn-primary" type="button" > Reset </button></a>
         
           <button class="btn btn-primary" type="submit" > Submit </button>
