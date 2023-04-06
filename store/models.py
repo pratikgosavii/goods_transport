@@ -68,8 +68,11 @@ class article(models.Model):
 
 class truck_owner(models.Model):
 
-    owner_name = models.CharField(max_length=120, unique=True)
+    owner_name = models.CharField(max_length=120, null=True, blank=True)
+    pan_card = models.CharField(max_length=120, null=True, blank=True)
+    address = models.CharField(max_length=120, null=True, blank=True)
     mobile_number =  models.IntegerField(unique=False, null=True, blank=True)
+    bank_acc =  models.IntegerField(null=True, blank=True)
 
        
     def __str__(self):
