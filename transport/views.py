@@ -19,8 +19,12 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 @login_required(login_url='login')
 def dashboard(request):
 
+    if request.user.is_superuser:
+
+        builty_count = builty.objects.all().count()
     
-    builty_count = builty.objects.all().count()
+    else:
+        builty_count = builty.objects.filter(user = request.user).count()
     truck_count = truck_details.objects.all().count()
     user_count = User.objects.all().count()
     builty_data = None
