@@ -25,6 +25,14 @@ def dashboard(request):
     user_count = User.objects.all().count()
     builty_data = None
     builty_filters = None
+    total1_freight = None
+    total1_advance = None
+    total1_balance = None
+    total1_mt = None
+    total_freight = None
+    total_advance = None
+    total_balance = None
+    total_mt = None
 
     if request.user.is_superuser:
         builty_data = builty.objects.all().order_by('-id')
