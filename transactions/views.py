@@ -1076,7 +1076,7 @@ def truck_report(request):
 
 
 
-    data = builty.objects.filter(deleted = False).order_by('-id')
+    data = builty.objects.filter(user = request.user, deleted = False).order_by('-id')
 
     total1_freight = 0
     total1_advance = 0
@@ -1215,7 +1215,7 @@ def diesel_report(request):
     print('------------------------')
 
 
-    data = builty.objects.filter(deleted = False).order_by('-id')
+    data = builty.objects.filter(user = request.user, deleted = False).order_by('-id')
 
     total1_diesel = 0
 
@@ -1302,7 +1302,7 @@ def porch_report(request):
     print('------------------------')
 
 
-    data = builty.objects.filter(~Q(have_ack__challan_number = None), deleted = False).order_by('-id')
+    data = builty.objects.filter(~Q(have_ack__challan_number = None), user = request.user, deleted = False).order_by('-id')
 
     
     total1_freight = 0
