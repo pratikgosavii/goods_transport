@@ -346,7 +346,7 @@ def list_transaction(request):
     data = builty_filters.qs
 
     page = request.GET.get('page', 1)
-    paginator = Paginator(data, 50)
+    paginator = Paginator(data, 20)
 
     try:
         data = paginator.page(page)
@@ -444,7 +444,7 @@ def admin_list_request_edit(request):
 
 
     page = request.GET.get('page', 1)
-    paginator = Paginator(data, 50)
+    paginator = Paginator(data, 20)
 
     try:
         data = paginator.page(page)
@@ -476,7 +476,7 @@ def list_request_edit(request):
 
 
     page = request.GET.get('page', 1)
-    paginator = Paginator(data, 50)
+    paginator = Paginator(data, 20)
 
     try:
         data = paginator.page(page)
@@ -571,7 +571,7 @@ def list_ack_all(request):
     data = builty_filters.qs
 
     page = request.GET.get('page', 1)
-    paginator = Paginator(data, 50)
+    paginator = Paginator(data, 20)
 
     try:
         data = paginator.page(page)
@@ -652,7 +652,7 @@ def list_ack(request):
    
 
     page = request.GET.get('page', 1)
-    paginator = Paginator(data, 50)
+    paginator = Paginator(data, 20)
 
     try:
         data = paginator.page(page)
@@ -730,7 +730,7 @@ def list_not_ack(request):
         total1_mt = total1_mt + i.mt
 
     page = request.GET.get('page', 1)
-    paginator = Paginator(data, 50)
+    paginator = Paginator(data, 20)
 
     try:
         data = paginator.page(page)
