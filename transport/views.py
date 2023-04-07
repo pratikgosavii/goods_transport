@@ -89,18 +89,9 @@ def dashboard(request):
         total1_mt = round(total1_mt, 2)
 
 
-        page = request.GET.get('page', 1)
-        paginator = Paginator(data, 20)
-
-        try:
-            data = paginator.page(page)
-        except PageNotAnInteger:
-            data = paginator.page(1)
-        except EmptyPage:
-            data = paginator.page(paginator.num_pages)
-    
+       
     print(data)
-    
+
     context = {
         
         'data': data,

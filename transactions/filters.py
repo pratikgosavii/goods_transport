@@ -17,7 +17,7 @@ class builty_filter(django_filters.FilterSet):
         widget=forms.Select(
             attrs={
                 'class' : 'form-control sele',
-                'id' : 'consignor_filter'
+                'id' : 'consignor'
             })
     )
 
@@ -26,7 +26,7 @@ class builty_filter(django_filters.FilterSet):
         widget=forms.Select(
             attrs={
                 'class' : 'form-control sele',
-                'id' : 'company'
+                'id' : 'station_from'
             })
     )
     
@@ -35,7 +35,7 @@ class builty_filter(django_filters.FilterSet):
         widget=forms.Select(
             attrs={
                 'class' : 'form-control sele',
-                'id' : 'company'
+                'id' : 'article'
             })
     )
 
@@ -44,7 +44,7 @@ class builty_filter(django_filters.FilterSet):
         widget=forms.Select(
             attrs={
                 'class' : 'form-control sele',
-                'id' : 'company'
+                'id' : 'user'
             })
     )
 
@@ -53,24 +53,24 @@ class builty_filter(django_filters.FilterSet):
         widget=forms.Select(
             attrs={
                 'class' : 'form-control sele',
-                'id' : 'company'
+                'id' : 'district'
             })
     )
    
     truck_details = django_filters.ModelChoiceFilter(
         queryset=truck_details.objects.all(),
-        widget=forms.Select(
+        widget=forms.SelectMultiple(
             attrs={
                 'class' : 'form-control sele',
-                'id' : 'company'
+                'id' : 'truck_details'
             })
     )
     truck_owner = django_filters.ModelChoiceFilter(
         queryset=truck_owner.objects.all(),
-        widget=forms.Select(
+        widget=forms.SelectMultiple(
             attrs={
                 'class' : 'form-control sele',
-                'id' : 'company'
+                'id' : 'truck_owner'
             })
     )
     petrol_pump = django_filters.ModelChoiceFilter(
@@ -84,8 +84,8 @@ class builty_filter(django_filters.FilterSet):
     builty_no = django_filters.CharFilter(
         widget=forms.TextInput(
             attrs={
-                'class' : 'form-control sele date_css',
-                'id' : 'company'
+                'class' : 'form-control date_css',
+                'id' : 'builty_no'
             })
     )
 
@@ -161,7 +161,7 @@ class ack_filter(django_filters.FilterSet):
         widget=forms.Select(
             attrs={
                 'class' : 'form-control sele',
-                'id' : 'truck_no'
+                'id' : 'truck_details'
             })
     )
     builty__truck_owner = django_filters.ModelChoiceFilter(

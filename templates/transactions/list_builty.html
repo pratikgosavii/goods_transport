@@ -8,9 +8,6 @@
 
     <style>
 
-
-
-
         .menu-nav {
        
             display: flex;
@@ -46,6 +43,46 @@
           }
           
 
+    
+        .select2-container--open .select2-dropdown {
+            left: 10px;
+            top: -7px;
+        }
+    
+    
+        .select2-search--dropdown{
+        justify-items: center;
+        justify-content: center;
+        display: flex;
+        }
+    
+    
+        
+        .select2-container--default .select2-selection--single .select2-selection__rendered {
+            color: #444;
+            line-height: 52px;
+        }
+    
+        .select2-selection--single{
+            height: 50px !important;
+        }
+        .select2-search__field{
+            margin: 1px;
+            margin-top: 5px;
+        }
+    
+          select {
+            border: 1px solid gray !important;
+            border-radius: 6px !important;
+            position: relative !important;
+            width: 231px !important;
+            margin: 10px !important;
+            line-height: 6ex !important;
+            padding-left: 14px !important;
+            height: 46px !important;
+          }
+
+          
     </style>
 
 
@@ -103,7 +140,7 @@
                 </div>
 
 
-                <div class-"form-group" style="display: flex;">
+                <div class-"form-group" style="display: flex;gap: 14px;">
 
                   <label for="name" class="control-label mb-1" style="margin-left : 0px;">Truck Owner</label>
                   {{ builty_filter.form.truck_owner }}
@@ -182,6 +219,8 @@
             <label for="location_to" class="col-form-label">Location To</label>
             {{ form.station_to }}
           </div>
+
+          
           <input type = "hidden" id="builty_id" value = "">
           <div class="form-group">
             <label for="diesel" class="col-form-label">Diesel</label>
@@ -279,7 +318,7 @@
                                 <td>{{ i.onaccount }}</td>
                                 <td>{{ i.article }}</td>
                                 <td>{{ i.mt }}</td>
-
+                                
 
                                 <td>{{ i.rate }}</td>
                                 <td>{{ i.freight }}</td>
@@ -416,7 +455,9 @@
     
 </div>
 
+{% endblock content %}
 
+{% block js %}
 
 <script>
 
@@ -467,8 +508,17 @@
 }
 
 
+        
+$('.sele').select2();
 
-$("i.consignor").select2({
+    
+
+$("#consignor").select2({
+  multiple: true,
+});
+  
+
+$("#truck_owner").select2({
   multiple: true,
 });
   
@@ -479,4 +529,6 @@ $("i.consignor").select2({
 
 
 
-{% endblock content %}
+{% endblock js %}
+
+
