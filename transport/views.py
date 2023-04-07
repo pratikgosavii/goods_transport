@@ -38,6 +38,7 @@ def dashboard(request):
     total_advance = None
     total_balance = None
     total_mt = None
+    data = None
 
     if request.user.is_superuser:
         builty_data = builty.objects.all().order_by('-id')
