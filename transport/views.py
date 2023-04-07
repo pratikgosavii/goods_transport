@@ -23,7 +23,7 @@ def dashboard(request):
     builty_count = builty.objects.all().count()
     truck_count = truck_details.objects.all().count()
     user_count = User.objects.all().count()
-    data = None
+    builty_data = None
 
     if request.user.is_superuser:
         builty_data = builty.objects.all().order_by('-id')
