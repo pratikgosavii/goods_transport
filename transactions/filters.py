@@ -14,8 +14,13 @@ class builty_filter(django_filters.FilterSet):
 
     
 
-    consignor = django_filters.ModelMultipleChoiceFilter(queryset=consignor.objects.all(), widget=forms.CheckboxSelectMultiple( attrs={
-                'class' : 'form-control sele'}))
+    consignor = django_filters.ModelMultipleChoiceFilter(
+        queryset=consignor.objects.all(), 
+        widget=forms.Select( 
+            attrs={
+                'class' : 'form-control sele'
+                }
+            ))
 
     station_from = django_filters.ModelChoiceFilter(
         queryset=station.objects.all(),

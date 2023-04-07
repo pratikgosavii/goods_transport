@@ -25,6 +25,7 @@ def dashboard(request):
     
     else:
         builty_count = builty.objects.filter(user = request.user).count()
+    
     truck_count = truck_details.objects.all().count()
     user_count = User.objects.all().count()
     builty_data = None
@@ -99,7 +100,7 @@ def dashboard(request):
     
     context = {
         
-        'data': builty_data,
+        'data': data,
         'builty_filter' : builty_filters,
         'truck_count': truck_count,
         'builty_count': builty_count,
