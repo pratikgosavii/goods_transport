@@ -1074,9 +1074,12 @@ def truck_report(request):
     print('------------------------')
 
 
+    if request.user.is_superuser:
+        data = builty.objects.filter(deleted = False).order_by('-id')
+    else:
+        data = builty.objects.filter(user = request.user, deleted = False).order_by('-id')
 
-
-    data = builty.objects.filter(user = request.user, deleted = False).order_by('-id')
+    print(data)
 
     total1_freight = 0
     total1_advance = 0
@@ -1214,8 +1217,10 @@ def diesel_report(request):
 
     print('------------------------')
 
-
-    data = builty.objects.filter(user = request.user, deleted = False).order_by('-id')
+    if request.user.is_superuser:
+        data = builty.objects.filter(deleted = False).order_by('-id')
+    else:
+        data = builty.objects.filter(user = request.user, deleted = False).order_by('-id')
 
     total1_diesel = 0
 
