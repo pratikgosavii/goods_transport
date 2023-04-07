@@ -24,6 +24,7 @@ def dashboard(request):
     truck_count = truck_details.objects.all().count()
     user_count = User.objects.all().count()
     builty_data = None
+    builty_filters = None
 
     if request.user.is_superuser:
         builty_data = builty.objects.all().order_by('-id')
