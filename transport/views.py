@@ -99,6 +99,8 @@ def dashboard(request):
         except EmptyPage:
             data = paginator.page(paginator.num_pages)
     
+    print(data)
+    
     context = {
         
         'data': data,
