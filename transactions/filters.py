@@ -12,15 +12,14 @@ from .forms import *
 
 class builty_filter(django_filters.FilterSet):
 
-    
-
-    consignor = django_filters.ModelMultipleChoiceFilter(
-        queryset=consignor.objects.all(), 
-        widget=forms.Select( 
+    consignor = django_filters.ModelChoiceFilter(
+        queryset=consignor.objects.all(),
+        widget=forms.Select(
             attrs={
-                'class' : 'form-control sele'
-                }
-            ))
+                'class' : 'form-control sele',
+                'id' : 'consignor_filter'
+            })
+    )
 
     station_from = django_filters.ModelChoiceFilter(
         queryset=station.objects.all(),
