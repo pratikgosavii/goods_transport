@@ -14,7 +14,7 @@ class builty_filter(django_filters.FilterSet):
 
     consignor = django_filters.ModelChoiceFilter(
         queryset=consignor.objects.all(),
-        widget=forms.Select(
+        widget=forms.SelectMultiple(
             attrs={
                 'class' : 'form-control sele',
                 'id' : 'consignor'
@@ -59,7 +59,7 @@ class builty_filter(django_filters.FilterSet):
    
     truck_details = django_filters.ModelChoiceFilter(
         queryset=truck_details.objects.all(),
-        widget=forms.SelectMultiple(
+        widget=forms.Select(
             attrs={
                 'class' : 'form-control sele',
                 'id' : 'truck_details'

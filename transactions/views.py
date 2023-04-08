@@ -553,8 +553,14 @@ def add_subtrip(request):
 @user_is_active
 def list_ack_all(request):
 
-    data = builty.objects.filter(deleted = False).order_by('-id')
-     
+    if request.user.is_superuser:
+
+        data = builty.objects.filter(deleted = False).order_by('-id')
+    else:
+
+        data = builty.objects.filter(user = request.user, deleted = False).order_by('-id')
+
+
     total1_freight = 0
     total1_advance = 0
     total1_balance = 0
@@ -707,7 +713,11 @@ def list_ack(request):
 @user_is_active
 def list_not_ack(request):
 
-    data = builty.objects.filter(deleted = False).order_by('-id')
+    if request.user.is_superuser:
+
+        data = builty.objects.filter(deleted = False).order_by('-id')
+    else:
+        data = builty.objects.filter(user = request.user, deleted = False).order_by('-id')
 
     builty_filters = builty_filter(request.GET, queryset=data)
     data = builty_filters.qs
