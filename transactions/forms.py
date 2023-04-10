@@ -25,8 +25,8 @@ class builty_Form(forms.ModelForm):
                 'readonly':'readonly',
                 'class' : 'se'
             }),
-            '': forms.Select(attrs={
-                'idtruck_details': 'truck_details',
+            'truck_details': forms.Select(attrs={
+                'id' : 'truck_details',
                 'class' : 'sele',
 
             }),
