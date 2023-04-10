@@ -397,6 +397,7 @@ def list_transaction(request):
         'total_mt' : total_mt,
         'total1_mt' : total1_mt,
         'has_filter' : has_filter,
+        'form' : builty_Form(request.user),
     }
 
 
@@ -1089,7 +1090,6 @@ def truck_report(request):
     else:
         data = builty.objects.filter(user = request.user, deleted = False).order_by('-id')
 
-    print(data)
 
     total1_freight = 0
     total1_advance = 0
@@ -1135,7 +1135,6 @@ def truck_report(request):
     counteer = 1
 
     for i in builty_filters_data:
-        print(builty_filters_data)
         vals1 = []
         vals1.append(counteer)
         counteer = counteer + 1
@@ -1169,18 +1168,14 @@ def truck_report(request):
             total_balance = total_balance + i.balance
 
         total_freight = total_freight + i.freight
-            
-        print('mt-------')
-        print(i.mt)
+           
         total_mt = total_mt + i.mt
         total_advance = total_advance + i.less_advance
 
-    print('total_advance')
-    print(total_advance)
-    print(total_mt)
+    builty_filters = builty_filter(request.GET, queryset=data)
 
 
-    data = builty_filters.qs
+    
 
 
         
@@ -1206,7 +1201,8 @@ def truck_report(request):
     context = {
         'builty_filter' : builty_filters,
         'link' : link,
-        'data' : data,
+        'form' : builty_Form(request.user),
+        'data' : builty_filters.qs,
         'total_balance' : total_balance,
         'total_advance' : total_advance,
         'total_freight' : total_freight,

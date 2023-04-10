@@ -14,9 +14,9 @@ class builty_filter(django_filters.FilterSet):
 
     consignor = django_filters.ModelChoiceFilter(
         queryset=consignor.objects.all(),
-        widget=forms.SelectMultiple(
+        widget=forms.CheckboxSelectMultiple(
             attrs={
-                'class' : 'form-control sele',
+                'class' : 'form-control',
                 'id' : 'consignor'
             })
     )
@@ -59,17 +59,17 @@ class builty_filter(django_filters.FilterSet):
    
     truck_details = django_filters.ModelChoiceFilter(
         queryset=truck_details.objects.all(),
-        widget=forms.Select(
+        widget=forms.CheckboxSelectMultiple(
             attrs={
-                'class' : 'form-control sele',
+                'class' : 'form-control',
                 'id' : 'truck_details'
             })
     )
-    truck_owner = django_filters.ModelChoiceFilter(
+    truck_owner = django_filters.ModelMultipleChoiceFilter(
         queryset=truck_owner.objects.all(),
-        widget=forms.SelectMultiple(
+        widget=forms.CheckboxSelectMultiple(
             attrs={
-                'class' : 'form-control sele',
+                'class' : '',
                 'id' : 'truck_owner'
             })
     )
@@ -131,11 +131,7 @@ class builty_filter(django_filters.FilterSet):
         model = builty
         fields = '__all__'
        
-    # def __init__(self, *args, **kwargs):
-    #     super(builty_filter,self).__init__(*args, **kwargs)
-    #     request = kwargs['request']
-    #     self.filters['user'].queryset = User.objects.filter(manager_id=username, location=userlocation)
-
+  
 class ack_filter(django_filters.FilterSet):
 
     builty__consignor = django_filters.ModelChoiceFilter(

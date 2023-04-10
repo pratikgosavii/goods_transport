@@ -10,8 +10,8 @@
 {% comment %} 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script> {% endcomment %}
-
-    <style>
+<!-- jQuery -->
+ <style>
 
 
 
@@ -55,7 +55,7 @@
 
       
 
-      
+
 
         .menu-nav {
        
@@ -145,12 +145,47 @@
                         
                     
                 <label for="name" class="control-label mb-1" style="margin-left : 0px;">Truck No</label>
-                {{ builty_filter.form.truck_details }}
-                       
-                    
-                <label for="name" class="control-label mb-1" style="margin-left : 0px;">Truck Owner h</label>
-                {{ builty_filter.form.truck_owner }}
-                       
+                <div class="btn-group">
+                <button type="button" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                  Select
+                </button>
+                <div class="dropdown-menu sele" style="height: 298px; overflow-y: scroll;width: max-content;">
+                  {% for id, name in form.truck_details.field.choices %}
+
+                  <input type="checkbox" name="truck_details" style="width: 30px;margin-right: 10px;margin-left: 11px; height: 22px; display: inline-flex;" value="{{ id }}" id="{{ id }}" />
+                  <label style="display: contents;
+                  margin-left: 30px;" for="{{ id }}">{{ name }}</label> <br>
+
+
+                  {% endfor %}
+
+                </div>
+                </div>
+
+                <label for="name" class="control-label mb-1" style="margin-left : 0px;">Truck Owner</label>
+                <div class="btn-group">
+                  <button type="button" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                    Select
+                  </button>
+                  <div class="dropdown-menu sele" style="height: 298px; overflow-y: scroll;width: max-content;">
+                    {% for id, name in form.truck_owner.field.choices %}
+
+                  <input type="checkbox" name="truck_owner" style="width: 30px;
+                  margin-right: 10px;
+    margin-left: 11px;
+    height: 22px;
+    display: inline-flex;" value="{{ id }}" id="{{ id }}" />
+                  <label style="display: contents;
+                  margin-left: 30px;" for="{{ id }}">{{ name }}</label> <br>
+
+
+                  {% endfor %}
+                   
+                  </div>
+                </div>
+                  
+               
+              
                 
                 <label for="name" class="control-label mb-1 la">District</label>
                 {{ builty_filter.form.district }}
@@ -163,8 +198,22 @@
               gap: 14px;">
               
               <label for="name" class="control-label mb-1">Consignor</label>
-              {{ builty_filter.form.consignor }}
-          
+              <div class="btn-group">
+                <button type="button" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                  Select
+                </button>
+              <div class="dropdown-menu sele" style="height: 298px; overflow-y: scroll;width: max-content;">
+                {% for id, name in form.consignor.field.choices %}
+
+                <input type="checkbox" name="consignor" style="width: 30px;margin-right: 10px;margin-left: 11px; height: 22px; display: inline-flex;" value="{{ id }}" id="{{ id }}" />
+                <label style="display: contents;
+                margin-left: 30px;" for="{{ id }}">{{ name }}</label> <br>
+
+
+                {% endfor %}
+
+              </div>
+              </div>
               
               <label for="name" class="control-label mb-1 la">Article</label>
               {{ builty_filter.form.article }}
@@ -424,28 +473,18 @@
     
 </div>
 
+{% endblock content %}
+
+
+{% block js %}
 
 
 <script>
 
   
         
-$('.sele').select2();
 
-    
-
-$("#consignor").select2({
-  multiple: true,
-});
-  
-
-$("#truck_owner").select2({
-  multiple: true,
-});
-  
-    
 </script>
 
 
-
-{% endblock content %}
+{% endblock js %}

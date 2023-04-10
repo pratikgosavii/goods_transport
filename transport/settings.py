@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'store',
     'transactions',
     'dbbackup',
+    'multiselectfield',
 ]
 
 MIDDLEWARE = [

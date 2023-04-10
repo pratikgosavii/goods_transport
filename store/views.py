@@ -1159,8 +1159,10 @@ def update_station(request, station_id):
     if request.method == 'POST':
 
         instance = station.objects.get(id=station_id)
+        updated_request = request.POST.copy()
+        updated_request.update({'office_location': request.user.office_location})
 
-        forms = station_Form(request.user, request.POST, instance = instance)
+        forms = station_Form(request.user, updated_request, instance = instance)
 
         if forms.is_valid():
             forms.save()
@@ -1437,8 +1439,10 @@ def update_taluka(request, taluka_id):
     if request.method == 'POST':
 
         instance = taluka.objects.get(id=taluka_id)
-
-        forms = taluka_Form(request.user, request.POST, instance = instance)
+        updated_request = request.POST.copy()
+        updated_request.update({'office_location': request.user.office_location})
+        print(updated_request)
+        forms = taluka_Form(request.user, updated_request, instance = instance)
 
         if forms.is_valid():
             forms.save()

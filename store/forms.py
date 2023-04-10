@@ -111,7 +111,7 @@ class station_Form(forms.ModelForm):
                 'class': 'form-control', 'id': 'name'
             }),
             'taluka': forms.Select(attrs={
-                'class': 'form-control sele', 'id': 'taluka'
+                'class': 'form-control sele', 'id': 'staion_taluka'
             }),
             
             
