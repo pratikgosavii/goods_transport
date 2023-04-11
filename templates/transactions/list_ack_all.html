@@ -162,10 +162,24 @@
               {{ builty_filter.form.station_from }}
                   
               
-          <label for="name" class="control-label mb-1" style="margin-left : 0px;">Truck No</label>
-          {{ builty_filter.form.truck_details }}
-       
-                                      
+              <label for="name" class="control-label mb-1" style="margin-left : 0px;">Truck No</label>
+              <div class="btn-group">
+                <button type="button" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                  Select
+                </button>
+                <div class="dropdown-menu" style="height: 298px; overflow-y: scroll;width: max-content;">
+                    {% for id, name in form.truck_details.field.choices %}
+  
+                    <input type="checkbox" name="truck_details" style="width: 30px;margin-right: 10px;margin-left: 11px; height: 22px; display: inline-flex;" value="{{ id }}" id="{{ id }}" />
+                    <label style="display: contents;
+                    margin-left: 30px;" for="{{ id }}">{{ name }}</label> <br>
+  
+  
+                    {% endfor %}
+  
+                </div>
+              </div>
+                              
               
           </div>
 
@@ -173,11 +187,44 @@
           <div class-"form-group" style="display: flex;">
 
             <label for="name" class="control-label mb-1" style="margin-left : 0px;">Truck Owner</label>
-            {{ builty_filter.form.truck_owner }}
-                   
+            <div class="btn-group">
+              <button type="button" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                Select
+              </button>
+              <div class="dropdown-menu" style="height: 298px; overflow-y: scroll;width: max-content;">
+                {% for id, name in form.truck_owner.field.choices %}
+
+                                <input type="checkbox" name="truck_owner" style="width: 30px;
+                                margin-right: 10px;
+                  margin-left: 11px;
+                  height: 22px;
+                  display: inline-flex;" value="{{ id }}" id="{{ id }}" />
+                                <label style="display: contents;
+                                margin-left: 30px;" for="{{ id }}">{{ name }}</label> <br>
+              
+
+              {% endfor %}
+               
+              </div>
+            </div>       
+            
             <label for="name" class="control-label mb-1">Consignor</label>
-            {{ builty_filter.form.consignor }}
-        
+            <div class="btn-group">
+              <button type="button" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                Select
+              </button>
+            <div class="dropdown-menu" style="height: 298px; overflow-y: scroll;width: max-content;">
+              {% for id, name in form.consignor.field.choices %}
+
+              <input type="checkbox" name="consignor" style="width: 30px;margin-right: 10px;margin-left: 11px; height: 22px; display: inline-flex;" value="{{ id }}" id="{{ id }}" />
+              <label style="display: contents;
+              margin-left: 30px;" for="{{ id }}">{{ name }}</label> <br>
+
+
+              {% endfor %}
+
+            </div>
+          </div>
             
             <label for="name" class="control-label mb-1 la">Article</label>
             {{ builty_filter.form.article }}

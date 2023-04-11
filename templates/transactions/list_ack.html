@@ -14,6 +14,48 @@
 
       
 
+      .select2-container--open .select2-dropdown {
+        left: 10px;
+        top: -7px;
+    }
+
+
+    .select2-search--dropdown{
+    justify-items: center;
+    justify-content: center;
+    display: flex;
+    }
+
+
+    
+    .select2-container--default .select2-selection--single .select2-selection__rendered {
+        color: #444;
+        line-height: 52px;
+    }
+
+    .select2-selection--single{
+        height: 50px !important;
+    }
+    .select2-search__field{
+        margin: 1px;
+        margin-top: 5px;
+    }
+
+      select {
+        border: 1px solid gray !important;
+        border-radius: 6px !important;
+        position: relative !important;
+        width: 231px !important;
+        margin: 10px !important;
+        line-height: 6ex !important;
+        padding-left: 14px !important;
+        height: 46px !important;
+      }
+
+      
+
+
+
     .cus{
       width:200px !important;
   }
@@ -190,8 +232,23 @@
               {{ builty_filter.form.builty__station_from }}
                   
               
-          <label for="name" class="control-label mb-1" style="margin-left : 0px;">Truck No</label>
-          {{ builty_filter.form.builty__truck_details }}
+              <label for="name" class="control-label mb-1" style="margin-left : 0px;">Truck No</label>
+              <div class="btn-group">
+              <button type="button" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                Select
+              </button>
+              <div class="dropdown-menu" style="height: 298px; overflow-y: scroll;width: max-content;">
+                {% for id, name in form.truck_details.field.choices %}
+
+                <input type="checkbox" name="truck_details" style="width: 30px;margin-right: 10px;margin-left: 11px; height: 22px; display: inline-flex;" value="{{ id }}" id="{{ id }}" />
+                <label style="display: contents;
+                margin-left: 30px;" for="{{ id }}">{{ name }}</label> <br>
+
+
+                {% endfor %}
+
+              </div>
+              </div>
        
                                       
               
@@ -201,11 +258,44 @@
           <div class-"form-group" style="display: flex;">
 
             <label for="name" class="control-label mb-1" style="margin-left : 0px;">Truck Owner</label>
-            {{ builty_filter.form.builty__truck_owner }}
-                   
+            <div class="btn-group">
+              <button type="button" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                Select
+              </button>
+              <div class="dropdown-menu" style="height: 298px; overflow-y: scroll;width: max-content;">
+                {% for id, name in form.truck_owner.field.choices %}
+
+              <input type="checkbox" name="truck_owner" style="width: 30px;
+              margin-right: 10px;
+margin-left: 11px;
+height: 22px;
+display: inline-flex;" value="{{ id }}" id="{{ id }}" />
+              <label style="display: contents;
+              margin-left: 30px;" for="{{ id }}">{{ name }}</label> <br>
+
+
+              {% endfor %}
+               
+              </div>
+            </div>
+                  
             <label for="name" class="control-label mb-1">Consignor</label>
-            {{ builty_filter.form.builty__consignor }}
-        
+              <div class="btn-group">
+                <button type="button" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                  Select
+                </button>
+              <div class="dropdown-menu" style="height: 298px; overflow-y: scroll;width: max-content;">
+                {% for id, name in form.consignor.field.choices %}
+
+                <input type="checkbox" name="consignor" style="width: 30px;margin-right: 10px;margin-left: 11px; height: 22px; display: inline-flex;" value="{{ id }}" id="{{ id }}" />
+                <label style="display: contents;
+                margin-left: 30px;" for="{{ id }}">{{ name }}</label> <br>
+
+
+                {% endfor %}
+
+              </div>
+              </div>
             
             <label for="name" class="control-label mb-1 la">Article</label>
             {{ builty_filter.form.builty__article }}
@@ -531,15 +621,6 @@
   $('.sele').select2();
 
     
-
-  $("#consignor").select2({
-    multiple: true,
-  });
-    
-  
-  $("#truck_owner").select2({
-    multiple: true,
-  });
     
     
 </script>

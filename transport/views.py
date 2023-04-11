@@ -107,5 +107,7 @@ def dashboard(request):
         'total1_balance' : total1_balance,
         'total_mt' : total_mt,
         'total1_mt' : total1_mt,
+        'form' : builty_Form(request.user),
+
     }
     return render(request, 'dashboard.html', context)

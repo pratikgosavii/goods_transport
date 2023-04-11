@@ -168,6 +168,14 @@ class ack_filter(django_filters.FilterSet):
                 'id' : 'truck_owner'
             })
     )
+    builty__station_from = django_filters.ModelChoiceFilter(
+        queryset=station.objects.all(),
+        widget=forms.Select(
+            attrs={
+                'class' : 'form-control sele',
+                'id' : 'station'
+            })
+    )
     builty__petrol_pump = django_filters.ModelChoiceFilter(
         queryset=petrol_pump.objects.all(),
         widget=forms.Select(

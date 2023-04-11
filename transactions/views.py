@@ -621,7 +621,7 @@ def list_ack_all(request):
         'total1_advance' : total1_advance,
         'total1_balance' : total1_balance,
         'total1_mt' : total1_mt,
-
+        'form' : builty_Form(request.user),
         
     }
 
@@ -703,7 +703,7 @@ def list_ack(request):
         'total1_advance' : total1_advance,
         'total1_balance' : total1_balance,
         'total1_mt' : total1_mt,
-
+        'form' : builty_Form(request.user),
 
         
     }
@@ -788,6 +788,7 @@ def list_not_ack(request):
         'total1_advance' : total1_advance,
         'total1_balance' : total1_balance,
         'total1_mt' : total1_mt,
+        'form' : builty_Form(request.user),
 
 
 
@@ -1298,6 +1299,7 @@ def diesel_report(request):
         'total_diesel' : total_diesel,
         'total1_diesel' : total1_diesel,
         'builty_filter' : builty_filters,
+        'form' : builty_Form(request.user),
     }
 
     return render(request, 'report/diesel_report.html', context)
@@ -1439,6 +1441,8 @@ def porch_report(request):
         'total1_balance' : total1_balance,
         'total1_mt' : total1_mt,
         'total_mt' : total_mt,
+        'form' : builty_Form(request.user),
+
     }
 
     return render(request, 'report/porch_report.html', context)

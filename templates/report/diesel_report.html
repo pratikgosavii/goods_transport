@@ -126,95 +126,151 @@
 
 <p>
     
-    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-      Filter
-    </button>
-  </p>
-  <div class="collapse" id="collapseExample">
-    <div class="card card-body">
-      
+  <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+    Filter
+  </button>
+</p>
+<div class="collapse" id="collapseExample">
+  <div class="card card-body" style="width: fit-content;">
+    
 
-        <form method="get" action="" style="padding:15px;">
+      <form method="get" action="" style="padding:15px;">
 
-            {% csrf_token %}
-            <div class="form-group" style="display: flex;
-            gap: 14px;">
+          {% csrf_token %}
+          <div class="form-group" style="display: flex;
+          gap: 14px;">
 
-            <label for="name" class="control-label mb-1" style="margin-left : 0px;">Builty No</label>
-                    {{ builty_filter.form.builty_no }}
-                        
-                    
-                <label for="name" class="control-label mb-1" style="margin-left : 0px;">Truck No</label>
-                {{ builty_filter.form.truck_details }}
+          <label for="name" class="control-label mb-1" style="margin-left : 0px;">Builty No</label>
+                  {{ builty_filter.form.builty_no }}
+                      
+                  
+              <label for="name" class="control-label mb-1" style="margin-left : 0px;">Truck No</label>
+              <div class="btn-group">
+              <button type="button" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                Select
+              </button>
+              <div class="dropdown-menu" style="height: 298px; overflow-y: scroll;width: max-content;">
+                {% for id, name in form.truck_details.field.choices %}
 
-                <label for="name" class="control-label mb-1" style="margin-left : 0px;">Truck Owner</label>
-                {{ builty_filter.form.truck_owner }}
-                       
-                <label for="name" class="control-label mb-1" style="margin-left : 0px;">Petrol Pump</label>
-                {{ builty_filter.form.petrol_pump }}
-                       
-                
-                
+                <input type="checkbox" name="truck_details" style="width: 30px;margin-right: 10px;margin-left: 11px; height: 22px; display: inline-flex;" value="{{ id }}" id="{{ id }}" />
+                <label style="display: contents;
+                margin-left: 30px;" for="{{ id }}">{{ name }}</label> <br>
+
+
+                {% endfor %}
+
+              </div>
               </div>
 
-              <div class-"form-group" style="display: flex;
-              gap: 14px;">
-              
-              <label for="name" class="control-label mb-1">Consignor</label>
-              {{ builty_filter.form.consignor }}
-          
-              
-              <label for="name" class="control-label mb-1 la">Article</label>
-              {{ builty_filter.form.article }}
-            </div>
-              
-                    <div class-"form-group" style="display: flex;
-                    gap: 14px;">
-                                        
-                    <label for="name" class="control-label mb-1" style="margin-left : 0px;">Date From</label>
-                    {{ builty_filter.form.DC_date_start__date }}
+              <label for="name" class="control-label mb-1" style="margin-left : 0px;">Truck Owner</label>
+              <div class="btn-group">
+                <button type="button" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                  Select
+                </button>
+                <div class="dropdown-menu" style="height: 298px; overflow-y: scroll;width: max-content;">
+                  {% for id, name in form.truck_owner.field.choices %}
+
+                <input type="checkbox" name="truck_owner" style="width: 30px;
+                margin-right: 10px;
+  margin-left: 11px;
+  height: 22px;
+  display: inline-flex;" value="{{ id }}" id="{{ id }}" />
+                <label style="display: contents;
+                margin-left: 30px;" for="{{ id }}">{{ name }}</label> <br>
+
+
+                {% endfor %}
+                 
+                </div>
+              </div>
                 
-
-
-                <label for="name" class="control-label mb-1">Date To</label>
-                {{ builty_filter.form.DC_date_end__date }}
-
-
-
-
-
+             
+            
+              
+              <label for="name" class="control-label mb-1 la">District</label>
+              {{ builty_filter.form.district }}
+              
+              
+              
+              
             </div>
+            <div class-"form-group" style="display: flex;
+            gap: 14px;">
 
-            <br>
-            <a href="{% url 'diesel_report' %}"><button class="btn btn-primary" type="button" > Reset </button></a>
-          
-            <button class="btn btn-primary" type="submit" > Submit </button>
-
-
-
-
-
-
+            <label for="name" class="control-label mb-1 la">Petrol Pump</label>
+            {{ builty_filter.form.petrol_pump }}
 
             
-        </form>
-    </div>
-  </div>
-  
+            <label for="name" class="control-label mb-1">Consignor</label>
+            <div class="btn-group">
+              <button type="button" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                Select
+              </button>
+            <div class="dropdown-menu" style="height: 298px; overflow-y: scroll;width: max-content;">
+              {% for id, name in form.consignor.field.choices %}
 
-  {% if link %}
+              <input type="checkbox" name="consignor" style="width: 30px;margin-right: 10px;margin-left: 11px; height: 22px; display: inline-flex;" value="{{ id }}" id="{{ id }}" />
+              <label style="display: contents;
+              margin-left: 30px;" for="{{ id }}">{{ name }}</label> <br>
+
+
+              {% endfor %}
+
+            </div>
+            </div>
+            
+           
+          </div><br>
+                  <div class-"form-group" style="display: flex;
+                  gap: 14px;">
+                                      
+                  <label for="name" class="control-label mb-1" style="margin-left : 0px;">Date From</label>
+                  {{ builty_filter.form.DC_date_start__date }}
+              
+
+
+              <label for="name" class="control-label mb-1">Date To</label>
+              {{ builty_filter.form.DC_date_end__date }}
+
+
+
+
+
+          </div>
+
+          <br>
+
+          <a href="{% url 'truck_report' %}"><button class="btn btn-primary" type="button" > Reset </button></a>
+
+        
+          <button class="btn btn-primary" type="submit" > Submit </button>
+
+
+
+
+
+
+
+          
+      </form>
+  </div>
+</div>
+
+
+{% if link %}
 
 <form method="post" action="{% url 'download' %}">
 
-    {% csrf_token %}
+  {% csrf_token %}
 
-    <input type="hidden" value="{{ link }}" name="link">
-    <button class="btn btn-primary" type="submit">
-        Download Diesel Report
-    </button> 
+  <input type="hidden" value="{{ link }}" name="link">
+  <button class="btn btn-primary" type="submit">
+      Download Transport Dispatch Report
+  </button> 
 </form>
 
 {% endif %}
+
 
 
 
@@ -387,15 +443,6 @@
   $('.sele').select2();
 
     
-
-  $("#consignor").select2({
-    multiple: true,
-  });
-    
-  
-  $("#truck_owner").select2({
-    multiple: true,
-  });
     
     
 </script>
