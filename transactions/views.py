@@ -1312,8 +1312,13 @@ def porch_report(request):
 
     print('------------------------')
 
+    if request.user.is_superuser:
 
-    data = builty.objects.filter(~Q(have_ack__challan_number = None), user = request.user, deleted = False).order_by('-id')
+
+        data = builty.objects.filter(~Q(have_ack__challan_number = None), deleted = False).order_by('-id')
+    else:
+
+        data = builty.objects.filter(~Q(have_ack__challan_number = None), user = request.user, deleted = False).order_by('-id')
 
     
     total1_freight = 0
