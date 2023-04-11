@@ -28,16 +28,12 @@ def get_consignor_ajax(request):
 
 
     data = []
-    print('i am here3')
 
     if request.method == "POST":
         company_id = request.POST['company_id']
-        print(company_id)
         try:
             company_instance = company.objects.get(id= company_id)
             dropdown1 = consignor.objects.filter(company = company_instance, office_location = request.user.office_location)
-            print('---------dropdown1')
-            print(dropdown1)
         except Exception:
             data['error_message'] = 'error'
             return JsonResponse(data)
@@ -65,75 +61,7 @@ def numOfDays(date1):
 
     date1 = datetime(year,month, day , int(time1[0]), int(time1[1]), tzinfo=ist)
 
-    print('--------------')
-    print(date1)
     return date1
-
-
-@login_required(login_url='login')
-@user_is_active
-def get_company_goods_ajax(request):
-
-    data = []
-    
-
-    if request.method == "POST":
-        company_id = request.POST['company_id']
-        print('----here----')
-        print(company_id)
-        try:
-            instance = company.objects.filter(id = company_id).first()
-            dropdown1 = company_goods.objects.filter(company = instance)
-            print(dropdown1)
-        except Exception:
-            data['error_message'] = 'error'
-            return JsonResponse(data)
-        return JsonResponse(list(dropdown1.values('id', 'name')), safe = False) 
-
-
-@login_required(login_url='login')
-@user_is_active
-def get_goods_company_ajax(request):
-
-    data = []
-    print('i am here3')
-
-    if request.method == "POST":
-        company_id = request.POST['company_id']
-        company_goods_id = request.POST['company_goods']
-        print(company_id)
-        try:
-            company_instance = company.objects.get(id= company_id)
-            instance = company_goods.objects.filter(id = company_goods_id).first()
-            print(instance)
-            dropdown1 = goods_company.objects.filter(company_goods = instance, company_name= company_instance)
-            print(dropdown1)
-        except Exception:
-            data['error_message'] = 'error'
-            return JsonResponse(data)
-        return JsonResponse(list(dropdown1.values('id', 'goods_company_name')), safe = False) 
-
-
-@login_required(login_url='login')
-@user_is_active
-def get_agent_company_ajax(request):
-
-    data = []
-    print('i am here2')
-
-    if request.method == "POST":
-        company_id = request.POST['company_id']
-        print(company_id)
-        try:
-            company_instance = company.objects.get(id= company_id)
-            print(company_instance)
-            
-            agent_data = agent.objects.filter(company = company_instance)
-            print(agent_data)
-        except Exception:
-            data['error_message'] = 'error'
-            return JsonResponse(data)
-        return JsonResponse(list(agent_data.values('id', 'name')), safe = False) 
 
 
 
@@ -352,12 +280,9 @@ def add_consignor_ajax(request):
     
     if request.method == 'POST':
 
-        print('------------------------------------')
 
         updated_request = request.POST.copy()
         updated_request.update({'office_location': request.user.office_location})
-        print('==========--------------------')
-        print(updated_request)
         if request.user.is_superuser:
             
             forms = consignor_Form(updated_request)
@@ -370,9 +295,6 @@ def add_consignor_ajax(request):
         if forms.is_valid():
             a = forms.save()
 
-            print(a)
-
-         
             return JsonResponse(json.dumps({'status' : 'True', 'id' : a.id,'value' : a.name}), safe=False, content_type="application/json") 
 
         else:
@@ -403,9 +325,6 @@ def update_consignor(request, consignor_id):
 
             comapnyID = instance.company.id
             comapny_consignor_ID = instance.id
-
-            print(comapnyID)
-            print(comapny_consignor_ID)
 
             context = {
                 'form': forms,
@@ -484,7 +403,6 @@ def add_article(request):
         else:
             print(forms.errors)
             data = company.objects.all()
-            print(data)
 
             context = {
                 'form': forms,
@@ -497,7 +415,6 @@ def add_article(request):
 
         forms = article_Form(request.user)
         data = company.objects.all()
-        print(data)
 
         context = {
             'form': forms,
@@ -513,8 +430,6 @@ def add_article(request):
 def add_article_ajax(request):
     
     if request.method == 'POST':
-
-        print()
 
         updated_request = request.POST.copy()
         updated_request.update({'office_location': request.user.office_location})
@@ -536,20 +451,17 @@ def add_article_ajax(request):
         if forms.is_valid():
             a = forms.save()
 
-            print(a)
             return JsonResponse(json.dumps({'status' : 'True', 'id' : a.id,'value' : a.name}), safe=False, content_type="application/json") 
 
         else:
             
             error = forms.errors.as_json()
-            print(error)
             return JsonResponse(json.dumps({'error' : error}), safe=False)
     
     else:
 
         forms = article_Form(request.user)
         data = company.objects.all()
-        print(data)
 
         context = {
             'form': forms,
@@ -607,9 +519,6 @@ def update_article(request, article_id):
         forms = article_Form(request.user, instance = instance)
         consignor_ID = instance.consignor.id
 
-        print('-----------------')
-        print(instance.company_name.id)
-
         context = {
             'form': forms,
             'comapnyID' : instance.company_name.id,
@@ -657,17 +566,11 @@ def add_truck_details(request):
     if request.method == 'POST':
 
         forms = truck_details_Form(request.POST)
-        print('-----------------------------1---------------------')
         if forms.is_valid():
             forms.save()
             return redirect('list_truck_details')
         else:
-            print('-----------------------------2---------------------')
-
-            print(forms.errors)
-            print(forms)
-            print('-----------------------------3---------------------')
-
+           
             company_data = company.objects.all()
 
             context = {
@@ -680,12 +583,7 @@ def add_truck_details(request):
     else:
 
         forms = truck_details_Form()
-        print('--------------------------------------------------')
-
-        
-        print(forms)
-        print('-----------------------------3---------------------')
-
+      
         company_data = company.objects.all()
 
         context = {
@@ -708,10 +606,7 @@ def add_truck_details_ajax(request):
 
         forms = truck_details_Form(request.POST)
         
-        print('-----------------------------1---------------------')
         if forms.is_valid():
-
-            print('------------is valid------------')
           
             a = forms.save()
             
@@ -727,11 +622,6 @@ def add_truck_details_ajax(request):
     else:
 
         forms = truck_details_Form()
-        print('--------------------------------------------------')
-
-        
-        print(forms)
-        print('-----------------------------3---------------------')
 
         company_data = company.objects.all()
 
@@ -799,12 +689,10 @@ def add_truck_owner(request):
     if request.method == 'POST':
 
         forms = truck_owner_Form(request.POST)
-        print('-----------------------------1---------------------')
         if forms.is_valid():
             forms.save()
             return redirect('list_truck_owner')
         else:
-            print('-----------------------------2---------------------')
 
             print(forms.errors)
             company_data = company.objects.all()
@@ -819,12 +707,7 @@ def add_truck_owner(request):
     else:
 
         forms = truck_owner_Form()
-        print('--------------------------------------------------')
-
         
-        print(forms)
-        print('-----------------------------3---------------------')
-
         company_data = company.objects.all()
 
         context = {
@@ -842,15 +725,12 @@ def add_truck_owner_ajax(request):
     if request.method == 'POST':
 
         forms = truck_owner_Form(request.POST)
-        print('-----------------------------1---------------------')
         if forms.is_valid():
             a = forms.save()
             return JsonResponse(json.dumps({'status' : 'True', 'id' : a.id,'value' : a.owner_name}), safe=False, content_type="application/json") 
 
         else:
             
-            print('-----------------------------2---------------------')
-
             error = forms.errors.as_json()
             print(error)
             return JsonResponse(json.dumps({'error' : error}), safe=False)
@@ -859,11 +739,6 @@ def add_truck_owner_ajax(request):
     else:
 
         forms = truck_owner_Form()
-        print('--------------------------------------------------')
-
-        
-        print(forms)
-        print('-----------------------------3---------------------')
 
         company_data = company.objects.all()
 
@@ -931,12 +806,10 @@ def add_rate(request):
     if request.method == 'POST':
 
         forms = rate_Form(request.POST)
-        print('-----------------------------1---------------------')
         if forms.is_valid():
             forms.save()
             return redirect('list_rate')
         else:
-            print('-----------------------------2---------------------')
 
             print(forms.errors)
             company_data = company.objects.all()
@@ -951,11 +824,7 @@ def add_rate(request):
     else:
 
         forms = rate_Form()
-        print('--------------------------------------------------')
-
-        
         print(forms)
-        print('-----------------------------3---------------------')
 
         company_data = company.objects.all()
 
@@ -974,15 +843,12 @@ def add_rate_ajax(request):
     if request.method == 'POST':
 
         forms = rate_Form(request.POST)
-        print('-----------------------------1---------------------')
         if forms.is_valid():
             a = forms.save()
             return JsonResponse(json.dumps({'status' : 'True', 'id' : a.id,'value' : a.owner_name}), safe=False, content_type="application/json") 
 
         else:
             
-            print('-----------------------------2---------------------')
-
             error = forms.errors.as_json()
             print(error)
             return JsonResponse(json.dumps({'error' : error}), safe=False)
@@ -991,11 +857,8 @@ def add_rate_ajax(request):
     else:
 
         forms = rate_Form()
-        print('--------------------------------------------------')
-
         
         print(forms)
-        print('-----------------------------3---------------------')
 
         company_data = company.objects.all()
 
@@ -1069,12 +932,10 @@ def add_station(request):
 
         forms = station_Form(request.user, updated_request)
 
-        print('-----------------------------1---------------------')
         if forms.is_valid():
             forms.save()
             return redirect('list_station')
         else:
-            print('-----------------------------2---------------------')
 
             print(forms.errors)
             company_data = company.objects.all()
@@ -1089,11 +950,8 @@ def add_station(request):
     else:
 
         forms = station_Form(user = request.user)
-        print('--------------------------------------------------')
-
         
         print(forms)
-        print('-----------------------------3---------------------')
 
         company_data = company.objects.all()
 
@@ -1120,13 +978,11 @@ def add_station_ajax(request):
 
 
         forms = station_Form(request.user, updated_request)
-        print('-----------------------------1---------------------')
         if forms.is_valid():
             a = forms.save()
             return JsonResponse(json.dumps({'status' : 'True', 'id' : a.id,'value' : a.name, 'taluka' : a.taluka.id, 'district' : a.taluka.district.id}), safe=False, content_type="application/json") 
 
         else:
-            print('-----------------------------2---------------------')
 
             error = forms.errors.as_json()
             print(error)
@@ -1136,11 +992,8 @@ def add_station_ajax(request):
     else:
 
         forms = station_Form(user = request.user)
-        print('--------------------------------------------------')
-
         
         print(forms)
-        print('-----------------------------3---------------------')
 
         company_data = company.objects.all()
 
@@ -1219,15 +1072,12 @@ def add_district(request):
 
         updated_request = request.POST.copy()
         updated_request.update({'office_location': request.user.office_location})
-        print(updated_request)
         forms = district_Form(updated_request)
-        print(forms)
 
         if forms.is_valid():
             forms.save()
             return redirect('list_district')
         else:
-            print('-----------------------------2---------------------')
 
             print(forms.errors)
             company_data = company.objects.all()
@@ -1242,11 +1092,8 @@ def add_district(request):
     else:
 
         forms = district_Form()
-        print('--------------------------------------------------')
-
         
         print(forms)
-        print('-----------------------------3---------------------')
 
         company_data = company.objects.all()
 
@@ -1267,8 +1114,6 @@ def add_district_ajax(request):
     updated_request.update({'office_location': request.user.office_location})
 
     if request.method == 'POST':
-
-        print()
 
         if request.user.is_superuser:
             
@@ -1307,7 +1152,6 @@ def update_district(request, district_id):
 
         updated_request = request.POST.copy()
         updated_request.update({'office_location': request.user.office_location})
-        print(updated_request)
 
         forms = district_Form(updated_request, instance = instance)
 
@@ -1358,16 +1202,13 @@ def add_taluka(request):
 
         updated_request = request.POST.copy()
         updated_request.update({'office_location': request.user.office_location})
-        print(updated_request)
         forms = taluka_Form(request.user, updated_request)
 
 
-        print('-----------------------------1---------------------')
         if forms.is_valid():
             forms.save()
             return redirect('list_taluka')
         else:
-            print('-----------------------------2---------------------')
 
             company_data = company.objects.all()
 
@@ -1383,12 +1224,7 @@ def add_taluka(request):
     else:
 
         forms = taluka_Form(request.user)
-        print('--------------------------------------------------')
-
-        
-        print(forms)
-        print('-----------------------------3---------------------')
-
+    
         company_data = company.objects.all()
 
         context = {
@@ -1410,9 +1246,7 @@ def add_taluka_ajax(request):
         updated_request = request.POST.copy()
         updated_request.update({'office_location': request.user.office_location})
 
-        print(updated_request)
         forms = taluka_Form(request.user, updated_request)
-        print('-----------------------------1---------------------')
         if forms.is_valid():
             a = forms.save()
             
@@ -1427,7 +1261,6 @@ def add_taluka_ajax(request):
             
             
             error = forms.errors.as_json()
-            print(error)
             return JsonResponse(json.dumps({'error' : error}), safe=False)
     
     
@@ -1441,7 +1274,6 @@ def update_taluka(request, taluka_id):
         instance = taluka.objects.get(id=taluka_id)
         updated_request = request.POST.copy()
         updated_request.update({'office_location': request.user.office_location})
-        print(updated_request)
         forms = taluka_Form(request.user, updated_request, instance = instance)
 
         if forms.is_valid():
@@ -1505,12 +1337,10 @@ def add_onaccount(request):
         updated_request = request.POST.copy()
         updated_request.update({'office_location': request.user.office_location})
         forms = onaccount_Form(updated_request)
-        print('-----------------------------1---------------------')
         if forms.is_valid():
             forms.save()
             return redirect('list_onaccount')
         else:
-            print('-----------------------------2---------------------')
 
             print(forms.errors)
             company_data = company.objects.all()
@@ -1525,12 +1355,7 @@ def add_onaccount(request):
     else:
 
         forms = onaccount_Form()
-        print('--------------------------------------------------')
-
-        
-        print(forms)
-        print('-----------------------------3---------------------')
-
+       
         company_data = company.objects.all()
 
         context = {
@@ -1564,7 +1389,7 @@ def add_onaccount_ajax(request):
             forms = onaccount_Form(updated_request)
 
 
-        print('-----------------------------1---------------------')
+        
         if forms.is_valid():
             a = forms.save()
             
@@ -1582,11 +1407,9 @@ def add_onaccount_ajax(request):
     else:
 
         forms = onaccount_Form()
-        print('--------------------------------------------------')
 
         
         print(forms)
-        print('-----------------------------3---------------------')
 
         company_data = company.objects.all()
 
@@ -1663,7 +1486,7 @@ def add_driver(request):
     if request.method == 'POST':
 
         forms = driver_Form(request.POST)
-        print('-----------------------------1---------------------')
+        
         if forms.is_valid():
             forms.save()
             return redirect('list_driver')
@@ -1683,11 +1506,9 @@ def add_driver(request):
     else:
 
         forms = driver_Form()
-        print('--------------------------------------------------')
 
         
         print(forms)
-        print('-----------------------------3---------------------')
 
         company_data = company.objects.all()
 
@@ -1755,7 +1576,7 @@ def add_petrol_pump(request):
     if request.method == 'POST':
 
         forms = petrol_pump_Form(request.POST)
-        print('-----------------------------1---------------------')
+        
         if forms.is_valid():
             forms.save()
             return redirect('list_petrol_pump')
@@ -1776,11 +1597,9 @@ def add_petrol_pump(request):
     else:
 
         forms = petrol_pump_Form()
-        print('--------------------------------------------------')
 
         
         print(forms)
-        print('-----------------------------3---------------------')
 
         company_data = company.objects.all()
 
@@ -1802,7 +1621,7 @@ def add_petrol_pump_ajax(request):
         forms = petrol_pump_Form(request.POST)
 
 
-        print('-----------------------------1---------------------')
+        
         if forms.is_valid():
             a = forms.save()
             
@@ -1820,11 +1639,9 @@ def add_petrol_pump_ajax(request):
     else:
 
         forms = petrol_pump_Form()
-        print('--------------------------------------------------')
 
         
         print(forms)
-        print('-----------------------------3---------------------')
 
         context = {
             'form': forms,

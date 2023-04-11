@@ -50,8 +50,6 @@ def resgister_user(request):
 
             return render(request, 'users/resgister.html', context)
     else:
-        print(forms.as_p)
-
         context = {'form': forms}
 
         return render(request, 'users/resgister.html', context)
@@ -82,17 +80,10 @@ def update_user(request, user_id):
             user = authenticate(username=username)
             if user:
 
-
-
-                print('in usert')
-                
                 messages.error(request, 'user already exsist')
                 return redirect('list_use   r')
             else:
 
-                print('in dsssssssssssssssssusert')
-
-                
                 forms_instance.password_r = password
                 forms_instance.save()
 
@@ -103,8 +94,6 @@ def update_user(request, user_id):
             return render(request, 'users/update_user.html', context)
 
     else:
-        print(forms.as_p)
-
         context = {'form': forms}
 
         return render(request, 'users/update_user.html', context)

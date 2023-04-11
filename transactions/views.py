@@ -32,8 +32,6 @@ def numOfDays(date1):
 
     date1 = datetime(year,month, day, tzinfo=ist)
 
-    print('--------------')
-    print(date1)
     return date1
 
 
@@ -192,21 +190,15 @@ def update_builty(request, bulity_id):
         if DC_date:
 
             date_time = numOfDays(DC_date)
-            print('in if')
         else:
             date_time = datetime.now(IST)
-        print('-----------------------------------------------date_time')
-        print(date_time)
-        print('---------------------')
+       
         updated_request = request.POST.copy()
 
         if request.user.is_superuser:
 
             user_id = request.POST.get('user')
-            print('--------------------------')
-            print(user_id)
             user_instance = User.objects.get(id = user_id)
-            print(user_instance)
 
             updated_request.update({'DC_date': date_time, 'company' : user_instance.company, 'editable' : False})
         
@@ -254,11 +246,6 @@ def update_builty(request, bulity_id):
         forms = builty_Form(request.user, instance = instance)
         
         company_data = company.objects.all()
-
-        print('-----------------------------------')
-        print('-----------------------------------')
-        print('-----------------------------------')
-        print(forms.instance.builty_no)
 
         if request.user.is_superuser:
 
@@ -409,8 +396,6 @@ def list_transaction(request):
 @user_is_active
 def add_request_edit(request, bulity_id):
 
-    print('-----------')
-
     builty_instance = builty.objects.get(id = bulity_id)
 
     data = request_edit.objects.filter(builty = builty_instance, status = False, history = True)
@@ -435,14 +420,9 @@ def admin_list_request_edit(request):
 
     data = request_edit.objects.all()
 
-    print(data)
-
     filtered_data = request_edit_filter(request.GET, queryset=data)
     
     data = filtered_data.qs
-
-    print(data)
-
 
     page = request.GET.get('page', 1)
     paginator = Paginator(data, 20)
@@ -467,14 +447,9 @@ def list_request_edit(request):
 
     data = request_edit.objects.filter(builty__user = request.user)
 
-    print(data)
-
     filtered_data = request_edit_filter(request.GET, queryset=data)
     
     data = filtered_data.qs
-
-    print(data)
-
 
     page = request.GET.get('page', 1)
     paginator = Paginator(data, 20)
@@ -522,11 +497,6 @@ def approve_edit(request, request_id):
 
 @user_is_active
 def add_subtrip(request):
-
-
-    print('hereeeeeeeeeeeeeee')
-
-
 
     builty_instance = builty.objects.get(id = request.POST.get('builty_id')) 
 
@@ -884,21 +854,16 @@ def mass_edit_request(request):
 
     builty_id = request.POST.getlist('builty_id[]')
 
-    print(builty_id)
-
     for i in builty_id:
 
         builty_instance = builty.objects.get(id = i).order_by('-id')
         request_edit.objects.create(builty = builty_instance, user = request.user, history = True)
-    print('--------------------')
     return JsonResponse({'status' : 'done'})
 
 @user_is_active
 def mass_approve_request(request):
 
     request_id = request.POST.getlist('request_id[]')
-
-    print(request_id)
 
     for i in request_id:
 
@@ -907,7 +872,6 @@ def mass_approve_request(request):
         request_instance.save()
 
         
-    print('--------------------')
     return JsonResponse({'status' : 'done'})
 
 @user_is_active
@@ -930,9 +894,6 @@ def get_district(request):
     
     data = serializers.serialize('json', [instance])
 
-    print(data)
-   
-
     return JsonResponse({'data' : data})
         
 
@@ -948,7 +909,6 @@ def get_owner(request):
     
     data = serializers.serialize('json', [instance])
 
-    print(data)
    
 
     return JsonResponse({'data' : data})
@@ -967,7 +927,7 @@ def get_taluka_district(request):
     
     data = serializers.serialize('json', [instance])
 
-    print(data)
+    
    
 
     return JsonResponse({'data' : data})
@@ -1057,8 +1017,6 @@ def download(request):
 
             with open(fl_path, 'r' ) as fh:
                 mime_type  = mimetypes.guess_type(fl_path)
-                print('---------donwlaod-----------')
-                print(mime_type)
                 response = HttpResponse(fh.read(), content_type=mime_type)
                 response['Content-Disposition'] = 'attachment;filename=' + str(fl_path)
 
@@ -1067,7 +1025,6 @@ def download(request):
 
 
         else:
-            print('sdfdsds')
             messages.error(request, 'path does not exist')
 
 
@@ -1080,10 +1037,6 @@ import csv
 
 
 def truck_report(request):
-
-
-
-    print('------------------------')
 
 
     if request.user.is_superuser:
@@ -1162,17 +1115,6 @@ def truck_report(request):
     total_balance = 0
     total_mt = 0
 
-    for i in builty_filters.qs:
-
-        if not i.have_ack.filter():
-    
-            total_balance = total_balance + i.balance
-
-        total_freight = total_freight + i.freight
-           
-        total_mt = total_mt + i.mt
-        total_advance = total_advance + i.less_advance
-
     builty_filters = builty_filter(request.GET, queryset=data)
 
 
@@ -1188,6 +1130,31 @@ def truck_report(request):
 
 
     link = os.path.join(BASE_DIR) + '\static\csv\\' + name
+
+    
+    page = request.GET.get('page', 1)
+    paginator = Paginator(data, 20)
+
+    try:
+        data = paginator.page(page)
+    except PageNotAnInteger:
+        data = paginator.page(1)
+    except EmptyPage:
+        data = paginator.page(paginator.num_pages)
+   
+
+   
+    for i in builty_filters.qs:
+
+        if not i.have_ack.filter():
+    
+            total_balance = total_balance + i.balance
+
+        total_freight = total_freight + i.freight
+           
+        total_mt = total_mt + i.mt
+        total_advance = total_advance + i.less_advance
+
 
 
     total_balance = round(total_balance, 2)
@@ -1220,9 +1187,6 @@ def truck_report(request):
 
 def diesel_report(request):
 
-
-
-    print('------------------------')
 
     if request.user.is_superuser:
         data = builty.objects.filter(deleted = False).order_by('-id')
@@ -1292,6 +1256,20 @@ def diesel_report(request):
 
     link = os.path.join(BASE_DIR) + '\static\csv\\' + name
 
+
+    
+    page = request.GET.get('page', 1)
+    paginator = Paginator(data, 20)
+
+    try:
+        data = paginator.page(page)
+    except PageNotAnInteger:
+        data = paginator.page(1)
+    except EmptyPage:
+        data = paginator.page(paginator.num_pages)
+   
+
+
     context = {
         'builty_filter' : builty_filters,
         'link' : link,
@@ -1309,10 +1287,6 @@ def diesel_report(request):
 from django.db.models import Q
 
 def porch_report(request):
-
-
-
-    print('------------------------')
 
     if request.user.is_superuser:
 
@@ -1334,9 +1308,6 @@ def porch_report(request):
         total1_freight = total1_freight + i.freight
         total1_advance = total1_advance + i.less_advance
         total1_mt = total1_mt + i.mt
-
-    print(data.count())
-    print('------------------------')
 
     builty_filters = builty_filter(request.GET, queryset=data)
     builty_filters_data1 = list(builty_filters.qs.values_list('builty_no', 'DC_date', 'have_ack__challan_number', 'have_ack__challan_date', 'truck_details__truck_number', 'station_to__name', 'mt', 'rate', 'freight', 'less_advance', 'balance'))
@@ -1386,11 +1357,6 @@ def porch_report(request):
     total_diesel = 0
 
     data = builty_filters.qs
-    
-    print('------------------------')
-    print(data.count())
-    print('------------------------')
-
     
     total_freight = 0
     total_advance = 0

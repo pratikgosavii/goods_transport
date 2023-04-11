@@ -69,28 +69,41 @@ def dashboard(request):
         total_balance = 0
         total_mt = 0
 
-        for i in data:
-
-            if not i.have_ack.filter():
         
-                total_balance = total_balance + i.balance
-
-            total_freight = total_freight + i.freight
-            total_advance = total_advance + i.less_advance
-            total_mt = total_mt + i.mt
-
-        total_balance = round(total_balance, 2)
-        total_advance = round(total_advance, 2)
-        total_freight = round(total_freight, 2)
-        total1_freight = round(total1_freight, 2)
-        total_mt = round(total_mt, 2)
-        total1_balance = round(total1_balance, 2)
-        total1_advance = round(total1_advance, 2)
-        total1_mt = round(total1_mt, 2)
 
 
        
-    print(data)
+    page = request.GET.get('page', 1)
+    paginator = Paginator(data, 20)
+
+    try:
+        data = paginator.page(page)
+    except PageNotAnInteger:
+        data = paginator.page(1)
+    except EmptyPage:
+        data = paginator.page(paginator.num_pages)
+   
+
+    for i in data:
+
+        if not i.have_ack.filter():
+    
+            total_balance = total_balance + i.balance
+
+        total_freight = total_freight + i.freight
+        total_advance = total_advance + i.less_advance
+        total_mt = total_mt + i.mt
+
+    
+    total_balance = round(total_balance, 2)
+    total_advance = round(total_advance, 2)
+    total_freight = round(total_freight, 2)
+    total1_freight = round(total1_freight, 2)
+    total_mt = round(total_mt, 2)
+    total1_balance = round(total1_balance, 2)
+    total1_advance = round(total1_advance, 2)
+    total1_mt = round(total1_mt, 2)
+
 
     context = {
         
