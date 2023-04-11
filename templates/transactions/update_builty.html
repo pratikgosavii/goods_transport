@@ -1724,9 +1724,9 @@
     
    
 
+    tempval = document.getElementById("bags").value
       
-      
-    let global_mt = 0
+    let global_mt =  parseFloat((tempval / 20).toFixed(2));
     let global_freight = 0
 
     bags.addEventListener("input", function (e) {
