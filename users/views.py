@@ -19,7 +19,7 @@ def login_page(request):
                 login(request, user)
                 return redirect('dashboard')
             else:
-                print('not working')
+                messages.error(request, 'Incorrect Username Password')
     context = {'form': forms}
     return render(request, 'users/login.html', context)
 
