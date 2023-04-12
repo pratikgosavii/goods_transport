@@ -83,7 +83,7 @@ def add_transaction(request):
 
             forms.save()
 
-            return redirect('list_transaction')
+            return redirect('add_transaction')
 
         else:
 
@@ -97,6 +97,12 @@ def add_transaction(request):
             form_district = district_Form()
             form_onaccount = onaccount_Form()
             form_article = article_Form(user = request.user)
+
+            total_mt_today = 0
+            total_mt_today_instance = builty.objects.filter(DC_date__gte = date.today(), DC_date__lte = date.today())
+            for i in total_mt_today_instance:
+                total_mt_today = total_mt_today + i.mt
+
 
             if request.user.is_superuser:
 
@@ -123,6 +129,7 @@ def add_transaction(request):
                 'article_data' : article_data,
                 'consignor_data' : consignor_data,
                 'onaccount_data' : onaccount_data,
+                'total_mt_today' : total_mt_today,
             }
             return render(request, 'transactions/add_builty.html', context)
 
@@ -142,6 +149,11 @@ def add_transaction(request):
         form_district = district_Form()
         form_onaccount = onaccount_Form()
         form_article = article_Form(user = request.user)
+
+        total_mt_today = 0
+        total_mt_today_instance = builty.objects.filter(DC_date__gte = date.today(), DC_date__lte = date.today())
+        for i in total_mt_today_instance:
+            total_mt_today = total_mt_today + i.mt
 
         if request.user.is_superuser:
 
@@ -168,6 +180,7 @@ def add_transaction(request):
             'article_data' : article_data,
             'consignor_data' : consignor_data,
             'onaccount_data' : onaccount_data,
+            'total_mt_today' : total_mt_today,
         }
         return render(request, 'transactions/add_builty.html', context)
 
