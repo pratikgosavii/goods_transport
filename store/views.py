@@ -1429,14 +1429,21 @@ def update_onaccount(request, onaccount_id):
         instance = onaccount.objects.get(id=onaccount_id)
         
         updated_request = request.POST.copy()
-        updated_request.update({'office_location': request.user.office_location})
+        updated_request.update({'company': request.user.company, 'office_location': request.user.office_location})
         
         forms = onaccount_Form(updated_request, instance = instance)
 
         if forms.is_valid():
             forms.save()
             return redirect('list_onaccount')
-    
+        else:
+            context = {
+                
+                'form': forms
+            }
+
+            return render(request, 'store/add_onaccount.html', context)
+
     else:
 
         instance = onaccount.objects.get(id=onaccount_id)
