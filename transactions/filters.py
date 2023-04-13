@@ -151,6 +151,15 @@ class ack_filter(django_filters.FilterSet):
                 'id' : 'company'
             })
     )
+
+    user = django_filters.ModelChoiceFilter(
+        queryset=User.objects.all(),
+        widget=forms.Select(
+            attrs={
+                'class' : 'form-control sele',
+                'id' : 'user'
+            })
+    )
    
     builty__truck_details = django_filters.ModelChoiceFilter(
         queryset=truck_details.objects.all(),

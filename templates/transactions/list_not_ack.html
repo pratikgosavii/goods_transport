@@ -190,7 +190,7 @@
             </div>
 
 
-            <div class-"form-group" style="display: flex;">
+            <div class-"form-group" style="display: flex; gap :10px;">
 
               <label for="name" class="control-label mb-1" style="margin-left : 0px;">Truck Owner</label>
                   <div class="btn-group">
@@ -235,6 +235,12 @@
               <label for="name" class="control-label mb-1 la">Article</label>
               {{ builty_filter.form.article }}
 
+              {% if request.user.is_superuser %}
+
+              <label for="name" class="control-label mb-1 la">User</label>
+              {{ builty_filter.form.user }}
+
+            {% endif %}
             
             </div><br>
         
