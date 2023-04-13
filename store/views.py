@@ -1334,7 +1334,7 @@ def add_onaccount(request):
     if request.method == 'POST':
         
         updated_request = request.POST.copy()
-        updated_request.update({'company_name': request.user.company, 'office_location': request.user.office_location})
+        updated_request.update({'company': request.user.company, 'office_location': request.user.office_location})
         forms = onaccount_Form(updated_request)
         if forms.is_valid():
             forms.save()
@@ -1374,7 +1374,7 @@ def add_onaccount_ajax(request):
 
             
         updated_request = request.POST.copy()
-        updated_request.update({'company_name': request.user.company, 'office_location': request.user.office_location})
+        updated_request.update({'company': request.user.company, 'office_location': request.user.office_location})
         forms = onaccount_Form(updated_request)
 
         if request.user.is_superuser:
