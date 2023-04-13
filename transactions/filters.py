@@ -152,7 +152,7 @@ class ack_filter(django_filters.FilterSet):
             })
     )
 
-    user = django_filters.ModelChoiceFilter(
+    builty__user = django_filters.ModelChoiceFilter(
         queryset=User.objects.all(),
         widget=forms.Select(
             attrs={

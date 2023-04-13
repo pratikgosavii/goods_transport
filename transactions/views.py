@@ -593,7 +593,7 @@ def list_ack_all(request):
     total1_mt = round(total1_mt, 2)
 
     context = {
-        'data' : builty_filters.qs,
+        'data' : data,
         'value' : '----- All -----',
         'builty_filter' : builty_filters,
         'total_freight' : total_freight,
@@ -675,7 +675,7 @@ def list_ack(request):
 
     
     context = {
-        'data' : builty_filters.qs,
+        'data' : data,
         'value' : 'Acknowlegde',
         'builty_filter' : builty_filters,
         'total_freight' : total_freight,
@@ -760,7 +760,7 @@ def list_not_ack(request):
     total1_mt = round(total1_mt, 2)
 
     context = {
-        'data' : builty_filters.qs,
+        'data' : data,
         'value' : 'Not Acknowlegde',
         'builty_filter' : builty_filters,
         'total_freight' : total_freight,
