@@ -173,7 +173,7 @@
     <!-- /Widgets -->
     
 
-
+{% if request.user.is_superuser %}
     
 <p>
     
@@ -201,23 +201,15 @@
                         
                   
                      
-                <label for="name" class="control-label mb-1" style="margin-left : 0px;">Truck No</label>
-                <div class="btn-group">
-                    <button type="button" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    Select
-                    </button>
-                <div class="dropdown-menu" style="height: 298px; overflow-y: scroll;width: max-content;">
-                    {% for id, name in form.truck_details.field.choices %}
+                    <label for="name" class="control-label mb-1" style="margin-left : 0px;">Truck No</label>
 
-                    <input type="checkbox" name="truck_details" style="width: 30px;margin-right: 10px;margin-left: 11px; height: 22px; display: inline-flex;" value="{{ id }}" id="{{ id }}" />
-                    <label style="display: contents;
-                    margin-left: 30px;" for="{{ id }}">{{ name }}</label> <br>
-
-
-                    {% endfor %}
-
-                </div>
-                </div>
+                    <select class="sele" name="truck_details" id="truck_details" multiple="multiple">
+                      {% for id, name in form.truck_details.field.choices %}
+          
+                      <option value="{{ id }}"> {{ name }} </option>
+                          {% endfor %}
+                      
+                    </select>
                                             
                     
                 </div>
@@ -226,44 +218,24 @@
                 <div class-"form-group" style="display: flex;gap: 14px;">
 
                     <label for="name" class="control-label mb-1" style="margin-left : 0px;">Truck Owner</label>
-                    <div class="btn-group">
-                      <button type="button" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                        Select
-                      </button>
-                      <div class="dropdown-menu" style="height: 298px; overflow-y: scroll;width: max-content;">
-                        {% for id, name in form.truck_owner.field.choices %}
-    
-                      <input type="checkbox" name="truck_owner" style="width: 30px;
-                      margin-right: 10px;
-        margin-left: 11px;
-        height: 22px;
-        display: inline-flex;" value="{{ id }}" id="{{ id }}" />
-                      <label style="display: contents;
-                      margin-left: 30px;" for="{{ id }}">{{ name }}</label> <br>
-    
-    
-                      {% endfor %}
-                       
-                      </div>
-                    </div>
-                            
-              <label for="name" class="control-label mb-1">Consignor</label>
-              <div class="btn-group">
-                <button type="button" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                  Select
-                </button>
-              <div class="dropdown-menu" style="height: 298px; overflow-y: scroll;width: max-content;">
-                {% for id, name in form.consignor.field.choices %}
-
-                <input type="checkbox" name="consignor" style="width: 30px;margin-right: 10px;margin-left: 11px; height: 22px; display: inline-flex;" value="{{ id }}" id="{{ id }}" />
-                <label style="display: contents;
-                margin-left: 30px;" for="{{ id }}">{{ name }}</label> <br>
+                    <select class="sele" name="truck_owner" id="truck_owner" multiple="multiple">
+                      {% for id, name in form.truck_owner.field.choices %}
+            
+                      <option value="{{ id }}"> {{ name }} </option>
+                          {% endfor %}
+                      
+                    </select>
+            
+                    <label for="name" class="control-label mb-1" style="margin-left : 0px;">Consginor</label>
+                    <select class="sele" name="consignor" id="consignor" multiple="multiple">
+                      {% for id, name in form.consignor.field.choices %}
+            
+                      <option value="{{ id }}"> {{ name }} </option>
+                          {% endfor %}
+                      
+                    </select>
 
 
-                {% endfor %}
-
-              </div>
-              </div>
                   <label for="name" class="control-label mb-1" style="margin-left : 0px;">User</label>
                   {{ builty_filter.form.user }}
                
@@ -315,7 +287,7 @@
   </div>
   
 
-
+{% endif %}
 
     <div class="clearfix"></div>
 
