@@ -159,94 +159,58 @@
                     
                 
         <label for="name" class="control-label mb-1" style="margin-left : 0px;">Station From</label>
-                {{ builty_filter.form.station_from }}
-                    
-                
-        <label for="name" class="control-label mb-1" style="margin-left : 0px;">Truck No</label>
-        <div class="btn-group">
-          <button type="button" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-            Select
-          </button>
-          <div class="dropdown-menu" style="height: 298px; overflow-y: scroll;width: max-content;">
+          {{ builty_filter.form.station_from }}
+              
+          
+          <label for="name" class="control-label mb-1" style="margin-left : 0px;">Truck No</label>
+
+          <select class="sele" name="truck_details" id="truck_details" multiple="multiple">
             {% for id, name in form.truck_details.field.choices %}
 
-            <input type="checkbox" name="truck_details" style="width: 30px;margin-right: 10px;margin-left: 11px; height: 22px; display: inline-flex;" value="{{ id }}" id="{{ id }}" />
-            <label style="display: contents;
-            margin-left: 30px;" for="{{ id }}">{{ name }}</label> <br>
-
-
-            {% endfor %}
-
-          </div>
-        </div>
-                              
+            <option value="{{ id }}"> {{ name }} </option>
+                {% endfor %}
+            
+          </select>
+                        
               
       </div>
 
+      <div class="form-group" style="display: flex;
+        gap: 14px;">
 
-      <div class-"form-group" style="display: flex; gap :10px;">
 
         <label for="name" class="control-label mb-1" style="margin-left : 0px;">Truck Owner</label>
-        <div class="btn-group">
-          <button type="button" style="height: 46px;
-          width: 135px;
-          line-height: 19px;
-          padding: 0.375rem 0.75rem;" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-            Select
-          </button>
-          <div class="dropdown-menu" style="height: 298px; overflow-y: scroll;width: max-content;">
-            {% for id, name in form.truck_owner.field.choices %}
+        <select class="sele" name="truck_owner" id="truck_owner" multiple="multiple">
+          {% for id, name in form.truck_owner.field.choices %}
 
-                            <input type="checkbox" name="truck_owner" style="width: 30px;
-                            margin-right: 10px;
-              margin-left: 11px;
-              height: 22px;
-              display: inline-flex;" value="{{ id }}" id="{{ id }}" />
-                            <label style="display: contents;
-                            margin-left: 30px;" for="{{ id }}">{{ name }}</label> <br>
+          <option value="{{ id }}"> {{ name }} </option>
+              {% endfor %}
           
+        </select>
 
-            {% endfor %}
-              
-            </div>
-          </div>       
+        <label for="name" class="control-label mb-1" style="margin-left : 0px;">Consginor</label>
+        <select class="sele" name="consignor" id="consignor" multiple="multiple">
+          {% for id, name in form.consignor.field.choices %}
+
+          <option value="{{ id }}"> {{ name }} </option>
+              {% endfor %}
           
+        </select>
 
-          <div class-"form-group" style="display: flex; ">
+        <label for="name" class="control-label mb-1 la">Article</label>
+        {{ builty_filter.form.article }}
 
-            <label for="name" class="control-label mb-1">Consignor</label>
-            <div class="btn-group">
-              <button type="button" style="height: 46px;
-              width: 135px;
-              line-height: 19px;
-              padding: 0.375rem 0.75rem;" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                Select
-              </button>
-              <div class="dropdown-menu" style="height: 298px; overflow-y: scroll;width: max-content;">
-                {% for id, name in form.consignor.field.choices %}
+        {% if request.user.is_superuser %}
 
-                <input type="checkbox" name="consignor" style="width: 30px;margin-right: 10px;margin-left: 11px; height: 22px; display: inline-flex;" value="{{ id }}" id="{{ id }}" />
-                <label style="display: contents;
-                margin-left: 30px;" for="{{ id }}">{{ name }}</label> <br>
+        <label for="name" class="control-label mb-1 la">User</label>
+        {{ builty_filter.form.user }}
 
+        {% endif %}
 
-                {% endfor %}
-
-              </div>
-            </div>
-          </div>
+      </div>
             
-          <label for="name" class="control-label mb-1 la">Article</label>
-          {{ builty_filter.form.article }}
-
-          {% if request.user.is_superuser %}
-
-          <label for="name" class="control-label mb-1 la">User</label>
-          {{ builty_filter.form.user }}
-
-          {% endif %}
-
-        </div><br>
+         
+        <br>
         
         <div class-"form-group" style="display: flex;
         gap: 14px;">
@@ -553,10 +517,6 @@
               alet('already request is in pending')
             }
             
-            else{
-              
-              alert("error")
-            }
           }
       });
   })
@@ -567,15 +527,21 @@
 
     
 
-  $("#consignor").select2({
-    multiple: true,
-  });
-    
-  
-  $("#truck_owner").select2({
-    multiple: true,
-  });
-    
+  url = new URL(window.location.href);
+  console.log(url)
+
+  truck_details_options = url.searchParams.getAll("truck_details");
+
+  $("#truck_details").val(truck_details_options).trigger('change');
+
+  truck_owner_options = url.searchParams.getAll("truck_owner");
+
+  $("#truck_owner").val(truck_owner_options).trigger('change');
+
+  consignor_options = url.searchParams.getAll("consignor");
+
+  $("#consignor").val(consignor_options).trigger('change');
+
     
 </script>
 

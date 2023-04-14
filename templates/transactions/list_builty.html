@@ -1,7 +1,7 @@
 {% extends 'base/base.html' %}
 {% load i18n %}
 
-{% block title %}Product List{% endblock title %}
+{% block title %} Product List {% endblock title %}
 
 
 {% block head %}
@@ -129,18 +129,9 @@
 
 {% endblock head %}
 
-{% block breadcrumbs %}
-<div class="breadcrumbs">
-    <div class="breadcrumbs-inner">
-        <div class="row m-0">
-            
-         
-        </div>
-    </div>
-</div>
-{% endblock breadcrumbs %}
 
 {% block content %}
+
 <div style="justify-content: center;display: flex;align-items: center;">
    <a href="{% url 'add_transaction' %}"> <button id="payment-button" style="background-color: #05386b; border: green; padding: 10px;border-radius: 12px;" type="button" class="btn-info ">
          <span id="payment-button-amount">Add Builty  +</span>
@@ -188,6 +179,15 @@
 
       
         <label for="name" class="control-label mb-1" style="margin-left : 0px;">Truck Owner</label>
+        <select class="sele" name="truck_owner" id="truck_owner" multiple="multiple">
+          {% for id, name in form.truck_owner.field.choices %}
+
+          <option value="{{ id }}"> {{ name }} </option>
+              {% endfor %}
+          
+        </select>
+
+        <label for="name" class="control-label mb-1" style="margin-left : 0px;">Consginor</label>
         <select class="sele" name="consignor" id="consignor" multiple="multiple">
           {% for id, name in form.consignor.field.choices %}
 
@@ -250,47 +250,6 @@
   </form>
 </div>
   
-
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">New message</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form id="sub_trip">
-          <div class="form-group">
-            <label for="location_from" class="col-form-label">Location From</label>
-            {{ form.station_from }}
-          </div>
-          <div class="form-group">
-            <label for="location_to" class="col-form-label">Location To</label>
-            {{ form.station_to }}
-          </div>
-
-          
-          <input type = "hidden" id="builty_id" value = "">
-          <div class="form-group">
-            <label for="diesel" class="col-form-label">Diesel</label>
-            <input type="number" class="form-control" id="diesel" required>
-          </div>
-          <div class="form-group">
-            <label for="note" class="col-form-label">Note</label>
-            <textarea class="form-control" id="note" required></textarea>
-          </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-primary">Submit</button>
-      </div>
-    </form>
-
-    </div>
-  </div>
-</div>
 
 <div class="row">
     <div class="col-xl-12">
@@ -558,9 +517,24 @@ $('.sele').select2();
 
     
 
-  
 
-    
+  url = new URL(window.location.href);
+  console.log(url)
+
+  truck_details_options = url.searchParams.getAll("truck_details");
+
+  $("#truck_details").val(truck_details_options).trigger('change');
+
+  truck_owner_options = url.searchParams.getAll("truck_owner");
+
+  $("#truck_owner").val(truck_owner_options).trigger('change');
+
+  consignor_options = url.searchParams.getAll("consignor");
+
+  $("#consignor").val(consignor_options).trigger('change');
+
+
+
 </script>
 
 

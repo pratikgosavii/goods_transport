@@ -10,133 +10,119 @@
     <style>
 
       
-    .cus{
-      width:200px !important;
-  }
-
-  .cus1{
-      width:100px !important;
-  }
-
-  .se{
-      background-color : rgba(239, 239, 239, 0.3) !important;
-  }
-
       
-  .select2-container--open .select2-dropdown {
-    left: 10px;
-    top: -7px;
-}
-
-
-.select2-search--dropdown{
-justify-items: center;
-justify-content: center;
-display: flex;
-}
-
-
-
-.select2-container--default .select2-selection--single .select2-selection__rendered {
-    color: #444;
-    line-height: 52px;
-}
-
-.select2-selection--single{
-    height: 50px !important;
-}
-.select2-search__field{
-    margin: 1px;
-    margin-top: 5px;
-}
-
-  select {
-    border: 1px solid gray !important;
-    border-radius: 6px !important;
-    position: relative !important;
-    width: 231px !important;
-    margin: 10px !important;
-    line-height: 6ex !important;
-    padding-left: 14px !important;
-    height: 46px !important;
-  }
-
-
-    .menu-nav {
-   
-        display: flex;
-        justify-content: space-between;
-      }
-      
-      .menu-item {
-        color: #FCC;
-        padding: 3px;
-      }
-      
-      .three-dots:after {
-        cursor: pointer;
-        color: #444;
-        content: '\2807';
-        font-size: 20px;
-        padding: 0 5px;
-      }
-      
-      a {
-        text-decoration: none;
-        color: white;
-      }
-      
-      a div {
-        padding: 2px;
-      }
-     
-     
-      .logged-in {
-        color: orange;
-        font-size: 21px;
-      }
-      
-
-
     .select2-container--open .select2-dropdown {
-        left: 10px;
-        top: -7px;
+      left: 10px;
+      top: -7px;
+  }
+
+
+  .select2-search--dropdown{
+  justify-items: center;
+  justify-content: center;
+  display: flex;
+  }
+
+
+  
+  .select2-container--default .select2-selection--single .select2-selection__rendered {
+      color: #444;
+      line-height: 52px;
+  }
+
+  .select2-selection--single{
+      height: 50px !important;
+  }
+  .select2-search__field{
+      margin: 1px;
+      margin-top: 5px;
+  }
+
+    select {
+      border: 1px solid gray !important;
+      border-radius: 6px !important;
+      position: relative !important;
+      width: 231px !important;
+      margin: 10px !important;
+      line-height: 6ex !important;
+      padding-left: 14px !important;
+      height: 46px !important;
     }
 
 
-    .select2-search--dropdown{
-    justify-items: center;
-    justify-content: center;
-    display: flex;
-    }
+      .menu-nav {
+     
+          display: flex;
+          justify-content: space-between;
+        }
+        
+        .menu-item {
+          color: #FCC;
+          padding: 3px;
+        }
+        
+        .three-dots:after {
+          cursor: pointer;
+          color: #444;
+          content: '\2807';
+          font-size: 20px;
+          padding: 0 5px;
+        }
+        
+        a {
+          text-decoration: none;
+          color: white;
+        }
+        
+        a div {
+          padding: 2px;
+        }
+       
+       
+        .logged-in {
+          color: orange;
+          font-size: 21px;
+        }
+        
 
-
-    
-    .select2-container--default .select2-selection--single .select2-selection__rendered {
-        color: #444;
-        line-height: 52px;
-    }
-
-    .select2-selection--single{
-        height: 50px !important;
-    }
-    .select2-search__field{
-        margin: 1px;
-        margin-top: 5px;
-    }
-
-      select {
-        border: 1px solid gray !important;
-        border-radius: 6px !important;
-        position: relative !important;
-        width: 231px !important;
-        margin: 10px !important;
-        line-height: 6ex !important;
-        padding-left: 14px !important;
-        height: 46px !important;
+  
+      .select2-container--open .select2-dropdown {
+          left: 10px;
+          top: -7px;
       }
-
+  
+  
+      .select2-search--dropdown{
+      justify-items: center;
+      justify-content: center;
+      display: flex;
+      }
+  
+  
       
+      .select2-container--default .select2-selection--single .select2-selection__rendered {
+          color: #444;
+          line-height: 52px;
+      }
+  
+      .select2-selection--single{
+          height: 50px !important;
+      }
+      .select2-search__field{
+          margin: 1px;
+          margin-top: 5px;
+      }
+  
+        select {
+          border: 1px solid gray !important;
+          border-radius: 6px !important;
+          position: relative !important;
+          width: 231px !important;
+          margin: 10px !important;
+          line-height: 6ex !important;
+          padding-left: 14px !important;
+          height: 46px !important;
+        }
 
           
     </style>
@@ -167,7 +153,7 @@ display: flex;
 {% endblock breadcrumbs %}
 
 {% block content %}
-    
+  
 <p>
     
   <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
@@ -180,69 +166,71 @@ display: flex;
 
     <form method="get" action="" style="padding:15px;">
 
+
       {% csrf_token %}
 
-      <div class="form-group" style="display: flex;
-      gap: 14px;">
+      <div class="form-group" style="display: flex;gap: 14px;">
 
-      <label for="name" class="control-label mb-1" style="margin-left : 0px;">Builty No</label>
-              {{ builty_filter.form.builty__builty_no }}
-                  
-              
-      <label for="name" class="control-label mb-1" style="margin-left : 0px;">Station From</label>
-              {{ builty_filter.form.builty__station_from }}
-                  
-              
-              <label for="name" class="control-label mb-1" style="margin-left : 0px;">Truck No</label>
-
-              <select class="sele" name="truck_details" id="truck_details" multiple="multiple">
-                {% for id, name in form.truck_details.field.choices %}
-
-                <option value="{{ id }}"> {{ name }} </option>
-                    {% endfor %}
+        <label for="name" class="control-label mb-1" style="margin-left : 0px;">Builty No</label>
+                {{ builty_filter.form.builty__builty_no }}
+                    
                 
-              </select>
-                                      
+        <label for="name" class="control-label mb-1" style="margin-left : 0px;">Station From</label>
+                {{ builty_filter.form.builty__station_from }}
+                    
               
-          </div>
+        <label for="name" class="control-label mb-1" style="margin-left : 0px;">Truck No</label>
+
+        <select class="sele" name="truck_details" id="truck_details" multiple="multiple">
+          {% for id, name in form.truck_details.field.choices %}
+
+          <option value="{{ id }}"> {{ name }} </option>
+              {% endfor %}
+          
+        </select>
+                                
+      </div>
 
 
-          <div class-"form-group" style="display: flex;">
+      <div class="form-group" style="display: flex;gap: 14px;">
 
-            <label for="name" class="control-label mb-1" style="margin-left : 0px;">Truck Owner</label>
-                  <select class="sele" name="consignor" id="consignor" multiple="multiple">
-                    {% for id, name in form.consignor.field.choices %}
-
-                    <option value="{{ id }}"> {{ name }} </option>
-                        {% endfor %}
-                    
-                  </select>
-                  
-                  <label for="name" class="control-label mb-1" style="margin-left : 0px;">Truck Owner</label>
-                  <select class="sele" name="consignor" id="consignor" multiple="multiple">
-                    {% for id, name in form.consignor.field.choices %}
-
-                    <option value="{{ id }}"> {{ name }} </option>
-                        {% endfor %}
-                    
-                  </select>
+        <label for="name" class="control-label mb-1" style="margin-left : 0px;">Truck Owner</label>
+        <select class="sele" name="consignor" id="consignor" multiple="multiple">
             
-            <label for="name" class="control-label mb-1 la">Article</label>
-            {{ builty_filter.form.builty__article }}
+          {% for id, name in form.consignor.field.choices %}
 
+            <option value="{{ id }}"> {{ name }} </option>
           
-          </div><br>
+            {% endfor %}
       
-              <div class-"form-group" style="display: flex;
-              gap: 14px;">
-                                  
-              <label for="name" class="control-label mb-1" style="margin-left : 0px;">Builty Date From</label>
-              {{ builty_filter.form.builty__DC_date_start__date }}
+        </select>
+        
+        <label for="name" class="control-label mb-1" style="margin-left : 0px;">Truck Owner</label>
+        <select class="sele" name="truck_owner" id="truck_owner" multiple="multiple">
           
+          {% for id, name in form.truck_owner.field.choices %}
+
+            <option value="{{ id }}"> {{ name }} </option>
+              
+          {% endfor %}
+          
+        </select>
+      
+        <label for="name" class="control-label mb-1 la">Article</label>
+        {{ builty_filter.form.builty__article }}
+
+          
+      </div><br>
+      
+      <div class-"form-group" style="display: flex;gap: 14px;">
+                                  
+        <label for="name" class="control-label mb-1" style="margin-left : 0px;">Builty Date From</label>
+        {{ builty_filter.form.builty__DC_date_start__date }}
+    
 
 
-          <label for="name" class="control-label mb-1">Builty Date To</label>
-          {{ builty_filter.form.builty__DC_date_end__date }}
+        <label for="name" class="control-label mb-1">Builty Date To</label>
+        {{ builty_filter.form.builty__DC_date_end__date }}
 
 
 
@@ -546,10 +534,7 @@ display: flex;
               alet('already request is in pending')
             }
             
-            else{
-              
-              alert("error")
-            }
+            
           }
       });
   })
