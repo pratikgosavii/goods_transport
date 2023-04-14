@@ -151,7 +151,7 @@ def add_transaction(request):
         form_article = article_Form(user = request.user)
 
         total_mt_today = 0
-        total_mt_today_instance = builty.objects.filter(DC_date__gte = date.today(), DC_date__lte = date.today())
+        total_mt_today_instance = builty.objects.filter(DC_date__gte = date.today(), DC_date__lte = date.today(), user = request.user, deleted = False)
         for i in total_mt_today_instance:
             total_mt_today = total_mt_today + i.mt
 
