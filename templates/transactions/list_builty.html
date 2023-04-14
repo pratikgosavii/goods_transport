@@ -158,134 +158,97 @@
     <div class="card card-body" style="width: fit-content;">
       
 
-        <form method="get" action="" style="padding:15px;">
+      <form method="get" action="" style="padding:15px;">
 
-            {% csrf_token %}
+        {% csrf_token %}
 
-                <div class="form-group" style="display: flex;gap: 14px;">
+        <div class="form-group" style="display: flex;gap: 14px;">
 
-                  <label for="name" class="control-label mb-1" style="margin-left : 0px;">Builty No</label>
-                          {{ builty_filter.form.builty_no }}
-                              
-                    
-                  <label for="name" class="control-label mb-1" style="margin-left : 0px;">Station From</label>
-                      {{ builty_filter.form.station_from }}
-                          
+          <label for="name" class="control-label mb-1" style="margin-left : 0px;">Builty No</label>
+                  {{ builty_filter.form.builty_no }}
                       
-                  <label for="name" class="control-label mb-1" style="margin-left : 0px;">Truck No</label>
-                  <div class="btn-group">
-                    <button type="button" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                      Select
-                    </button>
-                    <div class="dropdown-menu" style="height: 298px; overflow-y: scroll;width: max-content;">
-                        {% for id, name in form.truck_details.field.choices %}
-      
-                        <input type="checkbox" name="truck_details" style="width: 30px;margin-right: 10px;margin-left: 11px; height: 22px; display: inline-flex;" value="{{ id }}" id="{{ id }}" />
-                        <label style="display: contents;
-                        margin-left: 30px;" for="{{ id }}">{{ name }}</label> <br>
-      
-      
-                        {% endfor %}
-      
-                    </div>
-                  </div>
-             
-                                            
-                    
-                </div>
-
-
-                <div class-"form-group" style="display: flex;gap: 14px;">
-
-                  <label for="name" class="control-label mb-1" style="margin-left : 0px;">Truck Owner</label>
-                  <div class="btn-group">
-                    <button type="button" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                      Select
-                    </button>
-                    <div class="dropdown-menu" style="height: 298px; overflow-y: scroll;width: max-content;">
-                      {% for id, name in form.truck_owner.field.choices %}
-  
-                                      <input type="checkbox" name="truck_owner" style="width: 30px;
-                                      margin-right: 10px;
-                        margin-left: 11px;
-                        height: 22px;
-                        display: inline-flex;" value="{{ id }}" id="{{ id }}" />
-                                      <label style="display: contents;
-                                      margin-left: 30px;" for="{{ id }}">{{ name }}</label> <br>
-                    
-  
-                    {% endfor %}
-                     
-                    </div>
-                  </div>
-                         
-                  <label for="name" class="control-label mb-1">Consignor</label>
-                  <div class="btn-group">
-                    <button type="button" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                      Select
-                    </button>
-                  <div class="dropdown-menu" style="height: 298px; overflow-y: scroll;width: max-content;">
-                    {% for id, name in form.consignor.field.choices %}
-    
-                    <input type="checkbox" name="consignor" style="width: 30px;margin-right: 10px;margin-left: 11px; height: 22px; display: inline-flex;" value="{{ id }}" id="{{ id }}" />
-                    <label style="display: contents;
-                    margin-left: 30px;" for="{{ id }}">{{ name }}</label> <br>
-    
-    
-                    {% endfor %}
-
-                  </div>
-                </div>
+            
+          <label for="name" class="control-label mb-1" style="margin-left : 0px;">Station From</label>
+              {{ builty_filter.form.station_from }}
                   
-                  <label for="name" class="control-label mb-1 la">Article</label>
-                  {{ builty_filter.form.article }}
-   
-                
-                </div><br>
+              
+          <label for="name" class="control-label mb-1" style="margin-left : 0px;">Truck No</label>
+
+          <select class="sele" name="truck_details" id="truck_details" multiple="multiple">
+            {% for id, name in form.truck_details.field.choices %}
+
+            <option value="{{ id }}"> {{ name }} </option>
+                {% endfor %}
             
-                    <div class-"form-group" style="display: flex;
-                    gap: 14px;">
-                                        
-                    <label for="name" class="control-label mb-1" style="margin-left : 0px;">Builty Date From</label>
-                    {{ builty_filter.form.DC_date_start__date }}
-                
+          </select>
+      
+        </div>
+
+      <div class="form-group" style="display: flex;gap: 14px;">
+
+      
+        <label for="name" class="control-label mb-1" style="margin-left : 0px;">Truck Owner</label>
+        <select class="sele" name="consignor" id="consignor" multiple="multiple">
+          {% for id, name in form.consignor.field.choices %}
+
+          <option value="{{ id }}"> {{ name }} </option>
+              {% endfor %}
+          
+        </select>
+          
+        <label for="name" class="control-label mb-1 la">Article</label>
+        {{ builty_filter.form.article }}
+
+              
+        <label for="name" class="control-label mb-1 la">User</label>
+        {{ builty_filter.form.user }}
+
+              
+      </div><br>
+  
+      <div class-"form-group" style="display: flex;
+        gap: 14px;">
+                            
+        <label for="name" class="control-label mb-1" style="margin-left : 0px;">Builty Date From</label>
+        {{ builty_filter.form.DC_date_start__date }}
+    
 
 
-                <label for="name" class="control-label mb-1">Builty Date To</label>
-                {{ builty_filter.form.DC_date_end__date }}
+        <label for="name" class="control-label mb-1">Builty Date To</label>
+        {{ builty_filter.form.DC_date_end__date }}
 
 
 
 
 
-            </div><br>
-            
-                    <div class-"form-group" style="display: flex;
-                    gap: 14px;">
-                                        
-                    <label for="name" class="control-label mb-1" style="margin-left : 0px;">Challan Date From</label>
-                    {{ builty_filter.form.challan_date_start__date }}
-                
+      </div><br>
+
+      <div class-"form-group" style="display: flex;
+        gap: 14px;">
+                          
+        <label for="name" class="control-label mb-1" style="margin-left : 0px;">Challan Date From</label>
+        {{ builty_filter.form.challan_date_start__date }}
+    
 
 
-                <label for="name" class="control-label mb-1">Challan Date To</label>
-                {{ builty_filter.form.challan_date_end__date }}
+        <label for="name" class="control-label mb-1">Challan Date To</label>
+        {{ builty_filter.form.challan_date_end__date }}
 
 
 
 
 
-            </div>
+      </div>
 
-            <br>
+      <br>
 
-            <a href="{% url 'list_transaction' %}"><button class="btn btn-primary" type="button" > Reset </button></a>
+      <a href="{% url 'list_transaction' %}"><button class="btn btn-primary" type="button" > Reset </button></a>
 
-            <button class="btn btn-primary" type="submit" > Submit </button>
-
-        </form>
+      <button class="btn btn-primary" type="submit" > Submit </button>
     </div>
-  </div>
+
+  </form>
+</div>
   
 
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
