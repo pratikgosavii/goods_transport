@@ -131,7 +131,22 @@ class builty_filter(django_filters.FilterSet):
         model = builty
         fields = '__all__'
        
-  
+    def __init__(self, user, *args, **kwargs):
+        super(builty_filter,self).__init__(*args, **kwargs)
+        request = user
+        if not request.is_superuser:
+            self.filters['district'].queryset = district.objects.filter(office_location = request.office_location)
+            self.filters['taluka'].queryset = taluka.objects.filter(office_location = request.office_location)
+            self.filters['station_from'].queryset = station.objects.filter(office_location = request.office_location)
+            self.filters['station_to'].queryset = station.objects.filter(office_location = request.office_location)
+            self.filters['onaccount'].queryset = onaccount.objects.filter(office_location = request.office_location)
+            self.filters['consignor'].queryset = consignor.objects.filter(office_location = request.office_location)
+            self.filters['article'].queryset = article.objects.filter(office_location = request.office_location)
+
+
+
+
+
 class ack_filter(django_filters.FilterSet):
 
     builty__consignor = django_filters.ModelChoiceFilter(

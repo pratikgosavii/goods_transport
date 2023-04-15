@@ -59,7 +59,7 @@ def dashboard(request):
             total1_advance = total1_advance + i.less_advance
             total1_mt = total1_mt + i.mt
 
-        builty_filters = builty_filter(request.GET, queryset=builty_data)
+        builty_filters = builty_filter(request.user, request.GET, queryset=builty_data)
         
         data = builty_filters.qs
 

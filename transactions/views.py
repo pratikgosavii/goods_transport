@@ -341,7 +341,11 @@ def list_transaction(request):
         total1_mt = total1_mt + i.mt
 
 
-    builty_filters = builty_filter(request.GET, queryset=data)
+    builty_filters = builty_filter(request.user, request.GET, queryset=data)
+
+    for i in builty_filters.qs:
+
+        print(i)
 
     data = builty_filters.qs
 
@@ -556,7 +560,7 @@ def list_ack_all(request):
         total1_balance = total1_balance + i.balance
         total1_mt = total1_mt + i.mt
 
-    builty_filters = builty_filter(request.GET, queryset=data)
+    builty_filters = builty_filter(request.user, request.GET, queryset=data)
 
     data = builty_filters.qs
 
@@ -703,7 +707,7 @@ def list_not_ack(request):
     else:
         data = builty.objects.filter(user = request.user, deleted = False).order_by('-id')
 
-    builty_filters = builty_filter(request.GET, queryset=data)
+    builty_filters = builty_filter(request.user, request.GET, queryset=data)
     data = builty_filters.qs
 
 
@@ -1075,7 +1079,7 @@ def truck_report(request):
 
 
 
-    builty_filters = builty_filter(request.GET, queryset=data)
+    builty_filters = builty_filter(request.user, request.GET, queryset=data)
     builty_filters_data1 = list(builty_filters.qs.values_list('builty_no', 'DC_date', 'truck_details__truck_number', 'truck_owner__owner_name', 'station_from__name', 'station_to__name', 'district__name', 'consignor__name', 'onaccount__name', 'have_ack__challan_date', 'mt', 'rate', 'freight'))
     builty_filters_data = list(map(list, builty_filters_data1))
     
@@ -1128,7 +1132,7 @@ def truck_report(request):
     total_balance = 0
     total_mt = 0
 
-    builty_filters = builty_filter(request.GET, queryset=data)
+    builty_filters = builty_filter(request.user, request.GET, queryset=data)
 
 
     
@@ -1212,7 +1216,7 @@ def diesel_report(request):
     for i in data:
         total1_diesel = total1_diesel + i.diesel
 
-    builty_filters = builty_filter(request.GET, queryset=data)
+    builty_filters = builty_filter(request.user, request.GET, queryset=data)
     builty_filters_data1 = list(builty_filters.qs.values_list('builty_no', 'DC_date', 'truck_details__truck_number', 'station_from__name', 'station_to__name', 'consignor__name', 'onaccount__name', 'diesel', 'petrol_pump__name'))
     builty_filters_data = list(map(list, builty_filters_data1))
     
@@ -1322,7 +1326,7 @@ def porch_report(request):
         total1_advance = total1_advance + i.less_advance
         total1_mt = total1_mt + i.mt
 
-    builty_filters = builty_filter(request.GET, queryset=data)
+    builty_filters = builty_filter(request.user, request.GET, queryset=data)
     builty_filters_data1 = list(builty_filters.qs.values_list('builty_no', 'DC_date', 'have_ack__challan_number', 'have_ack__challan_date', 'truck_details__truck_number', 'station_to__name', 'mt', 'rate', 'freight', 'less_advance', 'balance'))
     builty_filters_data = list(map(list, builty_filters_data1))
     
