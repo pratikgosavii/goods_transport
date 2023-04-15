@@ -38,7 +38,7 @@ class builty(models.Model):
     onaccount = models.ForeignKey(onaccount , on_delete=models.CASCADE, related_name='wfdfgfdgv')
     article = models.ForeignKey(article , on_delete=models.CASCADE, related_name='dffdcxvc')
     bags = models.IntegerField()
-    delivery_no = models.FloatField()
+    delivery_no = models.IntegerField()
     mobile_no = models.FloatField(null = True, blank = True)
     ex_for = models.CharField(max_length=50, choices=ex_for, default="for")
     mode = models.CharField(max_length=50, choices=mode, default="cash")
@@ -78,18 +78,5 @@ class request_edit(models.Model):
     def __str__(self):
         return self.user.username
    
-
-class sub_trip(models.Model):
-
-    builty = models.ForeignKey(builty, on_delete=models.CASCADE, related_name = 'sub_trip_is')
-    station_from = models.ForeignKey(from_station , on_delete=models.CASCADE, related_name='sdfdcxcde')
-    station_to = models.ForeignKey(station , on_delete=models.CASCADE, related_name='dfdcxcfbgefwd')
-    diesel = models.FloatField(default=0.0)
-    note = models.CharField(max_length=50)
-
-    def __str__(self):
-        return self.builty.builty_no
-
-
 
    

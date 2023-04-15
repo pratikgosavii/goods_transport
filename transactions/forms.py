@@ -172,9 +172,3 @@ class request_edit_Form(forms.ModelForm):
         model = request_edit
         fields = '__all__'
        
-
-class sub_trip_From(forms.ModelForm):
-    class Meta:
-        model = sub_trip
-        fields = '__all__'
-       
