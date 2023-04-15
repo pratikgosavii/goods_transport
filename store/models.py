@@ -144,6 +144,16 @@ class taluka(models.Model):
  
 
  
+class from_station(models.Model):
+
+    name =  models.CharField(max_length=120, unique=True)
+    office_location = models.ForeignKey(office_location, on_delete=models.CASCADE, blank = True, null = True,related_name='eereefedfeferefefdfed')
+    taluka =  models.ForeignKey(taluka, related_name="xvds", on_delete=models.CASCADE)
+        
+    def __str__(self):
+        return self.name
+ 
+ 
 class station(models.Model):
 
     name =  models.CharField(max_length=120, unique=True)

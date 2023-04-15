@@ -82,7 +82,7 @@ class request_edit(models.Model):
 class sub_trip(models.Model):
 
     builty = models.ForeignKey(builty, on_delete=models.CASCADE, related_name = 'sub_trip_is')
-    station_from = models.ForeignKey(station , on_delete=models.CASCADE, related_name='sdfdcxcde')
+    station_from = models.ForeignKey(from_station , on_delete=models.CASCADE, related_name='sdfdcxcde')
     station_to = models.ForeignKey(station , on_delete=models.CASCADE, related_name='dfdcxcfbgefwd')
     diesel = models.FloatField(default=0.0)
     note = models.CharField(max_length=50)

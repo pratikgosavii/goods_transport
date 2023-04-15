@@ -22,7 +22,7 @@ class builty_filter(django_filters.FilterSet):
     )
 
     station_from = django_filters.ModelChoiceFilter(
-        queryset=station.objects.all(),
+        queryset=from_station.objects.all(),
         widget=forms.Select(
             attrs={
                 'class' : 'form-control sele',

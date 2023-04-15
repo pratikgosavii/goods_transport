@@ -70,6 +70,12 @@ urlpatterns = [
     path('delete-station/<station_id>', delete_station, name='delete_station'),
     path('list-station/', list_station, name='list_station'),
     
+    path('add-from-station/', add_from_station, name='add_from_station'),
+    path('add-from-station-ajax/', add_from_station_ajax, name='add_from_station_ajax'),
+    path('update-from-station/<from_station_id>', update_from_station, name='update_from_station'),
+    path('delete-from-station/<from_station_id>', delete_from_station, name='delete_from_station'),
+    path('list-from-station/', list_from_station, name='list_from_station'),
+    
     path('add-district/', add_district, name='add_district'),
     path('add-district-ajax/', add_district_ajax, name='add_district_ajax'),
     path('update-district/<district_id>', update_district, name='update_district'),

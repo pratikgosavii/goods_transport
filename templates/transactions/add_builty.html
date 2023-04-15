@@ -305,7 +305,7 @@
                                             
                                                 <div class="input-wrapper" style="display:flex;">
                                                     <label for="first">From Station</label>
-                                                    {{ form.station_from }} <input type="button" data-toggle="modal" data-target="#myModal_station" style="width: 36px; padding: 1px; margin: 10px 0px;width: 36px;padding: 1px; margin: 10px 0px;background: #05386b;color: white;font-weight: bolder;font-size: 23px;text-align: center;line-height: 3px;" value="+">
+                                                    {{ form.station_from }} <input type="button" data-toggle="modal" data-target="#myModal_from_station" style="width: 36px; padding: 1px; margin: 10px 0px;width: 36px;padding: 1px; margin: 10px 0px;background: #05386b;color: white;font-weight: bolder;font-size: 23px;text-align: center;line-height: 3px;" value="+">
                                                   </div>
                                             
                                         </td>
@@ -313,7 +313,9 @@
                                             
                                                 <div class="input-wrapper" style="display:flex;">
                                                     <label for="first">To Desti</label>
-                                                    {{ form.station_to }} 
+                                                    
+                                                    {{ form.station_to }} <input type="button" data-toggle="modal" data-target="#myModal_station" style="width: 36px; padding: 1px; margin: 10px 0px;width: 36px;padding: 1px; margin: 10px 0px;background: #05386b;color: white;font-weight: bolder;font-size: 23px;text-align: center;line-height: 3px;" value="+">
+
                                                   </div>
                                             
                                         </td>
@@ -890,6 +892,49 @@
 
 
                 <form id="station_Form">
+        
+                        
+                        <div class="input-wrapper" style="display:flex;">
+                            <label for="first">Taluka name</label>
+                            {{ station_Form.taluka }}
+                        </div>
+
+
+                            <div class="input-wrapper" style="display:flex;">
+                                <label for="first">Station name</label>
+                                {{ station_Form.name }}
+                            </div>
+
+
+                    
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="myModal_from_station" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add Station</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <ul style="padding-left: 18px;color: red;" id="from_station_Form_error">
+                        
+                </ul>
+
+
+                <form id="from_station_Form">
         
                         
                         <div class="input-wrapper" style="display:flex;">
@@ -1537,6 +1582,46 @@
                     $.each(a, function(i, val) {
     
                         $("#station_Form_error").append( "<li> <strong>" + i + "</strong> &nbsp;&nbsp;" + val[0].message + "</li>"); //append results to element
+                        })
+                   
+                  }
+                }
+            });
+        })
+
+
+
+
+    document.getElementById('from_station_Form').addEventListener('submit', function(evt){
+        
+        evt.preventDefault();
+
+
+        var data = $('#from_station_Form').serialize();
+
+        $.ajax({                       
+            type: "POST",
+            url: "{% url 'add_from_station_ajax' %}",
+            data : $(this).serialize(),
+            success: function (data) {   // `data` is from `get_topics_ajax` view function
+                console.log(data)
+                var data = JSON.parse(data)
+
+                if(data.status == 'True'){
+                    $('#myModal_from_station').modal('hide');
+
+                    let_html = '<option value="' + data.id + '" selected>' + data.value + '</option>'
+
+                    $('#station_from').append(let_html);
+                }
+                else{
+
+
+                    var a = JSON.parse(data.error)
+    
+                    $.each(a, function(i, val) {
+    
+                        $("#from_station_Form_error").append( "<li> <strong>" + i + "</strong> &nbsp;&nbsp;" + val[0].message + "</li>"); //append results to element
                         })
                    
                   }

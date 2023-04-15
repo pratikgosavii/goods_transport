@@ -127,6 +127,31 @@ class station_Form(forms.ModelForm):
             self.fields['taluka'].queryset = taluka.objects.filter(office_location = self.user.office_location)
         
 
+class from_station_Form(forms.ModelForm):
+    class Meta:
+        model = from_station
+        fields = '__all__'
+        widgets = {
+            'name': forms.TextInput(attrs={
+                'class': 'form-control', 'id': 'name'
+            }),
+            'taluka': forms.Select(attrs={
+                'class': 'form-control sele', 'id': 'staion_taluka'
+            }),
+            
+            
+        }
+
+
+
+    def __init__(self, user, *args, **kwargs):
+        self.user = user  
+        super(from_station_Form,self).__init__(*args, **kwargs)
+
+        if not self.user.is_superuser:
+            self.fields['taluka'].queryset = taluka.objects.filter(office_location = self.user.office_location)
+        
+
 class article_Form(forms.ModelForm):
     class Meta:
         model = article

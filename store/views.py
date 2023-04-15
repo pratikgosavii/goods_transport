@@ -1061,6 +1061,148 @@ def list_station(request):
 
     return render(request, 'store/list_station.html', context)
 
+@login_required(login_url='login')
+@user_is_active
+def add_from_station(request):
+    
+    if request.method == 'POST':
+            
+
+        updated_request = request.POST.copy()
+        updated_request.update({'office_location': request.user.office_location})
+
+        forms = from_station_Form(request.user, updated_request)
+
+        if forms.is_valid():
+            forms.save()
+            return redirect('list_from_station')
+        else:
+
+            print(forms.errors)
+            company_data = company.objects.all()
+
+            context = {
+                'form': forms,
+                'company' : company_data
+            }
+
+            return render(request, 'store/add_from_station.html', context)
+        
+    else:
+
+        forms = from_station_Form(user = request.user)
+        
+        print(forms)
+
+        company_data = company.objects.all()
+
+        context = {
+            'form': forms,
+            'company' : company_data
+        }
+
+        return render(request, 'store/add_from_station.html', context)
+
+
+
+
+
+@login_required(login_url='login')
+@user_is_active
+@csrf_exempt
+def add_from_station_ajax(request):
+    
+    if request.method == 'POST':
+
+        updated_request = request.POST.copy()
+        updated_request.update({'office_location': request.user.office_location})
+
+
+        forms = from_station_Form(request.user, updated_request)
+        if forms.is_valid():
+            a = forms.save()
+            return JsonResponse(json.dumps({'status' : 'True', 'id' : a.id,'value' : a.name, 'taluka' : a.taluka.id, 'district' : a.taluka.district.id}), safe=False, content_type="application/json") 
+
+        else:
+
+            error = forms.errors.as_json()
+            print(error)
+            return JsonResponse(json.dumps({'error' : error}), safe=False)
+    
+    
+    else:
+
+        forms = from_station_Form(user = request.user)
+        
+        print(forms)
+
+        company_data = company.objects.all()
+
+        context = {
+            'form': forms,
+            'company' : company_data
+        }
+
+        return render(request, 'store/add_from_station.html', context)
+
+
+@login_required(login_url='login')
+@user_is_active
+def update_from_station(request, from_station_id):
+
+    if request.method == 'POST':
+
+        instance = from_station.objects.get(id=from_station_id)
+        updated_request = request.POST.copy()
+        updated_request.update({'office_location': request.user.office_location})
+
+        forms = from_station_Form(request.user, updated_request, instance = instance)
+
+        if forms.is_valid():
+            forms.save()
+            return redirect('list_from_station')
+    
+    else:
+
+        instance = from_station.objects.get(id=from_station_id)
+
+        forms = from_station_Form(request.user, instance = instance)
+
+        context = {
+            'form': forms
+        }
+
+        return render(request, 'store/add_from_station.html', context)
+
+
+@login_required(login_url='login')
+@user_is_active
+def delete_from_station(request, from_station_id):
+    
+    from_station.objects.get(id=from_station_id).delete()
+
+    return HttpResponseRedirect(reverse('list_from_station_delete'))
+
+
+@login_required(login_url='login')
+@user_is_active
+def list_from_station(request):
+
+    if request.user.is_superuser:
+
+        data = from_station.objects.all()
+    
+    else:
+    
+        data = from_station.objects.filter(office_location = request.user.office_location)
+
+    context = {
+            'data': data
+        }
+
+
+    return render(request, 'store/list_from_station.html', context)
+
 
 
 @login_required(login_url='login')
