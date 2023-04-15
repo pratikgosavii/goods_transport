@@ -83,7 +83,7 @@ def add_transaction(request):
 
             forms.save()
 
-            return redirect('add_transaction')
+            return redirect('list_transaction')
 
         else:
 
