@@ -318,21 +318,21 @@ def list_transaction(request):
   
     if request.user.is_superuser:
 
-        data = builty.objects.filter(deleted = False).order_by('-id')
+        queryset_data = builty.objects.filter(deleted = False).order_by('-id')
     else:
 
-        data = builty.objects.filter(user = request.user, deleted = False).order_by('-id')
+        queryset_data = builty.objects.filter(user = request.user, deleted = False).order_by('-id')
 
-    builty_filters = builty_filter(request.user, request.GET, queryset=data)
+    builty_filters = builty_filter(request.user, request.GET, queryset=queryset_data)
 
-    data = builty_filters.qs
+    filter_data = builty_filters.qs
 
     total_freight = 0
     total_advance = 0
     total_balance = 0
     total_mt = 0
 
-    for i in data:
+    for i in filter_data:
 
         if not i.have_ack.filter():
        
@@ -343,13 +343,13 @@ def list_transaction(request):
         total_mt = total_mt + i.mt
 
     
-    total_mt = round(total_mt, 2)
     total_balance = round(total_balance, 2)
+    total_freight = round(total_freight, 2)
     total_advance = round(total_advance, 2)
     total_mt = round(total_mt, 2)
 
     page = request.GET.get('page', 1)
-    paginator = Paginator(data, 20)
+    paginator = Paginator(filter_data, 20)
 
     try:
         data = paginator.page(page)
