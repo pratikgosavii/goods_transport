@@ -57,7 +57,7 @@ class builty_filter(django_filters.FilterSet):
             })
     )
    
-    truck_details = django_filters.ModelChoiceFilter(
+    truck_details = django_filters.ModelMultipleChoiceFilter(
         queryset=truck_details.objects.all(),
         widget=forms.CheckboxSelectMultiple(
             attrs={
@@ -65,6 +65,7 @@ class builty_filter(django_filters.FilterSet):
                 'id' : 'truck_details'
             })
     )
+
     truck_owner = django_filters.ModelMultipleChoiceFilter(
         queryset=truck_owner.objects.all(),
         widget=forms.CheckboxSelectMultiple(
