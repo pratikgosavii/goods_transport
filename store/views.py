@@ -77,7 +77,6 @@ def add_company(request):
             forms.save()
             return redirect('list_company')
         else:
-            print(forms.errors)
             context = {
                 'form': forms
             }
@@ -108,7 +107,6 @@ def update_company(request, company_id):
             forms.save()
             return redirect('list_company')
         else:
-            print(forms.errors)
 
             context = {
                 'form': forms
@@ -162,7 +160,7 @@ def add_office_location(request):
             forms.save()
             return redirect('list_office_location')
         else:
-            print(forms.errors)
+
             context = {
                     'form': forms
                 }
@@ -192,7 +190,7 @@ def update_office_location(request, office_location_id):
             forms.save()
             return redirect('list_office_location')
         else:
-            print(forms.errors)
+
             context = {
                     'form': forms
                 }
@@ -250,7 +248,7 @@ def add_consignor(request):
             forms.save()
             return redirect('list_consignor')
         else:
-            print(forms.errors)
+
             context = {
                 'form': forms
             }
@@ -299,7 +297,7 @@ def add_consignor_ajax(request):
 
         else:
             error = forms.errors.as_json()
-            print(error)
+
             return JsonResponse(json.dumps(json.dumps({'error' : error})), safe=False)
   
 
@@ -320,8 +318,6 @@ def update_consignor(request, consignor_id):
             return redirect('list_consignor')
 
         else:
-            print(forms.errors)
-
 
             comapnyID = instance.company.id
             comapny_consignor_ID = instance.id
@@ -342,9 +338,6 @@ def update_consignor(request, consignor_id):
 
         comapnyID = instance.company.id
         comapny_consignor_ID = instance.id
-
-        print(comapnyID)
-        print(comapny_consignor_ID)
 
         context = {
             'form': forms,
@@ -401,7 +394,7 @@ def add_article(request):
             forms.save()
             return redirect('list_article')
         else:
-            print(forms.errors)
+
             data = company.objects.all()
 
             context = {
@@ -614,7 +607,7 @@ def add_truck_details_ajax(request):
         else:
            
             error = forms.errors.as_json()
-            print(error)
+
             return JsonResponse(json.dumps({'error' : error}), safe=False)
 
     
@@ -693,7 +686,6 @@ def add_truck_owner(request):
             return redirect('list_truck_owner')
         else:
 
-            print(forms.errors)
             company_data = company.objects.all()
 
             context = {
@@ -731,7 +723,7 @@ def add_truck_owner_ajax(request):
         else:
             
             error = forms.errors.as_json()
-            print(error)
+
             return JsonResponse(json.dumps({'error' : error}), safe=False)
     
     
@@ -810,7 +802,6 @@ def add_rate(request):
             return redirect('list_rate')
         else:
 
-            print(forms.errors)
             company_data = company.objects.all()
 
             context = {
@@ -823,7 +814,6 @@ def add_rate(request):
     else:
 
         forms = rate_Form()
-        print(forms)
 
         company_data = company.objects.all()
 
@@ -849,16 +839,14 @@ def add_rate_ajax(request):
         else:
             
             error = forms.errors.as_json()
-            print(error)
+
             return JsonResponse(json.dumps({'error' : error}), safe=False)
     
     
     else:
 
         forms = rate_Form()
-        
-        print(forms)
-
+    
         company_data = company.objects.all()
 
         context = {
@@ -936,7 +924,6 @@ def add_station(request):
             return redirect('list_station')
         else:
 
-            print(forms.errors)
             company_data = company.objects.all()
 
             context = {
@@ -950,8 +937,6 @@ def add_station(request):
 
         forms = station_Form(user = request.user)
         
-        print(forms)
-
         company_data = company.objects.all()
 
         context = {
@@ -984,7 +969,7 @@ def add_station_ajax(request):
         else:
 
             error = forms.errors.as_json()
-            print(error)
+
             return JsonResponse(json.dumps({'error' : error}), safe=False)
     
     
@@ -992,8 +977,6 @@ def add_station_ajax(request):
 
         forms = station_Form(user = request.user)
         
-        print(forms)
-
         company_data = company.objects.all()
 
         context = {
@@ -1078,7 +1061,6 @@ def add_from_station(request):
             return redirect('list_from_station')
         else:
 
-            print(forms.errors)
             company_data = company.objects.all()
 
             context = {
@@ -1092,8 +1074,6 @@ def add_from_station(request):
 
         forms = from_station_Form(user = request.user)
         
-        print(forms)
-
         company_data = company.objects.all()
 
         context = {
@@ -1126,7 +1106,7 @@ def add_from_station_ajax(request):
         else:
 
             error = forms.errors.as_json()
-            print(error)
+
             return JsonResponse(json.dumps({'error' : error}), safe=False)
     
     
@@ -1134,8 +1114,6 @@ def add_from_station_ajax(request):
 
         forms = from_station_Form(user = request.user)
         
-        print(forms)
-
         company_data = company.objects.all()
 
         context = {
@@ -1220,7 +1198,6 @@ def add_district(request):
             return redirect('list_district')
         else:
 
-            print(forms.errors)
             company_data = company.objects.all()
 
             context = {
@@ -1234,8 +1211,6 @@ def add_district(request):
 
         forms = district_Form()
         
-        print(forms)
-
         company_data = company.objects.all()
 
         context = {
@@ -1272,13 +1247,12 @@ def add_district_ajax(request):
         if forms.is_valid():
             a = forms.save()
 
-            print(a)
             return JsonResponse(json.dumps({'status' : 'True'}), safe=False, content_type="application/json") 
 
         else:
             
             error = forms.errors.as_json()
-            print(error)
+
             return JsonResponse(json.dumps({'error' : error}), safe=False)
     
     
@@ -1390,10 +1364,7 @@ def add_taluka_ajax(request):
         forms = taluka_Form(request.user, updated_request)
         if forms.is_valid():
             a = forms.save()
-            
-
-            print(a.district.name)
-
+           
             return JsonResponse(json.dumps({'status' : 'True', 'id' : a.id,'value' : a.name, 'district_id' : a.district.id, 'district_name' : a.district.name}), safe=False, content_type="application/json") 
 
 
@@ -1483,7 +1454,6 @@ def add_onaccount(request):
             return redirect('list_onaccount')
         else:
 
-            print(forms.errors)
             company_data = company.objects.all()
 
             context = {
@@ -1541,16 +1511,13 @@ def add_onaccount_ajax(request):
 
 
             error = forms.errors.as_json()
-            print(error)
+
             return JsonResponse(json.dumps({'error' : error}), safe=False)
     
     
     else:
 
         forms = onaccount_Form()
-
-        
-        print(forms)
 
         company_data = company.objects.all()
 
@@ -1639,9 +1606,7 @@ def add_driver(request):
             forms.save()
             return redirect('list_driver')
         else:
-            print('-----------------------------2---------------------')
 
-            print(forms.errors)
             company_data = company.objects.all()
 
             context = {
@@ -1654,9 +1619,6 @@ def add_driver(request):
     else:
 
         forms = driver_Form()
-
-        
-        print(forms)
 
         company_data = company.objects.all()
 
@@ -1729,10 +1691,7 @@ def add_petrol_pump(request):
             forms.save()
             return redirect('list_petrol_pump')
         else:
-            print('-----------------------------2---------------------')
-
-            print(forms.errors)
-            
+           
             company_data = company.objects.all()
 
             context = {
@@ -1745,9 +1704,6 @@ def add_petrol_pump(request):
     else:
 
         forms = petrol_pump_Form()
-
-        
-        print(forms)
 
         company_data = company.objects.all()
 
@@ -1780,16 +1736,13 @@ def add_petrol_pump_ajax(request):
 
 
             error = forms.errors.as_json()
-            print(error)
+
             return JsonResponse(json.dumps({'error' : error}), safe=False)
     
     
     else:
 
         forms = petrol_pump_Form()
-
-        
-        print(forms)
 
         context = {
             'form': forms,
