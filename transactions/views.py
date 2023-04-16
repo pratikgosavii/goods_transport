@@ -87,7 +87,6 @@ def add_transaction(request):
 
         else:
 
-            print(forms.errors)
             company_data = company.objects.all()
 
             from_truck_details = truck_details_Form()
@@ -342,10 +341,6 @@ def list_transaction(request):
 
 
     builty_filters = builty_filter(request.user, request.GET, queryset=data)
-
-    for i in builty_filters.qs:
-
-        print(i)
 
     data = builty_filters.qs
 
@@ -810,7 +805,6 @@ def update_ack(request, challan_id):
 
         else:
 
-            print(form.errors)
             context = {
 
                 'form' : form
@@ -1240,7 +1234,6 @@ def diesel_report(request):
     counteer = 1
 
     for i in builty_filters_data:
-        print(builty_filters_data)
         vals1 = []
         vals1.append(counteer)
         counteer = counteer + 1
@@ -1352,7 +1345,6 @@ def porch_report(request):
     counteer = 1
 
     for i in builty_filters_data:
-        print(builty_filters_data)
         vals1 = []
         vals1.append(counteer)
         counteer = counteer + 1
