@@ -327,6 +327,11 @@ def list_transaction(request):
 
     data = builty_filters.qs
 
+    total_freight = 0
+    total_advance = 0
+    total_balance = 0
+    total_mt = 0
+
     for i in data:
 
         if not i.have_ack.filter():
@@ -353,10 +358,7 @@ def list_transaction(request):
     except EmptyPage:
         data = paginator.page(paginator.num_pages)
    
-    total_freight = 0
-    total_advance = 0
-    total_balance = 0
-    total_mt = 0
+   
 
     
 
@@ -1042,17 +1044,7 @@ def truck_report_list(request):
   
     data = builty_filters.qs
 
-    page = request.GET.get('page', 1)
-    paginator = Paginator(data, 20)
-
-    try:
-        data = paginator.page(page)
-    except PageNotAnInteger:
-        data = paginator.page(1)
-    except EmptyPage:
-        data = paginator.page(paginator.num_pages)
-   
-
+    
     total_freight = 0
     total_advance = 0
     total_balance = 0
@@ -1070,6 +1062,18 @@ def truck_report_list(request):
         total_advance = total_advance + i.less_advance
 
 
+
+
+    page = request.GET.get('page', 1)
+    paginator = Paginator(data, 20)
+
+    try:
+        data = paginator.page(page)
+    except PageNotAnInteger:
+        data = paginator.page(1)
+    except EmptyPage:
+        data = paginator.page(paginator.num_pages)
+   
 
     total_balance = round(total_balance, 2)
     total_advance = round(total_advance, 2)
