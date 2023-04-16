@@ -346,7 +346,6 @@ def list_transaction(request):
     total_balance = round(total_balance, 2)
     total_freight = round(total_freight, 2)
     total_advance = round(total_advance, 2)
-    total_mt = round(total_mt, 2)
 
     page = request.GET.get('page', 1)
     paginator = Paginator(filter_data, 20)
