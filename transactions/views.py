@@ -327,21 +327,6 @@ def list_transaction(request):
 
     data = builty_filters.qs
 
-    page = request.GET.get('page', 1)
-    paginator = Paginator(data, 20)
-
-    try:
-        data = paginator.page(page)
-    except PageNotAnInteger:
-        data = paginator.page(1)
-    except EmptyPage:
-        data = paginator.page(paginator.num_pages)
-   
-    total_freight = 0
-    total_advance = 0
-    total_balance = 0
-    total_mt = 0
-
     for i in data:
 
         if not i.have_ack.filter():
@@ -357,6 +342,23 @@ def list_transaction(request):
     total_balance = round(total_balance, 2)
     total_advance = round(total_advance, 2)
     total_mt = round(total_mt, 2)
+
+    page = request.GET.get('page', 1)
+    paginator = Paginator(data, 20)
+
+    try:
+        data = paginator.page(page)
+    except PageNotAnInteger:
+        data = paginator.page(1)
+    except EmptyPage:
+        data = paginator.page(paginator.num_pages)
+   
+    total_freight = 0
+    total_advance = 0
+    total_balance = 0
+    total_mt = 0
+
+    
 
     has_filter = any(field in request.GET for field in set(builty_filters.get_fields()))
 
