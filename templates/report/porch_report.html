@@ -221,7 +221,7 @@
 
             <br>
           
-            <a href="{% url 'porch_report' %}"><button class="btn btn-primary" type="button" > Reset </button></a>
+            <a href="{% url 'porch_report_list' %}"><button class="btn btn-primary" type="button" > Reset </button></a>
 
             <button class="btn btn-primary" type="submit" > Submit </button>
 
@@ -237,19 +237,16 @@
   </div>
   
 
-  {% if link %}
 
-<form method="post" action="{% url 'download' %}">
+<form method="post" action="{% url 'porch_report' %}">
 
     {% csrf_token %}
 
-    <input type="hidden" value="{{ link }}" name="link">
     <button class="btn btn-primary" type="submit">
         Download Porch Report
     </button> 
 </form>
 
-{% endif %}
 
 
 <br>
@@ -336,50 +333,52 @@
 
                           
      <br>
-                  <nav aria-label="Page navigation example">
-                    <ul class="pagination justify-content-center">
-                    {% if data.has_previous %}
-                        <li class="page-item">
-                        <a class="page-link" href="?page={{ data.previous_page_number }}">Previous</a>
-                      </li>
-                    {% else %}
-                        <li class="page-item disabled">
-                        <a class="page-link" href="#" tabindex="-1" aria-disabled="True">Previous</a>
-                      </li>
-                    {% endif %}
-            
-                    {% if data.number|add:'-4' > 1 %}
-                        <li class="page-item"><a class="page-link" href="?page={{ data.number|add:'-5' }}">&hellip;</a></li>
-                    {% endif %}
-            
-                    {% for i in data.paginator.page_range %}
-                        {% if data.number == i %}
-                            <li class="page-item active" aria-current="page">
-                          <span class="page-link">
-                            {{ i }}
-                            <span class="sr-only">(current)</span>
-                          </span>
-                        </li>
-                        {% elif i > data.number|add:'-5' and i < data.number|add:'5' %}
-                             <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
-                        {% endif %}
-                    {% endfor %}
-            
-                    {% if data.paginator.num_pages > data.number|add:'4' %}
-                       <li class="page-item"><a class="page-link" href="?page={{ data.number|add:'5' }}">&hellip;</a></li>
-                    {% endif %}
-            
-                    {% if data.has_next %}
-                        <li class="page-item">
-                        <a class="page-link" href="?page={{ data.next_page_number }}">Next</a>
-                      </li>
-                    {% else %}
-                        <li class="page-item disabled">
-                        <a class="page-link" href="#" tabindex="-1" aria-disabled="True">Next</a>
-                      </li>
-                    {% endif %}
-                  </ul>
-                </nav>
+                   <br>
+                            <nav aria-label="Page navigation example">
+                              <ul class="pagination justify-content-center">
+                              {% if data.has_previous %}
+                                  <li class="page-item">
+                                  <a class="page-link" onclick="pagination({{ data.previous_page_number }})">Previous</a>
+                                </li>
+                              {% else %}
+                                  <li class="page-item disabled">
+                                  <a class="page-link" href="#" tabindex="-1" aria-disabled="True">Previous</a>
+                                </li>
+                              {% endif %}
+                      
+                              {% if data.number|add:'-4' > 1 %}
+                                  <li class="page-item"><a class="page-link" onclick="pagination({{ data.number }})">&hellip;</a></li>
+                              {% endif %}
+                      
+                              {% for i in data.paginator.page_range %}
+                                  {% if data.number == i %}
+                                      <li class="page-item active" aria-current="page">
+                                    <span class="page-link">
+                                      {{ i }}
+                                      <span class="sr-only">(current)</span>
+                                    </span>
+                                  </li>
+                                  {% elif i > data.number|add:'-5' and i < data.number|add:'5' %}
+                                       <li class="page-item"><a class="page-link" onclick="pagination({{ i }})">{{ i }}</a></li>
+                                  {% endif %}
+                              {% endfor %}
+                      
+                              {% if data.paginator.num_pages > data.number|add:'4' %}
+                                 <li class="page-item"><a class="page-link" onclick="pagination({{ data.number|add:'5' }})">&hellip;</a></li>
+                              {% endif %}
+                      
+                              {% if data.has_next %}
+                                  <li class="page-item">
+                                  <a class="page-link" onclick="pagination({{ data.next_page_number }}">Next</a>
+                                </li>
+                              {% else %}
+                                  <li class="page-item disabled">
+                                  <a class="page-link" href="#" tabindex="-1" aria-disabled="True">Next</a>
+                                </li>
+                              {% endif %}
+                            </ul>
+                          </nav>
+
 
 
 
@@ -403,6 +402,32 @@
 
     
     
+  function pagination(page_no){
+
+
+    url = new URL(window.location.href);
+
+    var search_params = url.searchParams;
+
+    // new value of "id" is set to "101"
+    search_params.set('page', page_no);
+
+    // change the search property of the main url
+    url.search = search_params.toString();
+
+    // the new url string
+    var new_url = url.toString();
+
+    // output : http://demourl.com/path?id=101&topic=main
+    window.location.href = new_url;
+            
+    window.location.search = jQuery.query.set("page", page_no);
+
+
+
+}
+
+
     
 </script>
 

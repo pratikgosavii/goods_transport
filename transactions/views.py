@@ -354,9 +354,9 @@ def list_transaction(request):
 
     
     total_mt = round(total_mt, 2)
-    total1_balance = round(total1_balance, 2)
-    total1_advance = round(total1_advance, 2)
-    total1_mt = round(total1_mt, 2)
+    total_balance = round(total_balance, 2)
+    total_advance = round(total_advance, 2)
+    total_mt = round(total_mt, 2)
 
     has_filter = any(field in request.GET for field in set(builty_filters.get_fields()))
 
@@ -369,7 +369,6 @@ def list_transaction(request):
         'total_advance' : total_advance,
         'total_balance' : total_balance,
         'total_mt' : total_mt,
-        'total1_mt' : total1_mt,
         'has_filter' : has_filter,
         'form' : builty_Form(request.user),
     }
@@ -542,7 +541,7 @@ def list_ack_all(request):
 
         total_freight = total_freight + i.freight
         total_advance = total_advance + i.less_advance
-        total_balance = total1_balance + i.balance
+        total_balance = total_balance + i.balance
         total_mt = total_mt + i.mt
 
 
@@ -1181,9 +1180,6 @@ def diesel_report_list(request):
     else:
         data = builty.objects.filter(user = request.user, deleted = False).order_by('-id')
 
-
-    for i in data:
-        total1_diesel = total1_diesel + i.diesel
 
     builty_filters = builty_filter(request.user, request.GET, queryset=data)
     
