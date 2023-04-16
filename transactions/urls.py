@@ -44,8 +44,11 @@ urlpatterns = [
     path('download', download, name='download'),
 
     path('truck-report', truck_report, name='truck_report'),
+    path('truck-report-list', truck_report_list, name='truck_report_list'),
     path('diesel-report', diesel_report, name='diesel_report'),
+    path('diesel-report-list', diesel_report_list, name='diesel_report_list'),
     path('porch-report', porch_report, name='porch_report'),
+    path('porch-report-list', porch_report_list, name='porch_report_list'),
 
 
 

@@ -323,23 +323,6 @@ def list_transaction(request):
 
         data = builty.objects.filter(user = request.user, deleted = False).order_by('-id')
 
-    total1_freight = 0
-    total1_advance = 0
-    total1_balance = 0
-    total1_mt = 0
-
-    for i in data:
-
-        if not i.have_ack.filter():
-
-
-            total1_balance = total1_balance + i.balance
-
-        total1_freight = total1_freight + i.freight
-        total1_advance = total1_advance + i.less_advance
-        total1_mt = total1_mt + i.mt
-
-
     builty_filters = builty_filter(request.user, request.GET, queryset=data)
 
     data = builty_filters.qs
@@ -370,11 +353,6 @@ def list_transaction(request):
         total_mt = total_mt + i.mt
 
     
-
-    total_balance = round(total_balance, 2)
-    total_advance = round(total_advance, 2)
-    total_freight = round(total_freight, 2)
-    total1_freight = round(total1_freight, 2)
     total_mt = round(total_mt, 2)
     total1_balance = round(total1_balance, 2)
     total1_advance = round(total1_advance, 2)
@@ -390,9 +368,6 @@ def list_transaction(request):
         'total_freight' : total_freight,
         'total_advance' : total_advance,
         'total_balance' : total_balance,
-        'total1_freight' : total1_freight,
-        'total1_advance' : total1_advance,
-        'total1_balance' : total1_balance,
         'total_mt' : total_mt,
         'total1_mt' : total1_mt,
         'has_filter' : has_filter,
@@ -544,17 +519,6 @@ def list_ack_all(request):
         data = builty.objects.filter(user = request.user, deleted = False).order_by('-id')
 
 
-    total1_freight = 0
-    total1_advance = 0
-    total1_balance = 0
-    total1_mt = 0
-    for i in data:
-
-        total1_freight = total1_freight + i.freight
-        total1_advance = total1_advance + i.less_advance
-        total1_balance = total1_balance + i.balance
-        total1_mt = total1_mt + i.mt
-
     builty_filters = builty_filter(request.user, request.GET, queryset=data)
 
     data = builty_filters.qs
@@ -585,12 +549,8 @@ def list_ack_all(request):
     total_balance = round(total_balance, 2)
     total_advance = round(total_advance, 2)
     total_freight = round(total_freight, 2)
-    total1_freight = round(total1_freight, 2)
     total_mt = round(total_mt, 2)
-    total1_balance = round(total1_balance, 2)
-    total1_advance = round(total1_advance, 2)
-    total1_mt = round(total1_mt, 2)
-
+  
     context = {
         'data' : data,
         'value' : '----- All -----',
@@ -599,10 +559,6 @@ def list_ack_all(request):
         'total_advance' : total_advance,
         'total_balance' : total_balance,
         'total_mt' : total_mt,
-        'total1_freight' : total1_freight,
-        'total1_advance' : total1_advance,
-        'total1_balance' : total1_balance,
-        'total1_mt' : total1_mt,
         'form' : builty_Form(request.user),
         
     }
@@ -622,19 +578,6 @@ def list_ack(request):
 
         data = ack.objects.filter(builty__deleted = False, builty__user = request.user).order_by(Substr('builty__builty_no',5))
 
-    total1_freight = 0
-    total1_advance = 0
-    total1_balance = 0
-    total1_mt = 0
-
-    for i in data:
-
-        total1_freight = total1_freight + i.builty.freight
-        total1_advance = total1_advance + i.builty.less_advance
-        total1_balance = total1_balance + i.builty.balance
-        total1_mt = total1_mt + i.builty.mt
-
-    
     builty_filters = ack_filter(request.GET, queryset=data)
     data = builty_filters.qs
 
@@ -659,18 +602,13 @@ def list_ack(request):
 
         total_freight = total_freight + i.builty.freight
         total_advance = total_advance + i.builty.less_advance
-        total_balance = total1_balance + i.builty.balance
         total_mt = total_mt + i.builty.mt
 
 
     total_balance = round(total_balance, 2)
     total_advance = round(total_advance, 2)
     total_freight = round(total_freight, 2)
-    total1_freight = round(total1_freight, 2)
     total_mt = round(total_mt, 2)
-    total1_balance = round(total1_balance, 2)
-    total1_advance = round(total1_advance, 2)
-    total1_mt = round(total1_mt, 2)
 
     
     context = {
@@ -681,10 +619,6 @@ def list_ack(request):
         'total_advance' : total_advance,
         'total_balance' : total_balance,
         'total_mt' : total_mt,
-        'total1_freight' : total1_freight,
-        'total1_advance' : total1_advance,
-        'total1_balance' : total1_balance,
-        'total1_mt' : total1_mt,
         'form' : builty_Form(request.user),
 
         
@@ -705,22 +639,6 @@ def list_not_ack(request):
     builty_filters = builty_filter(request.user, request.GET, queryset=data)
     data = builty_filters.qs
 
-
-    
-    total1_freight = 0
-    total1_advance = 0
-    total1_balance = 0
-    total1_mt = 0
-
-    for i in data:
-
-        if not i.have_ack.all():
-       
-            total1_balance = total1_balance + i.balance
-
-        total1_freight = total1_freight + i.freight
-        total1_advance = total1_advance + i.less_advance
-        total1_mt = total1_mt + i.mt
 
     page = request.GET.get('page', 1)
     paginator = Paginator(data, 20)
@@ -753,10 +671,7 @@ def list_not_ack(request):
     total_advance = round(total_advance, 2)
     total_freight = round(total_freight, 2)
     total_mt = round(total_mt, 2)
-    total1_freight = round(total1_freight, 2)
-    total1_balance = round(total1_balance, 2)
-    total1_advance = round(total1_advance, 2)
-    total1_mt = round(total1_mt, 2)
+    
 
     context = {
         'data' : data,
@@ -766,15 +681,8 @@ def list_not_ack(request):
         'total_advance' : total_advance,
         'total_balance' : total_balance,
         'total_mt' : total_mt,
-        'total1_freight' : total1_freight,
-        'total1_advance' : total1_advance,
-        'total1_balance' : total1_balance,
-        'total1_mt' : total1_mt,
         'form' : builty_Form(request.user),
 
-
-
-        
     }
 
 
@@ -1055,24 +963,6 @@ def truck_report(request):
     else:
         data = builty.objects.filter(user = request.user, deleted = False).order_by('id')
 
-
-    total1_freight = 0
-    total1_advance = 0
-    total1_balance = 0
-    total1_mt = 0
-    
-    for i in data:
-
-        if not i.have_ack.filter():
-    
-            total1_balance = total1_balance + i.balance
-
-        total1_freight = total1_freight + i.freight
-        total1_advance = total1_advance + i.less_advance
-        total1_mt = total1_mt + i.mt
-
-
-
     builty_filters = builty_filter(request.user, request.GET, queryset=data)
     builty_filters_data1 = list(builty_filters.qs.values_list('builty_no', 'DC_date', 'truck_details__truck_number', 'truck_owner__owner_name', 'station_from__name', 'station_to__name', 'district__name', 'consignor__name', 'onaccount__name', 'have_ack__challan_date', 'mt', 'rate', 'freight'))
     builty_filters_data = list(map(list, builty_filters_data1))
@@ -1120,29 +1010,37 @@ def truck_report(request):
 
 
 
-
-    total_freight = 0
-    total_advance = 0
-    total_balance = 0
-    total_mt = 0
-
-    builty_filters = builty_filter(request.user, request.GET, queryset=data)
-
-
-    
-
-
         
     name = "Report.csv"
     path = os.path.join(BASE_DIR) + '\static\csv\\' + name
-    with open(path,  'w', newline="") as f:
+    with open(path,  'r+', newline="") as f:
         writer = csv.writer(f)
         writer.writerows(vals)
 
 
-    link = os.path.join(BASE_DIR) + '\static\csv\\' + name
+        link = os.path.join(BASE_DIR) + '\static\csv\\' + name
+        
+        mime_type  = mimetypes.guess_type(link)
 
-    
+        response = HttpResponse(f.read(), content_type=mime_type)
+        response['Content-Disposition'] = 'attachment;filename=' + str(link)
+
+    return response
+
+
+def truck_report_list(request):
+
+
+    if request.user.is_superuser:
+        data = builty.objects.filter(deleted = False).order_by('id')
+    else:
+        data = builty.objects.filter(user = request.user, deleted = False).order_by('id')
+
+
+    builty_filters = builty_filter(request.user, request.GET, queryset=data)
+  
+    data = builty_filters.qs
+
     page = request.GET.get('page', 1)
     paginator = Paginator(data, 20)
 
@@ -1154,7 +1052,11 @@ def truck_report(request):
         data = paginator.page(paginator.num_pages)
    
 
-   
+    total_freight = 0
+    total_advance = 0
+    total_balance = 0
+    total_mt = 0
+
     for i in builty_filters.qs:
 
         if not i.have_ack.filter():
@@ -1171,25 +1073,18 @@ def truck_report(request):
     total_balance = round(total_balance, 2)
     total_advance = round(total_advance, 2)
     total_freight = round(total_freight, 2)
-    total1_freight = round(total1_freight, 2)
     total_mt = round(total_mt, 2)
-    total1_balance = round(total1_balance, 2)
-    total1_advance = round(total1_advance, 2)
-    total1_mt = round(total1_mt, 2)
+    
 
     context = {
         'builty_filter' : builty_filters,
-        'link' : link,
+        'link' : None,
         'form' : builty_Form(request.user),
-        'data' : builty_filters.qs,
+        'data' : data,
         'total_balance' : total_balance,
         'total_advance' : total_advance,
         'total_freight' : total_freight,
-        'total1_freight' : total1_freight,
         'total_mt' : total_mt,
-        'total1_balance' : total1_balance,
-        'total1_advance' : total1_advance,
-        'total1_mt' : total1_mt,
         'builty_filter' : builty_filters,
     }
 
@@ -1204,11 +1099,6 @@ def diesel_report(request):
     else:
         data = builty.objects.filter(user = request.user, deleted = False).order_by('-id')
 
-    total1_diesel = 0
-
-
-    for i in data:
-        total1_diesel = total1_diesel + i.diesel
 
     builty_filters = builty_filter(request.user, request.GET, queryset=data)
     builty_filters_data1 = list(builty_filters.qs.values_list('builty_no', 'DC_date', 'truck_details__truck_number', 'station_from__name', 'station_to__name', 'consignor__name', 'onaccount__name', 'diesel', 'petrol_pump__name'))
@@ -1250,13 +1140,6 @@ def diesel_report(request):
 
 
 
-    total_diesel = 0
-
-    data = builty_filters.qs
-
-    for i in data:
-        total_diesel = total_diesel + i.diesel
-        
     name = "Diesel_Report.csv"
     path = os.path.join(BASE_DIR) + '\static\csv\\' + name
     with open(path,  'w', newline="") as f:
@@ -1284,8 +1167,52 @@ def diesel_report(request):
         'builty_filter' : builty_filters,
         'link' : link,
         'data' : data,
+        'builty_filter' : builty_filters,
+        'form' : builty_Form(request.user),
+    }
+
+    return render(request, 'report/diesel_report.html', context)
+
+def diesel_report_list(request):
+
+
+    if request.user.is_superuser:
+        data = builty.objects.filter(deleted = False).order_by('-id')
+    else:
+        data = builty.objects.filter(user = request.user, deleted = False).order_by('-id')
+
+
+    for i in data:
+        total1_diesel = total1_diesel + i.diesel
+
+    builty_filters = builty_filter(request.user, request.GET, queryset=data)
+    
+    data = builty_filters.qs
+    
+    total_diesel = 0
+    
+    for i in data:
+        total_diesel = total_diesel + i.diesel
+
+
+
+    page = request.GET.get('page', 1)
+    paginator = Paginator(data, 20)
+
+    try:
+        data = paginator.page(page)
+    except PageNotAnInteger:
+        data = paginator.page(1)
+    except EmptyPage:
+        data = paginator.page(paginator.num_pages)
+   
+
+
+    context = {
+        'builty_filter' : builty_filters,
+        'link' : None,
+        'data' : data,
         'total_diesel' : total_diesel,
-        'total1_diesel' : total1_diesel,
         'builty_filter' : builty_filters,
         'form' : builty_Form(request.user),
     }
@@ -1415,6 +1342,59 @@ def porch_report(request):
         'total1_advance' : total1_advance,
         'total1_balance' : total1_balance,
         'total1_mt' : total1_mt,
+        'total_mt' : total_mt,
+        'form' : builty_Form(request.user),
+
+    }
+
+    return render(request, 'report/porch_report.html', context)
+
+
+def porch_report_list(request):
+
+    if request.user.is_superuser:
+
+
+        data = builty.objects.filter(~Q(have_ack__challan_number = None), deleted = False).order_by('-id')
+    else:
+
+        data = builty.objects.filter(~Q(have_ack__challan_number = None), user = request.user, deleted = False).order_by('-id')
+
+    
+    builty_filters = builty_filter(request.user, request.GET, queryset=data)
+    
+    total_diesel = 0
+
+    data = builty_filters.qs
+    
+    total_freight = 0
+    total_advance = 0
+    total_balance = 0
+    total_mt = 0
+
+    for i in data:
+
+        total_balance = total_balance + i.balance
+        total_freight = total_freight + i.freight
+        total_advance = total_advance + i.less_advance
+        total_mt = total_mt + i.mt
+
+    
+
+    total_balance = round(total_balance, 2)
+    total_freight = round(total_freight, 2)
+    total_diesel = round(total_diesel, 2)
+    total_mt = round(total_mt, 2)
+
+    context = {
+        'builty_filter' : builty_filters,
+        'link' : None,
+        'data' : data,
+        'total_diesel' : total_diesel,
+        'builty_filter' : builty_filters,
+        'total_freight' : total_freight,
+        'total_advance' : total_advance,
+        'total_balance' : total_balance,
         'total_mt' : total_mt,
         'form' : builty_Form(request.user),
 
