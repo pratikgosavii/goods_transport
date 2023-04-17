@@ -233,6 +233,8 @@
                       {% if name != '---------' %}
             <option value="{{ id }}"> {{ name }} </option>
             {% endif %}
+
+              {% endfor %}
                       
                     </select> <input id="select_all_truck_details" type="checkbox" >
 
@@ -243,6 +245,9 @@
                       {% if name != '---------' %}
             <option value="{{ id }}"> {{ name }} </option>
             {% endif %}
+
+            {% endfor %}
+
                     </select> <input id="select_all_truck_owner" type="checkbox" >
                 
                 <label for="name" class="control-label mb-1 la">District</label>
@@ -266,6 +271,9 @@
           {% if name != '---------' %}
             <option value="{{ id }}"> {{ name }} </option>
             {% endif %}
+
+            {% endfor %}
+
           
         </select> <input id="select_all_consignor" type="checkbox" >
               
