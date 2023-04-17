@@ -525,16 +525,6 @@ def list_ack_all(request):
 
     data = builty_filters.qs
 
-    page = request.GET.get('page', 1)
-    paginator = Paginator(data, 20)
-
-    try:
-        data = paginator.page(page)
-    except PageNotAnInteger:
-        data = paginator.page(1)
-    except EmptyPage:
-        data = paginator.page(paginator.num_pages)
-    
     total_freight = 0
     total_advance = 0
     total_balance = 0
@@ -547,6 +537,18 @@ def list_ack_all(request):
         total_balance = total_balance + i.balance
         total_mt = total_mt + i.mt
 
+
+    page = request.GET.get('page', 1)
+    paginator = Paginator(data, 20)
+
+    try:
+        data = paginator.page(page)
+    except PageNotAnInteger:
+        data = paginator.page(1)
+    except EmptyPage:
+        data = paginator.page(paginator.num_pages)
+    
+   
 
     total_balance = round(total_balance, 2)
     total_advance = round(total_advance, 2)
@@ -583,18 +585,6 @@ def list_ack(request):
     builty_filters = ack_filter(request.GET, queryset=data)
     data = builty_filters.qs
 
-   
-
-    page = request.GET.get('page', 1)
-    paginator = Paginator(data, 20)
-
-    try:
-        data = paginator.page(page)
-    except PageNotAnInteger:
-        data = paginator.page(1)
-    except EmptyPage:
-        data = paginator.page(paginator.num_pages)
-    
     total_freight = 0
     total_advance = 0
     total_balance = 0
@@ -606,6 +596,18 @@ def list_ack(request):
         total_advance = total_advance + i.builty.less_advance
         total_mt = total_mt + i.builty.mt
 
+
+    page = request.GET.get('page', 1)
+    paginator = Paginator(data, 20)
+
+    try:
+        data = paginator.page(page)
+    except PageNotAnInteger:
+        data = paginator.page(1)
+    except EmptyPage:
+        data = paginator.page(paginator.num_pages)
+    
+   
 
     total_balance = round(total_balance, 2)
     total_advance = round(total_advance, 2)
@@ -641,17 +643,6 @@ def list_not_ack(request):
     builty_filters = builty_filter(request.user, request.GET, queryset=data)
     data = builty_filters.qs
 
-
-    page = request.GET.get('page', 1)
-    paginator = Paginator(data, 20)
-
-    try:
-        data = paginator.page(page)
-    except PageNotAnInteger:
-        data = paginator.page(1)
-    except EmptyPage:
-        data = paginator.page(paginator.num_pages)
-    
     total_freight = 0
     total_advance = 0
     total_balance = 0
@@ -668,6 +659,17 @@ def list_not_ack(request):
         total_mt = total_mt + i.mt
 
 
+
+    page = request.GET.get('page', 1)
+    paginator = Paginator(data, 20)
+
+    try:
+        data = paginator.page(page)
+    except PageNotAnInteger:
+        data = paginator.page(1)
+    except EmptyPage:
+        data = paginator.page(paginator.num_pages)
+    
     
     total_balance = round(total_balance, 2)
     total_advance = round(total_advance, 2)
@@ -1234,22 +1236,10 @@ def porch_report(request):
 
         data = builty.objects.filter(~Q(have_ack__challan_number = None), user = request.user, deleted = False).order_by('-id')
 
-    
-    total1_freight = 0
-    total1_advance = 0
-    total1_balance = 0
-    total1_mt = 0
-
-    for i in data:
-
-        total1_balance = total1_balance + i.balance
-        total1_freight = total1_freight + i.freight
-        total1_advance = total1_advance + i.less_advance
-        total1_mt = total1_mt + i.mt
-
     builty_filters = builty_filter(request.user, request.GET, queryset=data)
     builty_filters_data1 = list(builty_filters.qs.values_list('builty_no', 'DC_date', 'have_ack__challan_number', 'have_ack__challan_date', 'truck_details__truck_number', 'station_to__name', 'mt', 'rate', 'freight', 'less_advance', 'balance'))
     builty_filters_data = list(map(list, builty_filters_data1))
+    
     
 
     vals = []
@@ -1291,64 +1281,23 @@ def porch_report(request):
 
 
 
-    total_diesel = 0
-
-    data = builty_filters.qs
     
-    total_freight = 0
-    total_advance = 0
-    total_balance = 0
-    total_mt = 0
-
-    for i in data:
-
-        total_balance = total_balance + i.balance
-        total_freight = total_freight + i.freight
-        total_advance = total_advance + i.less_advance
-        total_mt = total_mt + i.mt
-
-    
-    name = "Diesel_Report.csv"
+    name = "Report.csv"
     path = os.path.join(BASE_DIR) + '\static\csv\\' + name
-    with open(path,  'w', newline="") as f:
+    with open(path,  'r+', newline="") as f:
         writer = csv.writer(f)
         writer.writerows(vals)
 
 
-    link = os.path.join(BASE_DIR) + '\static\csv\\' + name
+        link = os.path.join(BASE_DIR) + '\static\csv\\' + name
+        
+        mime_type  = mimetypes.guess_type(link)
 
-    
+        response = HttpResponse(f.read(), content_type=mime_type)
+        response['Content-Disposition'] = 'attachment;filename=' + str(link)
 
-    total_balance = round(total_balance, 2)
-    total_advance = round(total_advance, 2)
-    total_freight = round(total_freight, 2)
-    total1_freight = round(total1_freight, 2)
-    total1_balance = round(total1_balance, 2)
-    total1_advance = round(total1_advance, 2)
-    total_diesel = round(total_diesel, 2)
-    total_diesel = round(total_diesel, 2)
-    total1_mt = round(total1_mt, 2)
-    total_mt = round(total_mt, 2)
+    return response
 
-    context = {
-        'builty_filter' : builty_filters,
-        'link' : link,
-        'data' : data,
-        'total_diesel' : total_diesel,
-        'builty_filter' : builty_filters,
-        'total_freight' : total_freight,
-        'total_advance' : total_advance,
-        'total_balance' : total_balance,
-        'total1_freight' : total1_freight,
-        'total1_advance' : total1_advance,
-        'total1_balance' : total1_balance,
-        'total1_mt' : total1_mt,
-        'total_mt' : total_mt,
-        'form' : builty_Form(request.user),
-
-    }
-
-    return render(request, 'report/porch_report.html', context)
 
 
 def porch_report_list(request):
@@ -1380,7 +1329,17 @@ def porch_report_list(request):
         total_advance = total_advance + i.less_advance
         total_mt = total_mt + i.mt
 
-    
+    page = request.GET.get('page', 1)
+    paginator = Paginator(data, 20)
+
+    try:
+        data = paginator.page(page)
+    except PageNotAnInteger:
+        data = paginator.page(1)
+    except EmptyPage:
+        data = paginator.page(paginator.num_pages)
+   
+
 
     total_balance = round(total_balance, 2)
     total_freight = round(total_freight, 2)

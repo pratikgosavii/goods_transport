@@ -8,34 +8,9 @@
 
 
     
-    .select2-container--open .select2-dropdown {
-        left: 10px;
-        top: -7px;
-    }
-
-
-    .select2-search--dropdown{
-    justify-items: center;
-    justify-content: center;
-    display: flex;
-    }
-
-
     
-    .select2-container--default .select2-selection--single .select2-selection__rendered {
-        color: #444;
-        line-height: 52px;
-    }
 
-    .select2-selection--single{
-        height: 50px !important;
-    }
-    .select2-search__field{
-        margin: 1px;
-        margin-top: 5px;
-    }
-
-      select {
+    select {
         border: 1px solid gray !important;
         border-radius: 6px !important;
         position: relative !important;
@@ -47,10 +22,134 @@
       }
 
       
+        .menu-nav {
+       
+            display: flex;
+            justify-content: space-between;
+          }
+          
+          .menu-item {
+            color: #FCC;
+            padding: 3px;
+          }
+          
+          .three-dots:after {
+            cursor: pointer;
+            color: #444;
+            content: '\2807';
+            font-size: 20px;
+            padding: 0 5px;
+          }
+          
+          a {
+            text-decoration: none;
+            color: white;
+          }
+          
+          a div {
+            padding: 2px;
+          }
+         
+         
+          .logged-in {
+            color: orange;
+            font-size: 21px;
+          }
+          
+
+    
+
+          .select2-container {
+             min-width: 200px !important;
+             max-width: 200px !important;
+          }
+          
+
+          .select2-container .select2-selection--multiple .select2-selection__rendered {
+            display : none;
+          }
+
+          .selection{
+            height: 50px;
+        display: grid;
+          }
+
+
+          .select2-results__option {
+            padding-right: 20px;
+            vertical-align: middle;
+          }
+          .select2-results__option:before {
+            content: "";
+            display: inline-block;
+            position: relative;
+            height: 20px;
+            width: 20px;
+            border: 2px solid #e9e9e9;
+            border-radius: 4px;
+            background-color: #fff;
+            margin-right: 20px;
+            vertical-align: middle;
+          }
+          .select2-results__option[aria-selected=true]:before {
+            font-family:fontAwesome;
+            content: "\f00c";
+            color: #fff;
+            background-color: #f77750;
+            border: 0;
+            display: inline-block;
+            padding-left: 3px;
+          }
+          .select2-container--default .select2-results__option[aria-selected=true] {
+            background-color: #fff;
+          }
+          .select2-container--default .select2-results__option--highlighted[aria-selected] {
+            background-color: #eaeaeb;
+            color: #272727;
+          }
+          .select2-container--default .select2-selection--multiple {
+            margin-bottom: 10px;
+          }
+          .select2-container--default.select2-container--open.select2-container--below .select2-selection--multiple {
+            border-radius: 4px;
+          }
+          .select2-container--default.select2-container--focus .select2-selection--multiple {
+            border-color: #f77750;
+            border-width: 2px;
+          }
+          .select2-container--default .select2-selection--multiple {
+            border-width: 2px;
+          }
+          .select2-container--open .select2-dropdown--below {
+            
+            border-radius: 6px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.5);
+            width: max-content !important;
+          }
+          .select2-selection .select2-selection--multiple:after {
+            content: 'hhghgh';
+          }
+          /* select with icons badges single*/
+          .select-icon .select2-selection__placeholder .badge {
+            display: none;
+          }
+          .select-icon .placeholder {
+            display: none;
+          }
+          .select-icon .select2-results__option:before,
+          .select-icon .select2-results__option[aria-selected=true]:before {
+            display: none !important;
+            /* content: "" !important; */
+          }
+          .select-icon  .select2-search--dropdown {
+            display: none;
+          }
 
 
 
-
+          .select2-container .select2-selection--single {
+            height: 38px;
+          }
        
     .logged-in {
         color: orange;
@@ -58,44 +157,6 @@
       }
       
 
-
-    .select2-container--open .select2-dropdown {
-        left: 10px;
-        top: -7px;
-    }
-
-
-    .select2-search--dropdown{
-    justify-items: center;
-    justify-content: center;
-    display: flex;
-    }
-
-
-    
-    .select2-container--default .select2-selection--single .select2-selection__rendered {
-        color: #444;
-        line-height: 52px;
-    }
-
-    .select2-selection--single{
-        height: 50px !important;
-    }
-    .select2-search__field{
-        margin: 1px;
-        margin-top: 5px;
-    }
-
-      select {
-        border: 1px solid gray !important;
-        border-radius: 6px !important;
-        position: relative !important;
-        width: 231px !important;
-        margin: 10px !important;
-        line-height: 6ex !important;
-        padding-left: 14px !important;
-        height: 46px !important;
-      }
 
       
 </style>
@@ -206,8 +267,10 @@
                     <select class="sele" name="truck_details" id="truck_details" multiple="multiple">
                       {% for id, name in form.truck_details.field.choices %}
           
+                      {% if name != '---------' %}
                       <option value="{{ id }}"> {{ name }} </option>
-                          {% endfor %}
+                      {% endif %}
+        {% endfor %}
                       
                     </select>
                                             
@@ -221,8 +284,10 @@
                     <select class="sele" name="truck_owner" id="truck_owner" multiple="multiple">
                       {% for id, name in form.truck_owner.field.choices %}
             
-                      <option value="{{ id }}"> {{ name }} </option>
-                          {% endfor %}
+                      {% if name != '---------' %}
+            <option value="{{ id }}"> {{ name }} </option>
+            {% endif %}
+        {% endfor %}
                       
                     </select>
             
@@ -230,8 +295,11 @@
                     <select class="sele" name="consignor" id="consignor" multiple="multiple">
                       {% for id, name in form.consignor.field.choices %}
             
-                      <option value="{{ id }}"> {{ name }} </option>
-                          {% endfor %}
+                      {% if name != '---------' %}
+            <option value="{{ id }}"> {{ name }} </option>
+            {% endif %}
+
+        {% endfor %}
                       
                     </select>
 
@@ -525,7 +593,17 @@
    
     $('.sele').select2();
 
+    $('#truck_owner').select2({closeOnSelect : false,
+			placeholder : "Placeholder",
+			allowHtml: true,
+			allowClear: true,
+			tags: true} );
 
+    $('#truck_details').select2({closeOnSelect : false,
+			placeholder : "Placeholder",
+			allowHtml: true,
+			allowClear: true,
+			tags: true} );
 
     url = new URL(window.location.href);
     console.log(url)
