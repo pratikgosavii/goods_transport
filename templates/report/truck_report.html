@@ -556,6 +556,24 @@ $("#select_all_consignor").click(function(){
   }
 });
 
+
+url = new URL(window.location.href);
+console.log(url)
+
+truck_details_options = url.searchParams.getAll("truck_details");
+
+$("#truck_details").val(truck_details_options).trigger('change');
+
+truck_owner_options = url.searchParams.getAll("truck_owner");
+
+$("#truck_owner").val(truck_owner_options).trigger('change');
+
+consignor_options = url.searchParams.getAll("consignor");
+
+$("#consignor").val(consignor_options).trigger('change');
+
+
+
 </script>
 
 
