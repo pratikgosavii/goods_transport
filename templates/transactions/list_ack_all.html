@@ -617,29 +617,15 @@
   $('.sele').select2();
 
 
-  
-$('#truck_details').select2({
-  closeOnSelect : false,
-  placeholder : "Placeholder",
-  allowHtml: true,
-  allowClear: true,
-  tags: true 
-});
-
-    
-
-$('#truck_owner').select2({closeOnSelect : false,
-  placeholder : "Placeholder",
-  allowHtml: true,
-  allowClear: true,
-  tags: true} );
-
-$('#consignor').select2({closeOnSelect : false,
-  placeholder : "Placeholder",
-  allowHtml: true,
-  allowClear: true,
-  tags: true} );
-
+  $('#truck_details').select2({
+    closeOnSelect : false,
+  });
+  $('#truck_owner').select2({
+    closeOnSelect : false,
+  });
+  $('#truck_consignor').select2({
+    closeOnSelect : false,
+  });
     
 
   url = new URL(window.location.href);
