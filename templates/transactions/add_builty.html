@@ -1566,12 +1566,12 @@
 
                     let_html = '<option value="' + data.id + '" selected>' + data.value + '</option>'
 
-                    $('#station_from').append(let_html);
+                    alert('I am here')
+
                     $('#station_to').append(let_html);
 
                     document.getElementById("taluka").value = data.taluka;
                     document.getElementById("district").value = data.district;
-
 
                 }
                 else{
@@ -1613,6 +1613,9 @@
                     let_html = '<option value="' + data.id + '" selected>' + data.value + '</option>'
 
                     $('#station_from').append(let_html);
+
+                    
+
                 }
                 else{
 
