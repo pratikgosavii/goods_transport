@@ -211,7 +211,7 @@ class ack_filter(django_filters.FilterSet):
             })
     )
 
-    builty__builty_no = django_filters.CharFilter(
+    builty__builty_no = django_filters.ModelChoiceFilter(
         queryset=builty.objects.all(),
         widget=forms.Select(
             attrs={
