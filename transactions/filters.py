@@ -212,12 +212,14 @@ class ack_filter(django_filters.FilterSet):
     )
 
     builty__builty_no = django_filters.CharFilter(
-        widget=forms.TextInput(
+        queryset=builty.objects.all(),
+        widget=forms.Select(
             attrs={
-                'class' : 'form-control sele',
-                'id' : 'company'
+                'class' : 'form-control date_css sele',
+                'id' : 'builty_no'
             })
     )
+
 
     builty__DC_date_start__date = DateFilter(field_name="builty__DC_date", lookup_expr='gte', widget=forms.DateInput(
             attrs={
