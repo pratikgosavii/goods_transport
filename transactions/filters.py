@@ -82,10 +82,11 @@ class builty_filter(django_filters.FilterSet):
                 'id' : 'petrol_pump'
             })
     )
-    builty_no = django_filters.CharFilter(
-        widget=forms.TextInput(
+    builty_no = django_filters.ModelChoiceFilter(
+        queryset=builty.objects.all(),
+        widget=forms.Select(
             attrs={
-                'class' : 'form-control date_css',
+                'class' : 'form-control date_css sele',
                 'id' : 'builty_no'
             })
     )
