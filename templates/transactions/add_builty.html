@@ -11,6 +11,37 @@
 <style>
 
 
+    .menu-item {
+        color: #FCC;
+        padding: 3px;
+      }
+      
+      .three-dots:after {
+        cursor: pointer;
+        color: #444;
+        content: '\2807';
+        font-size: 20px;
+        padding: 0 5px;
+      }
+      
+      a {
+        text-decoration: none;
+        color: white;
+      }
+      
+      a div {
+        padding: 2px;
+      }
+     
+     
+      .logged-in {
+        color: orange;
+        font-size: 21px;
+      }
+      
+
+
+
     table {
         border-collapse: separate;
         table-layout: fixed;
@@ -624,15 +655,9 @@
 
                               {% endif %}
 
-                              {% if i.has_request.all.0.status == False %}
 
-                                  <td class="serial">  <span class="logged-in">●</span>   {{ forloop.counter }}</td>
-                                 
-                              {% else %}
+                                <td class="serial" style=""> {{ forloop.counter }}</td>
 
-                                <td class="serial" style=""><input type="checkbox" value="{{ i.id }}" /> {{ forloop.counter }}</td>
-
-                              {% endif %}
                   
                                 
                                 <td>{{ i.builty_no }}</td>
@@ -641,7 +666,6 @@
                                 <td>{{ i.station_from }}</td>
                                 <td>{{ i.station_to }}</td>
                                 <td>{{ i.taluka }}</td>
-                                <td>{{ i.district }}</td>
                                 <td>{{ i.builty_code }}</td>
                                 <td>{{ i.consignee }}</td>
                                 <td>{{ i.onaccount }}</td>
@@ -649,11 +673,7 @@
                                 <td>{{ i.mt }}</td>
                                 
 
-                                <td>{{ i.rate }}</td>
-                                <td>{{ i.freight }}</td>
-                                <td>{{ i.less_advance }}</td>
-                                <td>{{ i.balance }}</td>
-
+                              
                                 
                                 <td style="display: flex; gap: 11px;height: 86px;">  
 
