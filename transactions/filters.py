@@ -111,7 +111,7 @@ class builty_filter(django_filters.FilterSet):
         ))
     challan_date_start__date = DateFilter(field_name="have_ack__challan_date", lookup_expr='gte', widget=forms.DateInput(
             attrs={
-                'id': 'datepicker1212',
+                'id': 'datepicke3434r1212',
                 'type': 'date',
                 'class' : 'form-control date_css'
             }
@@ -120,7 +120,7 @@ class builty_filter(django_filters.FilterSet):
 
     challan_date_end__date = DateFilter(field_name="have_ack__challan_date", lookup_expr='lte', widget=forms.DateInput(
             attrs={
-            'id': 'datepicker1212',
+            'id': 'date343234picker1212',
             'type': 'date',
                 'class' : 'form-control date_css'
             }
@@ -224,34 +224,34 @@ class ack_filter(django_filters.FilterSet):
 
     builty__DC_date_start__date = DateFilter(field_name="builty__DC_date", lookup_expr='gte', widget=forms.DateInput(
             attrs={
-                'id': 'datepicker1212',
+                'id': 'dfrrfvgfr',
                 'type': 'date',
-                'class' : 'form-control sele'
+                'class' : 'form-control'
             }
         ))
 
 
     builty__DC_date_end__date = DateFilter(field_name="builty__DC_date", lookup_expr='lte', widget=forms.DateInput(
             attrs={
-            'id': 'datepicker1212',
+            'id': 'grdfvfrggt',
             'type': 'date',
-                'class' : 'form-control sele'
+                'class' : 'form-control'
             }
         ))
-    challan_date_start__date = DateFilter(lookup_expr='gte', widget=forms.DateInput(
+    challan_date_start__date = DateFilter(field_name="challan_date", lookup_expr='gte', widget=forms.DateInput(
             attrs={
-                'id': 'datepicker1212',
+                'id': 'datepickewdsddr1212',
                 'type': 'date',
-                'class' : 'form-control sele'
+                'class' : 'form-control'
             }
         ))
 
 
-    challan_date_end__date = DateFilter(lookup_expr='lte', widget=forms.DateInput(
+    challan_date_end__date = DateFilter(field_name="challan_date", lookup_expr='lte', widget=forms.DateInput(
             attrs={
-            'id': 'datepicker1212',
+            'id': 'datepickedvfdcr1212',
             'type': 'date',
-                'class' : 'form-control sele'
+                'class' : 'form-control'
             }
         ))
 

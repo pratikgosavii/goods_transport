@@ -1313,7 +1313,7 @@ def porch_report_list(request):
 
         data = builty.objects.filter(~Q(have_ack__challan_number = None), user = request.user, deleted = False).order_by('-id')
 
-    
+    print(data.count())
     builty_filters = builty_filter(request.user, request.GET, queryset=data)
     
     total_diesel = 0
@@ -1341,6 +1341,10 @@ def porch_report_list(request):
         data = paginator.page(1)
     except EmptyPage:
         data = paginator.page(paginator.num_pages)
+
+
+    for i in data:
+        print(i.builty_no)
    
 
 
