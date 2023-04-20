@@ -144,6 +144,7 @@ class builty_filter(django_filters.FilterSet):
             self.filters['onaccount'].queryset = onaccount.objects.filter(office_location = request.office_location)
             self.filters['consignor'].queryset = consignor.objects.filter(office_location = request.office_location)
             self.filters['article'].queryset = article.objects.filter(office_location = request.office_location)
+            self.filters['builty_no'].queryset = builty.objects.filter(user = request)
 
 
 
