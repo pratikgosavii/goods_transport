@@ -220,10 +220,7 @@
           <div class="form-group" style="display: flex;
           gap: 14px;">
 
-          <label for="name" class="control-label mb-1" style="margin-left : 0px;">Builty No</label>
-                  {{ builty_filter.form.builty_no }}
-                      
-                  
+        
                   <label for="name" class="control-label mb-1" style="margin-left : 0px;">Truck No</label>
 
                   <select class="sele" name="truck_details" id="truck_details" multiple="multiple">
@@ -265,16 +262,7 @@
             <label for="name" class="control-label mb-1 la">Petrol Pump</label>
             {{ builty_filter.form.petrol_pump }}
 
-            <label for="name" class="control-label mb-1" style="margin-left : 0px;">Consginor</label>
-        <select class="sele" name="consignor" id="consignor" multiple="multiple">
-          {% for id, name in form.consignor.field.choices %}
-
-          {% if name != '---------' %}
-            <option value="{{ id }}"> {{ name }} </option>
-            {% endif %}
-                    {% endfor %}
-          
-        </select> <input id="select_all_consignor" type="checkbox" >
+           
            
           </div><br>
                   <div class-"form-group" style="display: flex;
