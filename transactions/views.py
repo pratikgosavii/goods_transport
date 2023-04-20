@@ -83,7 +83,7 @@ def add_transaction(request):
 
             forms.save()
 
-            return redirect('list_transaction')
+            return redirect('add_transaction')
 
         else:
 
@@ -166,6 +166,8 @@ def add_transaction(request):
             consignor_data = consignor.objects.filter(company = request.user.company, office_location= request.user.office_location)
             onaccount_data = onaccount.objects.filter(company = request.user.company, office_location= request.user.office_location)
 
+        data = builty.objects.filter(user = request.user, deleted = False, DC_date = date.today()).order_by('-id')
+
         context = {
             'form': forms,
             'company_data' : company_data,
@@ -180,6 +182,7 @@ def add_transaction(request):
             'consignor_data' : consignor_data,
             'onaccount_data' : onaccount_data,
             'total_mt_today' : total_mt_today,
+            'data' : data,
         }
         return render(request, 'transactions/add_builty.html', context)
 
