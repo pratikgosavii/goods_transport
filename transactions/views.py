@@ -166,7 +166,7 @@ def add_transaction(request):
             consignor_data = consignor.objects.filter(company = request.user.company, office_location= request.user.office_location)
             onaccount_data = onaccount.objects.filter(company = request.user.company, office_location= request.user.office_location)
 
-        data = builty.objects.filter(user = request.user, deleted = False).order_by('-id')
+        data = builty.objects.filter(user = request.user, deleted = False, DC_date = date.today()).order_by('-id')
 
         context = {
             'form': forms,
