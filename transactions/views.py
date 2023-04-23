@@ -999,12 +999,15 @@ def truck_report(request):
 
     counteer = 1
 
+    total_mt = 0
+    total_freight = 0
+
     for i in builty_filters_data:
         vals1 = []
         vals1.append(counteer)
         counteer = counteer + 1
         vals1.append(i[0])
-        vals1.append([1])
+        vals1.append('%s/%s/%s' % (i[1].month, i[1].day, i[1].year))
         vals1.append(i[2])
         vals1.append(i[3])
         vals1.append(i[4])
@@ -1018,24 +1021,31 @@ def truck_report(request):
         vals1.append(i[12])
         vals.append(vals1)
 
+        total_mt = total_mt + i[10]
+        total_freight = total_freight + i[12]
 
 
+    print(vals)
+
+    vals.append('')
+    vals.append(['total', '','','','','','','','','','', total_mt,'', total_freight])
         
     name = "Report.csv"
     path = os.path.join(BASE_DIR) + '\static\csv\\' + name
-    with open(path,  'r+', newline="") as f:
+    with open(path,  'w', newline="") as f:
         writer = csv.writer(f)
         writer.writerows(vals)
 
 
         link = os.path.join(BASE_DIR) + '\static\csv\\' + name
-        
+
+    with open(path,  'r', newline="") as f:
         mime_type  = mimetypes.guess_type(link)
 
         response = HttpResponse(f.read(), content_type=mime_type)
         response['Content-Disposition'] = 'attachment;filename=' + str(link)
 
-    return response
+        return response
 
 
 def truck_report_list(request):
