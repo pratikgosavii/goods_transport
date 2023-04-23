@@ -296,12 +296,7 @@
               <label for="name" class="control-label mb-1 la">Article</label>
               {{ builty_filter.form.article }}
 
-              {% if request.user.is_superuser %}
-
-              <label for="name" class="control-label mb-1 la">User</label>
-              {{ builty_filter.form.user }}
-
-            {% endif %}
+            
             
             </div><br>
         
@@ -317,8 +312,12 @@
             {{ builty_filter.form.DC_date_end__date }}
 
 
+            {% if request.user.is_superuser %}
 
+              <label for="name" class="control-label mb-1 la">User</label>
+              {{ builty_filter.form.user }}
 
+            {% endif %}
 
         </div>
 
@@ -354,7 +353,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <form id="sub_trip">
+        <form onsubmit="myButton.disabled = true; return true;" id="sub_trip">
 
           <input type="hidden" id="builty_id">
 
@@ -376,7 +375,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" id="myButton" class="btn btn-primary">Submit</button>
       </div>
     </form>
 

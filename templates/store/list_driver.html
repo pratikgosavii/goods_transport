@@ -40,6 +40,7 @@
                                 <th>Address</th>
                                 <th>Adhar Card</th>
                                 <th>Driving Licence</th>
+                                <th>Driving Licence Expiry D</th>
                                 <th>Mobile No</th>
                                 <th>Actions</th>
                                 
@@ -54,6 +55,7 @@
                                 <td>{{ i.address }}</td>
                                 <td>{{ i.adhar_card }}</td>
                                 <td>{{ i.driving_licence }}</td>
+                                <td>{{ i.driving_licence_expiry_date }}</td>
                                 <td>{{ i.mobile_no }}</td>
                                 <td>  
                                    <a href="{% url 'update_driver' i.id %}"> <button id="payment-button"  style="background-color: #05386b; border: green; padding: 10px;border-radius: 12px;" type="submit" class="btn-info ">

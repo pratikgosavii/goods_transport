@@ -2,6 +2,7 @@ from django import forms
 
 from .models import *
 from django.contrib.admin.widgets import  AdminDateWidget, AdminTimeWidget, AdminSplitDateTime
+from django.forms.widgets import DateTimeInput
 
 
 class company_Form(forms.ModelForm):
@@ -185,7 +186,7 @@ class truck_details_Form(forms.ModelForm):
         fields = '__all__'
         widgets = {
             'truck_owner': forms.Select(attrs={
-                'class': 'form-control', 'id': 'truck_owner'
+                'class': 'form-control sele', 'id': 'truck_detialstruck_owner'
             }),
             'truck_number': forms.TextInput(attrs={
                 'class': 'form-control', 'id': 'company'
@@ -284,6 +285,7 @@ class driver_Form(forms.ModelForm):
                 'class': 'form-control', 'id': 'mobile_number'
             }),
             
+            'driving_licence_expiry_date': DateTimeInput(attrs={'type': 'date', 'class' : 'form-control date_css'}, format = '%Y-%m-%d'),
 
         }
            

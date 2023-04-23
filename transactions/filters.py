@@ -161,6 +161,15 @@ class ack_filter(django_filters.FilterSet):
             })
     )
 
+    builty__user = django_filters.ModelChoiceFilter(
+        queryset=User.objects.all(),
+        widget=forms.Select(
+            attrs={
+                'class' : 'form-control sele',
+                'id' : 'user'
+            })
+    )
+
     builty__article = django_filters.ModelChoiceFilter(
         queryset=article.objects.all(),
         widget=forms.Select(

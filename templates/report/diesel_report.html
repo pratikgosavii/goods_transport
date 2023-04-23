@@ -277,6 +277,12 @@
               {{ builty_filter.form.DC_date_end__date }}
 
 
+              {% if request.user.is_superuser %}
+
+              <label for="name" class="control-label mb-1 la">User</label>
+              {{ builty_filter.form.user }}
+      
+              {% endif %}
 
 
 
