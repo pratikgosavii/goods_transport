@@ -1002,6 +1002,11 @@ def truck_report(request):
     total_mt = 0
     total_freight = 0
 
+    vals.append([''])
+    vals.append(['DISPATCH REPORT'])
+    vals.append([''])
+    vals.append([''])
+
     for i in builty_filters_data:
         vals1 = []
         vals1.append(counteer)
@@ -1261,6 +1266,12 @@ def porch_report(request):
     vals = []
         
     vals1 = []
+
+    total_mt = 0
+    total_freight = 0
+    total_advance = 0
+    total_balance = 0
+
     
     vals1.append("Sr No")
     vals1.append("Builty No")
@@ -1277,6 +1288,12 @@ def porch_report(request):
     vals.append(vals1)
 
     counteer = 1
+    
+    vals.append([''])
+    vals.append(['PORCH REPORT'])
+    vals.append([''])
+    vals.append([''])
+
 
     for i in builty_filters_data:
         vals1 = []
@@ -1285,7 +1302,7 @@ def porch_report(request):
         vals1.append(i[0])
         vals1.append(i[1])
         vals1.append(i[2])
-        vals1.append(i[3])
+        vals1.append('%s/%s/%s' % (i[3].month, i[3].day, i[3].year))
         vals1.append(i[4])
         vals1.append(i[5])
         vals1.append(i[6])
@@ -1296,23 +1313,33 @@ def porch_report(request):
         vals.append(vals1)
 
 
+        total_mt = total_mt + i[6]
+        total_freight = total_freight + i[8]
+        total_advance = total_advance + i[9]
+        total_balance = total_balance + i[10]
 
+    vals.append('')
+    vals.append(['total', '','','','','','',total_mt,'', total_freight,total_advance, total_balance])
+        
     
     name = "Report.csv"
     path = os.path.join(BASE_DIR) + '\static\csv\\' + name
-    with open(path,  'r+', newline="") as f:
+    with open(path,  'w', newline="") as f:
         writer = csv.writer(f)
         writer.writerows(vals)
 
 
         link = os.path.join(BASE_DIR) + '\static\csv\\' + name
-        
+
+
+    with open(path,  'r', newline="") as f:
+     
         mime_type  = mimetypes.guess_type(link)
 
         response = HttpResponse(f.read(), content_type=mime_type)
         response['Content-Disposition'] = 'attachment;filename=' + str(link)
 
-    return response
+        return response
 
 
 
