@@ -977,6 +977,10 @@ def truck_report(request):
     builty_filters_data1 = list(builty_filters.qs.values_list('builty_no', 'DC_date', 'truck_details__truck_number', 'truck_owner__owner_name', 'station_from__name', 'station_to__name', 'district__name', 'consignor__name', 'onaccount__name', 'have_ack__challan_date', 'mt', 'rate', 'freight'))
     builty_filters_data = list(map(list, builty_filters_data1))
     
+    vals.append([''])
+    vals.append(['DISPATCH REPORT'])
+    vals.append([''])
+    vals.append([''])
 
     vals = []
         
@@ -1002,10 +1006,6 @@ def truck_report(request):
     total_mt = 0
     total_freight = 0
 
-    vals.append([''])
-    vals.append(['DISPATCH REPORT'])
-    vals.append([''])
-    vals.append([''])
 
     for i in builty_filters_data:
         vals1 = []
