@@ -1169,9 +1169,22 @@ def diesel_report(request):
 
     name = "Diesel_Report.csv"
     path = os.path.join(BASE_DIR) + '\static\csv\\' + name
+
+    
     with open(path,  'w', newline="") as f:
         writer = csv.writer(f)
         writer.writerows(vals)
+
+
+        link = os.path.join(BASE_DIR) + '\static\csv\\' + name
+
+    with open(path,  'r', newline="") as f:
+        mime_type  = mimetypes.guess_type(link)
+
+        response = HttpResponse(f.read(), content_type=mime_type)
+        response['Content-Disposition'] = 'attachment;filename=' + str(link)
+
+        return response
 
 
     link = os.path.join(BASE_DIR) + '\static\csv\\' + name
