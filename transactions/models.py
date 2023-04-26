@@ -30,7 +30,7 @@ class builty(models.Model):
     truck_owner = models.ForeignKey(truck_owner , on_delete=models.CASCADE, related_name='cxcdfdfvd')
     consignor = models.ForeignKey(consignor , on_delete=models.CASCADE, related_name='wdsfgv')
     petrol_pump = models.ForeignKey(petrol_pump , null = True, blank = True, on_delete=models.CASCADE, related_name='wdsfgv')
-    station_from = models.ForeignKey(station , on_delete=models.CASCADE, related_name='sdsdsdssdsdsdcs')
+    station_from = models.ForeignKey(from_station , on_delete=models.CASCADE, related_name='sdsdsdssdsdsdcs')
     station_to = models.ForeignKey(station , on_delete=models.CASCADE, related_name='dvccxcred')
     consignee = models.CharField(max_length=50)
     taluka = models.ForeignKey(taluka, on_delete=models.CASCADE, related_name='sdscsc')

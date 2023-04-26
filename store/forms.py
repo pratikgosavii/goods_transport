@@ -186,7 +186,7 @@ class truck_details_Form(forms.ModelForm):
         fields = '__all__'
         widgets = {
             'truck_owner': forms.Select(attrs={
-                'class': 'form-control sele', 'id': 'truck_detialstruck_owner'
+                'class': 'form-control sele', 'id': 'gfghjkjhgc'
             }),
             'truck_number': forms.TextInput(attrs={
                 'class': 'form-control', 'id': 'company'
