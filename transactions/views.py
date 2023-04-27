@@ -991,14 +991,18 @@ def truck_report(request):
     builty_filters_data1 = list(builty_filters.qs.values_list('builty_no', 'DC_date', 'truck_details__truck_number', 'truck_owner__owner_name', 'station_from__name', 'station_to__name', 'district__name', 'consignor__name', 'onaccount__name', 'have_ack__challan_date', 'mt', 'rate', 'freight'))
     builty_filters_data = list(map(list, builty_filters_data1))
     
+
+    
+    vals = []
+        
+    vals1 = []
+
+
     vals.append([''])
     vals.append(['DISPATCH REPORT'])
     vals.append([''])
     vals.append([''])
 
-    vals = []
-        
-    vals1 = []
     vals1.append("Sr No")
     vals1.append("Builty No")
     vals1.append("Date")
@@ -1008,7 +1012,7 @@ def truck_report(request):
     vals1.append("Station To")
     vals1.append("District")
     vals1.append("Consignor")
-    vals1.append("Account")
+    vals1.append("Onaccount")
     vals1.append("Chal Date")
     vals1.append("MT")
     vals1.append("Rate")
@@ -1149,6 +1153,12 @@ def diesel_report(request):
     vals = []
         
     vals1 = []
+
+    
+    vals.append([''])
+    vals.append(['DIESEL REPORT'])
+    vals.append([''])
+    vals.append([''])
     
     vals1.append("Sr No")
     vals1.append("Builty No")
@@ -1157,7 +1167,7 @@ def diesel_report(request):
     vals1.append("Station From")
     vals1.append("Station To")
     vals1.append("Consignor")
-    vals1.append("Account")
+    vals1.append("Onaccount")
     vals1.append("Diesel")
     vals1.append("Petrol Pump")
     vals.append(vals1)

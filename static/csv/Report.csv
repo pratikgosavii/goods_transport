@@ -1,9 +1,8 @@
-Sr No,Builty No,Builty Date,Challan No,Challan Date,Truck No,To,MT,Rate,Freight,Advance,Balance
 ""
-PORCH REPORT
+DISPATCH REPORT
 ""
 ""
-1,UTCL-2,2023-04-01,8320434429,4/2/2023,MH30L4767,DANAPUR,9.6,0.0,0.0,0.0,0.0
-2,UTCL-1,2023-04-01,8320434428,4/2/2023,MH30L4767,DANAPUR,15.4,0.0,0.0,2650.0,0.0
+Sr No,Builty No,Date,Truck No,Owner,Station From,Station To,District,Consignor,Account,Chal Date,MT,Rate,Freight
+1,UTCL-287,4/27/2023,MH30L3745,Sahani Goods Transport,SHIVNI GODOWN,AKOLA RAILHEAD,AKOLA,ULTRATECH CEMENT LTD MUMBAI,ADINATH AGENCY,,171.7,3434.0,589617.8
 
-total,,,,,,,25.0,,0.0,2650.0,0.0
+total,,,,,,,,,,,171.7,,589617.8
