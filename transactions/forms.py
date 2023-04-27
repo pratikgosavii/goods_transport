@@ -53,7 +53,7 @@ class builty_Form(forms.ModelForm):
             }),
             'taluka': forms.Select(attrs={
                 'id': 'taluka',
-                'class' : 'se',
+                'class' : 'se sele',
             }),
             'district': forms.Select(attrs={
                 'id': 'district', 'class' : 'se'

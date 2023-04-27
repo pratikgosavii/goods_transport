@@ -357,12 +357,10 @@
                                     <tr>
 
                                         <td>
-                                            
                                             <div class="input-wrapper" style="display:flex;">
                                                 <label for="first">Taluka</label>
-                                                {{ form.taluka }} <input type="button" data-toggle="modal" data-target="#myModal_taluka" style="width: 36px; padding: 1px; margin: 10px 0px;width: 36px;padding: 1px; margin: 10px 0px;background: #05386b;color: white;font-weight: bolder;font-size: 23px;text-align: center;line-height: 3px;" value="+">
+                                                {{ from_form_station.taluka }} <input type="button" data-toggle="modal" data-target="#myModal_district"  style="width: 36px; padding: 1px; margin: 10px 0px;width: 36px;padding: 1px; margin: 10px 0px;background: #05386b;color: white;font-weight: bolder;font-size: 23px;text-align: center;line-height: 3px;" value="+">
                                               </div>
-                                        
                                         </td>
                                         <td>
                                             
@@ -1032,12 +1030,7 @@
 
                 <form id="station_Form">
         
-                        
-                        <div class="input-wrapper" style="display:flex;">
-                            <label for="first">Taluka name</label>
-                            {{ station_Form.taluka }}
-                        </div>
-
+                     
 
                             <div class="input-wrapper" style="display:flex;">
                                 <label for="first">Station name</label>
@@ -1054,7 +1047,7 @@
 
             </div>
         </div>
-    </div>
+    </div>taluk
 </div>
 
 <div class="modal fade" id="myModal_from_station" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -1076,15 +1069,11 @@
                 <form id="from_station_Form">
         
                         
-                        <div class="input-wrapper" style="display:flex;">
-                            <label for="first">Taluka name</label>
-                            {{ station_Form.taluka }}
-                        </div>
-
+                      
 
                             <div class="input-wrapper" style="display:flex;">
                                 <label for="first">Station name</label>
-                                {{ station_Form.name }}
+                                {{ from_form_station.name }}
                             </div>
 
 
@@ -1825,7 +1814,6 @@
 
     $("#truck_owner").css("pointer-events","none");
     $("#district").css("pointer-events","none");
-    $("#taluka").css("pointer-events","none");
 
     document.getElementById("balance").readOnly = true
 

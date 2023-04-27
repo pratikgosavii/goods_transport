@@ -91,6 +91,7 @@ def add_transaction(request):
 
             from_truck_details = truck_details_Form()
             form_truck_owner = truck_owner_Form()
+            from_form_station= from_station_Form(user = request.user)
             form_station= station_Form(user = request.user)
             form_taluka = taluka_Form(user = request.user)
             form_district = district_Form()
@@ -122,6 +123,7 @@ def add_transaction(request):
                 'company_data' : company_data,
                 'form_truck_details' : from_truck_details,
                 'form_truck_owner' : form_truck_owner,
+                'from_form_station' : from_form_station,
                 'station_Form' : form_station,
                 'form_onaccount' : form_onaccount,
                 'form_taluka' : form_taluka,
@@ -146,6 +148,7 @@ def add_transaction(request):
 
         from_truck_details = truck_details_Form()
         form_truck_owner = truck_owner_Form()
+        from_form_station= from_station_Form(user = request.user)
         form_station= station_Form(user = request.user)
         form_taluka = taluka_Form(user = request.user)
         form_district = district_Form()
@@ -176,6 +179,7 @@ def add_transaction(request):
             'company_data' : company_data,
             'form_truck_details' : from_truck_details,
             'form_truck_owner' : form_truck_owner,
+            'from_form_station' : from_form_station,
             'station_Form' : form_station,
             'form_onaccount' : form_onaccount,
             'form_taluka' : form_taluka,
