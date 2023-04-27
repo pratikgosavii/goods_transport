@@ -156,9 +156,17 @@ def add_transaction(request):
         form_article = article_Form(user = request.user)
 
         total_mt_today = 0
-        total_mt_today_instance = builty.objects.filter(DC_date__gte = date.today(), DC_date__lte = date.today(), user = request.user, deleted = False)
-        for i in total_mt_today_instance:
+        total_freight = 0
+        total_advance = 0
+        total_balance = 0
+        
+        data = builty.objects.filter(user = request.user, deleted = False, DC_date = date.today()).order_by('-id')
+        
+        for i in data:
             total_mt_today = total_mt_today + i.mt
+            total_freight = total_freight + i.freight
+            total_advance = total_advance + i.less_advance
+            total_balance = total_balance + i.balance
 
         if request.user.is_superuser:
 
@@ -172,7 +180,6 @@ def add_transaction(request):
             consignor_data = consignor.objects.filter(company = request.user.company, office_location= request.user.office_location)
             onaccount_data = onaccount.objects.filter(company = request.user.company, office_location= request.user.office_location)
 
-        data = builty.objects.filter(user = request.user, deleted = False, DC_date = date.today()).order_by('-id')
 
         context = {
             'form': forms,
@@ -189,6 +196,9 @@ def add_transaction(request):
             'consignor_data' : consignor_data,
             'onaccount_data' : onaccount_data,
             'total_mt_today' : total_mt_today,
+            'total_balance' : total_balance,
+            'total_advance' : total_advance,
+            'total_freight' : total_freight,
             'data' : data,
         }
         return render(request, 'transactions/add_builty.html', context)
