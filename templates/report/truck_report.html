@@ -323,15 +323,9 @@
   
 
 
-<form method="post" action="{% url 'truck_report' %}">
-
-    {% csrf_token %}
-
-    <button class="btn btn-primary" type="submit">
+    <button class="btn btn-primary" onclick="report();" type="submit">
         Download Transport Dispatch Report
     </button> 
-</form>
-
 
 
 <br>
@@ -587,6 +581,24 @@ $("#truck_owner").val(truck_owner_options).trigger('change');
 consignor_options = url.searchParams.getAll("consignor");
 
 $("#consignor").val(consignor_options).trigger('change');
+
+
+
+
+function report(){
+
+  url = window.location.href
+  
+  url = url.split('?')
+  
+  url = url[1]
+  
+  url = "{% url 'truck_report' %}" + '?' + url
+  
+  window.location = url
+  
+  }
+  
 
 
 

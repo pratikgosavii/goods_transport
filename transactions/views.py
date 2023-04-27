@@ -1288,7 +1288,7 @@ def porch_report(request):
     builty_filters_data1 = list(builty_filters.qs.values_list('builty_no', 'DC_date', 'have_ack__challan_number', 'have_ack__challan_date', 'truck_details__truck_number', 'station_to__name', 'mt', 'rate', 'freight', 'less_advance', 'balance'))
     builty_filters_data = list(map(list, builty_filters_data1))
     
-    
+    print('---------------')
 
     vals = []
         
@@ -1298,6 +1298,14 @@ def porch_report(request):
     total_freight = 0
     total_advance = 0
     total_balance = 0
+
+
+        
+    vals.append([''])
+    vals.append(['PORCH REPORT'])
+    vals.append([''])
+    vals.append([''])
+
 
     
     vals1.append("Sr No")
@@ -1315,11 +1323,6 @@ def porch_report(request):
     vals.append(vals1)
 
     counteer = 1
-    
-    vals.append([''])
-    vals.append(['PORCH REPORT'])
-    vals.append([''])
-    vals.append([''])
 
 
     for i in builty_filters_data:
