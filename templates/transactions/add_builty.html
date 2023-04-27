@@ -221,8 +221,6 @@
                             <div class="animated fadeIn" id="message"></div>
                         </div>
 
-
-
                         <form action="#" onsubmit="myButton.disabled = true; return true;" id="mains" method="post" >
                             {% csrf_token %}
 
@@ -359,7 +357,8 @@
                                         <td>
                                             <div class="input-wrapper" style="display:flex;">
                                                 <label for="first">Taluka</label>
-                                                {{ from_form_station.taluka }} <input type="button" data-toggle="modal" data-target="#myModal_district"  style="width: 36px; padding: 1px; margin: 10px 0px;width: 36px;padding: 1px; margin: 10px 0px;background: #05386b;color: white;font-weight: bolder;font-size: 23px;text-align: center;line-height: 3px;" value="+">
+                                                {{ form.taluka }}
+                                                <input type="button" data-toggle="modal" data-target="#myModal_taluka"  style="width: 36px; padding: 1px; margin: 10px 0px;width: 36px;padding: 1px; margin: 10px 0px;background: #05386b;color: white;font-weight: bolder;font-size: 23px;text-align: center;line-height: 3px;" value="+">
                                               </div>
                                         </td>
                                         <td>
@@ -724,7 +723,7 @@
 <!-- ====================== consignor ================================= -->
 
 
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="myModal" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -784,7 +783,7 @@
 <!-- ====================== article ================================= -->
 
 
-    <div class="modal fade" id="myModal_article" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="myModal_article" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -879,7 +878,7 @@
 <!-- ====================== truck_details ================================= -->
 
 
-<div class="modal fade" id="myModal_truck_details" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="myModal_truck_details" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -951,7 +950,7 @@
 <!-- ====================== truck_owner ================================= -->
 
 
-<div class="modal fade" id="myModal_truck_owner" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="myModal_truck_owner" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -1011,7 +1010,7 @@
 <!-- ====================== station ================================= -->
 
 
-<div class="modal fade" id="myModal_station" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="myModal_station" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -1032,6 +1031,11 @@
                      
 
                             <div class="input-wrapper" style="display:flex;">
+                                <label for="first">Taluka</label>
+                                {{ station_Form.taluka }}
+                            </div>
+
+                            <div class="input-wrapper" style="display:flex;">
                                 <label for="first">Station name</label>
                                 {{ station_Form.name }}
                             </div>
@@ -1049,7 +1053,7 @@
     </div>taluk
 </div>
 
-<div class="modal fade" id="myModal_from_station" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="myModal_from_station" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -1069,6 +1073,11 @@
         
                         
                       
+
+                            <div class="input-wrapper" style="display:flex;">
+                                <label for="first">Taluka</label>
+                                {{ from_form_station.taluka }}
+                            </div>
 
                             <div class="input-wrapper" style="display:flex;">
                                 <label for="first">Station name</label>
@@ -1095,7 +1104,7 @@
 <!-- ====================== taluka ================================= -->
 
 
-<div class="modal fade" id="myModal_taluka" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="myModal_taluka" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -1144,7 +1153,7 @@
 <!-- ====================== distirct ================================= -->
 
 
-<div class="modal fade" id="myModal_district" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="myModal_district" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -1191,7 +1200,7 @@
 <!-- ====================== onaccount ================================= -->
 
 
-<div class="modal fade" id="myModal_onaccount" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="myModal_onaccount" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -1693,7 +1702,6 @@
 
                     let_html = '<option value="' + data.id + '" selected>' + data.value + '</option>'
 
-                    alert('I am here')
 
                     $('#station_to').append(let_html);
 

@@ -25,7 +25,7 @@ class builty(models.Model):
 
     company = models.ForeignKey(company , on_delete=models.CASCADE, related_name='sdwe')
     builty_no = models.CharField(max_length=50)
-    DC_date = models.DateField(auto_now_add=False)
+    DC_date = models.DateField(auto_now_add=False, default=datetime.now)
     truck_details = models.ForeignKey(truck_details , on_delete=models.CASCADE, related_name='sdsdsc')
     truck_owner = models.ForeignKey(truck_owner , on_delete=models.CASCADE, related_name='cxcdfdfvd')
     consignor = models.ForeignKey(consignor , on_delete=models.CASCADE, related_name='wdsfgv')
