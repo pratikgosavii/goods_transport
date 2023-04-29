@@ -1964,6 +1964,7 @@
         
         let bags = this.value;
 
+        {% if request.user.username == "deepak" %}
 
         if(document.getElementById('deepak').checked) {
 
@@ -1984,6 +1985,16 @@
         document.getElementById("mt").value = global_mt;
 
         }
+
+        {% else %}
+
+        global_mt = parseFloat((bags / 25).toFixed(2));
+
+        document.getElementById("mt").value = global_mt;
+
+        {% endif %}
+
+
 
         rate = document.getElementById('rate').value;
         
@@ -2090,7 +2101,8 @@
 
     
 
-
+    {% if request.user.username == "deepak" %}
+    
     function adjust_mt(){
 
 
@@ -2117,6 +2129,7 @@
         
     }
 
+    {% endif %}
 
     
 </script>
