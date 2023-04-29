@@ -452,7 +452,7 @@
                                                 
                                               <div class="input-wrapper" style="display:flex;">
                                                 <label for="first">MT</label>
-                                                {{ form.mt }}
+                                                {{ form.mt }} {% if request.user.username == "deepak" %} <input type="checkbox" name="gender" style="width: 15px;" onclick="adjust_mt()" id="deepak" value="" /> {% endif %}
                                               </div>
 
                                         </div>
@@ -1859,7 +1859,7 @@
       $('#onaccount').change(function(){
 
 
-        document.getElementById("id_DC_date").showPicker();
+        $('#bags').focus();
 
         
       })
@@ -1961,15 +1961,29 @@
     let global_freight = 0
 
     bags.addEventListener("input", function (e) {
-
         
         let bags = this.value;
+
+
+        if(document.getElementById('deepak').checked) {
+
+            global_mt = parseFloat((bags / 25).toFixed(2));
+
+            document.getElementById("mt").value = global_mt;
+
+        }
+
+        else{
+
+        
 
         
 
         global_mt = parseFloat((bags / 20).toFixed(2));
 
         document.getElementById("mt").value = global_mt;
+
+        }
 
         rate = document.getElementById('rate').value;
         
@@ -2077,7 +2091,31 @@
     
 
 
+    function adjust_mt(){
 
+
+        bags = document.getElementById("bags").value;
+
+        if(document.getElementById('deepak').checked) {
+
+            global_mt = parseFloat((bags / 25).toFixed(2));
+
+            document.getElementById("mt").value = global_mt;
+
+        }
+
+        else{
+
+    
+
+        global_mt = parseFloat((bags / 20).toFixed(2));
+
+        document.getElementById("mt").value = global_mt;
+
+        }
+
+        
+    }
 
 
     
