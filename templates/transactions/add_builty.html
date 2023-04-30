@@ -1856,29 +1856,27 @@
         }
       }
 
+     
       $('#onaccount').change(function(){
 
 
-        $('#bags').focus();
+        document.getElementById("id_DC_date").showPicker();
 
         
       })
-
       
+     
       $('#id_DC_date').change(function(){
 
 
-        document.getElementById("id_mobile_no").focus();
+        document.getElementById("bags").focus();
 
-
+        
       })
-
-      $('#id_DC_date').change(function(){
-
-        document.getElementById("id_mobile_no").focus();
-
-
-      })
+      
+      {% comment %} id_DC_date
+      id_mobile_no {% endcomment %}
+   
       
       const inputE2 = document.getElementById("id_mobile_no");
 
