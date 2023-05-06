@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'users',
     'store',
     'transactions',
+    'django_crontab',
     'dbbackup',
 ]
 
@@ -85,6 +86,10 @@ DATABASES = {
     }
 }
 
+
+CRONJOBS = [
+    ('*/1 * * * *', 'transport.cron.my_scheduled_job'),
+]
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
