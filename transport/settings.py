@@ -88,7 +88,7 @@ DATABASES = {
 
 
 CRONJOBS = [
-    ('*/1 * * * *', 'transport.cron.my_scheduled_job'),
+    ('*/1 * * * *', 'transactions.cron.my_scheduled_job'),
 ]
 
 # Password validation
