@@ -76,7 +76,7 @@ class truck_owner(models.Model):
 
        
     def __str__(self):
-        return self.owner_nam
+        return self.owner_name
 
 
 class petrol_pump(models.Model):
