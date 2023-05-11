@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'users',
     'store',
     'transactions',
+    'expenses',
     'dbbackup',
 ]
 

@@ -158,10 +158,6 @@
       
 
 
-      .right-panel {
-        margin-left: 0px;
-    }
-
       
 </style>
 
@@ -377,20 +373,20 @@
             <div class="col-xl-12">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="box-title"> Truck Master list </h4>
+                        <h4 class="box-title">Master list </h4>
                     </div>
                     <div class="card-body--">
                         <div class="table-stats order-table ov-h">
                             <table class="table ">
                                 <thead>
                                     <tr>
-                                        <th class="serial">#</th>
-                                        <th>Truck No</th>
-                                        <th>Trip</th>
-                                        <th>Expense</th>
-                                        <th>Bussiness</th>
-                                        <th>Profit</th>
-                                        <th>#</th>
+                                      <th class="serial">#</th>
+                                      <th>Truck No</th>
+                                      <th>Trip</th>
+                                      <th>Expense</th>
+                                      <th>Bussiness</th>
+                                      <th>Profit</th>
+                                      <th>#</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -402,22 +398,20 @@
 
                                         <td class="serial">{{ forloop.counter }}</td>
                               
-                                        <td>{{ i.truck_no }}</td>
+                                        <td>{{ i.builty_no }}</td>
                                         <td>{{ i.user }}</td>
                                         <td>{{ i.DC_date }}</td>
                                         <td>{{ i.truck_details }}</td>
                                         <td>{{ i.truck_owner }}</td>
-                                     
-        
+                                  
                                       
                                         </td>
                                     </tr>
 
-
                                     {% endfor %}
-                                    {% else %}
-                                        <tr><td>No Order Data</td></tr>
+
                                     {% endif %}
+
                                 </tbody>
                             </table>
 
