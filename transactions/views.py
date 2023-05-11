@@ -332,6 +332,8 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from django.db.models.functions import Substr
 
+from django.db.models import Sum
+
 @user_is_active
 def list_transaction(request):
 
@@ -347,10 +349,11 @@ def list_transaction(request):
 
     filter_data = builty_filters.qs
 
-    total_freight = 0
-    total_advance = 0
+    total_freight = filter_data.aggregate(Sum('freight'))['freight__sum']
+    total_advance = filter_data.aggregate(Sum('less_advance'))['less_advance__sum']
+    total_mt = filter_data.aggregate(Sum('mt'))['mt__sum']
+
     total_balance = 0
-    total_mt = 0
 
     for i in filter_data:
 
@@ -358,11 +361,6 @@ def list_transaction(request):
        
             total_balance = total_balance + i.balance
 
-        total_freight = total_freight + i.freight
-        total_advance = total_advance + i.less_advance
-        total_mt = total_mt + i.mt
-
-    
     total_balance = round(total_balance, 2)
     total_freight = round(total_freight, 2)
     total_advance = round(total_advance, 2)
