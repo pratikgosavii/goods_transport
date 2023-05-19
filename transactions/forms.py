@@ -31,7 +31,7 @@ class builty_Form(forms.ModelForm):
 
             }),
             'truck_owner': forms.Select(attrs={
-                'id': 'truck_owner', 'class' : 'se',
+                'id': 'truck_owner', 
 
             }),
             'consignor': forms.Select(attrs={
