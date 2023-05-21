@@ -205,7 +205,7 @@ class ack_filter(django_filters.FilterSet):
             })
     )
     builty__station_from = django_filters.ModelChoiceFilter(
-        queryset=station.objects.all(),
+        queryset=from_station.objects.all(),
         widget=forms.Select(
             attrs={
                 'class' : 'form-control sele',
