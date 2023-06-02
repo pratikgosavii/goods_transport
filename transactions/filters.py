@@ -29,6 +29,15 @@ class builty_filter(django_filters.FilterSet):
                 'id' : 'station_from'
             })
     )
+
+    station_to = django_filters.ModelChoiceFilter(
+        queryset=station.objects.all(),
+        widget=forms.Select(
+            attrs={
+                'class' : 'form-control sele',
+                'id' : 'station_to'
+            })
+    )
     
     article = django_filters.ModelChoiceFilter(
         queryset=article.objects.all(),
