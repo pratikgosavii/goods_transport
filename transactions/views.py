@@ -1287,10 +1287,10 @@ def porch_report(request):
     if request.user.is_superuser:
 
 
-        data = builty.objects.filter(~Q(have_ack__challan_number = None), deleted = False).order_by('-id')
+        data = builty.objects.filter(~Q(have_ack__challan_number = None), deleted = False).order_by('id')
     else:
 
-        data = builty.objects.filter(~Q(have_ack__challan_number = None), user = request.user, deleted = False).order_by('-id')
+        data = builty.objects.filter(~Q(have_ack__challan_number = None), user = request.user, deleted = False).order_by('id')
 
     builty_filters = builty_filter(request.user, request.GET, queryset=data)
     builty_filters_data1 = list(builty_filters.qs.values_list('builty_no', 'DC_date', 'have_ack__challan_number', 'have_ack__challan_date', 'truck_details__truck_number', 'station_to__name', 'mt', 'rate', 'freight', 'less_advance', 'balance'))
