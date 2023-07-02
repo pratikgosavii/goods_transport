@@ -1,0 +1,171 @@
+<html>
+<head>
+    <title>My PDF</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Verdana, Geneva, sans-serif;
+            font-size: 12pt;
+        }
+
+        h1 {
+            font-size: 14px;
+            font-weight: lighter;
+            margin: 0 0;
+
+        }
+
+        h2 {
+            font-size: 22px;
+            margin: 0 0;
+        }
+
+        h3 {
+            font-size: 14px;
+            margin: 0 0;
+            font-weight: lighter;
+
+
+        }
+
+       
+        table {
+            margin: 0 auto;
+            border-collapse: collapse;
+            width: 100%;
+        }
+    
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: center;
+            font-size: 10px; /* Adjust the font-size value */
+        }
+
+
+        .sub-div-container {
+            margin-top: 10px;
+            
+        }
+    
+        .sub-div-container table {
+            width: 100%;
+        }
+    
+        .sub-div-container td {
+            border: none;
+            padding: 10px;
+        }
+    
+
+        .table-container {
+            margin-top: 10px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    
+        .table-container table {
+            width: 100%;
+            margin-top: 20px;
+            
+        }
+    
+        .table-container td {
+            padding: 10px;
+            border: 1px solid black;
+            text-align: center;
+        }
+
+        .text-container p span {
+            margin-left: 10px; /* Add space between words */
+        }
+
+        .sub-div-container td p {
+            margin : 2px; 
+            font-weight : bolder;/* Adjust the margin-bottom value as needed */
+        }
+        
+
+
+    </style>
+</head>
+<body>
+    <h1>Subject to Akola Jurisdiction</h1>
+    <h2> Sahani Goods Transport</h2>
+    <h3>Near Railway Station</h3>
+    <h3>Akola Road, Akola</h3>
+
+
+    <div class="table-container">
+        <div class="page-number">Page <span class="page-number-value"></span></div>
+
+    <div class="sub-div-container">
+        <table>
+            <tr>
+                <td style="width: 50%; vertical-align: top; text-align: left; font-size: 13px;">
+                    <p>Dispatch report of all</p>
+                    <p>Dispatch Type : All</p>
+                    <p>From : All</p>
+                    <p>From Date : {{ date_from }} <span style="margin-left : 20px;"> To Date : {{ date_to }}</span></p>
+                </td>
+                <td style="width: 50%; vertical-align: top; text-align: right; font-size: 13px;">
+                    <p>Vehicle : Own</p>
+                    <p>Truck/Owner : All</p>
+                    <p>Date : {{ date_today }} </p>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+
+    
+    <table class="mainta">
+        <thead styyle="font-weight : bolder;">
+            <tr>
+                <th style="width: 3.5%;">No</th>
+                <th style="width: 14%;">Builty</th>
+                <th style="width: 9%;">Date</th>
+                <th style="width: 13%;">Truck No</th>
+                <th style="width: 15%;">Consignee</th>
+                <th style="width: 13%;">Account</th>
+                <th style="width: 10%;">Delivery No</th>
+                <th style="width: 12%;">Destination</th>
+                <th style="width: 5%;">M.T</th>
+                <th style="width: 10%;">Challan</th>
+                <th style="width: 4%;">Bill</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            {% for i in data %}
+
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ i.builty_no }}</td>
+                    <td>{{ i.DC_date|date:"d/m/Y" }}</td>
+                    <td>{{ i.truck_details }}</td>
+                    <td>{{ i.consignee }}</td>
+                    <td>{{ i.onaccount }}</td>
+                    <td>{{ i.delivery_no }}</td>
+                    <td>{{ i.station_to }}</td>
+                    <td>{{ i.mt }}</td>
+                    <td> {% if i.have_ack.all.0.challan_number != None %} {{ i.have_ack.all.0.challan_number }} {% else %} 0 {% endif %} </td>
+                    <td> 5</td>
+                </tr>
+
+            {% endfor %}
+
+        </tbody>
+    </table>
+
+    <p style="font-size: 10pt;font-weight : bolder;"> Total MT : {{ total_mt }} </p>
+
+</div>
+
+
+<script>
+
+    
+</script>
+</body>
+</html>

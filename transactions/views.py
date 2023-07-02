@@ -87,6 +87,8 @@ def add_transaction(request):
 
         else:
 
+            messages.error(request, 'Something went wrong')
+
             company_data = company.objects.all()
 
             from_truck_details = truck_details_Form()
@@ -247,6 +249,8 @@ def update_builty(request, bulity_id):
 
         else:
 
+            messages.error(request, 'Something went wrong')
+
             if request.user.is_superuser:
 
                 article_data = article.objects.all()
@@ -352,14 +356,8 @@ def list_transaction(request):
     total_freight = filter_data.aggregate(Sum('freight'))['freight__sum']
     total_advance = filter_data.aggregate(Sum('less_advance'))['less_advance__sum']
     total_mt = filter_data.aggregate(Sum('mt'))['mt__sum']
+    total_balance = filter_data.filter(have_ack__isnull = True).aggregate(Sum('balance'))['balance__sum']
 
-    total_balance = 0
-
-    for i in filter_data:
-
-        if not i.have_ack.filter():
-       
-            total_balance = total_balance + i.balance
 
     total_balance = round(total_balance, 2)
     total_freight = round(total_freight, 2)
@@ -986,87 +984,34 @@ def truck_report(request):
         data = builty.objects.filter(user = request.user, deleted = False).order_by('id')
 
     builty_filters = builty_filter(request.user, request.GET, queryset=data)
-    builty_filters_data1 = list(builty_filters.qs.values_list('builty_no', 'DC_date', 'truck_details__truck_number', 'truck_owner__owner_name', 'station_from__name', 'station_to__name', 'district__name', 'consignor__name', 'onaccount__name', 'have_ack__challan_date', 'mt', 'rate', 'freight'))
-    builty_filters_data = list(map(list, builty_filters_data1))
+    print('-------------------------')
     
+    data = builty_filters.qs
 
+    total_mt = data.aggregate(Sum('mt'))['mt__sum']
+
+    date_from = request.GET.get('DC_date_start__date')
+    date_to = request.GET.get('DC_date_end__date')
+
+    print(total_mt)
+    print(date_from)
+    print(date_to)
+   
+    params = {
+        'data': data,
+        'total_mt': total_mt,
+        'date_today' : date.today(),
+        'date_from' : date_from,
+        'date_to' : date_to
+    }
     
-    vals = []
+    file = render_to_file('transactions/dispatch_report_pdf.html', params)
+
+
+    with open(file, 'rb') as fh:
         
-    vals1 = []
+        return HttpResponse(fh, content_type='application/pdf')
 
-
-    vals.append([''])
-    vals.append(['DISPATCH REPORT'])
-    vals.append([''])
-    vals.append([''])
-
-    vals1.append("Sr No")
-    vals1.append("Builty No")
-    vals1.append("Date")
-    vals1.append("Truck No")
-    vals1.append("Owner")
-    vals1.append("Station From")
-    vals1.append("Station To")
-    vals1.append("District")
-    vals1.append("Consignor")
-    vals1.append("Onaccount")
-    vals1.append("Chal Date")
-    vals1.append("MT")
-    vals1.append("Rate")
-    vals1.append("Freight")
-    vals.append(vals1)
-
-    counteer = 1
-
-    total_mt = 0
-    total_freight = 0
-
-
-    for i in builty_filters_data:
-        vals1 = []
-        vals1.append(counteer)
-        counteer = counteer + 1
-        vals1.append(i[0])
-        vals1.append('%s/%s/%s' % (i[1].month, i[1].day, i[1].year))
-        vals1.append(i[2])
-        vals1.append(i[3])
-        vals1.append(i[4])
-        vals1.append(i[5])
-        vals1.append(i[6])
-        vals1.append(i[7])
-        vals1.append(i[8])
-        vals1.append(i[9])
-        vals1.append(i[10])
-        vals1.append(i[11])
-        vals1.append(i[12])
-        vals.append(vals1)
-
-        total_mt = total_mt + i[10]
-        total_freight = total_freight + i[12]
-
-
-    print(vals)
-
-    vals.append('')
-    vals.append(['total', '','','','','','','','','','', total_mt,'', total_freight])
-        
-    name = "Report.csv"
-    path = os.path.join(BASE_DIR) + '\static\csv\\' + name
-    with open(path,  'w', newline="") as f:
-        writer = csv.writer(f)
-        writer.writerows(vals)
-
-
-        link = os.path.join(BASE_DIR) + '\static\csv\\' + name
-
-    with open(path,  'r', newline="") as f:
-        mime_type  = mimetypes.guess_type(link)
-
-        response = HttpResponse(f.read(), content_type=mime_type)
-        response['Content-Disposition'] = 'attachment;filename=' + str(link)
-
-        return response
 
 
 def truck_report_list(request):
@@ -1397,18 +1342,18 @@ def porch_report_list(request):
     total_diesel = 0
 
     data = builty_filters.qs
+
     
     total_freight = 0
     total_advance = 0
     total_balance = 0
     total_mt = 0
 
-    for i in data:
+    total_freight = data.aggregate(Sum('freight'))['freight__sum']
+    total_advance = data.aggregate(Sum('less_advance'))['less_advance__sum']
+    total_mt = data.aggregate(Sum('mt'))['mt__sum']
+    total_balance = data.aggregate(Sum('balance'))['balance__sum']
 
-        total_balance = total_balance + i.balance
-        total_freight = total_freight + i.freight
-        total_advance = total_advance + i.less_advance
-        total_mt = total_mt + i.mt
 
     page = request.GET.get('page', 1)
     paginator = Paginator(data, 20)
@@ -1420,16 +1365,6 @@ def porch_report_list(request):
     except EmptyPage:
         data = paginator.page(paginator.num_pages)
 
-
-    for i in data:
-        print(i.builty_no)
-   
-
-
-    total_balance = round(total_balance, 2)
-    total_freight = round(total_freight, 2)
-    total_diesel = round(total_diesel, 2)
-    total_mt = round(total_mt, 2)
 
     context = {
         'builty_filter' : builty_filters,
