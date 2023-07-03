@@ -358,7 +358,7 @@ def list_transaction(request):
     total_mt = filter_data.aggregate(Sum('mt'))['mt__sum']
     total_balance = filter_data.filter(have_ack__isnull = True).aggregate(Sum('balance'))['balance__sum']
 
-    if total_advance:
+    if total_balance:
         total_balance = round(total_balance, 2)
     if total_freight:
         total_freight = round(total_freight, 2)
