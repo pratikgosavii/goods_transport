@@ -358,10 +358,12 @@ def list_transaction(request):
     total_mt = filter_data.aggregate(Sum('mt'))['mt__sum']
     total_balance = filter_data.filter(have_ack__isnull = True).aggregate(Sum('balance'))['balance__sum']
 
-
-    total_balance = round(total_balance, 2)
-    total_freight = round(total_freight, 2)
-    total_advance = round(total_advance, 2)
+    if total_advance:
+        total_balance = round(total_balance, 2)
+    if total_freight:
+        total_freight = round(total_freight, 2)
+    if total_advance:
+        total_advance = round(total_advance, 2)
 
     page = request.GET.get('page', 1)
     paginator = Paginator(filter_data, 20)
