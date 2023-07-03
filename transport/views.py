@@ -95,16 +95,25 @@ def dashboard(request):
             total_mt = total_mt + i.mt
 
         
-        total_balance = round(total_balance, 2)
-        total_advance = round(total_advance, 2)
-        total_freight = round(total_freight, 2)
-        total1_freight = round(total1_freight, 2)
-        total_mt = round(total_mt, 2)
-        total1_balance = round(total1_balance, 2)
-        total1_advance = round(total1_advance, 2)
-        total1_mt = round(total1_mt, 2)
+        if total_balance:
+            total_balance = round(total_balance, 2)
+        if total_freight:
+            total_freight = round(total_freight, 2)
+        if total_advance:
+            total_advance = round(total_advance, 2)
+        if total_mt:
+            total_mt = round(total_mt, 2)
 
+        if total1_balance:
+            total1_balance = round(total_balance, 2)
+        if total1_freight:
+            total1_freight = round(total_freight, 2)
+        if total1_advance:
+            total1_advance = round(total_advance, 2)
+        if total_mt:
+            total1_mt = round(total_mt, 2)
 
+     
     context = {
         
         'data': data,

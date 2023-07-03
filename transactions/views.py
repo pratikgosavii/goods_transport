@@ -567,12 +567,16 @@ def list_ack_all(request):
         data = paginator.page(paginator.num_pages)
     
    
+    if total_balance:
+        total_balance = round(total_balance, 2)
+    if total_freight:
+        total_freight = round(total_freight, 2)
+    if total_advance:
+        total_advance = round(total_advance, 2)
+    if total_mt:
+        total_mt = round(total_mt, 2)
 
-    total_balance = round(total_balance, 2)
-    total_advance = round(total_advance, 2)
-    total_freight = round(total_freight, 2)
-    total_mt = round(total_mt, 2)
-  
+
     context = {
         'data' : data,
         'value' : '----- All -----',
@@ -627,12 +631,17 @@ def list_ack(request):
     
    
 
-    total_balance = round(total_balance, 2)
-    total_advance = round(total_advance, 2)
-    total_freight = round(total_freight, 2)
-    total_mt = round(total_mt, 2)
+    if total_balance:
+        total_balance = round(total_balance, 2)
+    if total_freight:
+        total_freight = round(total_freight, 2)
+    if total_advance:
+        total_advance = round(total_advance, 2)
+    if total_mt:
+        total_mt = round(total_mt, 2)
 
-    
+
+
     context = {
         'data' : data,
         'value' : 'Acknowlegde',
@@ -689,11 +698,18 @@ def list_not_ack(request):
         data = paginator.page(paginator.num_pages)
     
     
-    total_balance = round(total_balance, 2)
-    total_advance = round(total_advance, 2)
-    total_freight = round(total_freight, 2)
-    total_mt = round(total_mt, 2)
+
     
+    if total_balance:
+        total_balance = round(total_balance, 2)
+    if total_freight:
+        total_freight = round(total_freight, 2)
+    if total_advance:
+        total_advance = round(total_advance, 2)
+    if total_mt:
+        total_mt = round(total_mt, 2)
+
+
 
     context = {
         'data' : data,
@@ -1060,11 +1076,17 @@ def truck_report_list(request):
         data = paginator.page(paginator.num_pages)
    
 
-    total_balance = round(total_balance, 2)
-    total_advance = round(total_advance, 2)
-    total_freight = round(total_freight, 2)
-    total_mt = round(total_mt, 2)
-    
+    if total_balance:
+        total_balance = round(total_balance, 2)
+    if total_freight:
+        total_freight = round(total_freight, 2)
+    if total_advance:
+        total_advance = round(total_advance, 2)
+    if total_mt:
+        total_mt = round(total_mt, 2)
+
+
+
 
     context = {
         'builty_filter' : builty_filters,
