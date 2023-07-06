@@ -102,8 +102,7 @@ def add_transaction(request):
 
             total_mt_today = 0
             total_mt_today_instance = builty.objects.filter(DC_date__gte = date.today(), DC_date__lte = date.today(), user = request.user, deleted = False)
-            for i in total_mt_today_instance:
-                total_mt_today = total_mt_today + i.mt
+            total_mt_today = total_mt_today_instance.aggregate(Sum('mt'))['mt__sum']
 
 
             if request.user.is_superuser:
@@ -1051,18 +1050,12 @@ def truck_report_list(request):
     total_balance = 0
     total_mt = 0
 
-    for i in builty_filters.qs:
+   
 
-        if not i.have_ack.filter():
-    
-            total_balance = total_balance + i.balance
-
-        total_freight = total_freight + i.freight
-           
-        total_mt = total_mt + i.mt
-        total_advance = total_advance + i.less_advance
-
-
+    total_freight = builty_filters.aggregate(Sum('freight'))['freight__sum']
+    total_advance = builty_filters.aggregate(Sum('less_advance'))['less_advance__sum']
+    total_mt = builty_filters.aggregate(Sum('mt'))['mt__sum']
+    total_balance = builty_filters.filter(have_ack__isnull = True).aggregate(Sum('balance'))['balance__sum']
 
 
     page = request.GET.get('page', 1)

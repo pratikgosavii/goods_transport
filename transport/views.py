@@ -16,6 +16,13 @@ from django.core.paginator import Paginator, EmptyPage
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
+
+
+from django.db.models.functions import Substr
+
+from django.db.models import Sum
+
+
 @login_required(login_url='login')
 def dashboard(request):
 
@@ -43,21 +50,27 @@ def dashboard(request):
     if request.user.is_superuser:
         builty_data = builty.objects.all().order_by('-id')
         
-        total1_freight = 0
-        total1_advance = 0
-        total1_balance = 0
-        total1_mt = 0
+        # total1_freight = 0
+        # total1_advance = 0
+        # total1_balance = 0
+        # total1_mt = 0
 
-        for i in builty_data:
+        # for i in builty_data:
 
-            if not i.have_ack.filter():
+        #     if not i.have_ack.filter():
 
 
-                total1_balance = total1_balance + i.balance
+        #         total1_balance = total1_balance + i.balance
 
-            total1_freight = total1_freight + i.freight
-            total1_advance = total1_advance + i.less_advance
-            total1_mt = total1_mt + i.mt
+        #     total1_freight = total1_freight + i.freight
+        #     total1_advance = total1_advance + i.less_advance
+        #     total1_mt = total1_mt + i.mt
+
+        total1_freight = builty_data.aggregate(Sum('freight'))['freight__sum']
+        total1_advance = builty_data.aggregate(Sum('less_advance'))['less_advance__sum']
+        total1_mt = builty_data.aggregate(Sum('mt'))['mt__sum']
+        total1_balance = builty_data.filter(have_ack__isnull = True).aggregate(Sum('balance'))['balance__sum']
+
 
         builty_filters = builty_filter(request.user, request.GET, queryset=builty_data)
         
@@ -84,15 +97,11 @@ def dashboard(request):
             data = paginator.page(paginator.num_pages)
     
 
-        for i in data:
-
-            if not i.have_ack.filter():
         
-                total_balance = total_balance + i.balance
-
-            total_freight = total_freight + i.freight
-            total_advance = total_advance + i.less_advance
-            total_mt = total_mt + i.mt
+        total_freight = builty_filters.aggregate(Sum('freight'))['freight__sum']
+        total_advance = builty_filters.aggregate(Sum('less_advance'))['less_advance__sum']
+        total_mt = builty_filters.aggregate(Sum('mt'))['mt__sum']
+        total_balance = builty_filters.filter(have_ack__isnull = True).aggregate(Sum('balance'))['balance__sum']
 
         
         if total_balance:
