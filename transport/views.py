@@ -84,6 +84,13 @@ def dashboard(request):
 
         
 
+        
+        total_freight = data.aggregate(Sum('freight'))['freight__sum']
+        total_advance = data.aggregate(Sum('less_advance'))['less_advance__sum']
+        total_mt = data.aggregate(Sum('mt'))['mt__sum']
+        total_balance = data.filter(have_ack__isnull = True).aggregate(Sum('balance'))['balance__sum']
+
+        
 
         
         page = request.GET.get('page', 1)
@@ -97,13 +104,6 @@ def dashboard(request):
             data = paginator.page(paginator.num_pages)
     
 
-        
-        total_freight = builty_filters.aggregate(Sum('freight'))['freight__sum']
-        total_advance = builty_filters.aggregate(Sum('less_advance'))['less_advance__sum']
-        total_mt = builty_filters.aggregate(Sum('mt'))['mt__sum']
-        total_balance = builty_filters.filter(have_ack__isnull = True).aggregate(Sum('balance'))['balance__sum']
-
-        
         if total_balance:
             total_balance = round(total_balance, 2)
         if total_freight:
