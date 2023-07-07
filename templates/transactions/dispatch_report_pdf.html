@@ -71,7 +71,7 @@
         }
     
         .table-container td {
-            padding: 0px 0px;
+            padding: 5px 0px;
             border: 1px solid black;
             text-align: center;
             vertical-align: middle;
@@ -152,7 +152,7 @@
                     <td>{{ i.station_to }}</td>
                     <td>{{ i.mt }}</td>
                     <td> {% if i.have_ack.all.0.challan_number != None %} {{ i.have_ack.all.0.challan_number }} {% else %} 0 {% endif %} </td>
-                    <td> 5</td>
+                    <td>0</td>
                 </tr>
 
             {% endfor %}
