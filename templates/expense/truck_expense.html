@@ -4,12 +4,6 @@
 
 {% block head %}
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/chart.js@3.5.0/dist/chart.min.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0/dist/chartjs-plugin-datalabels.min.css">
-
-<script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.0/dist/chart.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0/dist/chartjs-plugin-datalabels.min.js"></script>
-
 <style>
 
 
@@ -254,35 +248,8 @@
     </div>
     
 
-    <div class="col-12" style="justify-content: center; background : white;display: flex;">
-      <div class="col-6"  style="color: black;
-        font-weight: 600;">
-        <canvas id="oilChart" width="600" height="400"></canvas>
-        <p style="text-align: center;
-        margin-top: 17px;
-        color: black;
-        font-weight: 600;"> Total profit 60 Lac 50 % </p>
-      </div>
-    </div>
-
-
-    <div class="col-12" style="justify-content: center; background : white;display: flex; margin-top : 17px;">
     
-      <div class="col-6"  style="color: black;  font-weight: 600; margin-top : 20px;">
-
-          <label for="name" class="control-label mb-1" style="margin-left : 0px;">Truck No</label>
-                  {{ builty_filter.form.truck_details_single }}
-                      
-
-        <canvas id="myChart" height = 200px;></canvas>
-        <p style="text-align: center;
-        margin-top: 17px;
-        color: black;
-        font-weight: 600;"> Total profit 60 Lac 50 % </p>
-      </div>
-
-    </div>
-    
+    <canvas id="oilChart" width="600" height="400"></canvas>
     
 {% endblock content %}
 
@@ -350,144 +317,6 @@
 
     }
    
-
-    var oilCanvas = document.getElementById("oilChart");
-    Chart.defaults.global.defaultFontSize = 14;
-
-var oilData = {
-    labels: [
-        "Revenue",
-        "Expense",
-        "Other",
-    ],
-    datasets: [
-        {
-            data: [10000000, 5000000, 1000000],
-            backgroundColor: [
-                "#4bb56a",
-                "#FC2947",
-                "#fbcc4e",
-                
-            ]
-        }]
-};
-
-
-
-function formatValue(value) {
-  if (value >= 10000000) {
-    return (value / 10000000).toFixed(2) + ' Cr';
-  } else if (value >= 100000) {
-    return (value / 100000).toFixed(2) + ' Lac';
-  } else if (value >= 1000) {
-    return (value / 1000).toFixed(2) + ' K';
-  } else {
-    return value.toFixed(2) + ' Rs';
-  }
-}
-
-oilData.datasets[0].data.forEach(function (value, index) {
-  oilData.labels[index] = oilData.labels[index] + ': ' + formatValue(value);
-});
-
-
-// Options for the pie chart
-var options = {
-  plugins: {
-    legend: {
-      display: true,
-      position: 'left',
-      align: 'start',
-      labels: {
-        usePointStyle: true,
-        boxWidth: 8,
-        padding: 16
-      }
-    },
-    tooltip: {
-      callbacks: {
-        label: function (tooltipItem, data) {
-          var value = data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index];
-          return data.labels[tooltipItem.index] + ': ' + formatValue(value);
-        }
-      }
-    },
-    datalabels: {
-      color: '#fff',
-      formatter: function (value, context) {
-        return data.labels[context.dataIndex].split(': ')[1]; // Extract formatted value from the label
-      }
-    }
-  }
-
-  
-};
-
-
-
-var pieChart = new Chart(oilCanvas, {
-  type: 'pie',
-  data: oilData,
-  options : options
-});
-
-
-
-// Data for the bar chart
-var data = {
-  labels: ['Revenue', 'Expense', 'Other'],
-  datasets: [{
-    label: 'Amount',
-    data: [10000000, 3000000, 500000], // Modify these values to match your data
-    backgroundColor: [  "#4bb56a",
-                "#FC2947",
-                "#fbcc4e",]
-  }]
-};
-
-// Options for the bar chart
-var options = {
-  scales: {
-    y: {
-      beginAtZero: true,
-      ticks: {
-        callback: function (value) {
-          if (value >= 10000000) {
-            return (value / 10000000).toFixed(2) + ' Cr';
-          } else if (value >= 100000) {
-            return (value / 100000).toFixed(2) + ' Lac';
-          } else {
-            return value.toFixed(2) + ' Rs';
-          }
-        }
-      }
-    }
-  },
-  plugins: {
-    legend: {
-      display: false
-    },
-    tooltip: {
-      callbacks: {
-        label: function (tooltipItem, data) {
-          var value = data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index];
-          return data.labels[tooltipItem.index] + ': ' + formatValue(value);
-        }
-      }
-    }
-  },
-  responsive: true
-};
-
-// Get the canvas element
-var ctx = document.getElementById('myChart').getContext('2d');
-
-// Create the bar chart
-var myChart = new Chart(ctx, {
-  type: 'bar',
-  data: data,
-  options: options
-});
 
   
 </script>

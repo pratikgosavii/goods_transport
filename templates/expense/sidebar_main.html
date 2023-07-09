@@ -3,8 +3,12 @@
         <div id="main-menu" class="main-menu collapse navbar-collapse">
             <ul class="nav navbar-nav">
 
-                <li class="active">
-                    <a href="{% url 'main_dashboard' %}"><i class="menu-icon fa fa-laptop"></i>Dashboard </a>
+                <li class="menu-item-has-children dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-building"></i>Dashboard</a>
+                    <ul class="sub-menu children dropdown-menu">
+                        <li><i class="fa fa-th"></i><a href="{% url 'dashboard' %}">Transport Dashboard</a></li>
+                        <li><i class="fa fa-th"></i><a href="{% url 'main_dashboard' %}">Expense Dashbaord</a></li>
+                    </ul>
                 </li>
                
                 <li class="menu-title">Transactions</li><!-- /.menu-title -->
@@ -13,8 +17,16 @@
                 <li class="menu-item-has-children dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-users"></i>Truck Expense</a>
                     <ul class="sub-menu children dropdown-menu">
-                        <li><i class="fa fa-id-card-o"></i><a href="{% url 'add_driver' %}">Add</a></li>
-                        <li><i class="fa fa-th"></i><a href="{% url 'list_driver' %}">View</a></li>
+                        <li><i class="fa fa-id-card-o"></i><a href="{% url 'add_truck_expense' %}">Add</a></li>
+                        <li><i class="fa fa-th"></i><a href="{% url 'list_truck_expense' %}">View</a></li>
+                    </ul>
+                </li>
+               
+                <li class="fa-solid fa-hand-holding-dollar dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-users"></i>Salary</a>
+                    <ul class="sub-menu children dropdown-menu">
+                        <li><i class="fa fa-id-card-o"></i><a href="{% url 'add_salary' %}">Add</a></li>
+                        <li><i class="fa fa-th"></i><a href="{% url 'list_salary' %}">View</a></li>
                     </ul>
                 </li>
 
@@ -85,6 +97,14 @@
                     <ul class="sub-menu children dropdown-menu">
                         <li><i class="fa fa-id-card-o"></i><a href="{% url 'add_expense_category' %}">Add</a></li>
                         <li><i class="fa fa-th"></i><a href="{% url 'list_expense_category' %}">View</a></li>
+                    </ul>
+                </li>
+
+                <li class="menu-item-has-children dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-users"></i>Exmployee</a>
+                    <ul class="sub-menu children dropdown-menu">
+                        <li><i class="fa fa-id-card-o"></i><a href="{% url 'add_employee' %}">Add</a></li>
+                        <li><i class="fa fa-th"></i><a href="{% url 'list_employee' %}">View</a></li>
                     </ul>
                 </li>
 

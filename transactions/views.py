@@ -390,7 +390,6 @@ def list_transaction(request):
         'total_balance' : total_balance,
         'total_mt' : total_mt,
         'has_filter' : has_filter,
-        'form' : builty_Form(request.user),
     }
 
 

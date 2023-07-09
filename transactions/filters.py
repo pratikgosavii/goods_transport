@@ -74,12 +74,21 @@ class builty_filter(django_filters.FilterSet):
                 'id' : 'district'
             })
     )
+
+    truck_details_single = django_filters.ModelChoiceFilter(
+        queryset=truck_details.objects.all(),
+        widget=forms.Select(
+            attrs={
+                'class' : 'form-control sele',
+                'id' : 'truck_details_single'
+            })
+    )
    
     truck_details = django_filters.ModelMultipleChoiceFilter(
         queryset=truck_details.objects.all(),
         widget=forms.CheckboxSelectMultiple(
             attrs={
-                'class' : 'form-control',
+                'class' : 'form-control sele',
                 'id' : 'truck_details'
             })
     )
