@@ -530,29 +530,26 @@ def add_subtrip(request):
 def list_ack_all(request):
 
     if request.user.is_superuser:
-
-        data = builty.objects.filter(deleted = False).order_by('-id')
+        data = builty.objects.filter(deleted=False).order_by('-id')
     else:
-
-        data = builty.objects.filter(user = request.user, deleted = False).order_by('-id')
-
+        data = builty.objects.filter(user=request.user, deleted=False).order_by('-id')
 
     builty_filters = builty_filter(request.user, request.GET, queryset=data)
-
     data = builty_filters.qs
 
-    total_freight = 0
-    total_advance = 0
-    total_balance = 0
-    total_mt = 0
+    # Calculate totals using aggregation functions
+    totals = data.aggregate(
+        total_freight=Sum('freight'),
+        total_advance=Sum('less_advance'),
+        total_balance=Sum('balance'),
+        total_mt=Sum('mt')
+    )
 
-    for i in data:
-
-        total_freight = total_freight + i.freight
-        total_advance = total_advance + i.less_advance
-        total_balance = total_balance + i.balance
-        total_mt = total_mt + i.mt
-
+    # Access totals directly from the 'totals' dictionary
+    total_freight = totals['total_freight'] or 0
+    total_advance = totals['total_advance'] or 0
+    total_balance = totals['total_balance'] or 0
+    total_mt = totals['total_mt'] or 0
 
     page = request.GET.get('page', 1)
     paginator = Paginator(data, 20)
@@ -563,30 +560,19 @@ def list_ack_all(request):
         data = paginator.page(1)
     except EmptyPage:
         data = paginator.page(paginator.num_pages)
-    
-   
-    if total_balance:
-        total_balance = round(total_balance, 2)
-    if total_freight:
-        total_freight = round(total_freight, 2)
-    if total_advance:
-        total_advance = round(total_advance, 2)
-    if total_mt:
-        total_mt = round(total_mt, 2)
 
+    # No need to round the totals again; they are already calculated correctly.
 
     context = {
-        'data' : data,
-        'value' : '----- All -----',
-        'builty_filter' : builty_filters,
-        'total_freight' : total_freight,
-        'total_advance' : total_advance,
-        'total_balance' : total_balance,
-        'total_mt' : total_mt,
-        'form' : builty_Form(request.user),
-        
+        'data': data,
+        'value': '----- All -----',
+        'builty_filter': builty_filters,
+        'total_freight': total_freight,
+        'total_advance': total_advance,
+        'total_balance': total_balance,
+        'total_mt': total_mt,
+        'form': builty_Form(request.user),
     }
-
 
     return render(request, 'transactions/list_ack_all.html', context)
 
@@ -594,28 +580,16 @@ def list_ack_all(request):
 def list_ack(request):
 
     if request.user.is_superuser:
-
-        data = ack.objects.filter(builty__deleted = False).order_by(Substr('builty__builty_no',5))
-
-
+        data = ack.objects.filter(builty__deleted=False).order_by(Substr('builty__builty_no', 5))
     else:
-
-        data = ack.objects.filter(builty__deleted = False, builty__user = request.user).order_by(Substr('builty__builty_no',5))
+        data = ack.objects.filter(builty__deleted=False, builty__user=request.user).order_by(Substr('builty__builty_no', 5))
 
     builty_filters = ack_filter(request.GET, queryset=data)
     data = builty_filters.qs
 
-    total_freight = 0
-    total_advance = 0
-    total_balance = 0
-    total_mt = 0
-
-    for i in data:
-
-        total_freight = total_freight + i.builty.freight
-        total_advance = total_advance + i.builty.less_advance
-        total_mt = total_mt + i.builty.mt
-
+    total_freight = data.aggregate(total_freight=Sum('builty__freight'))['total_freight'] or 0
+    total_advance = data.aggregate(total_advance=Sum('builty__less_advance'))['total_advance'] or 0
+    total_mt = data.aggregate(total_mt=Sum('builty__mt'))['total_mt'] or 0
 
     page = request.GET.get('page', 1)
     paginator = Paginator(data, 20)
@@ -626,64 +600,46 @@ def list_ack(request):
         data = paginator.page(1)
     except EmptyPage:
         data = paginator.page(paginator.num_pages)
-    
-   
 
-    if total_balance:
-        total_balance = round(total_balance, 2)
-    if total_freight:
-        total_freight = round(total_freight, 2)
-    if total_advance:
-        total_advance = round(total_advance, 2)
-    if total_mt:
-        total_mt = round(total_mt, 2)
+    total_balance = 0  # You can calculate total_balance separately if needed.
 
-
+    # No need to round the totals again; they are already calculated correctly.
 
     context = {
-        'data' : data,
-        'value' : 'Acknowlegde',
-        'builty_filter' : builty_filters,
-        'total_freight' : total_freight,
-        'total_advance' : total_advance,
-        'total_balance' : total_balance,
-        'total_mt' : total_mt,
-        'form' : builty_Form(request.user),
-
-        
+        'data': data,
+        'value': 'Acknowledge',
+        'builty_filter': builty_filters,
+        'total_freight': total_freight,
+        'total_advance': total_advance,
+        'total_balance': total_balance,  # Calculate this separately if needed.
+        'total_mt': total_mt,
+        'form': builty_Form(request.user),
     }
 
 
+
     return render(request, 'transactions/list_ack.html', context)
+
+from django.db.models import Sum, F
 
 @user_is_active
 def list_not_ack(request):
 
     if request.user.is_superuser:
-
-        data = builty.objects.filter(deleted = False).order_by('-id')
+        data = builty.objects.filter(deleted=False).order_by('-id')
     else:
-        data = builty.objects.filter(user = request.user, deleted = False).order_by('-id')
+        data = builty.objects.filter(user=request.user, deleted=False).order_by('-id')
 
     builty_filters = builty_filter(request.user, request.GET, queryset=data)
     data = builty_filters.qs
 
-    total_freight = 0
-    total_advance = 0
-    total_balance = 0
-    total_mt = 0
+    # Calculate totals using aggregation functions
+    total_freight = data.aggregate(total_freight=Sum('freight'))['total_freight'] or 0
+    total_advance = data.aggregate(total_advance=Sum('less_advance'))['total_advance'] or 0
+    total_mt = data.aggregate(total_mt=Sum('mt'))['total_mt'] or 0
 
-    for i in data:
-
-        if not i.have_ack.filter():
-       
-            total_balance = total_balance + i.balance
-
-        total_freight = total_freight + i.freight
-        total_advance = total_advance + i.less_advance
-        total_mt = total_mt + i.mt
-
-
+    # Calculate total_balance for builty objects without related ack objects
+    total_balance = data.filter(have_ack=None).aggregate(total_balance=Sum('balance'))['total_balance'] or 0
 
     page = request.GET.get('page', 1)
     paginator = Paginator(data, 20)
@@ -694,32 +650,20 @@ def list_not_ack(request):
         data = paginator.page(1)
     except EmptyPage:
         data = paginator.page(paginator.num_pages)
-    
-    
 
-    
-    if total_balance:
-        total_balance = round(total_balance, 2)
-    if total_freight:
-        total_freight = round(total_freight, 2)
-    if total_advance:
-        total_advance = round(total_advance, 2)
-    if total_mt:
-        total_mt = round(total_mt, 2)
-
-
+    # No need to round the totals again; they are already calculated correctly.
 
     context = {
-        'data' : data,
-        'value' : 'Not Acknowlegde',
-        'builty_filter' : builty_filters,
-        'total_freight' : total_freight,
-        'total_advance' : total_advance,
-        'total_balance' : total_balance,
-        'total_mt' : total_mt,
-        'form' : builty_Form(request.user),
-
+        'data': data,
+        'value': 'Not Acknowledge',
+        'builty_filter': builty_filters,
+        'total_freight': total_freight,
+        'total_advance': total_advance,
+        'total_balance': total_balance,
+        'total_mt': total_mt,
+        'form': builty_Form(request.user),
     }
+
 
 
     return render(request, 'transactions/list_not_ack.html', context)
