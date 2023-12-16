@@ -776,7 +776,23 @@ def mass_approve_request(request):
 @user_is_active
 def demo(request):
 
-    return render(request, 'transactions/demo.html')
+    from_station11 = from_station.objects.all()
+
+    for from_statio in from_station11:
+            # Check if the FromStation is referenced by AnotherModel
+        che = builty.objects.filter(station_from=from_statio)
+        if  che:
+            # If it's not referenced, delete the FromStation
+            
+            pass
+        
+        else:
+
+            from_statio.delete()
+
+            print('here------------------------')
+            
+
 
 
 from django.core import serializers
