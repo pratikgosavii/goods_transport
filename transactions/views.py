@@ -521,7 +521,7 @@ def add_subtrip(request):
 
     else:
 
-        print(form.errors)
+        pass
 
     
 
@@ -741,7 +741,7 @@ def add_ack(request):
 
     else:
 
-        print(form.errors)
+        pass
 
     
 
@@ -790,7 +790,6 @@ def demo(request):
 
             from_statio.delete()
 
-            print('here------------------------')
             
 
 
@@ -960,7 +959,6 @@ def truck_report(request):
         data = builty.objects.filter(user = request.user, deleted = False).order_by('id')
 
     builty_filters = builty_filter(request.user, request.GET, queryset=data)
-    print('-------------------------')
     
     data = builty_filters.qs
 
@@ -969,9 +967,7 @@ def truck_report(request):
     date_from = request.GET.get('DC_date_start__date')
     date_to = request.GET.get('DC_date_end__date')
 
-    print(total_mt)
-    print(date_from)
-    print(date_to)
+    
    
     params = {
         'data': data,
@@ -1217,7 +1213,6 @@ def porch_report(request):
     builty_filters_data1 = list(builty_filters.qs.values_list('builty_no', 'DC_date', 'have_ack__challan_number', 'have_ack__challan_date', 'truck_details__truck_number', 'station_to__name', 'mt', 'rate', 'freight', 'less_advance', 'balance'))
     builty_filters_data = list(map(list, builty_filters_data1))
     
-    print('---------------')
 
     vals = []
         
@@ -1312,7 +1307,6 @@ def porch_report_list(request):
 
         data = builty.objects.filter(~Q(have_ack__challan_number = None), user = request.user, deleted = False).order_by('-id')
 
-    print(data.count())
     builty_filters = builty_filter(request.user, request.GET, queryset=data)
     
     total_diesel = 0
