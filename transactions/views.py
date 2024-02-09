@@ -1026,10 +1026,6 @@ def truck_report(request):
 
     counteer = 1
 
-    for i in builty_filters_data:
-
-        print(i[5])
-
 
     for i in builty_filters_data:
         vals1 = []
