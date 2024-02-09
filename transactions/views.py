@@ -950,7 +950,7 @@ def download(request):
 import csv
 
 
-def truck_report(request):
+def voucher_report(request):
 
 
     if request.user.is_superuser:
@@ -1059,6 +1059,389 @@ def truck_report(request):
     vals.append(['total', '','','','','','',total_mt,'', total_freight,total_advance, total_balance])
         
     
+    name = "Report.csv"
+    path = os.path.join(BASE_DIR, 'static', 'csv', name)
+
+    with open(path, 'w', newline="") as f:
+        writer = csv.writer(f)
+        writer.writerows(vals)
+
+    link = os.path.join(BASE_DIR, 'static', 'csv', name)
+
+    mime_type = mimetypes.guess_type(link)[0]
+    with open(path, 'rb') as f:
+        response = HttpResponse(f.read(), content_type=mime_type)
+        response['Content-Disposition'] = 'attachment;filename=' + name
+        return response
+
+
+def voucher_report_list(request):
+
+
+    if request.user.is_superuser:
+        data = builty.objects.filter(deleted = False).order_by('id')
+    else:
+        data = builty.objects.filter(user = request.user, deleted = False).order_by('id')
+
+
+    builty_filters = builty_filter2(request.user, request.GET, queryset=data)
+  
+    data = builty_filters.qs
+
+    
+    total_freight = 0
+    total_advance = 0
+    total_balance = 0
+    total_mt = 0
+
+   
+
+    total_freight = data.aggregate(Sum('freight'))['freight__sum']
+    total_advance = data.aggregate(Sum('less_advance'))['less_advance__sum']
+    total_mt = data.aggregate(Sum('mt'))['mt__sum']
+    total_balance = data.filter(have_ack__isnull = True).aggregate(Sum('balance'))['balance__sum']
+
+
+    page = request.GET.get('page', 1)
+    paginator = Paginator(data, 20)
+
+    try:
+        data = paginator.page(page)
+    except PageNotAnInteger:
+        data = paginator.page(1)
+    except EmptyPage:
+        data = paginator.page(paginator.num_pages)
+   
+
+    if total_balance:
+        total_balance = round(total_balance, 2)
+    if total_freight:
+        total_freight = round(total_freight, 2)
+    if total_advance:
+        total_advance = round(total_advance, 2)
+    if total_mt:
+        total_mt = round(total_mt, 2)
+
+
+
+
+    context = {
+        'builty_filter' : builty_filters,
+        'link' : None,
+        'form' : builty_Form(request.user),
+        'data' : data,
+        'total_balance' : total_balance,
+        'total_advance' : total_advance,
+        'total_freight' : total_freight,
+        'total_mt' : total_mt,
+        'builty_filter' : builty_filters,
+    }
+
+    return render(request, 'report/voucher_report.html', context)
+
+def truck_report(request):
+
+
+    if request.user.is_superuser:
+        data = builty.objects.filter(deleted = False).order_by('id')
+    else:
+        data = builty.objects.filter(user = request.user, deleted = False).order_by('id')
+
+    builty_filters = builty_filter(request.user, request.GET, queryset=data)
+    
+    data = builty_filters.qs
+
+    truck_owner_va = request.GET.get("truck_owner")
+    truck_owner_instance = truck_owner.objects.get(id = truck_owner_va)
+    date_from_va = request.GET.get("date_from")
+    date_to_va = request.GET.get("date_to")
+    
+    total_mt = data.aggregate(Sum('mt'))['mt__sum']
+
+
+    builty_filters_data1 = list(builty_filters.qs.values_list('builty_no', 'DC_date', 'truck_details__truck_number', 'truck_owner__owner_name', 'have_ack__challan_number', 'have_ack__challan_date', 'station_to__name', 'mt', 'rate', 'freight', 'less_advance', 'balance'))
+    builty_filters_data = list(map(list, builty_filters_data1))
+    
+
+    vals = []
+        
+    vals1 = []
+
+    total_mt = 0
+    total_freight = 0
+    total_advance = 0
+    total_balance = 0
+
+
+        
+    vals1.append("")
+    vals1.append("")
+    vals1.append("")
+    vals1.append("")
+    vals1.append("")
+    vals1.append("")
+    vals1.append("Subject to Akola Jurisdiction")
+    vals1.append("")
+    vals1.append("")
+
+    vals.append(vals1)
+    vals1 = []
+        
+    vals1.append("")
+    vals1.append("")
+    vals1.append("")
+    vals1.append("")
+    vals1.append("")
+    vals1.append("")
+    vals1.append("**Sahani Goods Transport**")
+    vals1.append("")
+    vals1.append("")
+        
+    vals.append(vals1)
+    vals1 = []
+
+
+
+    vals1.append("")
+    vals1.append("")
+    vals1.append("")
+    vals1.append("")
+    vals1.append("")
+    vals1.append("")
+    vals1.append("Near Railway Station")
+    vals1.append("")
+    vals1.append("")
+
+    vals.append(vals1)
+    vals1 = []
+
+        
+    vals1.append("")
+    vals1.append("")
+    vals1.append("")
+    vals1.append("")
+    vals1.append("")
+    vals1.append("")
+    vals1.append("Akola Road, Akola")
+    vals1.append("")
+    vals1.append("")
+
+    vals.append(vals1)
+    vals1 = []
+
+    vals1.append("")
+
+
+
+    vals.append(vals1)
+    
+
+
+    vals1 = []
+
+    temp_onwer = "Owner :- " + str(truck_owner_instance.owner_name)
+    temp_onwer1 = str(truck_owner_instance.owner_name)
+    vals1.append(temp_onwer)
+    vals1.append("")
+    vals1.append("")
+    vals1.append("")
+    vals1.append("")
+    vals1.append("")
+    vals1.append("")
+    vals1.append("")
+    vals1.append("")
+    vals1.append("")
+    vals1.append("")
+    vals1.append("")
+    vals1.append("Pay Date:-")
+
+    vals.append(vals1)
+
+    vals1 = []
+
+    temp = "From Date:- " + str(date_from_va) + "           " + "To Date:- " + str(date_to_va)
+    vals1.append(temp)
+    vals1.append("")
+    vals1.append("")
+    vals1.append("")
+    vals1.append("")
+    vals1.append("")
+    vals1.append("")
+    vals1.append("")
+    vals1.append("")
+    vals1.append("")
+    vals1.append("")
+    vals1.append("")
+    temp = "Date:- " + str("date_to_va") 
+    vals1.append(temp)
+    vals.append(vals1)
+
+    vals1 = []
+
+    pan_no = truck_owner_instance.pan_card
+    print(truck_owner_instance)
+    print(pan_no)
+
+    vals1.append("")
+    vals1.append("")
+    vals1.append("")
+    vals1.append("")
+    vals1.append("")
+    vals1.append("")
+    vals1.append("")
+    vals1.append("")
+    vals1.append("")
+    vals1.append("")
+    vals1.append("")
+    vals1.append("")
+    vals1.append("Pan no:- " + str(pan_no))
+    vals.append(vals1)
+
+    vals1 = []
+
+    
+    vals1.append("Sr No")
+    vals1.append("Builty No")
+    vals1.append("Builty Date")
+    vals1.append("Truck No")
+    vals1.append("Truck Owner")
+    vals1.append("Challan No")
+    vals1.append("Challan Date")
+    vals1.append("To")
+    vals1.append("MT")
+    vals1.append("Rate")
+    vals1.append("Freight")
+    vals1.append("Advance")
+    vals1.append("Balance")
+    vals.append(vals1)
+
+    counteer = 1
+
+
+    for i in builty_filters_data:
+        vals1 = []
+        vals1.append(counteer)
+        counteer = counteer + 1
+        vals1.append(i[0])
+        vals1.append('%s/%s/%s' % (i[1].month, i[1].day, i[1].year))
+        vals1.append(i[2])
+        vals1.append(i[3])
+        vals1.append(i[4])
+        if i[5]:
+            vals1.append('%s/%s/%s' % (i[5].month, i[5].day, i[5].year))
+        else:
+            vals1.append("None")
+
+        vals1.append(i[6])
+        vals1.append(i[7])
+        vals1.append(i[8])
+        vals1.append(i[9])
+        vals1.append(i[10])
+        vals1.append(i[11])
+        vals.append(vals1)
+
+
+        total_mt = total_mt + i[7]
+        total_freight = total_freight + i[9]
+        total_advance = total_advance + i[10]
+        total_balance = total_balance + i[11]
+
+    vals.append('')
+    vals.append(['total', '','','','','','',total_mt,'', total_freight,total_advance, total_balance])
+        
+    
+    
+    vals1 = []
+
+    
+    vals1.append("")
+    vals.append(vals1)
+    vals.append(vals1)
+    
+    vals1 = []
+
+    
+    vals1.append("Payment Mode:- ")
+    vals1.append("")
+    vals1.append("")
+    vals1.append("Bank:- ")
+    vals1.append("")
+    vals1.append("")
+    vals1.append("Details:- ")
+    vals1.append("")
+    vals1.append("")
+    vals1.append("")
+    vals1.append("")
+    vals1.append("")
+    vals1.append("")
+    vals.append(vals1)
+
+    vals1 = []
+
+    
+    vals1.append("Owner Bank:- ")
+    vals1.append("")
+    vals1.append("")
+    vals1.append("Account No:- ")
+    vals1.append("")
+    vals1.append("")
+    vals1.append("IFSC Code:- ")
+    vals1.append("")
+    vals1.append("")
+    vals1.append("")
+    vals1.append("")
+    vals1.append("")
+    vals1.append("")
+    vals.append(vals1)
+    
+    vals1 = []
+
+    
+    vals1.append("")
+    vals.append(vals1)
+    vals.append(vals1)
+
+    
+    vals1 = []
+    
+    vals1.append(temp_onwer1)
+    vals1.append("")
+    vals1.append("")
+    vals1.append("")
+    vals1.append("")
+    vals1.append("")
+    vals1.append("")
+    vals1.append("")
+    vals1.append("")
+    vals1.append("")
+    vals1.append("")
+    vals1.append("")
+    vals1.append("For Sahani Goods & Transport, Akola")
+    
+    vals.append(vals1)
+
+
+    vals1 = []
+    
+    vals1.append("(Signature)")
+    vals1.append("")
+    vals1.append("")
+    vals1.append("")
+    vals1.append("")
+    vals1.append("")
+    vals1.append("")
+    vals1.append("")
+    vals1.append("")
+    vals1.append("")
+    vals1.append("")
+    vals1.append("")
+    vals1.append("(Signature)")
+    
+    vals.append(vals1)
+
+
+
+
     name = "Report.csv"
     path = os.path.join(BASE_DIR, 'static', 'csv', name)
 
