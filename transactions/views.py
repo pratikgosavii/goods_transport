@@ -1064,18 +1064,18 @@ def truck_report(request):
         
     
     name = "Report.csv"
-    path = os.path.join(BASE_DIR) + '\static\csv\\' + name
-    with open(path,  'w', newline="") as f:
+    path = os.path.join(BASE_DIR, 'static', 'csv', name)
+
+    with open(path, 'w', newline="") as f:
         writer = csv.writer(f)
         writer.writerows(vals)
 
-    link = os.path.join(BASE_DIR) + '\static\csv\\' + name
+    link = os.path.join(BASE_DIR, 'static', 'csv', name)
 
-    # Open the file for reading after it has been closed from writing
-    with open(path, 'r', newline="") as f:
-        mime_type = mimetypes.guess_type(link)
+    mime_type = mimetypes.guess_type(link)[0]
+    with open(path, 'rb') as f:
         response = HttpResponse(f.read(), content_type=mime_type)
-        response['Content-Disposition'] = 'attachment;filename=' + str(link)
+        response['Content-Disposition'] = 'attachment;filename=' + name
         return response
 
 
