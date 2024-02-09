@@ -43,6 +43,9 @@ urlpatterns = [
 
     path('download', download, name='download'),
 
+    path('voucher-report', voucher_report, name='voucher_report'),
+    path('voucher-report-list', voucher_report_list, name='voucher_report_list'),
+
     path('truck-report', truck_report, name='truck_report'),
     path('truck-report-list', truck_report_list, name='truck_report_list'),
     path('diesel-report', diesel_report, name='diesel_report'),
