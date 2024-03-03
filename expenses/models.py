@@ -45,7 +45,7 @@ class builty_expense(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
     payment_date = models.DateTimeField()
     expense_date = models.DateTimeField()
-    entry_date = models.DateTimeField(default = timezone.now, blank=True, null=True)
+    entry_date = models.DateTimeField(default = ist_datetime, blank=True, null=True)
     status = models.BooleanField(default = False)
 
     
@@ -59,7 +59,7 @@ class truck_expense(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     expense_date = models.DateTimeField()
     payment_date = models.DateTimeField()
-    entry_date = models.DateTimeField(default = timezone.now)
+    entry_date = models.DateTimeField(default = ist_datetime)
     status = models.BooleanField(default = False)
 
 
@@ -75,7 +75,7 @@ class other_expense(models.Model):
     note = models.CharField(max_length=500)
     payment_date = models.DateTimeField()
     expense_date = models.DateTimeField()
-    entry_date = models.DateTimeField(default = timezone.now)
+    entry_date = models.DateTimeField(default = ist_datetime)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     status = models.BooleanField(default = False)
 
@@ -89,7 +89,7 @@ class salary(models.Model):
     note = models.CharField(max_length=500)
     salary_of_date = models.DateTimeField()
     salary_paid_on = models.DateTimeField()
-    entry_date = models.DateTimeField(default = timezone.now)
+    entry_date = models.DateTimeField(default = ist_datetime)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     
 
@@ -103,7 +103,7 @@ class fund(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     amount = models.IntegerField()
     note = models.CharField(max_length=500)
-    entry_date = models.DateTimeField(default = timezone.now, blank=True, null=True)
+    entry_date = models.DateTimeField(default = ist_datetime, blank=True, null=True)
     
 
 
