@@ -7,3 +7,4 @@ from .models import *
 admin.site.register(builty)
 admin.site.register(request_edit)
 admin.site.register(ack)
+admin.site.register(ack_history)

@@ -669,14 +669,62 @@ def list_not_ack(request):
     return render(request, 'transactions/list_not_ack.html', context)
 
 
+# @user_is_active
+# def update_ack(request, challan_id):
+
+#     instance = builty.objects.get(id = challan_id)
+
+#     instance2 = instance.builty
+
+#     if request.method == 'POST':
+
+
+#         form = ack_Form(request.POST)
+
+#         updated_request = request.POST.copy()
+#         updated_request.update({'builty': instance.builty})
+#         form = ack_Form(updated_request, instance=instance)
+
+#         if form.is_valid():
+
+#             form.save()
+
+#             return redirect('list_ack')
+
+#         else:
+
+#             context = {
+
+#                 'form' : form
+#             }
+#             return render(request, 'transactions/update_ack.html', context)
+
+
+#     else:
+
+#         form = builty_Form(request.user, instance=instance2)
+#         form2 = ack_Form(instance=instance)
+
+#         context = {
+
+#             'form' : form,
+#             'form2' : form2
+#         }
+
+#         return render(request, 'transactions/update_ack.html', context)
+
+
+
 @user_is_active
 def update_ack(request, challan_id):
 
-    instance = ack.objects.get(id = challan_id).order_by('builty__builty_no')
+    instance = ack.objects.get(id = challan_id)
 
     instance2 = instance.builty
 
     if request.method == 'POST':
+
+        ack_history.objects.create(builty = instance2, challan_number_before = instance.challan_number, challan_date_before = instance.challan_date)
 
 
         form = ack_Form(request.POST)
@@ -693,9 +741,14 @@ def update_ack(request, challan_id):
 
         else:
 
+            history_data = ack_history.objects.filter(builty = instance2)
+
+
             context = {
 
-                'form' : form
+                'form' : form,
+                'history_data' : history_data,
+
             }
             return render(request, 'transactions/update_ack.html', context)
 
@@ -704,14 +757,18 @@ def update_ack(request, challan_id):
 
         form = builty_Form(request.user, instance=instance2)
         form2 = ack_Form(instance=instance)
+        history_data = ack_history.objects.filter(builty = instance2)
 
         context = {
 
             'form' : form,
-            'form2' : form2
+            'form2' : form2,
+            'history_data' : history_data,
         }
 
         return render(request, 'transactions/update_ack.html', context)
+
+
 
 
 from datetime import date
@@ -742,8 +799,6 @@ def add_ack(request):
     else:
 
         pass
-
-    
 
 
 
@@ -1205,7 +1260,7 @@ def voucher_report_list(request):
 
 
 def truck_report(request):
-    
+
     if request.user.is_superuser:
         data = builty.objects.filter(deleted = False).order_by('id')
     else:
