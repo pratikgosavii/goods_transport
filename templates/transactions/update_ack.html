@@ -309,11 +309,20 @@
                                         <td>
 
                                             <div class="input-wrapper">
-                                                <label for="challan_number"> Challan Number</label>
-                                                <input type="text" value="{{ form2.challan_number.value }}" name="challan_number" style="width:400px !important;" class="cus" required="">
+                                                <input type="text" value="{{ form2.challan_number.value }}" name="challan_number"  class="" required="">
                                               </div>
 
                                         </td>
+
+                                        <td>
+                                            
+                                            <div class="input-wrapper">
+                                                <label for="first">Challan Date</label>
+                                                {{ form2.challan_date }}
+
+                                              </div>
+                                        
+                                    </td>
                                     </tr>
 
                                   
@@ -483,7 +492,18 @@
                             </div>
                         </form>
                     </div>
-                </div>
+                </div> <br><br>
+                <hr>
+                    <p style="font-size: 1.2rem;
+                    font-weight: 600;"> Challan Update History </p>
+                <hr> <br>
+
+                {% for i in history_data %}
+
+                    <p style="color:black;"> Challan Number Before:- {{ i.challan_number_before}} &nbsp; &nbsp; Challan Date Before:- {{ i.challan_date_before}} &nbsp; &nbsp; Update Date :- {{ i.update_date }}</p>
+
+                {% endfor %}
+
 
             </div>
         </div> <!-- .card -->

@@ -166,7 +166,9 @@ class ack_Form(forms.ModelForm):
     class Meta:
         model = ack
         fields = '__all__'
-      
+        widgets = {
+        'challan_date': DateTimeInput(attrs={'type': 'date', 'class' : 'date_css'}, format = '%Y-%m-%d'),
+       }
 
 class request_edit_Form(forms.ModelForm):
     class Meta:
