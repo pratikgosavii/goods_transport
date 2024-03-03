@@ -36,12 +36,12 @@
                         <thead>
                             <tr>
                                 <th class="serial">#</th>
-                                <th>Truck</th>
+                                <th>Expense Category</th>
                                 <th>Amount</th>
                                 <th>Note</th>
                                 <th>Expense Date</th>
                                 <th>Payment Date</th>
-                                <th>Entry Date</th>
+                                <th>entry Date</th>
                                 <th>Date</th>
                                 <th>Actions</th>
                                 
@@ -52,13 +52,13 @@
                             {% for i in data %}
                             <tr>
                                 <td class="serial">{{ forloop.counter }}</td>
-                                <td>{{ i.truck }}</td>
+                                <td>{{ i.expense_date }}</td>
                                 <td>{{ i.amount }}</td>
                                 <td>{{ i.note }}</td>
                                 <td>{{ i.expense_date }}</td>
                                 <td>{{ i.payment_date }}</td>
                                 <td>{{ i.entry_date }}</td>
-                                <td>{{ i.entry_date }}</td>
+                                <td>{{ i.date }}</td>
                                 <td>  
                                    <a href="{% url 'update_driver' i.id %}"> <button id="payment-button"  style="background-color: #05386b; border: green; padding: 10px;border-radius: 12px;" type="submit" class="btn-info ">
                                         <span id="payment-button-amount">View</span>

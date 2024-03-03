@@ -305,7 +305,11 @@
                 <div class="table-stats order-table ov-h">
                     <table class="table ">
                         <thead>
+
+                          
+                         
                             <tr>
+
                                 <th class="serial">#</th>
                                 <th>Builty No</th>
                                 <th>Date</th>
@@ -336,7 +340,12 @@
                             {% if data %}
                             {% for i in data %}
 
-                              {% if i.have_ack.all.0 %}
+                              {% if i.voucher_payment_status == True %}
+
+                                <tr style="background: #98e698;">
+
+
+                              {% elif i.have_ack.all.0 %}
 
                                 <tr style="background: #ffd78f;">
 

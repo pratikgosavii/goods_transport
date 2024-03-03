@@ -330,7 +330,11 @@
 
 
     <button class="btn btn-primary" onclick="report();" type="submit">
-        Download Transport Dispatch Report
+        Download Transport Dispatch Report PDF
+    </button> 
+
+    <button class="btn btn-primary" onclick="report_excel();" type="submit">
+        Download Transport Dispatch Report Excel
     </button> 
 
 
@@ -600,6 +604,20 @@ function report(){
   url = url[1]
   
   url = "{% url 'truck_report' %}" + '?' + url
+  
+  window.location = url
+  
+  }
+
+function report_excel(){
+
+  url = window.location.href
+  
+  url = url.split('?')
+  
+  url = url[1]
+  
+  url = "{% url 'truck_report_excel' %}" + '?' + url
   
   window.location = url
   

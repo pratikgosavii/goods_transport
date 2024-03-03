@@ -45,8 +45,10 @@ urlpatterns = [
 
     path('voucher-report', voucher_report, name='voucher_report'),
     path('voucher-report-list', voucher_report_list, name='voucher_report_list'),
+    path('voucher-payment', voucher_payment, name='voucher_payment'),
 
     path('truck-report', truck_report, name='truck_report'),
+    path('truck-report-excel', truck_report_excel, name='truck_report_excel'),
     path('truck-report-list', truck_report_list, name='truck_report_list'),
     path('diesel-report', diesel_report, name='diesel_report'),
     path('diesel-report-list', diesel_report_list, name='diesel_report_list'),
