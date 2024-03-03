@@ -241,8 +241,16 @@
                     </select> <input id="select_all_truck_details" type="checkbox" >
 
                     <label for="name" class="control-label mb-1" style="margin-left : 0px;">Truck Owner</label>
-                {{ builty_filter.form.truck_owner }}
-                      
+                    <select class="sele" name="truck_owner" id="truck_owner" multiple="multiple">
+                      {% for id, name in form.truck_owner.field.choices %}
+            
+                      {% if name != '---------' %}
+            <option value="{{ id }}"> {{ name }} </option>
+            {% endif %}
+
+            {% endfor %}
+
+                    </select> <input id="select_all_truck_owner" type="checkbox" >
                 
                 <label for="name" class="control-label mb-1 la">District</label>
                 {{ builty_filter.form.district }}
@@ -303,7 +311,7 @@
 
             <br>
 
-            <a href="{% url 'truck_report_list' %}?{% if request.GET %}{{ request.GET.urlencode }}&{% endif %}"><button class="btn btn-primary" type="button">Reset</button></a>
+            <a href="{% url 'truck_report_list' %}"><button class="btn btn-primary" type="button" > Reset </button></a>
 
           
             <button class="btn btn-primary" type="submit" > Submit </button>
@@ -322,7 +330,7 @@
 
 
     <button class="btn btn-primary" onclick="report();" type="submit">
-        Download Voucher Report
+        Download Transport Dispatch Report Excel
     </button> 
 
 
@@ -362,17 +370,7 @@
                         <tbody>
                             {% if data %}
                             {% for i in data %}
-
-                            {% if i.voucher_payment_status == True %}
-
-                            <tr style="background: #98e698;">
-                            
-                              {% else %}
-
                             <tr>
-
-                              {% endif %}
-
 
                              
 
@@ -411,15 +409,6 @@
                             {% endif %}
                         </tbody>
                     </table>
-
-                    {% if has_filter %}
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-                      All Voucher Paid
-                    </button>
-                {% endif %}
-                
-
-
                     <footer class="site-footer">
                       <div class="footer-inner bg-white" style="float: right;">
                           <div class="row" style="float: right;">
@@ -497,54 +486,7 @@
         </div> <!-- /.card -->
     </div>  <!-- /.col-lg-8 -->
 
-
-
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">New message</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form id="voucher_payment1" method="get" action="{% url 'voucher_payment' %}">
-
-
-          <input type="hidden" id="builty_id">
-
-          <div class="form-group">
-           
-            <label for="challan_number" class="col-form-label">Payment Mode</label>
-            <select class="form-control" id="voucher_payment_mode" name="voucher_payment_mode">
-              <option value="cash" selected>Cash</option>
-              <option value="online">Online</option>
-          </select>
-
-            <label for="challan_number" class="col-form-label">Bank Account No</label>
-            <input type="text" class="form-control" value="0" name="voucher_payment_bank_ac_no" id="voucher_payment_bank_ac_no">
-
-            <label for="challan_number" class="col-form-label">Bank IFSC Code </label>
-            <input type="text" class="form-control" value="0" name="voucher_payment_bank_ac_ifsc" id="voucher_payment_bank_ac_ifsc">
-
-
-
-          </div>
-          
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="submit"  class="btn btn-primary">Submit</button>
-      </div>
-    </form>
-
-    </div>
-  </div>
-</div>
-
-
-
+    
 </div>
 
 {% endblock content %}
@@ -657,76 +599,12 @@ function report(){
   
   url = url[1]
   
-  url = "{% url 'truck_report' %}" + '?' + url
+  url = "{% url 'truck_report_excel' %}" + '?' + url
   
   window.location = url
   
   }
   
-
-
-
-
-function appendURLParamsToFormAction() {
-  // Extract URL parameters
-  var urlParams = new URLSearchParams(window.location.search);
-
-  // Get the form element
-  var form = document.getElementById('voucher_payment1');
-
-  // Append URL parameters to the form action
-  form.action += '?' + urlParams.toString();
-
-  alert(form.action)
-
-}
-
-// Call the function when the page loads
-window.addEventListener('load', function() {
-  alert("sdsd")
-  appendURLParamsToFormAction();
-});
-
-// Or call the function when the modal popup is shown
-$('#myModal').on('shown.bs.modal', function () {
-  alert("Asasas")
-  appendURLParamsToFormAction();
-});
-
-
-// Add an event listener to the form submission
-// Add an event listener to the form submission
-document.getElementById('voucher_payment1').addEventListener('submit', function(event) {
-  // Prevent the form from submitting normally
-  event.preventDefault();
-
-  // Serialize the form data into a URL-encoded string
-  var formData = new URLSearchParams(new FormData(this)).toString();
-
-  // Get the URL parameters from the form action
-  var urlParams = window.location.search.substring(1); // Exclude the leading '?'
-
-  // Append the URL parameters to the serialized form data
-  if (urlParams) {
-      formData += '&' + urlParams;
-  }
-
-  // Alert the combined form data
-  alert('Form data sent to server:\n' + formData);
-
-  // Alternatively, you can log the combined form data to the console
-  console.log('Form data sent to server:', formData);
-
-  // Now you can submit the form programmatically if needed
-  // Uncomment the following line if you want to submit the form
-  // this.submit();
-
-  this.submit();
-
-  
-});
-
-
 
 
 

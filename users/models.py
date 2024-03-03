@@ -12,5 +12,5 @@ class User(AbstractUser):
     office_location = models.ForeignKey(office_location, on_delete=models.CASCADE)
     password_r = models.CharField(max_length=50, null = True, blank = True)
     date_joined =  models.DateField(default=datetime.now, blank=True, null=True)
-
+    balance = models.IntegerField(default = 0)
     

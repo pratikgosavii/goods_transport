@@ -57,6 +57,90 @@ def main_dashboard(request):
 
 
 
+def add_builty_expense(request):
+
+
+    if request.method == 'POST':
+
+        forms = builty_expense_Form(request.POST)
+
+        if forms.is_valid():
+            instance = forms.save(commit=False)
+            instance.user = request.user  # Assign the logged-in user
+            instance.save()
+            return redirect('list_builty_expense')
+        else:
+            context = {
+                'form': forms
+            }
+            return render(request, 'expense/add_builty_expense.html', context)
+
+    else:
+
+        forms = builty_expense_Form()
+
+        context = {
+            'form': forms
+        }
+        return render(request, 'expense/add_builty_expense.html', context)
+    
+def add_builty_expense_ajax(request):
+
+
+    pass
+
+def add_builty_expense_json(request):
+
+
+    if request.method == 'POST':
+
+        forms = builty_expense_Form(request.POST)
+
+        if forms.is_valid():
+            forms.save()
+            return redirect('list_builty_expense')
+        else:
+            context = {
+                'form': forms
+            }
+            return render(request, 'expense/add_builty_expense.html', context)
+
+    else:
+
+        forms = builty_expense_Form()
+
+        context = {
+            'form': forms
+        }
+        return render(request, 'expense/add_builty_expense.html', context)
+
+
+
+from .filters import *
+
+def list_builty_expense(request):
+    
+    
+    if request.user.is_superuser:
+
+        data = builty_expense.objects.all()
+
+    else:
+
+        data = builty_expense.objects.filter(user = request.user)
+
+    builty_expense_filters = builty_expense_filter(request.GET, queryset=data)
+
+
+    context = {
+        'data': builty_expense_filters.qs,
+        'expense_builty_filter' : builty_expense_filters,
+
+    }
+
+    return render(request, 'expense/list_builty_expense.html', context)
+
+
 def add_expense_category(request):
 
 
@@ -105,7 +189,9 @@ def add_truck_expense(request):
         forms = truck_expense_Form(request.POST)
 
         if forms.is_valid():
-            forms.save()
+            instance = forms.save(commit=False)
+            instance.user = request.user  # Assign the logged-in user
+            instance.save()
             return redirect('list_truck_expense')
         else:
             context = {
@@ -188,7 +274,9 @@ def add_salary(request):
         forms = salary_Form(request.POST)
 
         if forms.is_valid():
-            forms.save()
+            instance = forms.save(commit=False)
+            instance.user = request.user  # Assign the logged-in user
+            instance.save()
             return redirect('list_salary')
         else:
             context = {
@@ -218,4 +306,95 @@ def list_salary(request):
     }
 
     return render(request, 'expense/list_salary.html', context)
+
+
+def add_other_expense(request):
+    
+    
+    if request.method == 'POST':
+
+        forms = other_expense_Form(request.POST)
+
+        if forms.is_valid():
+            instance = forms.save(commit=False)
+            instance.user = request.user  # Assign the logged-in user
+            instance.save()
+            return redirect('list_other_expense')
+        else:
+            context = {
+                'form': forms
+            }
+            return render(request, 'expense/add_other_expense.html', context)
+
+    else:
+
+        forms = other_expense_Form()
+
+        context = {
+            'form': forms
+        }
+        return render(request, 'expense/add_other_expense.html', context)
+
+        
+
+    
+    
+def list_other_expense(request):
+    
+    data = other_expense.objects.all()
+
+    context = {
+        'data': data
+    }
+
+    return render(request, 'expense/list_other_expense.html', context)
+
+
+def add_fund(request):
+    
+    
+    if request.method == 'POST':
+
+        forms = fund_Form(request.POST)
+
+        user_id = request.POST.get('user')
+        amount = request.POST.get('amount')
+
+        user_instance = User.objects.get(id = user_id)
+
+        user_instance.balance = user_instance.balance + int(amount)
+
+        user_instance.save()
+
+        if forms.is_valid():
+            forms.save()
+            return redirect('list_fund')
+        else:
+            context = {
+                'form': forms
+            }
+            return render(request, 'expense/add_fund.html', context)
+
+    else:
+
+        forms = fund_Form()
+
+        context = {
+            'form': forms
+        }
+        return render(request, 'expense/add_fund.html', context)
+
+        
+
+    
+    
+def list_fund(request):
+    
+    data = fund.objects.all()
+
+    context = {
+        'data': data
+    }
+
+    return render(request, 'expense/list_fund.html', context)
 

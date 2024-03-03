@@ -946,8 +946,66 @@ def download(request):
 
 
 
-
+from django.urls import reverse
 import csv
+
+
+def voucher_payment(request):
+
+    print("hereee")
+
+    print(request.GET)
+
+    if request.user.is_superuser:
+        data = builty.objects.filter(deleted = False).order_by('id')
+    else:
+        data = builty.objects.filter(user = request.user, deleted = False).order_by('id')
+
+
+    voucher_payment_mode = request.GET.get("voucher_payment_mode")
+    voucher_payment_bank_ac_no = request.GET.get("voucher_payment_bank_ac_no")
+    voucher_payment_bank_ac_ifsc = request.GET.get("voucher_payment_bank_ac_ifsc")
+    bui = request.GET.get("builty_no")
+
+    print(voucher_payment_mode)
+    print(voucher_payment_bank_ac_no)
+    print(voucher_payment_bank_ac_ifsc)
+
+
+    print(bui)
+   
+    builty_filters = builty_filter(request.user, request.GET, queryset=data)
+    
+    data = builty_filters.qs
+
+
+    print(data)
+    for i in data:
+
+        ack_instance = ack.objects.filter(builty = i)
+
+        if ack_instance:
+
+
+
+
+            i.voucher_payment_status = True
+            i.voucher_payment_mode = voucher_payment_mode
+            i.voucher_payment_bank_ac_no = voucher_payment_bank_ac_no
+            i.voucher_payment_bank_ac_ifsc = voucher_payment_bank_ac_ifsc
+            i.save()
+
+
+    
+    voucher_report_url = reverse('voucher_report')
+
+    if request.GET:
+        voucher_report_url += '?' + request.GET.urlencode()
+
+    # Perform the redirect
+    pass
+
+    
 
 
 def voucher_report(request):
@@ -1122,6 +1180,8 @@ def voucher_report_list(request):
     if total_mt:
         total_mt = round(total_mt, 2)
 
+    has_filter = any(field in request.GET for field in set(builty_filter2.get_fields()))
+
 
 
 
@@ -1130,6 +1190,7 @@ def voucher_report_list(request):
         'link' : None,
         'form' : builty_Form(request.user),
         'data' : data,
+        'has_filter': has_filter,
         'total_balance' : total_balance,
         'total_advance' : total_advance,
         'total_freight' : total_freight,
@@ -1139,7 +1200,45 @@ def voucher_report_list(request):
 
     return render(request, 'report/voucher_report.html', context)
 
+
+
+
+
 def truck_report(request):
+    
+    if request.user.is_superuser:
+        data = builty.objects.filter(deleted = False).order_by('id')
+    else:
+        data = builty.objects.filter(user = request.user, deleted = False).order_by('id')
+
+    builty_filters = builty_filter(request.user, request.GET, queryset=data)
+    print('-------------------------')
+
+    data = builty_filters.qs
+
+    total_mt = data.aggregate(Sum('mt'))['mt__sum']
+    date_from = request.GET.get('DC_date_start__date')
+    date_to = request.GET.get('DC_date_end__date')
+
+    print(total_mt)
+    print(date_from)
+    print(date_to)
+
+    params = {
+        'data': data,
+        'total_mt': total_mt,
+        'date_today' : date.today(),
+        'date_from' : date_from,
+        'date_to' : date_to
+    }
+    
+    file = render_to_file('transactions/dispatch_report_pdf.html', params)
+    with open(file, 'rb') as fh:
+        
+        return HttpResponse(fh, content_type='application/pdf')
+
+
+def truck_report_excel(request):
 
 
     if request.user.is_superuser:

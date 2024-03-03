@@ -16,6 +16,8 @@ class expense_category_Form(forms.ModelForm):
             
         }
 
+
+
 class employee_Form(forms.ModelForm):
     class Meta:
         model = employee
@@ -35,6 +37,42 @@ class employee_Form(forms.ModelForm):
 
 
 
+class builty_expense_Form(forms.ModelForm):
+    class Meta:
+        model = builty_expense
+        fields = '__all__'
+        widgets = {
+
+            'builty': forms.Select(attrs={
+                'class': 'form-control', 'id': 'builty'
+            }),
+            'note': forms.TextInput(attrs={
+                'class': 'form-control', 'id': 'note'
+            }),
+            'amount': forms.NumberInput(attrs={
+                'class': 'form-control', 'id': 'amount'
+            }),
+          
+           
+            'status': forms.CheckboxInput(attrs={'class': 'form-control'}),
+
+           
+            'expense_date': DateTimeInput(attrs={'type': 'datetime-local', 'class' : 'form-control date_css'}),
+            'payment_date': DateTimeInput(attrs={'type': 'datetime-local', 'class' : 'form-control date_css'}),
+            'entry_date': DateTimeInput(attrs={'type': 'datetime-local', 'class' : 'form-control date_css'}),
+            
+        }
+
+      
+
+        def __init__(self, *args, **kwargs):
+            super(builty_expense_Form, self).__init__(*args, **kwargs)
+            self.fields['entry_date'].required = False
+            self.fields['user'].required = False
+
+
+
+
 class truck_expense_Form(forms.ModelForm):
     class Meta:
         model = truck_expense
@@ -43,18 +81,62 @@ class truck_expense_Form(forms.ModelForm):
             'note': forms.TextInput(attrs={
                 'class': 'form-control', 'id': 'note'
             }),
-            'price': forms.NumberInput(attrs={
-                'class': 'form-control', 'id': 'price'
+            'amount': forms.NumberInput(attrs={
+                'class': 'form-control', 'id': 'amount'
             }),
             'truck': forms.Select(attrs={
                 'class': 'form-control sele', 'id': 'truck'
             }),
+            
+            'status': forms.CheckboxInput(attrs={'class': 'form-control'}),
+
+            'expense_date': DateTimeInput(attrs={'type': 'datetime-local', 'class' : 'form-control date_css'}),
+            'payment_date': DateTimeInput(attrs={'type': 'datetime-local', 'class' : 'form-control date_css'}),
+            'entry_date': DateTimeInput(attrs={'type': 'datetime-local', 'class' : 'form-control date_css'}),
+            
+        }
+
+    def __init__(self, *args, **kwargs):
+        super(truck_expense_Form, self).__init__(*args, **kwargs)
+        self.fields['user'].required = False
+        self.fields['entry_date'].required = False
+
+        
+
+class other_expense_Form(forms.ModelForm):
+    class Meta:
+        model = other_expense
+        fields = '__all__'
+        widgets = {
+            
             'expense_category': forms.Select(attrs={
                 'class': 'form-control sele', 'id': 'expense_category'
             }),
+            'note': forms.TextInput(attrs={
+                'class': 'form-control', 'id': 'note'
+            }),
+            'amount': forms.NumberInput(attrs={
+                'class': 'form-control', 'id': 'amount'
+            }),
+            'salary': forms.NumberInput(attrs={
+                'class': 'form-control', 'id': 'salary'
+            }),
+            'user': forms.Select(attrs={
+                'class': 'form-control sele', 'id': 'user'
+            }),
+           
+            'status': forms.CheckboxInput(attrs={'class': 'form-control'}),
             
+            'expense_date': DateTimeInput(attrs={'type': 'datetime-local', 'class' : 'form-control date_css'}),
+            'payment_date': DateTimeInput(attrs={'type': 'datetime-local', 'class' : 'form-control date_css'}),
+            'entry_date': DateTimeInput(attrs={'type': 'datetime-local', 'class' : 'form-control date_css'}),
             
         }
+
+    def __init__(self, *args, **kwargs):
+        super(other_expense_Form, self).__init__(*args, **kwargs)
+        self.fields['user'].required = False
+        self.fields['entry_date'].required = False
 
 
 class salary_Form(forms.ModelForm):
@@ -73,6 +155,46 @@ class salary_Form(forms.ModelForm):
             }),
            
             
+            'salary_of_date': DateTimeInput(attrs={'type': 'datetime-local', 'class' : 'form-control date_css'}),
+            'salary_paid_on': DateTimeInput(attrs={'type': 'datetime-local', 'class' : 'form-control date_css'}),
+            'entry_date': DateTimeInput(attrs={'type': 'datetime-local', 'class' : 'form-control date_css'}),
             
         }
+
+    def __init__(self, *args, **kwargs):
+        super(salary_Form, self).__init__(*args, **kwargs)
+        self.fields['entry_date'].required = False
+        self.fields['user'].required = False
+
+
+
+
+class fund_Form(forms.ModelForm):
+    class Meta:
+        model = fund
+        fields = '__all__'
+        widgets = {
+
+            'user': forms.Select(attrs={
+                'class': 'form-control', 'id': 'user'
+            }),
+            'note': forms.TextInput(attrs={
+                'class': 'form-control', 'id': 'note'
+            }),
+            'amount': forms.NumberInput(attrs={
+                'class': 'form-control', 'id': 'amount'
+            }),
+          
+           
+            'entry_date': DateTimeInput(attrs={'type': 'datetime-local', 'class' : 'form-control date_css'}),
+            
+        }
+
+      
+
+        def __init__(self, *args, **kwargs):
+            super(fund_Form, self).__init__(*args, **kwargs)
+            self.fields['entry_date'].required = False
+
+
 

@@ -21,6 +21,12 @@ mode = (
    
 )
 
+mode1 = (
+    ('cash','cash'),
+    ('online', 'online'),
+   
+)
+
 class builty(models.Model):
 
     company = models.ForeignKey(company , on_delete=models.CASCADE, related_name='sdwe')
@@ -53,6 +59,11 @@ class builty(models.Model):
     editable = models.BooleanField(default=False)
     deleted = models.BooleanField(default=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    voucher_payment_status = models.BooleanField(default=False)
+    voucher_payment_mode = models.CharField(max_length=50, choices=mode1, default="cash")
+    voucher_payment_bank_ac_no = models.IntegerField(default = 0, null = True, blank = True)
+    voucher_payment_bank_ac_ifsc = models.IntegerField(default = 0, null = True, blank = True)
+    
 
     def __str__(self):
         return self.builty_no
