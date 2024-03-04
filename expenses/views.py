@@ -68,6 +68,13 @@ def add_builty_expense(request):
             instance = forms.save(commit=False)
             instance.user = request.user  # Assign the logged-in user
             instance.save()
+
+            amount = request.POST.get('amount')
+
+            user_instance = request.user
+            user_instance.balance = user_instance.balance - int(amount)
+            user_instance.save()
+
             return redirect('list_builty_expense')
         else:
             context = {
@@ -192,6 +199,13 @@ def add_truck_expense(request):
             instance = forms.save(commit=False)
             instance.user = request.user  # Assign the logged-in user
             instance.save()
+
+            amount = request.POST.get('amount')
+            
+            user_instance = request.user
+            user_instance.balance = user_instance.balance - int(amount)
+            user_instance.save()
+
             return redirect('list_truck_expense')
         else:
             context = {
@@ -208,8 +222,7 @@ def add_truck_expense(request):
         }
         return render(request, 'expense/add_truck_expense.html', context)
 
-        
-
+    
     
     
 def list_truck_expense(request):
@@ -221,6 +234,108 @@ def list_truck_expense(request):
     }
 
     return render(request, 'expense/list_truck_expense.html', context)
+
+def add_transfer_fund(request):
+    
+    
+    if request.method == 'POST':
+
+        forms = transfer_fund_Form(request.POST)
+
+        if forms.is_valid():
+            instance = forms.save(commit=False)
+            instance.user = request.user  # Assign the logged-in user
+            instance.save()
+
+            amount = request.POST.get('amount')
+            transfer_to_user = request.POST.get('transfer_to_user')
+            
+            user_instance = request.user
+            user_instance.balance = user_instance.balance - int(amount)
+            user_instance.save()
+
+            user_instance = request.user
+            user_instance.balance = user_instance.balance + int(transfer_to_user)
+            user_instance.save()
+
+            return redirect('list_transfer_fund')
+        else:
+            context = {
+                'form': forms
+            }
+            return render(request, 'expense/add_transfer_fund.html', context)
+
+    else:
+
+        forms = transfer_fund_Form()
+
+        context = {
+            'form': forms
+        }
+        return render(request, 'expense/add_transfer_fund.html', context)
+
+      
+    
+    
+def list_transfer_fund(request):
+    
+    data = transfer_fund.objects.all()
+
+    context = {
+        'data': data
+    }
+
+    return render(request, 'expense/list_transfer_fund.html', context)
+
+
+def add_bank_expense(request):
+    
+    
+    if request.method == 'POST':
+
+        forms = bank_expense_Form(request.POST)
+
+        if forms.is_valid():
+            instance = forms.save(commit=False)
+            instance.user = request.user  # Assign the logged-in user
+            instance.save()
+
+            amount = request.POST.get('amount')
+            
+            user_instance = request.user
+            user_instance.balance = user_instance.balance - int(amount)
+            user_instance.save()
+
+
+            return redirect('list_bank_expense')
+        else:
+            context = {
+                'form': forms
+            }
+            return render(request, 'expense/add_bank_expense.html', context)
+
+    else:
+
+        forms = bank_expense_Form()
+
+        context = {
+            'form': forms
+        }
+        return render(request, 'expense/add_bank_expense.html', context)
+
+        
+
+    
+    
+def list_bank_expense(request):
+    
+    data = bank_expense.objects.all()
+
+    context = {
+        'data': data
+    }
+
+    return render(request, 'expense/list_bank_expense.html', context)
 
 
 
@@ -277,6 +392,13 @@ def add_salary(request):
             instance = forms.save(commit=False)
             instance.user = request.user  # Assign the logged-in user
             instance.save()
+
+            amount = request.POST.get('amount')
+            
+            user_instance = request.user
+            user_instance.balance = user_instance.balance - int(amount)
+            user_instance.save()
+            
             return redirect('list_salary')
         else:
             context = {
@@ -350,7 +472,7 @@ def list_other_expense(request):
     return render(request, 'expense/list_other_expense.html', context)
 
 
-def add_fund(request):
+def add_fund_admin(request):
     
     
     if request.method == 'POST':
@@ -367,6 +489,62 @@ def add_fund(request):
         user_instance.save()
 
         if forms.is_valid():
+            forms.save()
+            return redirect('list_fund')
+        else:
+            context = {
+                'form': forms
+            }
+            return render(request, 'expense/add_fund.html', context)
+
+    else:
+
+        forms = fund_Form()
+
+        context = {
+            'form': forms
+        }
+        return render(request, 'expense/add_fund_admin.html', context)
+
+        
+
+    
+    
+def list_fund_admin(request):
+    
+    data = fund.objects.all()
+
+    context = {
+        'data': data
+    }
+
+    return render(request, 'expense/list_fund_admin.html', context)
+
+
+def add_fund(request):
+    
+    
+    if request.method == 'POST':
+
+
+        amount = request.POST.get('amount')
+
+        user_instance = request.user
+
+
+        user_instance.balance = user_instance.balance + int(amount)
+
+        user_instance.save()
+
+        updated_request = request.POST.copy()
+        updated_request.update({'user': user_instance})
+        forms = fund_Form(updated_request)
+
+        if forms.is_valid():
+
+            
+
+
             forms.save()
             return redirect('list_fund')
         else:

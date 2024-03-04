@@ -24,6 +24,16 @@ urlpatterns = [
     # path('update-truck-expense/<truck_expense_id>', update_truck_expense, name='update_truck_expense'),
     # path('delete-truck-expense/<truck_expense_id>', delete_truck_expense, name='delete_truck_expense'),
     path('list-truck-expense/', list_truck_expense, name='list_truck_expense'),
+
+    path('add-bank-expense/', add_bank_expense, name='add_bank_expense'),
+    # path('update-bank-expense/<bank_expense_id>', update_bank_expense, name='update_bank_expense'),
+    # path('delete-bank-expense/<bank_expense_id>', delete_bank_expense, name='delete_bank_expense'),
+    path('list-bank-expense/', list_bank_expense, name='list_bank_expense'),
+   
+    path('add-transfer-fund/', add_transfer_fund, name='add_transfer_fund'),
+    # path('update-transfer-fund/<transfer_fund_id>', update_transfer_fund, name='update_transfer_fund'),
+    # path('delete-transfer-fund/<transfer_fund_id>', delete_transfer_fund, name='delete_transfer_fund'),
+    path('list-transfer-fund/', list_transfer_fund, name='list_transfer_fund'),
    
     path('add-employee/', add_employee, name='add_employee'),
     # path('update-employee/<employee_id>', update_employee, name='update_employee'),
@@ -40,6 +50,11 @@ urlpatterns = [
     # path('delete-other_expense/<other_expense_id>', delete_other_expense, name='delete_other_expense'),
     path('list-other-expense/', list_other_expense, name='list_other_expense'),
    
+
+    path('add-fund_admin/', add_fund_admin, name='add_fund_admin'),
+    # path('update-fund_admin/<fund_admin_id>', update_fund_admin, name='update_fund_admin'),
+    # path('delete-fund_admin/<fund_admin_id>', delete_fund_admin, name='delete_fund_admin'),
+    path('list-fund_admin/', list_fund_admin, name='list_fund_admin'),
 
     path('add-fund/', add_fund, name='add_fund'),
     # path('update-fund/<fund_id>', update_fund, name='update_fund'),

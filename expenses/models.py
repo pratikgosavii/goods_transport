@@ -46,7 +46,7 @@ class builty_expense(models.Model):
     payment_date = models.DateTimeField()
     expense_date = models.DateTimeField()
     entry_date = models.DateTimeField(default = ist_datetime, blank=True, null=True)
-    status = models.BooleanField(default = False)
+
 
     
 
@@ -60,12 +60,41 @@ class truck_expense(models.Model):
     expense_date = models.DateTimeField()
     payment_date = models.DateTimeField()
     entry_date = models.DateTimeField(default = ist_datetime)
-    status = models.BooleanField(default = False)
+
 
 
 
     def __str__(self):
         return self.truck.truck_number
+
+class transfer_fund(models.Model):
+
+    transfer_to_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='sdfgedfd')
+    amount = models.IntegerField()
+    note = models.CharField(max_length=500)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    expense_date = models.DateTimeField()
+    payment_date = models.DateTimeField()
+    entry_date = models.DateTimeField(default = ist_datetime)
+
+
+
+
+    def __str__(self):
+        return self.truck.truck_number
+
+class bank_expense(models.Model):
+
+    bank_name = models.CharField(max_length=500)
+    amount = models.IntegerField()
+    note = models.CharField(max_length=500)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    expense_date = models.DateTimeField()
+    payment_date = models.DateTimeField()
+    entry_date = models.DateTimeField(default = ist_datetime)
+
+
+
 
 
 class other_expense(models.Model):
@@ -77,7 +106,7 @@ class other_expense(models.Model):
     expense_date = models.DateTimeField()
     entry_date = models.DateTimeField(default = ist_datetime)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    status = models.BooleanField(default = False)
+
 
     
 
