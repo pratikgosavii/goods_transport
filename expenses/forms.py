@@ -46,19 +46,10 @@ class builty_expense_Form(forms.ModelForm):
             'builty': forms.Select(attrs={
                 'class': 'form-control', 'id': 'builty'
             }),
-            'note': forms.TextInput(attrs={
-                'class': 'form-control', 'id': 'note'
-            }),
             'amount': forms.NumberInput(attrs={
                 'class': 'form-control', 'id': 'amount'
             }),
           
-           
-            
-
-           
-            'expense_date': DateTimeInput(attrs={'type': 'datetime-local', 'class' : 'form-control date_css'}),
-            'payment_date': DateTimeInput(attrs={'type': 'datetime-local', 'class' : 'form-control date_css'}),
             'entry_date': DateTimeInput(attrs={'type': 'datetime-local', 'class' : 'form-control date_css'}),
             
         }
@@ -98,6 +89,32 @@ class truck_expense_Form(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(truck_expense_Form, self).__init__(*args, **kwargs)
+        self.fields['user'].required = False
+        self.fields['entry_date'].required = False
+
+class diesel_expense_Form(forms.ModelForm):
+    class Meta:
+        model = diesel_expense
+        fields = '__all__'
+        widgets = {
+            'note': forms.TextInput(attrs={
+                'class': 'form-control', 'id': 'note'
+            }),
+            'amount': forms.NumberInput(attrs={
+                'class': 'form-control', 'id': 'amount'
+            }),
+            'diesel': forms.Select(attrs={
+                'class': 'form-control sele', 'id': 'diesel'
+            }),
+            
+            
+
+            'entry_date': DateTimeInput(attrs={'type': 'datetime-local', 'class' : 'form-control date_css'}),
+            
+        }
+
+    def __init__(self, *args, **kwargs):
+        super(diesel_expense_Form, self).__init__(*args, **kwargs)
         self.fields['user'].required = False
         self.fields['entry_date'].required = False
 

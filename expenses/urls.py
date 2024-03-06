@@ -13,8 +13,6 @@ urlpatterns = [
     path('list-expense-category/', list_expense_category, name='list_expense_category'),
    
     
-    path('add-builty-expense/', add_builty_expense, name='add_builty_expense'),
-    path('add-builty-expense-ajax/', add_builty_expense_ajax, name='add_builty_expense_ajax'),
     # path('update-builty-expense/<builty_expense_id>', update_builty_expense, name='update_builty_expense'),
     # path('delete-builty-expense/<builty_expense_id>', delete_builty_expense, name='delete_builty_expense'),
     path('list-builty-expense/', list_builty_expense, name='list_builty_expense'),
@@ -24,6 +22,10 @@ urlpatterns = [
     # path('update-truck-expense/<truck_expense_id>', update_truck_expense, name='update_truck_expense'),
     # path('delete-truck-expense/<truck_expense_id>', delete_truck_expense, name='delete_truck_expense'),
     path('list-truck-expense/', list_truck_expense, name='list_truck_expense'),
+   
+    # path('update-truck-expense/<truck_expense_id>', update_truck_expense, name='update_truck_expense'),
+    # path('delete-truck-expense/<truck_expense_id>', delete_truck_expense, name='delete_truck_expense'),
+    path('list-diesel-expense/', list_diesel_expense, name='list_diesel_expense'),
 
     path('add-bank-expense/', add_bank_expense, name='add_bank_expense'),
     # path('update-bank-expense/<bank_expense_id>', update_bank_expense, name='update_bank_expense'),

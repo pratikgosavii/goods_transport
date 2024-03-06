@@ -28,7 +28,7 @@
     <div class="col-xl-12">
         <div class="card">
             <div class="card-body">
-                <h4 class="box-title"> List Truck Expense</h4>
+                <h4 class="box-title"> List Diesel Expense</h4>
             </div>
             <div class="card-body--">
                 <div class="table-stats order-table ov-h">
@@ -36,12 +36,9 @@
                         <thead>
                             <tr>
                                 <th class="serial">#</th>
-                                <th>Expense Category</th>
+                                <th>Builty</th>
                                 <th>Amount</th>
-                                <th>Note</th>
-                                <th>Expense Date</th>
-                                <th>Payment Date</th>
-                                <th>entry Date</th>
+                                <th>Date</th>
                                 <th>Actions</th>
                                 
                             </tr>
@@ -51,11 +48,8 @@
                             {% for i in data %}
                             <tr>
                                 <td class="serial">{{ forloop.counter }}</td>
-                                <td>{{ i.expense_date }}</td>
+                                <td>{{ i.builty }}</td>
                                 <td>{{ i.amount }}</td>
-                                <td>{{ i.note }}</td>
-                                <td>{{ i.expense_date }}</td>
-                                <td>{{ i.payment_date }}</td>
                                 <td>{{ i.entry_date }}</td>
                                 <td>  
                                    <a href="{% url 'update_driver' i.id %}"> <button id="payment-button"  style="background-color: #05386b; border: green; padding: 10px;border-radius: 12px;" type="submit" class="btn-info ">

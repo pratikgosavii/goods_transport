@@ -1035,7 +1035,7 @@ def list_station(request):
     
     else:
     
-        data = station.objects.filter(office_location = request.user.office_location)
+        data = station.objects.all()
 
     context = {
             'data': data
@@ -1172,7 +1172,7 @@ def list_from_station(request):
     
     else:
     
-        data = from_station.objects.filter(office_location = request.user.office_location)
+        data = from_station.objects.all()
 
     context = {
             'data': data
@@ -1300,7 +1300,7 @@ def delete_district(request, district_id):
 @user_is_active
 def list_district(request):
     
-    data = district.objects.filter(office_location = request.user.office_location)
+    data = district.objects.all()
 
     context = {
             'data': data
@@ -1430,7 +1430,7 @@ def list_taluka(request):
     
     else:
 
-        data = taluka.objects.filter(office_location = request.user.office_location)
+        data = taluka.objects.all()
 
     context = {
             'data': data
