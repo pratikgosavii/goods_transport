@@ -18,6 +18,8 @@ urlpatterns = [
     path('approve-edit-builty/<request_id>', approve_edit, name='approve_edit'),
 
 
+    path('copy-data', copy_date, name='copy_date'),
+
     path('add-ack', add_ack, name='add_ack'),
 
     path('list-ack-all', list_ack_all, name='list_ack_all'),

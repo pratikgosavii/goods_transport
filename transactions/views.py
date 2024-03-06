@@ -219,7 +219,7 @@ def add_transaction(request):
 @user_is_active
 def update_builty(request, bulity_id):
 
-    instance = builty.objects.get(id = bulity_id)
+    instance = builty.objects.get(id = bulity_id, year = 2023 - 2024)
 
     form_article = article_Form(user = request.user)
 
@@ -505,6 +505,37 @@ def approve_edit(request, request_id):
     return redirect('admin_request_list')
 
 
+
+def copy_date(request):
+
+
+    district_data = district.objects.filter(office_location = request.user.office_location)
+    taluka_data = taluka.objects.filter(office_location = request.user.office_location)
+    from_station_data = from_station.objects.filter(office_location = request.user.office_location)
+    sstation_data = station.objects.filter(office_location = request.user.office_location)
+    onaccount_data = onaccount.objects.filter(office_location = request.user.office_location)
+
+    office_location_instance = office_location.objects.get(id = 1)
+
+    for i in district_data:
+
+        district.objects.create(office_location = office_location_instance, name = i.name)
+
+    for i in taluka_data:
+
+        taluka.objects.create(office_location = office_location_instance, district = i.district, name = i.name)
+
+    for i in from_station_data:
+
+        from_station.objects.create(office_location = office_location_instance, taluka = i.taluka, name = i.name)
+
+    for i in sstation_data:
+
+        station.objects.create(office_location = office_location_instance, taluka = i.taluka, name = i.name)
+
+    for i in onaccount_data:
+
+        onaccount.objects.create(office_location = office_location_instance, company = i.company, name = i.name)
 
 
 
