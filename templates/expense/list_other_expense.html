@@ -42,7 +42,6 @@
                                 <th>Expense Date</th>
                                 <th>Payment Date</th>
                                 <th>entry Date</th>
-                                <th>Date</th>
                                 <th>Actions</th>
                                 
                             </tr>
@@ -58,7 +57,6 @@
                                 <td>{{ i.expense_date }}</td>
                                 <td>{{ i.payment_date }}</td>
                                 <td>{{ i.entry_date }}</td>
-                                <td>{{ i.date }}</td>
                                 <td>  
                                    <a href="{% url 'update_driver' i.id %}"> <button id="payment-button"  style="background-color: #05386b; border: green; padding: 10px;border-radius: 12px;" type="submit" class="btn-info ">
                                         <span id="payment-button-amount">View</span>

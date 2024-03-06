@@ -235,6 +235,22 @@ def list_truck_expense(request):
 
     return render(request, 'expense/list_truck_expense.html', context)
 
+
+
+    
+    
+def list_diesel_expense(request):
+    
+    data = diesel_expense.objects.all()
+
+    context = {
+        'data': data
+    }
+
+    return render(request, 'expense/list_diesel_expense.html', context)
+
+
+
 def add_transfer_fund(request):
     
     
@@ -286,6 +302,17 @@ def list_transfer_fund(request):
     }
 
     return render(request, 'expense/list_transfer_fund.html', context)
+    
+
+def list_all_transfer_fund(request):
+    
+    data = transfer_fund.objects.all()
+
+    context = {
+        'data': data
+    }
+
+    return render(request, 'expense/list_all_transfer_fund.html', context)
 
 
 def add_bank_expense(request):

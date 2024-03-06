@@ -42,6 +42,8 @@ from .decorators import *
 
 from store.forms import *
 
+from expenses.models import *
+
 @user_is_active
 def add_transaction(request):
 
@@ -81,7 +83,13 @@ def add_transaction(request):
         forms = builty_Form(request.user, updated_request)
         if forms.is_valid():
 
+            diesel_amount = request.POST.get('diesel')
+            less_advance_amount = request.POST.get('less_advance')
+
             forms.save()
+
+            diesel_expense.objects.get_or_create(builty = forms.instance, amount = diesel_amount, user = request.user)
+            builty_expense.objects.get_or_create(builty = forms.instance, amount = less_advance_amount, user = request.user)
 
             return redirect('add_transaction')
 

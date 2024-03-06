@@ -99,9 +99,7 @@ class taluka_Form(forms.ModelForm):
         self.user = user  
         super(taluka_Form,self).__init__(*args, **kwargs)
 
-        if not user.is_superuser:
-            self.fields['district'].queryset = district.objects.filter(office_location = self.user.office_location)
-        
+       
 
 class station_Form(forms.ModelForm):
     class Meta:
@@ -124,9 +122,7 @@ class station_Form(forms.ModelForm):
         self.user = user  
         super(station_Form,self).__init__(*args, **kwargs)
 
-        if not self.user.is_superuser:
-            self.fields['taluka'].queryset = taluka.objects.filter(office_location = self.user.office_location)
-        
+       
 
 class from_station_Form(forms.ModelForm):
     class Meta:
@@ -150,9 +146,7 @@ class from_station_Form(forms.ModelForm):
         self.user = user  
         super(from_station_Form,self).__init__(*args, **kwargs)
 
-        if not self.user.is_superuser:
-            self.fields['taluka'].queryset = taluka.objects.filter(office_location = self.user.office_location)
-        
+       
 
 class article_Form(forms.ModelForm):
     class Meta:
