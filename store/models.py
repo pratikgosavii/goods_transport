@@ -124,7 +124,7 @@ class truck_details(models.Model):
 
 class district(models.Model):
 
-    name =  models.CharField(max_length=120, unique=True)
+    name =  models.CharField(max_length=120)
     office_location = models.ForeignKey(office_location, on_delete=models.CASCADE)
 
         
@@ -137,7 +137,7 @@ class taluka(models.Model):
     district = models.ForeignKey(district, on_delete=models.CASCADE)
     office_location = models.ForeignKey(office_location, on_delete=models.CASCADE, blank = True, null = True,related_name='ddfdf')
 
-    name =  models.CharField(max_length=120, unique=True)
+    name =  models.CharField(max_length=120)
 
         
     def __str__(self):
@@ -147,7 +147,7 @@ class taluka(models.Model):
  
 class from_station(models.Model):
 
-    name =  models.CharField(max_length=120, unique=True)
+    name =  models.CharField(max_length=120)
     office_location = models.ForeignKey(office_location, on_delete=models.CASCADE, blank = True, null = True,related_name='eereefedfeferefefdfed')
     taluka =  models.ForeignKey(taluka, related_name="xvds", on_delete=models.CASCADE)
         
@@ -157,7 +157,7 @@ class from_station(models.Model):
  
 class station(models.Model):
 
-    name =  models.CharField(max_length=120, unique=True)
+    name =  models.CharField(max_length=120)
     office_location = models.ForeignKey(office_location, on_delete=models.CASCADE, blank = True, null = True,related_name='eeredfed')
     taluka =  models.ForeignKey(taluka, related_name="fefdws", on_delete=models.CASCADE)
         
