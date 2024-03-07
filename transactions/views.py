@@ -524,15 +524,16 @@ def copy_date(request):
 
     for i in taluka_data:
         district_instance = district.objects.get(name = i.district.name, office_location = office_location_instance)
-        taluka.objects.create(office_location = office_location_instance, district = i.district, name = i.name)
+        taluka.objects.create(office_location = office_location_instance, district = district_instance, name = i.name)
 
     for i in from_station_data:
         taluka_instance = taluka.objects.get(name = i.taluka.name, office_location = office_location_instance)
         from_station.objects.create(office_location = office_location_instance, taluka = taluka_instance, name = i.name)
 
     for i in sstation_data:
+        taluka_instance = taluka.objects.get(name = i.taluka.name, office_location = office_location_instance)
 
-        station.objects.create(office_location = office_location_instance, taluka = i.taluka, name = i.name)
+        station.objects.create(office_location = office_location_instance, taluka = taluka_instance, name = i.name)
 
     for i in onaccount_data:
 
