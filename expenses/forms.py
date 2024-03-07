@@ -146,33 +146,6 @@ class transfer_fund_Form(forms.ModelForm):
         self.fields['user'].required = False
         self.fields['entry_date'].required = False
 
-class bank_expense_Form(forms.ModelForm):
-    class Meta:
-        model = bank_expense
-        fields = '__all__'
-        widgets = {
-            'bank_name': forms.TextInput(attrs={
-                'class': 'form-control', 'id': 'bank_name'
-            }),
-            'note': forms.TextInput(attrs={
-                'class': 'form-control', 'id': 'note'
-            }),
-            'amount': forms.NumberInput(attrs={
-                'class': 'form-control', 'id': 'amount'
-            }),
-            
-            'expense_date': DateTimeInput(attrs={'type': 'datetime-local', 'class' : 'form-control date_css'}),
-            'payment_date': DateTimeInput(attrs={'type': 'datetime-local', 'class' : 'form-control date_css'}),
-            'entry_date': DateTimeInput(attrs={'type': 'datetime-local', 'class' : 'form-control date_css'}),
-            
-        }
-
-    def __init__(self, *args, **kwargs):
-        super(bank_expense_Form, self).__init__(*args, **kwargs)
-        self.fields['user'].required = False
-        self.fields['entry_date'].required = False
-
-        
 
 class other_expense_Form(forms.ModelForm):
     class Meta:

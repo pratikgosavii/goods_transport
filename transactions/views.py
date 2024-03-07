@@ -508,12 +508,13 @@ def approve_edit(request, request_id):
 
 def copy_date(request):
 
+    office_location_instance = office_location.objects.get(id = 2)
 
-    district_data = district.objects.filter(office_location = request.user.office_location)
-    taluka_data = taluka.objects.filter(office_location = request.user.office_location)
-    from_station_data = from_station.objects.filter(office_location = request.user.office_location)
-    sstation_data = station.objects.filter(office_location = request.user.office_location)
-    onaccount_data = onaccount.objects.filter(office_location = request.user.office_location)
+    district_data = district.objects.filter(office_location = office_location_instance)
+    taluka_data = taluka.objects.filter(office_location = office_location_instance)
+    from_station_data = from_station.objects.filter(office_location = office_location_instance)
+    sstation_data = station.objects.filter(office_location = office_location_instance)
+    onaccount_data = onaccount.objects.filter(office_location = office_location_instance)
 
     office_location_instance = office_location.objects.get(id = 1)
 
