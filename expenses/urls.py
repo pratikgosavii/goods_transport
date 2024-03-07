@@ -26,12 +26,9 @@ urlpatterns = [
     # path('update-truck-expense/<truck_expense_id>', update_truck_expense, name='update_truck_expense'),
     # path('delete-truck-expense/<truck_expense_id>', delete_truck_expense, name='delete_truck_expense'),
     path('list-diesel-expense/', list_diesel_expense, name='list_diesel_expense'),
+    
+    path('add-diesel-rate/', add_diesel_rate, name='add_diesel_rate'),
 
-    path('add-bank-expense/', add_bank_expense, name='add_bank_expense'),
-    # path('update-bank-expense/<bank_expense_id>', update_bank_expense, name='update_bank_expense'),
-    # path('delete-bank-expense/<bank_expense_id>', delete_bank_expense, name='delete_bank_expense'),
-    path('list-bank-expense/', list_bank_expense, name='list_bank_expense'),
-   
     path('add-transfer-fund/', add_transfer_fund, name='add_transfer_fund'),
     # path('update-transfer-fund/<transfer_fund_id>', update_transfer_fund, name='update_transfer_fund'),
     # path('delete-transfer-fund/<transfer_fund_id>', delete_transfer_fund, name='delete_transfer_fund'),

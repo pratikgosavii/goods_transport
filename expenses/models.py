@@ -41,6 +41,7 @@ class builty_expense(models.Model):
 
     builty = models.ForeignKey(builty, on_delete=models.CASCADE)
     amount = models.FloatField()
+    is_advance = models.BooleanField(default=False)
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
     entry_date = models.DateTimeField(default = ist_datetime, blank=True, null=True)
 
@@ -74,6 +75,10 @@ class transfer_fund(models.Model):
     payment_date = models.DateTimeField()
     entry_date = models.DateTimeField(default = ist_datetime)
 
+class diesel_rate(models.Model):
+
+    amount = models.FloatField()
+
 class diesel_expense(models.Model):
 
     builty = models.ForeignKey(builty, on_delete=models.CASCADE, related_name='sdfgedfd')
@@ -86,19 +91,6 @@ class diesel_expense(models.Model):
 
     def __str__(self):
         return self.truck.truck_number
-
-class bank_expense(models.Model):
-
-    bank_name = models.CharField(max_length=500)
-    amount = models.IntegerField()
-    note = models.CharField(max_length=500)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    expense_date = models.DateTimeField()
-    payment_date = models.DateTimeField()
-    entry_date = models.DateTimeField(default = ist_datetime)
-
-
-
 
 
 class other_expense(models.Model):

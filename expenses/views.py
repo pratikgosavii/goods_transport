@@ -249,6 +249,18 @@ def list_diesel_expense(request):
 
     return render(request, 'expense/list_diesel_expense.html', context)
 
+    
+def add_diesel_rate(request):
+    
+    instance = diesel_rate.objects.get(id = 1)
+
+    rate_data = request.POST.get('rate')
+
+    instance.rate = rate_data
+    instance.save()
+
+    return redirect('list_diesel_expense')
+
 
 
 def add_transfer_fund(request):
@@ -313,57 +325,6 @@ def list_all_transfer_fund(request):
     }
 
     return render(request, 'expense/list_all_transfer_fund.html', context)
-
-
-def add_bank_expense(request):
-    
-    
-    if request.method == 'POST':
-
-        forms = bank_expense_Form(request.POST)
-
-        if forms.is_valid():
-            instance = forms.save(commit=False)
-            instance.user = request.user  # Assign the logged-in user
-            instance.save()
-
-            amount = request.POST.get('amount')
-            
-            user_instance = request.user
-            user_instance.balance = user_instance.balance - int(amount)
-            user_instance.save()
-
-
-            return redirect('list_bank_expense')
-        else:
-            context = {
-                'form': forms
-            }
-            return render(request, 'expense/add_bank_expense.html', context)
-
-    else:
-
-        forms = bank_expense_Form()
-
-        context = {
-            'form': forms
-        }
-        return render(request, 'expense/add_bank_expense.html', context)
-
-        
-
-    
-    
-def list_bank_expense(request):
-    
-    data = bank_expense.objects.all()
-
-    context = {
-        'data': data
-    }
-
-    return render(request, 'expense/list_bank_expense.html', context)
-
 
 
 
