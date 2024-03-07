@@ -1355,7 +1355,6 @@
     $("#station_to").change(function () {
         stationid = ($(this).val());
 
-        alert(stationid)
 
         $.ajax({   
             cache: false,                    // initialize an AJAX request
@@ -1376,7 +1375,6 @@
 
                     $('#taluka').html(let_html);
 
-                    alert(a[0].fields.district)
 
                     document.getElementById('district').value = a[0].fields.district;
 

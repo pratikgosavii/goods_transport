@@ -531,8 +531,9 @@ def copy_date(request):
         from_station.objects.create(office_location = office_location_instance, taluka = taluka_instance, name = i.name)
 
     for i in sstation_data:
+        taluka_instance = taluka.objects.get(name = i.taluka.name, office_location = office_location_instance)
 
-        station.objects.create(office_location = office_location_instance, taluka = i.taluka, name = i.name)
+        station.objects.create(office_location = office_location_instance, taluka = taluka_instance, name = i.name)
 
     for i in onaccount_data:
 
