@@ -57,7 +57,7 @@ class builty_Form(forms.ModelForm):
                 'class' : 'se sele',
             }),
             'district': forms.Select(attrs={
-                'id': 'district', 'class' : 'se'
+                'id': 'district', 'class' : 'sele'
             }),
             'consignee': forms.TextInput(attrs={
                 'id': 'consignee'
