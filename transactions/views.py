@@ -898,7 +898,7 @@ def get_district(request):
 
     taluka_instance = taluka.objects.get(id = taluka_id)
 
-    instance = district.objects.get(taluka = taluka_instance)
+    instance = district.objects.filter(taluka = taluka_instance).first()
 
     
     data = serializers.serialize('json', [instance])
