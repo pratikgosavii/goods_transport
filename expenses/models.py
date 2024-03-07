@@ -46,6 +46,8 @@ class builty_expense(models.Model):
     entry_date = models.DateTimeField(default = ist_datetime, blank=True, null=True)
 
 
+
+
     
 
 
