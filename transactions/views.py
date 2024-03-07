@@ -219,7 +219,7 @@ def add_transaction(request):
 @user_is_active
 def update_builty(request, bulity_id):
 
-    instance = builty.objects.get(id = bulity_id, year = 2023 - 2024)
+    instance = builty.objects.get(id = bulity_id)
 
     form_article = article_Form(user = request.user)
 
