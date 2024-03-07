@@ -523,12 +523,12 @@ def copy_date(request):
         district.objects.create(office_location = office_location_instance, name = i.name)
 
     for i in taluka_data:
-
+        district_instance = district.objects.get(name = i.district.name, office_location = office_location_instance)
         taluka.objects.create(office_location = office_location_instance, district = i.district, name = i.name)
 
     for i in from_station_data:
-
-        from_station.objects.create(office_location = office_location_instance, taluka = i.taluka, name = i.name)
+        taluka_instance = taluka.objects.get(name = i.taluka.name, office_location = office_location_instance)
+        from_station.objects.create(office_location = office_location_instance, taluka = taluka_instance, name = i.name)
 
     for i in sstation_data:
 
@@ -896,10 +896,13 @@ def get_district(request):
 
     taluka_id = request.POST.get('taluka_id')
 
+    print(taluka_id)
+
     taluka_instance = taluka.objects.get(id = taluka_id)
 
     instance = district.objects.filter(taluka = taluka_instance).first()
 
+    print(instance)
     
     data = serializers.serialize('json', [instance])
 
@@ -928,10 +931,13 @@ def get_owner(request):
 def get_taluka_district(request):
 
     station_id = request.POST.get('station_id')
+    print(station_id)
 
     station_instance = station.objects.get(id = station_id)
 
     instance = station_instance.taluka
+
+    print(instance.id)
 
     
     data = serializers.serialize('json', [instance])
