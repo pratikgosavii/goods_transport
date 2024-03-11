@@ -83,7 +83,8 @@ class diesel_rate(models.Model):
 
 class diesel_expense(models.Model):
 
-    builty = models.ForeignKey(builty, on_delete=models.CASCADE, related_name='sdfgedfd')
+    builty = models.ForeignKey(builty, on_delete=models.CASCADE, related_name='sdfgedfd', blank=True, null=True)
+    liter = models.FloatField()
     amount = models.FloatField()
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     entry_date = models.DateTimeField(default = ist_datetime)

@@ -28,28 +28,7 @@
     <div class="col-xl-12">
         <div class="card">
             <div class="card-body">
-                <h4 class="box-title"> List Diesel Expense</h4>
-
-                <form action="{% url 'add_diesel_rate' %}" method="post">
-
-                    {% csrf_token %}
-                    
-                    <div class="form-group">
-
-                        <label for="name" class="control-label mb-1">Rate</label>
-                        <input type="textbox" style="width: 50%;" value="{{ rate }}" name="rate" class="form-control">
-                        
-                    </div>
-
-
-                    <div>
-                        <button id="payment-button" style="width: 50%;" type="submit" class="btn btn-lg btn-info btn-block">
-                            <span id="payment-button-amount">Submit</span>
-                        </button>
-                    </div>
-
-                </form>
-                
+                <h4 class="box-title"> List Truck Expense</h4>
             </div>
             <div class="card-body--">
                 <div class="table-stats order-table ov-h">
@@ -57,10 +36,12 @@
                         <thead>
                             <tr>
                                 <th class="serial">#</th>
-                                <th>Builty</th>
-                                <th>Liter</th>
-                                <th>Amount</th>
-                                <th>Date</th>
+                                <th>Employee</th>
+                                <th>Salary</th>
+                                <th>Note</th>
+                                <th>Salary of Date</th>
+                                <th>Salary Paid Date</th>
+                                <th>Entry Date</th>
                                 <th>Actions</th>
                                 
                             </tr>
@@ -70,9 +51,11 @@
                             {% for i in data %}
                             <tr>
                                 <td class="serial">{{ forloop.counter }}</td>
-                                <td>{{ i.builty }}</td>
-                                <td>{{ i.liter }}</td>
-                                <td>{{ i.amount }}</td>
+                                <td>{{ i.employee }}</td>
+                                <td>{{ i.salary }}</td>
+                                <td>{{ i.note }}</td>
+                                <td>{{ i.salary_of_date }}</td>
+                                <td>{{ i.salary_paid_on }}</td>
                                 <td>{{ i.entry_date }}</td>
                                 <td>  
                                    <a href="{% url 'update_driver' i.id %}"> <button id="payment-button"  style="background-color: #05386b; border: green; padding: 10px;border-radius: 12px;" type="submit" class="btn-info ">

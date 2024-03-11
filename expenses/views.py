@@ -72,7 +72,7 @@ def add_builty_expense(request):
             amount = request.POST.get('amount')
 
             user_instance = request.user
-            user_instance.balance = user_instance.balance - int(amount)
+            user_instance.balance = user_instance.balance - float(amount)
             user_instance.save()
 
             return redirect('list_builty_expense')
@@ -200,12 +200,6 @@ def add_truck_expense(request):
             instance.user = request.user  # Assign the logged-in user
             instance.save()
 
-            amount = request.POST.get('amount')
-            
-            user_instance = request.user
-            user_instance.balance = user_instance.balance - int(amount)
-            user_instance.save()
-
             return redirect('list_truck_expense')
         else:
             context = {
@@ -237,14 +231,44 @@ def list_truck_expense(request):
 
 
 
+
+def add_diesel_expense(request):
+    
+    
+    if request.method == 'POST':
+
+        forms = diesel_expense_Form(request.POST)
+
+        if forms.is_valid():
+            forms.save()
+            return redirect('list_diesel_expense')
+        else:
+            context = {
+                'form': forms
+            }
+            return render(request, 'expense/add_diesel_expense.html', context)
+
+    else:
+
+        forms = diesel_expense_Form()
+
+        context = {
+            'form': forms
+        }
+        return render(request, 'expense/add_diesel_expense.html', context)
+
+
     
     
 def list_diesel_expense(request):
     
     data = diesel_expense.objects.all()
 
+    rate = diesel_rate.objects.get(id = 1)
+
     context = {
-        'data': data
+        'data': data,
+        'rate': rate.amount,
     }
 
     return render(request, 'expense/list_diesel_expense.html', context)
@@ -256,7 +280,7 @@ def add_diesel_rate(request):
 
     rate_data = request.POST.get('rate')
 
-    instance.rate = rate_data
+    instance.amount = rate_data
     instance.save()
 
     return redirect('list_diesel_expense')
@@ -279,11 +303,11 @@ def add_transfer_fund(request):
             transfer_to_user = request.POST.get('transfer_to_user')
             
             user_instance = request.user
-            user_instance.balance = user_instance.balance - int(amount)
+            user_instance.balance = user_instance.balance - float(amount)
             user_instance.save()
 
             user_instance = request.user
-            user_instance.balance = user_instance.balance + int(transfer_to_user)
+            user_instance.balance = user_instance.balance + float(transfer_to_user)
             user_instance.save()
 
             return redirect('list_transfer_fund')
@@ -327,6 +351,33 @@ def list_all_transfer_fund(request):
     return render(request, 'expense/list_all_transfer_fund.html', context)
 
 
+
+def add_diesel_expense(request):
+    
+    
+    if request.method == 'POST':
+
+        forms = diesel_expense_Form(request.POST)
+
+        if forms.is_valid():
+            forms.save()
+            return redirect('list_diesel_expense')
+        else:
+            context = {
+                'form': forms
+            }
+            return render(request, 'expense/add_diesel_expense.html', context)
+
+    else:
+
+        forms = diesel_expense_Form()
+
+        context = {
+            'form': forms
+        }
+        return render(request, 'expense/add_diesel_expense.html', context)
+
+        
 
 def add_employee(request):
     
@@ -384,7 +435,7 @@ def add_salary(request):
             amount = request.POST.get('amount')
             
             user_instance = request.user
-            user_instance.balance = user_instance.balance - int(amount)
+            user_instance.balance = user_instance.balance - float(amount)
             user_instance.save()
             
             return redirect('list_salary')
@@ -472,7 +523,7 @@ def add_fund_admin(request):
 
         user_instance = User.objects.get(id = user_id)
 
-        user_instance.balance = user_instance.balance + int(amount)
+        user_instance.balance = user_instance.balance + float(amount)
 
         user_instance.save()
 
@@ -520,7 +571,7 @@ def add_fund(request):
         user_instance = request.user
 
 
-        user_instance.balance = user_instance.balance + int(amount)
+        user_instance.balance = user_instance.balance + float(amount)
 
         user_instance.save()
 
