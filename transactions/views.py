@@ -83,17 +83,32 @@ def add_transaction(request):
         forms = builty_Form(request.user, updated_request)
         if forms.is_valid():
 
-            diesel_amount = request.POST.get('diesel')
+            diesel_liter = request.POST.get('diesel')
             less_advance_amount = request.POST.get('less_advance')
 
             forms.save()
 
-            diesel_expense.objects.get_or_create(builty = forms.instance, amount = diesel_amount, user = request.user)
+            diesel_amount = diesel_rate.objects.get(id = 1)
+
+            diesel_amount = diesel_amount.amount * float(diesel_liter)
+
+            diesel_expense.objects.get_or_create(builty = forms.instance, liter = diesel_liter, amount = diesel_amount, user = request.user)
             builty_expense.objects.get_or_create(builty = forms.instance, amount = less_advance_amount, user = request.user)
+
+
+            user_instance = request.user
+            print(user_instance)
+            user_instance.balance = user_instance.balance - float(less_advance_amount)
+            user_instance.save()
+            print(less_advance_amount)
+            print(user_instance.balance)
+
 
             return redirect('add_transaction')
 
         else:
+
+            print(forms.errors)
 
             messages.error(request, 'Something went wrong')
 
@@ -425,6 +440,17 @@ def add_request_edit(request, bulity_id):
         request_edit.objects.create(builty = builty_instance, user = request.user, history = True)
 
         return redirect('request_list')
+
+
+
+def save_financial_year(request):
+    print(request.POST)
+    if request.method == 'POST':
+        financial_year = request.POST.get('financial_year')
+        print(financial_year)
+        request.session['financial_year'] = financial_year
+        return JsonResponse({'message': 'Financial year saved successfully'}, status=200)
+    return JsonResponse({'error': 'Invalid request'}, status=400)
 
 
 @user_is_active

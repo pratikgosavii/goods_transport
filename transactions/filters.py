@@ -176,7 +176,10 @@ class builty_filter2(django_filters.FilterSet):
             self.filters['builty_no'].queryset = builty.objects.filter(user = request)
 
 
+import logging
 
+# Define a logger
+logger = logging.getLogger(__name__)
 
 class builty_filter(django_filters.FilterSet):
 
@@ -270,14 +273,8 @@ class builty_filter(django_filters.FilterSet):
             })
     )
 
-    truck_owner = django_filters.ModelMultipleChoiceFilter(
-        queryset=truck_owner.objects.all(),
-        widget=forms.CheckboxSelectMultiple(
-            attrs={
-                'class' : '',
-                'id' : 'truck_owner'
-            })
-    )
+   
+
     petrol_pump = django_filters.ModelChoiceFilter(
         queryset=petrol_pump.objects.all(),
         widget=forms.Select(
@@ -331,15 +328,18 @@ class builty_filter(django_filters.FilterSet):
         ))
 
     
+    select_all_except_one = django_filters.BooleanFilter(label='Select all except one', method='filter_select_all_except_one')
 
 
     class Meta:
         model = builty
-        fields = '__all__'
+        fields = ['consignor', 'station_from', 'station_to', 'article', 'onaccount', 'user', 'district', 'truck_details_single', 'truck_owner_single', 'truck_details', 'select_all_except_one', 'petrol_pump', 'builty_no', 'DC_date_start__date', 'DC_date_end__date', 'challan_date_start__date', 'challan_date_end__date']
        
     def __init__(self, user, *args, **kwargs):
         super(builty_filter,self).__init__(*args, **kwargs)
         request = user
+        logger.debug("Select all except one filter dfdfdfd")
+
         if not request.is_superuser:
             self.filters['district'].queryset = district.objects.filter(office_location = request.office_location)
             self.filters['taluka'].queryset = taluka.objects.filter(office_location = request.office_location)
@@ -349,8 +349,28 @@ class builty_filter(django_filters.FilterSet):
             self.filters['consignor'].queryset = consignor.objects.filter(office_location = request.office_location)
             self.filters['article'].queryset = article.objects.filter(office_location = request.office_location)
             self.filters['builty_no'].queryset = builty.objects.filter(user = request)
+            logger.debug("Select all except one filter dfdfdfd")
 
 
+
+       
+    def filter_select_all_except_one(self, queryset, name, value):
+        if value:
+            # Get the truck owner object to be excluded by ID
+            truck_owner_to_exclude = truck_owner.objects.get(id=1)
+
+            # Log a debug message
+            logger.debug("Select all except one filter activated")
+
+            # Exclude the truck owner from the queryset
+            return queryset.exclude(truck_owner=truck_owner_to_exclude)
+        else:
+
+            logger.debug("Select all except one filter dfdfdfd")
+
+            return queryset  # Return the queryset unchanged if the checkbox is not checked
+
+    
 
 
 

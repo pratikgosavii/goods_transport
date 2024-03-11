@@ -32,17 +32,18 @@
 
                 <form action="{% url 'add_diesel_rate' %}" method="post">
 
-
+                    {% csrf_token %}
+                    
                     <div class="form-group">
 
                         <label for="name" class="control-label mb-1">Rate</label>
-                        <input type="textbox" name="rate" class="form-control">
+                        <input type="textbox" style="width: 50%;" value="{{ rate }}" name="rate" class="form-control">
                         
                     </div>
 
 
                     <div>
-                        <button id="payment-button" type="submit" class="btn btn-lg btn-info btn-block">
+                        <button id="payment-button" style="width: 50%;" type="submit" class="btn btn-lg btn-info btn-block">
                             <span id="payment-button-amount">Submit</span>
                         </button>
                     </div>
@@ -57,6 +58,7 @@
                             <tr>
                                 <th class="serial">#</th>
                                 <th>Builty</th>
+                                <th>Liter</th>
                                 <th>Amount</th>
                                 <th>Date</th>
                                 <th>Actions</th>
@@ -69,6 +71,7 @@
                             <tr>
                                 <td class="serial">{{ forloop.counter }}</td>
                                 <td>{{ i.builty }}</td>
+                                <td>{{ i.liter }}</td>
                                 <td>{{ i.amount }}</td>
                                 <td>{{ i.entry_date }}</td>
                                 <td>  

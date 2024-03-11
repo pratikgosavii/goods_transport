@@ -184,6 +184,18 @@
     </button> </a><br><br> {% endcomment %}
 
     <!-- Widgets  -->
+
+    <div class="container">
+
+      {% csrf_token %}
+      <label for="financialYear">Financial Year:</label>
+      <select id="financialYear">
+      </select>
+      <h1>{{ request.session.financial_year }}</h1>
+      <button id="submitBtn">Submit</button>
+
+    </div>
+    
     <div class="row">
         <div class="col-lg-3 col-md-6">
             <div class="card">
@@ -657,8 +669,96 @@
 
     }
 
+    
+    const financialYearSelect = document.getElementById('financialYear');
+    const submitBtn = document.getElementById('submitBtn');
+
+    // Function to get financial years dynamically
+    function getFinancialYears() {
+      const today = new Date();
+      const currentYear = today.getFullYear();
+      const startYear = 2023; // Set your desired start year here
+      const endYear = currentYear;
+
+      return [startYear + '-' + (startYear + 1), endYear + '-' + (endYear + 1)];
+    }
+
+    // Function to populate financial year options dynamically
+    function populateFinancialYears() {
+      const [startYear, endYear] = getFinancialYears();
+      
+      const optionStartYear = document.createElement('option');
+      optionStartYear.value = startYear;
+      optionStartYear.textContent = startYear;
+      financialYearSelect.appendChild(optionStartYear);
+
+      const optionEndYear = document.createElement('option');
+      optionEndYear.value = endYear;
+      optionEndYear.textContent = endYear;
+      financialYearSelect.appendChild(optionEndYear);
+    }
+
+    // Event listener for submit button click
+    submitBtn.addEventListener('click', function() {
+      const selectedYear = financialYearSelect.value;
+      alert(selectedYear)
+      // Get CSRF token
+      const csrftoken = getCookie('csrftoken');
+  
+      // Send AJAX request using jQuery
+     
+
+      
+  $.ajax({                       // initialize an AJAX request
+    type: "POST",
+    url: "{% url 'save_financial_year' %}",
+    data: {
+      'financial_year' : selectedYear,       // add the country id to the POST parameters
+        'csrfmiddlewaretoken':$('input[name=csrfmiddlewaretoken]').val(),
+    },
+    success: function (data) {   // `data` is from `get_topics_ajax` view function
+      alert('done')
+    }
+});
+});
+  
+
+    // Initial setup
+    populateFinancialYears();
+
+    function getCookie(name) {
+      let cookieValue = null;
+      if (document.cookie && document.cookie !== '') {
+          const cookies = document.cookie.split(';');
+          for (let i = 0; i < cookies.length; i++) {
+              const cookie = cookies[i].trim();
+              // Check if this cookie name matches the name parameter
+              if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                  cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                  break;
+              }
+          }
+      }
+      return cookieValue;
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   
+
+
+
 </script>
 
 

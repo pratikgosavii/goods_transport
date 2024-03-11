@@ -12,7 +12,9 @@ urlpatterns = [
     path('list-transaction/', list_transaction, name='list_transaction'),
 
     path('request-edit-builty/<bulity_id>', add_request_edit, name='request_edit'),
-   
+    
+    path('save_financial_year/', save_financial_year, name='save_financial_year'),
+    
     path('admin-request-list', admin_list_request_edit, name='admin_request_list'),
     path('request-list', list_request_edit, name='request_list'),
     path('approve-edit-builty/<request_id>', approve_edit, name='approve_edit'),
