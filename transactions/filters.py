@@ -291,7 +291,14 @@ class builty_filter(django_filters.FilterSet):
             })
     )
 
-    
+    truck_owner = django_filters.ModelChoiceFilter(
+        queryset=truck_owner.objects.all(),
+        widget=forms.Select(
+            attrs={
+                'class' : 'form-control sele',
+                'id' : 'truck_owner'
+            })
+    )
 
     DC_date_start__date = DateFilter(field_name="DC_date", lookup_expr='gte', widget=forms.DateInput(
             attrs={
