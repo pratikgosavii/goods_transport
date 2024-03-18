@@ -97,3 +97,53 @@ class builty_expense_filter(django_filters.FilterSet):
        
    
 
+
+class diesel_expense_filter(django_filters.FilterSet):
+
+    builty = django_filters.ModelChoiceFilter(
+        queryset=builty.objects.all(),
+       widget=forms.Select(
+            attrs={
+                'class' : 'form-control sele',
+                'id' : 'builty'
+            })
+    )
+
+    
+    user = django_filters.ModelChoiceFilter(
+        queryset=User.objects.all(),
+        widget=forms.Select(
+            attrs={
+                'class' : 'form-control sele',
+                'id' : 'user'
+            })
+    )
+
+    
+    
+
+    entry_date_start__date = DateFilter(field_name="entry_date", lookup_expr='gte', widget=forms.DateInput(
+            attrs={
+                'id': 'datepicker1212',
+                'type': 'date',
+                'class' : 'form-control date_css'
+            }
+        ))
+
+
+    entry_date_end__date = DateFilter(field_name="entry_date", lookup_expr='lte', widget=forms.DateInput(
+            attrs={
+            'id': 'datepicker1212',
+            'type': 'date',
+                'class' : 'form-control date_css'
+            }
+        ))
+
+
+
+    class Meta:
+        model = diesel_expense
+        fields = '__all__'
+       
+   
+

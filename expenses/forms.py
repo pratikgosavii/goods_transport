@@ -97,8 +97,14 @@ class diesel_expense_Form(forms.ModelForm):
         model = diesel_expense
         fields = '__all__'
         widgets = {
+            'builty': forms.Select(attrs={
+                'class': 'form-control', 'id': 'builty'
+            }),
             'note': forms.TextInput(attrs={
                 'class': 'form-control', 'id': 'note'
+            }),
+            'liter': forms.NumberInput(attrs={
+                'class': 'form-control', 'id': 'liter'
             }),
             'amount': forms.NumberInput(attrs={
                 'class': 'form-control', 'id': 'amount'

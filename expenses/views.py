@@ -262,16 +262,19 @@ def add_diesel_expense(request):
     
 def list_diesel_expense(request):
     
-    data = diesel_expense.objects.all()
+    querdata = diesel_expense.objects.all()
+    rate = diesel_rate.objects.get(id=1)
+    diesel_expense_filters = diesel_expense_filter(request.GET, queryset=querdata)
 
-    rate = diesel_rate.objects.get(id = 1)
 
     context = {
-        'data': data,
+        'data': diesel_expense_filters.qs,  # Pass the filtered queryset
         'rate': rate.amount,
+        'diesel_expense_filter': diesel_expense_filters,  # If you need the filter form
     }
 
     return render(request, 'expense/list_diesel_expense.html', context)
+
 
     
 def add_diesel_rate(request):
@@ -301,14 +304,17 @@ def add_transfer_fund(request):
 
             amount = request.POST.get('amount')
             transfer_to_user = request.POST.get('transfer_to_user')
-            
+            print(transfer_to_user)
             user_instance = request.user
             user_instance.balance = user_instance.balance - float(amount)
             user_instance.save()
 
-            user_instance = request.user
-            user_instance.balance = user_instance.balance + float(transfer_to_user)
-            user_instance.save()
+            user_instance1 = User.objects.get(id = transfer_to_user)
+            print(user_instance1.balance)
+            user_instance1.balance = user_instance1.balance + float(amount)
+            user_instance1.save()
+
+            print
 
             return redirect('list_transfer_fund')
         else:
@@ -326,7 +332,79 @@ def add_transfer_fund(request):
         }
         return render(request, 'expense/add_transfer_fund.html', context)
 
-      
+
+
+def update_transfer_fund(request, transfer_fund_id):
+
+    instance = transfer_fund.objects.get(id = transfer_fund_id)
+
+    if request.method == 'POST':
+
+        amount = request.POST.get('amount')
+        print('------------------------')
+        print(float(instance.amount))
+        user_instance = request.user
+        user_instance.balance = user_instance.balance + float(instance.amount)
+        user_instance.save()
+
+        forms = transfer_fund_Form(request.POST, instance = instance)
+
+        if forms.is_valid():
+
+          
+            
+            print('------------------------')
+            print((amount))
+
+            instance = forms.save(commit=False)
+            instance.user = request.user  # Assign the logged-in user
+            instance.save()
+
+            transfer_to_user = request.POST.get('transfer_to_user')
+            
+            user_instance = request.user
+            user_instance.balance = user_instance.balance - float(amount)
+            user_instance.save()
+
+            user_instance = request.user
+            user_instance.balance = user_instance.balance + float(transfer_to_user)
+            user_instance.save()
+
+            return redirect('list_transfer_fund')
+        
+
+        else:
+            context = {
+                'form': forms
+            }
+            return render(request, 'expense/add_transfer_fund.html', context)
+
+    else:
+
+        forms = transfer_fund_Form(instance = instance)
+
+
+        context = {
+            'form': forms,
+        }
+            
+        return render(request, 'expense/add_transfer_fund.html', context)
+
+
+
+
+def delete_transfer_fund(request, transfer_fund_id):
+
+
+    transfer_fund_instance = transfer_fund.objects.get(id = transfer_fund_id)
+    transfer_fund_instance.deleted = True
+    transfer_fund_instance.save()
+
+    return redirect('list_transfer_fund')
+
+
+
+
     
     
 def list_transfer_fund(request):
@@ -360,7 +438,9 @@ def add_diesel_expense(request):
         forms = diesel_expense_Form(request.POST)
 
         if forms.is_valid():
-            forms.save()
+            instance = forms.save(commit=False)
+            instance.user = request.user  # Assign the logged-in user
+            instance.save()
             return redirect('list_diesel_expense')
         else:
             context = {
@@ -378,6 +458,58 @@ def add_diesel_expense(request):
         return render(request, 'expense/add_diesel_expense.html', context)
 
         
+
+        
+def update_diesel_expense(request, diesel_expense_id):
+
+    instance = diesel_expense.objects.get(id = diesel_expense_id)
+
+    if request.method == 'POST':
+
+        forms = diesel_expense_Form(request.POST, instance = instance)
+
+        if forms.is_valid():
+
+            instance = forms.save(commit=False)
+            instance.user = request.user  # Assign the logged-in user
+            instance.save()
+
+            return redirect('list_diesel_expense')
+        
+
+        else:
+            context = {
+                'form': forms
+            }
+            return render(request, 'expense/add_diesel_expense.html', context)
+
+    else:
+
+        forms = diesel_expense_Form(instance = instance)
+
+
+        context = {
+            'form': forms,
+        }
+            
+        return render(request, 'expense/add_diesel_expense.html', context)
+
+
+
+
+def delete_diesel_expense(request, diesel_expense_id):
+
+
+    diesel_expense_instance = diesel_expense.objects.get(id = diesel_expense_id)
+    diesel_expense_instance.deleted = True
+    diesel_expense_instance.save()
+
+    return redirect('list_diesel_expense')
+
+
+
+
+
 
 def add_employee(request):
     
@@ -432,13 +564,15 @@ def add_salary(request):
             instance.user = request.user  # Assign the logged-in user
             instance.save()
 
-            amount = request.POST.get('amount')
+            amount = request.POST.get('salary')
             
             user_instance = request.user
             user_instance.balance = user_instance.balance - float(amount)
             user_instance.save()
             
             return redirect('list_salary')
+
+
         else:
             context = {
                 'form': forms

@@ -24,15 +24,15 @@ urlpatterns = [
     path('list-truck-expense/', list_truck_expense, name='list_truck_expense'),
    
     path('add-diesel-expense/', add_diesel_expense, name='add_diesel_expense'),
-    # path('update-truck-expense/<truck_expense_id>', update_truck_expense, name='update_truck_expense'),
-    # path('delete-truck-expense/<truck_expense_id>', delete_truck_expense, name='delete_truck_expense'),
+    path('update-diesel-expense/<diesel_expense_id>', update_diesel_expense, name='update_diesel_expense'),
+    path('delete-diesel-expense/<diesel_expense_id>', delete_diesel_expense, name='delete_diesel_expense'),
     path('list-diesel-expense/', list_diesel_expense, name='list_diesel_expense'),
     
     path('add-diesel-rate/', add_diesel_rate, name='add_diesel_rate'),
 
     path('add-transfer-fund/', add_transfer_fund, name='add_transfer_fund'),
-    # path('update-transfer-fund/<transfer_fund_id>', update_transfer_fund, name='update_transfer_fund'),
-    # path('delete-transfer-fund/<transfer_fund_id>', delete_transfer_fund, name='delete_transfer_fund'),
+    path('update-transfer-fund/<transfer_fund_id>', update_transfer_fund, name='update_transfer_fund'),
+    path('delete-transfer-fund/<transfer_fund_id>', delete_transfer_fund, name='delete_transfer_fund'),
     path('list-transfer-fund/', list_transfer_fund, name='list_transfer_fund'),
    
     path('add-employee/', add_employee, name='add_employee'),
