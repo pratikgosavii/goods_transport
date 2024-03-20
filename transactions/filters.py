@@ -67,6 +67,16 @@ class builty_filter2(django_filters.FilterSet):
             })
     )
 
+    to_district = django_filters.ModelChoiceFilter(
+            queryset=district.objects.all(),
+            field_name='station_to__taluka__district__name',
+            widget=forms.Select(
+                attrs={
+                    'class' : 'form-control sele',
+                    'id' : 'district'
+                })
+    )
+
     district = django_filters.ModelChoiceFilter(
         queryset=district.objects.all(),
         widget=forms.Select(
@@ -75,6 +85,7 @@ class builty_filter2(django_filters.FilterSet):
                 'id' : 'district'
             })
     )
+    
 
     truck_details_single = django_filters.ModelChoiceFilter(
         queryset=truck_details.objects.all(),
@@ -206,6 +217,16 @@ class builty_filter(django_filters.FilterSet):
             attrs={
                 'class' : 'form-control sele',
                 'id' : 'station_to'
+            })
+    )
+
+    to_district = django_filters.ModelChoiceFilter(
+        queryset=district.objects.all(),
+        field_name='station_to__taluka__district__name',
+        widget=forms.Select(
+            attrs={
+                'class' : 'form-control sele',
+                'id' : 'district'
             })
     )
     
