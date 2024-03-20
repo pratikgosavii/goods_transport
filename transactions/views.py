@@ -68,7 +68,6 @@ def add_transaction(request):
 
         financial_year = request.session['financial_year']
         financial_year = financial_year.split('-')
-        print(financial_year)
         year_1 = financial_year[0]
         year_2 = financial_year[1]
 
@@ -113,11 +112,8 @@ def add_transaction(request):
 
 
             user_instance = request.user
-            print(user_instance)
             user_instance.balance = user_instance.balance - float(less_advance_amount)
             user_instance.save()
-            print(less_advance_amount)
-            print(user_instance.balance)
 
 
             return redirect('add_transaction')
@@ -460,10 +456,8 @@ def add_request_edit(request, bulity_id):
 
 
 def save_financial_year(request):
-    print(request.POST)
     if request.method == 'POST':
         financial_year = request.POST.get('financial_year')
-        print(financial_year)
         request.session['financial_year'] = financial_year
         return JsonResponse({'message': 'Financial year saved successfully'}, status=200)
     return JsonResponse({'error': 'Invalid request'}, status=400)
@@ -939,14 +933,10 @@ def get_district(request):
 
     taluka_id = request.POST.get('taluka_id')
 
-    print(taluka_id)
-
     taluka_instance = taluka.objects.get(id = taluka_id)
 
     instance = district.objects.filter(taluka = taluka_instance).first()
 
-    print(instance)
-    
     data = serializers.serialize('json', [instance])
 
     return JsonResponse({'data' : data})
@@ -974,15 +964,11 @@ def get_owner(request):
 def get_taluka_district(request):
 
     station_id = request.POST.get('station_id')
-    print(station_id)
 
     station_instance = station.objects.get(id = station_id)
 
     instance = station_instance.taluka
 
-    print(instance.id)
-
-    
     data = serializers.serialize('json', [instance])
 
     
@@ -1096,10 +1082,6 @@ import csv
 
 def voucher_payment(request):
 
-    print("hereee")
-
-    print(request.GET)
-
     if request.user.is_superuser:
         data = builty.objects.filter(deleted = False).order_by('id')
     else:
@@ -1111,19 +1093,10 @@ def voucher_payment(request):
     voucher_payment_bank_ac_ifsc = request.GET.get("voucher_payment_bank_ac_ifsc")
     bui = request.GET.get("builty_no")
 
-    print(voucher_payment_mode)
-    print(voucher_payment_bank_ac_no)
-    print(voucher_payment_bank_ac_ifsc)
-
-
-    print(bui)
-   
     builty_filters = builty_filter(request.user, request.GET, queryset=data)
     
     data = builty_filters.qs
 
-
-    print(data)
     for i in data:
 
         ack_instance = ack.objects.filter(builty = i)
@@ -1356,17 +1329,12 @@ def truck_report(request):
         data = builty.objects.filter(user = request.user, deleted = False).order_by('id')
 
     builty_filters = builty_filter(request.user, request.GET, queryset=data)
-    print('-------------------------')
 
     data = builty_filters.qs
 
     total_mt = data.aggregate(Sum('mt'))['mt__sum']
     date_from = request.GET.get('DC_date_start__date')
     date_to = request.GET.get('DC_date_end__date')
-
-    print(total_mt)
-    print(date_from)
-    print(date_to)
 
     params = {
         'data': data,
@@ -1522,8 +1490,6 @@ def truck_report_excel(request):
     vals1 = []
 
     pan_no = truck_owner_instance.pan_card
-    print(truck_owner_instance)
-    print(pan_no)
 
     vals1.append("")
     vals1.append("")

@@ -10,6 +10,10 @@ from transactions.filters import *
 
 
 
+from django.core.paginator import Paginator, EmptyPage
+
+
+
 from django.db.models.functions import Substr
 
 from django.core.paginator import Paginator, EmptyPage
@@ -139,8 +143,18 @@ def list_builty_expense(request):
     builty_expense_filters = builty_expense_filter(request.GET, queryset=data)
 
 
+    page = request.GET.get('page', 1)
+    paginator = Paginator(builty_expense_filters.qs, 20)
+    try:
+        data = paginator.page(page)
+    except PageNotAnInteger:
+        data = paginator.page(1)
+    except EmptyPage:
+        data = paginator.page(paginator.num_pages)
+
+
     context = {
-        'data': builty_expense_filters.qs,
+        'data': data,
         'expense_builty_filter' : builty_expense_filters,
 
     }
@@ -178,6 +192,17 @@ def add_expense_category(request):
 def list_expense_category(request):
     
     data = expense_category.objects.all()
+
+    page = request.GET.get('page', 1)
+    paginator = Paginator(data.qs, 20)
+    try:
+        data = paginator.page(page)
+    except PageNotAnInteger:
+        data = paginator.page(1)
+    except EmptyPage:
+        data = paginator.page(paginator.num_pages)
+
+
 
     context = {
         'data': data
@@ -237,9 +262,18 @@ def list_truck_expense(request):
 
     truck_expense_filters = truck_expense_filter(request.GET, queryset=data)
 
+    page = request.GET.get('page', 1)
+    paginator = Paginator(truck_expense_filters.qs, 20)
+    try:
+        data = paginator.page(page)
+    except PageNotAnInteger:
+        data = paginator.page(1)
+    except EmptyPage:
+        data = paginator.page(paginator.num_pages)
+
 
     context = {
-        'data': truck_expense_filters.qs,
+        'data': data,
         'truck_expense_filters' : truck_expense_filters
     }
 
@@ -277,17 +311,14 @@ def add_transfer_fund(request):
 
             amount = request.POST.get('amount')
             transfer_to_user = request.POST.get('transfer_to_user')
-            print(transfer_to_user)
             user_instance = request.user
             user_instance.balance = user_instance.balance - float(amount)
             user_instance.save()
 
             user_instance1 = User.objects.get(id = transfer_to_user)
-            print(user_instance1.balance)
             user_instance1.balance = user_instance1.balance + float(amount)
             user_instance1.save()
 
-            print
 
             return redirect('list_transfer_fund')
         else:
@@ -314,8 +345,6 @@ def update_transfer_fund(request, transfer_fund_id):
     if request.method == 'POST':
 
         amount = request.POST.get('amount')
-        print('------------------------')
-        print(float(instance.amount))
         user_instance = request.user
         user_instance.balance = user_instance.balance + float(instance.amount)
         user_instance.save()
@@ -323,11 +352,6 @@ def update_transfer_fund(request, transfer_fund_id):
         forms = transfer_fund_Form(request.POST, instance = instance)
 
         if forms.is_valid():
-
-          
-            
-            print('------------------------')
-            print((amount))
 
             instance = forms.save(commit=False)
             instance.user = request.user  # Assign the logged-in user
@@ -393,8 +417,20 @@ def list_transfer_fund(request):
     transfer_fund_filters = transfer_fund_filter(request.GET, queryset=data)
 
 
+     
+
+    page = request.GET.get('page', 1)
+    paginator = Paginator(transfer_fund_filters.qs, 20)
+    try:
+        data = paginator.page(page)
+    except PageNotAnInteger:
+        data = paginator.page(1)
+    except EmptyPage:
+        data = paginator.page(paginator.num_pages)
+
+
     context = {
-        'data': transfer_fund_filters.qs,
+        'data': data,
         'transfer_fund_filter' : transfer_fund_filters
     }
 
@@ -505,8 +541,20 @@ def list_diesel_expense(request):
     
     diesel_expense_filters = diesel_expense_filter(request.GET, queryset=data)
 
+
+    page = request.GET.get('page', 1)
+    paginator = Paginator(diesel_expense_filters.qs, 20)
+    try:
+        data = paginator.page(page)
+    except PageNotAnInteger:
+        data = paginator.page(1)
+    except EmptyPage:
+        data = paginator.page(paginator.num_pages)
+
+
+
     context = {
-        'data': diesel_expense_filters.qs,  # Pass the filtered queryset
+        'data': data,  # Pass the filtered queryset
         'rate': rate.amount,
         'diesel_expense_filter': diesel_expense_filters,  # If you need the filter form
     }
@@ -608,6 +656,21 @@ def list_truck_diesel_expense(request):
 
     truck_diesel_expense_filters = truck_diesel_expense_filter(request.GET, queryset=data)
 
+
+    
+
+    page = request.GET.get('page', 1)
+    paginator = Paginator(truck_diesel_expense_filters.qs, 20)
+    try:
+        data = paginator.page(page)
+    except PageNotAnInteger:
+        data = paginator.page(1)
+    except EmptyPage:
+        data = paginator.page(paginator.num_pages)
+
+
+
+
     context = {
         'data': truck_diesel_expense_filters.qs,  # Pass the filtered queryset
         'rate': rate.amount,
@@ -650,6 +713,19 @@ def add_employee(request):
 def list_employee(request):
     
     data = employee.objects.all()
+
+    
+
+    page = request.GET.get('page', 1)
+    paginator = Paginator(date, 20)
+    try:
+        data = paginator.page(page)
+    except PageNotAnInteger:
+        data = paginator.page(1)
+    except EmptyPage:
+        data = paginator.page(paginator.num_pages)
+
+
 
     context = {
         'data': data
@@ -713,8 +789,21 @@ def list_salary(request):
     salary_filters = salary_filter(request.GET, queryset=data)
 
 
+
+
+    page = request.GET.get('page', 1)
+    paginator = Paginator(salary_filters.qs, 20)
+    try:
+        data = paginator.page(page)
+    except PageNotAnInteger:
+        data = paginator.page(1)
+    except EmptyPage:
+        data = paginator.page(paginator.num_pages)
+
+
+
     context = {
-        'data': salary_filters.qs,
+        'data': data,
         'salary_filter' : salary_filters
     }
 
@@ -759,7 +848,7 @@ def list_other_expense(request):
 
     if request.user.is_superuser:
 
-                data = other_expense.objects.all()
+        data = other_expense.objects.all()
 
     else:
 
@@ -769,10 +858,22 @@ def list_other_expense(request):
     
     other_expense_filters = other_expense_filter(request.GET, queryset=data)
 
+    page = request.GET.get('page', 1)
+    paginator = Paginator(other_expense_filters.qs, 20)
+    try:
+        data = paginator.page(page)
+    except PageNotAnInteger:
+        data = paginator.page(1)
+    except EmptyPage:
+        data = paginator.page(paginator.num_pages)
+
+
+    
+
 
 
     context = {
-        'data': other_expense_filters.qs,
+        'data': data,
         'other_expense_filter' : other_expense_filters
     }
 
@@ -832,8 +933,20 @@ def list_fund_admin(request):
 
    
 
+    page = request.GET.get('page', 1)
+    paginator = Paginator(fund_filters.qs, 20)
+    try:
+        data = paginator.page(page)
+    except PageNotAnInteger:
+        data = paginator.page(1)
+    except EmptyPage:
+        data = paginator.page(paginator.num_pages)
+
+
+
+
     context = {
-        'data': fund_filters.qs,
+        'data': data,
         'fund_filter' : fund_filters
     }
 
@@ -905,8 +1018,22 @@ def list_fund(request):
     fund_filters = fund_filter(request.GET, queryset=data)
 
 
+    
+   
+
+    page = request.GET.get('page', 1)
+    paginator = Paginator(fund_filters.qs, 20)
+    try:
+        data = paginator.page(page)
+    except PageNotAnInteger:
+        data = paginator.page(1)
+    except EmptyPage:
+        data = paginator.page(paginator.num_pages)
+
+
+
     context = {
-        'data': fund_filters.qs,
+        'data': data,
         'fund_filter' : fund_filters
     }
 
