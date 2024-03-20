@@ -190,8 +190,8 @@
  
          <div class="form-group" style="display: flex;gap: 14px;">
  
-           <label for="name" class="control-label mb-1" style="margin-left : 0px;">Builty No</label>
-                   {{ truck_diesel_expense_filter.form.builty }}
+           <label for="name" class="control-label mb-1" style="margin-left : 0px;">Truck No</label>
+                   {{ truck_diesel_expense_filter.form.truck }}
                        
              
                    {% if request.user.is_superuser %}
@@ -233,27 +233,6 @@
         <div class="card">
             <div class="card-body">
                 <h4 class="box-title"> List Truck Diesel Expense</h4>
-
-                <form action="{% url 'add_diesel_rate' %}" method="post">
-
-                    {% csrf_token %}
-                    
-                    <div class="form-group">
-
-                        <label for="name" class="control-label mb-1">Rate</label>
-                        <input type="textbox" style="width: 50%;" value="{{ rate }}" name="rate" class="form-control">
-                        
-                    </div>
-
-
-                    <div>
-                        <button id="payment-button" style="width: 50%;" type="submit" class="btn btn-lg btn-info btn-block">
-                            <span id="payment-button-amount">Submit</span>
-                        </button>
-                    </div>
-
-                </form>
-                
             </div>
             <div class="card-body--">
                 <div class="table-stats order-table ov-h">

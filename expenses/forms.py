@@ -151,7 +151,7 @@ class truck_diesel_expense_Form(forms.ModelForm):
         }
 
     def __init__(self, *args, **kwargs):
-        super(diesel_expense_Form, self).__init__(*args, **kwargs)
+        super(truck_diesel_expense_Form, self).__init__(*args, **kwargs)
         self.fields['user'].required = False
         self.fields['entry_date'].required = False
 
