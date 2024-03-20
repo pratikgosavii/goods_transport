@@ -40,7 +40,6 @@
                                 <th>Salary</th>
                                 <th>Note</th>
                                 <th>Salary of Date</th>
-                                <th>Salary Paid Date</th>
                                 <th>Entry Date</th>
                                 <th>Actions</th>
                                 
@@ -55,7 +54,6 @@
                                 <td>{{ i.salary }}</td>
                                 <td>{{ i.note }}</td>
                                 <td>{{ i.salary_of_date }}</td>
-                                <td>{{ i.salary_paid_on }}</td>
                                 <td>{{ i.entry_date }}</td>
                                 <td>  
                                    <a href="{% url 'update_driver' i.id %}"> <button id="payment-button"  style="background-color: #05386b; border: green; padding: 10px;border-radius: 12px;" type="submit" class="btn-info ">

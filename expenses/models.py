@@ -57,7 +57,6 @@ class truck_expense(models.Model):
     amount = models.FloatField()
     note = models.CharField(max_length=500)
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
-    expense_date = models.DateTimeField()
     payment_date = models.DateTimeField()
     entry_date = models.DateTimeField(default = ist_datetime)
 
@@ -73,7 +72,6 @@ class transfer_fund(models.Model):
     amount = models.FloatField()
     note = models.CharField(max_length=500)
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
-    expense_date = models.DateTimeField()
     payment_date = models.DateTimeField()
     entry_date = models.DateTimeField(default = ist_datetime)
 
@@ -90,6 +88,15 @@ class diesel_expense(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
     entry_date = models.DateTimeField(default = ist_datetime)
 
+class truck_diesel_expense(models.Model):
+
+    truck = models.ForeignKey(truck_details, on_delete=models.CASCADE, related_name='sdfgedfd', blank=True, null=True)
+    liter = models.FloatField()
+    amount = models.FloatField()
+    note = models.CharField(max_length=50)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
+    entry_date = models.DateTimeField(default = ist_datetime)
+
 
 class other_expense(models.Model):
 
@@ -97,7 +104,6 @@ class other_expense(models.Model):
     amount = models.FloatField()
     note = models.CharField(max_length=500)
     payment_date = models.DateTimeField()
-    expense_date = models.DateTimeField()
     entry_date = models.DateTimeField(default = ist_datetime)
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
 
@@ -111,7 +117,6 @@ class salary(models.Model):
     salary = models.FloatField()
     note = models.CharField(max_length=500)
     salary_of_date = models.DateTimeField()
-    salary_paid_on = models.DateTimeField()
     entry_date = models.DateTimeField(default = ist_datetime)
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
     

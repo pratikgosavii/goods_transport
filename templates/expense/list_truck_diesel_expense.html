@@ -3,6 +3,7 @@
 {% block title %}Product List{% endblock title %}
 
 
+
 {% block head %}
 
 
@@ -166,97 +167,93 @@
 
 
 
-{% block breadcrumbs %}
-<div class="breadcrumbs">
-    <div class="breadcrumbs-inner">
-        <div class="row m-0">
-            
-            {% comment %} <div class="col-sm-8">
-                <div class="page-header float-right">
-                    <div class="page-title">
-                        <ol class="breadcrumb text-right">
-                            <li><a href="#">Dashboard</a></li>
-                            <li><a href="#">Product</a></li>
-                            <li class="active">List</li>
-                        </ol>
-                    </div>
-                </div>
-            </div> {% endcomment %}
-        </div>
-    </div>
-</div>
-{% endblock breadcrumbs %}
+
 
 {% block content %}
 
 
+<br>
 
-
-<p>
-    
-    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-      Filters
-    </button>
-  </p>
-  <div class="collapse" id="collapseExample">
-    <div class="card card-body" style="width: auto;">
-      
-
-      <form method="get" action="" style="padding:15px;">
-
-        {% csrf_token %}
-
-        <div class="form-group" style="display: flex;gap: 14px;">
-
-          <label for="name" class="control-label mb-1" style="margin-left : 0px;">Builty No</label>
-                  {{ expense_builty_filter.form.builty }}
-                      
-
-    {% if request.user.is_superuser %}
+ <p>
+     
+     <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+       Filters
+     </button>
+   </p>
+   <div class="collapse" id="collapseExample">
+     <div class="card card-body" style="width: fit-content;">
+       
+ 
+       <form method="get" action="" style="padding:15px;">
+ 
+         {% csrf_token %}
+ 
+         <div class="form-group" style="display: flex;gap: 14px;">
+ 
+           <label for="name" class="control-label mb-1" style="margin-left : 0px;">Builty No</label>
+                   {{ truck_diesel_expense_filter.form.builty }}
+                       
+             
+                   {% if request.user.is_superuser %}
             
-          <label for="name" class="control-label mb-1" style="margin-left : 0px;">User</label>
-              {{ expense_builty_filter.form.user }}
-        
-              
-              {% endif %}
-              
-          
-        </div>
+                   <label for="name" class="control-label mb-1" style="margin-left : 0px;">User</label>
+                       {{ truck_diesel_expense_filter.form.user }}
+                 
+                       
+                       {% endif %}
+                   
+         </div>
+         
+         <div class="form-group" style="display: flex;gap: 14px;">
 
-      <div class="form-group" style="display: flex;gap: 14px;">
-
-      
-              
-        <label for="name" class="control-label mb-1 la">Payment Date From</label>
-        {{ expense_builty_filter.form.payment_date_start__date }}
-              
-        <label for="name" class="control-label mb-1 la">Payemnt Date To</label>
-        {{ expense_builty_filter.form.payment_date_end__date }}
-              
-      
-              
-      </div><br>
-
-
-      <a href="{% url 'list_builty_expense' %}"><button class="btn btn-primary" type="button" > Reset </button></a>
-
-      <button class="btn btn-primary" type="submit" > Submit </button>
-    </div>
-
-  </form>
-</div>
-  
-
-
-
-
+               <label for="name" class="control-label mb-1" style="margin-left : 0px;">Entry Date From</label>
+               {{ truck_diesel_expense_filter.form.entry_date_start }}
+           
+       
+       
+               <label for="name" class="control-label mb-1">Entry Date To</label>
+               {{ truck_diesel_expense_filter.form.entry_date_end }}
+       
+               
+       </div>
+ 
+       <br>
+ 
+       <a href="{% url 'list_transaction' %}"><button class="btn btn-primary" type="button" > Reset </button></a>
+ 
+       <button class="btn btn-primary" type="submit" > Submit </button>
+     </div>
+ 
+   </form>
+ </div>
 
 
 <div class="row">
     <div class="col-xl-12">
         <div class="card">
             <div class="card-body">
-                <h4 class="box-title"> List Builty Expense</h4>
+                <h4 class="box-title"> List Truck Diesel Expense</h4>
+
+                <form action="{% url 'add_diesel_rate' %}" method="post">
+
+                    {% csrf_token %}
+                    
+                    <div class="form-group">
+
+                        <label for="name" class="control-label mb-1">Rate</label>
+                        <input type="textbox" style="width: 50%;" value="{{ rate }}" name="rate" class="form-control">
+                        
+                    </div>
+
+
+                    <div>
+                        <button id="payment-button" style="width: 50%;" type="submit" class="btn btn-lg btn-info btn-block">
+                            <span id="payment-button-amount">Submit</span>
+                        </button>
+                    </div>
+
+                </form>
+                
             </div>
             <div class="card-body--">
                 <div class="table-stats order-table ov-h">
@@ -264,9 +261,11 @@
                         <thead>
                             <tr>
                                 <th class="serial">#</th>
-                                <th>Builty</th>
+                                <th>Truck</th>
+                                <th>Liter</th>
                                 <th>Amount</th>
-                                <th>Entry Date</th>
+                                <th>Note</th>
+                                <th>Date</th>
                                 <th>Actions</th>
                                 
                             </tr>
@@ -276,11 +275,13 @@
                             {% for i in data %}
                             <tr>
                                 <td class="serial">{{ forloop.counter }}</td>
-                                <td>{{ i.builty }}</td>
+                                <td>{{ i.truck }}</td>
+                                <td>{{ i.liter }}</td>
                                 <td>{{ i.amount }}</td>
+                                <td>{{ i.note }}</td>
                                 <td>{{ i.entry_date }}</td>
                                 <td>  
-                                   <a href="{% url 'update_driver' i.id %}"> <button id="payment-button"  style="background-color: #05386b; border: green; padding: 10px;border-radius: 12px;" type="submit" class="btn-info ">
+                                   <a href="{% url 'update_diesel_expense' i.id %}"> <button id="payment-button"  style="background-color: #05386b; border: green; padding: 10px;border-radius: 12px;" type="submit" class="btn-info ">
                                         <span id="payment-button-amount">View</span>
                                     </button>  </a>
                                     
@@ -301,31 +302,6 @@
 
     
 </div>
+
+
 {% endblock content %}
-
-
-{% block js %}
-
-<script>
-
-    $('.sele').select2();
-
-    
-
-    
-  url = new URL(window.location.href);
-
-  builty_options = url.searchParams.getAll("builty");
-
-  $("#builty").val(builty_options).trigger('change');
-
-
-
-
-
-</script>
-
-
-{% endblock js %}
-
-

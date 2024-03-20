@@ -24,6 +24,64 @@
 {% endblock breadcrumbs %}
 
 {% block content %}
+
+
+<br>
+
+ <p>
+     
+     <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+       Filters
+     </button>
+   </p>
+   <div class="collapse" id="collapseExample">
+     <div class="card card-body" style="width: fit-content;">
+       
+ 
+       <form method="get" action="" style="padding:15px;">
+ 
+         {% csrf_token %}
+ 
+         <div class="form-group" style="display: flex;gap: 14px;">
+ 
+           <label for="name" class="control-label mb-1" style="margin-left : 0px;">Truck No</label>
+                   {{ truck_expense_filters.form.truck }}
+                       
+             
+                   {% if request.user.is_superuser %}
+            
+                   <label for="name" class="control-label mb-1" style="margin-left : 0px;">User</label>
+                       {{ truck_expense_filters.form.user }}
+                 
+                       
+                       {% endif %}
+                   
+         </div>
+         
+         <div class="form-group" style="display: flex;gap: 14px;">
+
+               <label for="name" class="control-label mb-1" style="margin-left : 0px;">Entry Date From</label>
+               {{ truck_expense_filters.form.entry_date_start }}
+           
+       
+       
+               <label for="name" class="control-label mb-1">Entry Date To</label>
+               {{ truck_expense_filters.form.entry_date_end }}
+       
+               
+       </div>
+ 
+       <br>
+ 
+       <a href="{% url 'list_transaction' %}"><button class="btn btn-primary" type="button" > Reset </button></a>
+ 
+       <button class="btn btn-primary" type="submit" > Submit </button>
+     </div>
+ 
+   </form>
+ </div>
+
+
 <div class="row">
     <div class="col-xl-12">
         <div class="card">
@@ -39,10 +97,8 @@
                                 <th>Truck</th>
                                 <th>Amount</th>
                                 <th>Note</th>
-                                <th>Expense Date</th>
                                 <th>Payment Date</th>
                                 <th>Entry Date</th>
-                                <th>Date</th>
                                 <th>Actions</th>
                                 
                             </tr>
@@ -55,9 +111,7 @@
                                 <td>{{ i.truck }}</td>
                                 <td>{{ i.amount }}</td>
                                 <td>{{ i.note }}</td>
-                                <td>{{ i.expense_date }}</td>
                                 <td>{{ i.payment_date }}</td>
-                                <td>{{ i.entry_date }}</td>
                                 <td>{{ i.entry_date }}</td>
                                 <td>  
                                    <a href="{% url 'update_driver' i.id %}"> <button id="payment-button"  style="background-color: #05386b; border: green; padding: 10px;border-radius: 12px;" type="submit" class="btn-info ">

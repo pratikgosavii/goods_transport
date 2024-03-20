@@ -66,7 +66,23 @@ def add_transaction(request):
         consignor_instance = consignor.objects.get(id = consignor_value)
         builty_code = consignor_instance.builty_code
 
-        consignor_builty_count = builty.objects.filter(consignor = consignor_value).count()
+        financial_year = request.session['financial_year']
+        financial_year = financial_year.split('-')
+        print(financial_year)
+        year_1 = financial_year[0]
+        year_2 = financial_year[1]
+
+            
+        # Assuming 'financial_year' is in the format 'YYYY-YYYY'
+        start_date = datetime(int(year_1), 4, 1)  # April 1st of year_1
+        end_date = datetime(int(year_2), 3, 31)     # March 31st of year_2
+
+        consignor_builty_count = builty.objects.filter(
+            consignor=consignor_instance, 
+            DC_date__gte=start_date, 
+            DC_date__lte=end_date
+        ).count()
+
         builty_code = builty_code + '-' + str(consignor_builty_count + 1)
 
         if request.user.is_superuser:

@@ -168,7 +168,9 @@
 
 
 
-{% block breadcrumbs %}
+
+{% block content %}
+
 
 <br>
 
@@ -191,18 +193,25 @@
            <label for="name" class="control-label mb-1" style="margin-left : 0px;">Builty No</label>
                    {{ diesel_expense_filter.form.builty }}
                        
-             
-           <label for="name" class="control-label mb-1" style="margin-left : 0px;">User</label>
-               {{ diesel_expense_filter.form.user }}
+                   {% if request.user.is_superuser %}
+            
+                   <label for="name" class="control-label mb-1" style="margin-left : 0px;">User</label>
+                       {{ diesel_expense_filter.form.user }}
+                 
+                       
+                       {% endif %}
                    
+         </div>
+         
+         <div class="form-group" style="display: flex;gap: 14px;">
 
                <label for="name" class="control-label mb-1" style="margin-left : 0px;">Entry Date From</label>
-               {{ entry_date_start__date.form.entry_date_start__date }}
+               {{ diesel_expense_filter.form.entry_date_start }}
            
        
        
                <label for="name" class="control-label mb-1">Entry Date To</label>
-               {{ entry_date_end__date.form.entry_date_end__date }}
+               {{ diesel_expense_filter.form.entry_date_end }}
        
                
        </div>
@@ -218,28 +227,6 @@
  </div>
 
 
-
-<div class="breadcrumbs">
-    <div class="breadcrumbs-inner">
-        <div class="row m-0">
-            
-            {% comment %} <div class="col-sm-8">
-                <div class="page-header float-right">
-                    <div class="page-title">
-                        <ol class="breadcrumb text-right">
-                            <li><a href="#">Dashboard</a></li>
-                            <li><a href="#">Product</a></li>
-                            <li class="active">List</li>
-                        </ol>
-                    </div>
-                </div>
-            </div> {% endcomment %}
-        </div>
-    </div>
-</div>
-{% endblock breadcrumbs %}
-
-{% block content %}
 <div class="row">
     <div class="col-xl-12">
         <div class="card">
@@ -314,4 +301,6 @@
 
     
 </div>
+
+
 {% endblock content %}

@@ -28,6 +28,11 @@ urlpatterns = [
     path('delete-diesel-expense/<diesel_expense_id>', delete_diesel_expense, name='delete_diesel_expense'),
     path('list-diesel-expense/', list_diesel_expense, name='list_diesel_expense'),
     
+    path('add-truck-diesel-expense/', add_truck_diesel_expense, name='add_truck_diesel_expense'),
+    path('update-truck-diesel-expense/<truck_diesel_expense_id>', update_truck_diesel_expense, name='update_truck_diesel_expense'),
+    path('delete-truck-diesel-expense/<truck_diesel_expense_id>', delete_truck_diesel_expense, name='delete_truck_diesel_expense'),
+    path('list-truck-diesel-expense/', list_truck_diesel_expense, name='list_truck_diesel_expense'),
+    
     path('add-diesel-rate/', add_diesel_rate, name='add_diesel_rate'),
 
     path('add-transfer-fund/', add_transfer_fund, name='add_transfer_fund'),

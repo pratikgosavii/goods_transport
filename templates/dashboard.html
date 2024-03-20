@@ -185,16 +185,13 @@
 
     <!-- Widgets  -->
 
-    <div class="container">
-
+    <div class="container" style="margin: 0;">
       {% csrf_token %}
       <label for="financialYear">Financial Year:</label>
-      <select id="financialYear">
-      </select>
-      <h1>{{ request.session.financial_year }}</h1>
+      <select id="financialYear"></select>
       <button id="submitBtn">Submit</button>
-
     </div>
+    
     
     <div class="row">
         <div class="col-lg-3 col-md-6">
@@ -671,42 +668,49 @@
 
     
     const financialYearSelect = document.getElementById('financialYear');
-    const submitBtn = document.getElementById('submitBtn');
+const submitBtn = document.getElementById('submitBtn');
 
-    // Function to get financial years dynamically
-    function getFinancialYears() {
-      const today = new Date();
-      const currentYear = today.getFullYear();
-      const startYear = 2023; // Set your desired start year here
-      const endYear = currentYear;
+// Function to get financial years dynamically
+function getFinancialYears() {
+  const today = new Date();
+  const currentYear = today.getFullYear();
+  let startYear, endYear;
 
-      return [startYear + '-' + (startYear + 1), endYear + '-' + (endYear + 1)];
-    }
+  if (today.getMonth() >= 3) {  // April to December
+    startYear = currentYear;
+    endYear = currentYear + 1;
+  } else {  // January to March
+    startYear = currentYear - 1;
+    endYear = currentYear;
+  }
 
-    // Function to populate financial year options dynamically
-    function populateFinancialYears() {
-      const [startYear, endYear] = getFinancialYears();
-      
-      const optionStartYear = document.createElement('option');
-      optionStartYear.value = startYear;
-      optionStartYear.textContent = startYear;
-      financialYearSelect.appendChild(optionStartYear);
+  return [startYear + '-' + endYear, (endYear - 1) + '-' + endYear];
+}
 
-      const optionEndYear = document.createElement('option');
-      optionEndYear.value = endYear;
-      optionEndYear.textContent = endYear;
-      financialYearSelect.appendChild(optionEndYear);
-    }
-
-    // Event listener for submit button click
-    submitBtn.addEventListener('click', function() {
-      const selectedYear = financialYearSelect.value;
-      alert(selectedYear)
-      // Get CSRF token
-      const csrftoken = getCookie('csrftoken');
+// Function to populate financial year options dynamically
+function populateFinancialYears() {
+  const [startYear, endYear] = getFinancialYears();
   
-      // Send AJAX request using jQuery
-     
+  const optionStartYear = document.createElement('option');
+  optionStartYear.value = startYear;
+  optionStartYear.textContent = startYear;
+  financialYearSelect.appendChild(optionStartYear);
+
+  const optionEndYear = document.createElement('option');
+  optionEndYear.value = endYear;
+  optionEndYear.textContent = endYear;
+  financialYearSelect.appendChild(optionEndYear);
+}
+
+
+// Invoke the function to populate financial years
+populateFinancialYears();
+
+// Event listener for submit button click
+submitBtn.addEventListener('click', function() {
+  const selectedYear = financialYearSelect.value;
+  alert(selectedYear);
+  // Get CSRF token
 
       
   $.ajax({                       // initialize an AJAX request
@@ -723,8 +727,6 @@
 });
   
 
-    // Initial setup
-    populateFinancialYears();
 
     function getCookie(name) {
       let cookieValue = null;

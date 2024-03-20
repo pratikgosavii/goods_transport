@@ -200,6 +200,12 @@ def add_truck_expense(request):
             instance.user = request.user  # Assign the logged-in user
             instance.save()
 
+            amount = request.POST.get('salary')
+            
+            user_instance = request.user
+            user_instance.balance = user_instance.balance - float(amount)
+            user_instance.save()
+
             return redirect('list_truck_expense')
         else:
             context = {
@@ -221,60 +227,27 @@ def add_truck_expense(request):
     
 def list_truck_expense(request):
     
-    data = truck_expense.objects.all()
+    if request.user.is_superuser:
+
+        data = truck_expense.objects.all()
+
+    else:
+
+        data = truck_expense.objects.filter(user = request.user)
+
+    truck_expense_filters = truck_expense_filter(request.GET, queryset=data)
+
 
     context = {
-        'data': data
+        'data': truck_expense_filters.qs,
+        'truck_expense_filters' : truck_expense_filters
     }
 
     return render(request, 'expense/list_truck_expense.html', context)
 
 
 
-
-def add_diesel_expense(request):
     
-    
-    if request.method == 'POST':
-
-        forms = diesel_expense_Form(request.POST)
-
-        if forms.is_valid():
-            forms.save()
-            return redirect('list_diesel_expense')
-        else:
-            context = {
-                'form': forms
-            }
-            return render(request, 'expense/add_diesel_expense.html', context)
-
-    else:
-
-        forms = diesel_expense_Form()
-
-        context = {
-            'form': forms
-        }
-        return render(request, 'expense/add_diesel_expense.html', context)
-
-
-    
-    
-def list_diesel_expense(request):
-    
-    querdata = diesel_expense.objects.all()
-    rate = diesel_rate.objects.get(id=1)
-    diesel_expense_filters = diesel_expense_filter(request.GET, queryset=querdata)
-
-
-    context = {
-        'data': diesel_expense_filters.qs,  # Pass the filtered queryset
-        'rate': rate.amount,
-        'diesel_expense_filter': diesel_expense_filters,  # If you need the filter form
-    }
-
-    return render(request, 'expense/list_diesel_expense.html', context)
-
 
     
 def add_diesel_rate(request):
@@ -409,10 +382,20 @@ def delete_transfer_fund(request, transfer_fund_id):
     
 def list_transfer_fund(request):
     
-    data = transfer_fund.objects.all()
+    if request.user.is_superuser:
+
+            data = transfer_fund.objects.all()
+
+    else:
+
+        data = transfer_fund.objects.filter(user = request.user)
+
+    transfer_fund_filters = transfer_fund_filter(request.GET, queryset=data)
+
 
     context = {
-        'data': data
+        'data': transfer_fund_filters.qs,
+        'transfer_fund_filter' : transfer_fund_filters
     }
 
     return render(request, 'expense/list_transfer_fund.html', context)
@@ -508,6 +491,130 @@ def delete_diesel_expense(request, diesel_expense_id):
 
 
 
+def list_diesel_expense(request):
+    
+    if request.user.is_superuser:
+
+        data = diesel_expense.objects.all()
+
+    else:
+
+        data = diesel_expense.objects.filter(user = request.user)
+
+    rate = diesel_rate.objects.get(id=1)
+    
+    diesel_expense_filters = diesel_expense_filter(request.GET, queryset=data)
+
+    context = {
+        'data': diesel_expense_filters.qs,  # Pass the filtered queryset
+        'rate': rate.amount,
+        'diesel_expense_filter': diesel_expense_filters,  # If you need the filter form
+    }
+
+    return render(request, 'expense/list_diesel_expense.html', context)
+
+
+
+def add_truck_diesel_expense(request):
+    
+    
+    if request.method == 'POST':
+
+        forms = truck_diesel_expense_Form(request.POST)
+
+        if forms.is_valid():
+            instance = forms.save(commit=False)
+            instance.user = request.user  # Assign the logged-in user
+            instance.save()
+            return redirect('list_truck_diesel_expense')
+        else:
+            context = {
+                'form': forms
+            }
+            return render(request, 'expense/add_truck_diesel_expense.html', context)
+
+    else:
+
+        forms = truck_diesel_expense_Form()
+
+        context = {
+            'form': forms
+        }
+        return render(request, 'expense/add_truck_diesel_expense.html', context)
+
+        
+
+        
+def update_truck_diesel_expense(request, truck_diesel_expense_id):
+
+    instance = truck_diesel_expense.objects.get(id = truck_diesel_expense_id)
+
+    if request.method == 'POST':
+
+        forms = truck_diesel_expense_Form(request.POST, instance = instance)
+
+        if forms.is_valid():
+
+            instance = forms.save(commit=False)
+            instance.user = request.user  # Assign the logged-in user
+            instance.save()
+
+            return redirect('list_truck_diesel_expense')
+        
+
+        else:
+            context = {
+                'form': forms
+            }
+            return render(request, 'expense/add_truck_diesel_expense.html', context)
+
+    else:
+
+        forms = truck_diesel_expense_Form(instance = instance)
+
+
+        context = {
+            'form': forms,
+        }
+            
+        return render(request, 'expense/add_truck_diesel_expense.html', context)
+
+
+
+
+def delete_truck_diesel_expense(request, truck_diesel_expense_id):
+
+
+    truck_diesel_expense_instance = truck_diesel_expense.objects.get(id = truck_diesel_expense_id)
+    truck_diesel_expense_instance.deleted = True
+    truck_diesel_expense_instance.save()
+
+    return redirect('list_truck_diesel_expense')
+
+
+
+
+def list_truck_diesel_expense(request):
+    
+    rate = diesel_rate.objects.get(id=1)
+
+    if request.user.is_superuser:
+
+            data = truck_diesel_expense.objects.all()
+
+    else:
+
+        data = truck_diesel_expense.objects.filter(user = request.user)
+
+    truck_diesel_expense_filters = truck_diesel_expense_filter(request.GET, queryset=data)
+
+    context = {
+        'data': truck_diesel_expense_filters.qs,  # Pass the filtered queryset
+        'rate': rate.amount,
+        'truck_diesel_expense_filter': truck_diesel_expense_filters,  # If you need the filter form
+    }
+
+    return render(request, 'expense/list_truck_diesel_expense.html', context)
 
 
 
@@ -594,10 +701,21 @@ def add_salary(request):
     
 def list_salary(request):
     
-    data = salary.objects.all()
+
+    if request.user.is_superuser:
+
+            data = salary.objects.all()
+
+    else:
+
+        data = salary.objects.filter(user = request.user)
+
+    salary_filters = salary_filter(request.GET, queryset=data)
+
 
     context = {
-        'data': data
+        'data': salary_filters.qs,
+        'salary_filter' : salary_filters
     }
 
     return render(request, 'expense/list_salary.html', context)
@@ -638,8 +756,24 @@ def list_other_expense(request):
     
     data = other_expense.objects.all()
 
+
+    if request.user.is_superuser:
+
+                data = other_expense.objects.all()
+
+    else:
+
+        data = other_expense.objects.filter(user = request.user)
+
+    
+    
+    other_expense_filters = other_expense_filter(request.GET, queryset=data)
+
+
+
     context = {
-        'data': data
+        'data': other_expense_filters.qs,
+        'other_expense_filter' : other_expense_filters
     }
 
     return render(request, 'expense/list_other_expense.html', context)
@@ -654,6 +788,12 @@ def add_fund_admin(request):
 
         user_id = request.POST.get('user')
         amount = request.POST.get('amount')
+
+        amount = request.POST.get('salary')
+            
+        user_instance = request.user
+        user_instance.balance = user_instance.balance - float(amount)
+        user_instance.save()
 
         user_instance = User.objects.get(id = user_id)
 
@@ -687,8 +827,14 @@ def list_fund_admin(request):
     
     data = fund.objects.all()
 
+    fund_filters = fund_filter(request.GET, queryset=data)
+
+
+   
+
     context = {
-        'data': data
+        'data': fund_filters.qs,
+        'fund_filter' : fund_filters
     }
 
     return render(request, 'expense/list_fund_admin.html', context)
@@ -743,8 +889,25 @@ def list_fund(request):
     
     data = fund.objects.all()
 
+    data = fund.objects.all()
+
+
+    if request.user.is_superuser:
+
+                data = fund.objects.all()
+
+    else:
+
+        data = fund.objects.filter(user = request.user)
+
+    
+    
+    fund_filters = fund_filter(request.GET, queryset=data)
+
+
     context = {
-        'data': data
+        'data': fund_filters.qs,
+        'fund_filter' : fund_filters
     }
 
     return render(request, 'expense/list_fund.html', context)
