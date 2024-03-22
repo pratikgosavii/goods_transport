@@ -57,7 +57,6 @@ class truck_expense(models.Model):
     amount = models.FloatField()
     note = models.CharField(max_length=500)
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
-    payment_date = models.DateTimeField()
     entry_date = models.DateTimeField(default = ist_datetime)
 
 
@@ -72,7 +71,6 @@ class transfer_fund(models.Model):
     amount = models.FloatField()
     note = models.CharField(max_length=500)
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
-    payment_date = models.DateTimeField()
     entry_date = models.DateTimeField(default = ist_datetime)
 
 class diesel_rate(models.Model):
@@ -103,7 +101,6 @@ class other_expense(models.Model):
     expense_category = models.ForeignKey(expense_category, on_delete=models.CASCADE)
     amount = models.FloatField()
     note = models.CharField(max_length=500)
-    payment_date = models.DateTimeField()
     entry_date = models.DateTimeField(default = ist_datetime)
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
 

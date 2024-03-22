@@ -35,24 +35,6 @@ class builty_expense_filter(django_filters.FilterSet):
     
     
 
-    payment_date_start__date = DateFilter(field_name="payment_date", lookup_expr='gte', widget=forms.DateInput(
-            attrs={
-                'id': 'datepicker1212',
-                'type': 'date',
-                'class' : 'form-control date_css'
-            }
-        ))
-
-
-    payment_date_end__date = DateFilter(field_name="payment_date", lookup_expr='lte', widget=forms.DateInput(
-            attrs={
-            'id': 'datepicker1212',
-            'type': 'date',
-                'class' : 'form-control date_css'
-            }
-        ))
-
-
 
     entry_date_start__date = DateFilter(field_name="entry_date", lookup_expr='gte', widget=forms.DateInput(
             attrs={
@@ -80,7 +62,7 @@ class builty_expense_filter(django_filters.FilterSet):
        
    
 
-from django_filters import DateFilter, DateTimeFilter
+from django_filters import DateFilter, DateFilter
 
 class diesel_expense_filter(django_filters.FilterSet):
 
@@ -105,19 +87,19 @@ class diesel_expense_filter(django_filters.FilterSet):
 
     
     
-    entry_date_start = DateTimeFilter(field_name="entry_date", lookup_expr='gte', widget=forms.DateTimeInput(
+    entry_date_start = DateFilter(field_name="entry_date", lookup_expr='gte', widget=forms.DateTimeInput(
             attrs={
                 'id': 'datetimepicker121212121',  # Use a different ID if needed
-                'type': 'datetime-local',  # Change input type to datetime-local
+                'type': 'date',  # Change input type to date
                 'class': 'form-control date_css'
             }
         ),
         initial=timezone.now().replace(hour=0, minute=0, second=0, microsecond=0))
     
-    entry_date_end = DateTimeFilter(field_name="entry_date", lookup_expr='lte', widget=forms.DateTimeInput(
+    entry_date_end = DateFilter(field_name="entry_date", lookup_expr='lte', widget=forms.DateTimeInput(
             attrs={
                 'id': 'datetimepicker1212',  # Use a different ID if needed
-                'type': 'datetime-local',  # Change input type to datetime-local
+                'type': 'date',  # Change input type to date
                 'class': 'form-control date_css'
             }
         ))
@@ -155,19 +137,19 @@ class truck_diesel_expense_filter(django_filters.FilterSet):
 
     
     
-    entry_date_start = DateTimeFilter(field_name="entry_date", lookup_expr='gte', widget=forms.DateTimeInput(
+    entry_date_start = DateFilter(field_name="entry_date", lookup_expr='gte', widget=forms.DateTimeInput(
             attrs={
                 'id': 'datetimepicker121212121',  # Use a different ID if needed
-                'type': 'datetime-local',  # Change input type to datetime-local
+                'type': 'date',  # Change input type to date
                 'class': 'form-control date_css'
             }
         ),
         initial=timezone.now().replace(hour=0, minute=0, second=0, microsecond=0))
     
-    entry_date_end = DateTimeFilter(field_name="entry_date", lookup_expr='lte', widget=forms.DateTimeInput(
+    entry_date_end = DateFilter(field_name="entry_date", lookup_expr='lte', widget=forms.DateTimeInput(
             attrs={
                 'id': 'datetimepicker1212',  # Use a different ID if needed
-                'type': 'datetime-local',  # Change input type to datetime-local
+                'type': 'date',  # Change input type to date
                 'class': 'form-control date_css'
             }
         ))
@@ -182,7 +164,7 @@ class truck_diesel_expense_filter(django_filters.FilterSet):
        
    
 
-from django_filters import DateFilter, DateTimeFilter
+from django_filters import DateFilter, DateFilter
 
 class truck_expense_filter(django_filters.FilterSet):
 
@@ -207,19 +189,19 @@ class truck_expense_filter(django_filters.FilterSet):
 
     
     
-    entry_date_start = DateTimeFilter(field_name="entry_date", lookup_expr='gte', widget=forms.DateTimeInput(
+    entry_date_start = DateFilter(field_name="entry_date", lookup_expr='gte', widget=forms.DateTimeInput(
             attrs={
                 'id': 'datetimepicker121212121',  # Use a different ID if needed
-                'type': 'datetime-local',  # Change input type to datetime-local
+                'type': 'date',  # Change input type to date
                 'class': 'form-control date_css'
             }
         ),
         initial=timezone.now().replace(hour=0, minute=0, second=0, microsecond=0))
     
-    entry_date_end = DateTimeFilter(field_name="entry_date", lookup_expr='lte', widget=forms.DateTimeInput(
+    entry_date_end = DateFilter(field_name="entry_date", lookup_expr='lte', widget=forms.DateTimeInput(
             attrs={
                 'id': 'datetimepicker1212',  # Use a different ID if needed
-                'type': 'datetime-local',  # Change input type to datetime-local
+                'type': 'date',  # Change input type to date
                 'class': 'form-control date_css'
             }
         ))
@@ -235,7 +217,7 @@ class truck_expense_filter(django_filters.FilterSet):
    
 
 
-from django_filters import DateFilter, DateTimeFilter
+from django_filters import DateFilter, DateFilter
 
 class transfer_fund_filter(django_filters.FilterSet):
 
@@ -260,19 +242,19 @@ class transfer_fund_filter(django_filters.FilterSet):
 
     
     
-    entry_date_start = DateTimeFilter(field_name="entry_date", lookup_expr='gte', widget=forms.DateTimeInput(
+    entry_date_start = DateFilter(field_name="entry_date", lookup_expr='gte', widget=forms.DateTimeInput(
             attrs={
                 'id': 'datetimepicker121212121',  # Use a different ID if needed
-                'type': 'datetime-local',  # Change input type to datetime-local
+                'type': 'date',  # Change input type to date
                 'class': 'form-control date_css'
             }
         ),
         initial=timezone.now().replace(hour=0, minute=0, second=0, microsecond=0))
     
-    entry_date_end = DateTimeFilter(field_name="entry_date", lookup_expr='lte', widget=forms.DateTimeInput(
+    entry_date_end = DateFilter(field_name="entry_date", lookup_expr='lte', widget=forms.DateTimeInput(
             attrs={
                 'id': 'datetimepicker1212',  # Use a different ID if needed
-                'type': 'datetime-local',  # Change input type to datetime-local
+                'type': 'date',  # Change input type to date
                 'class': 'form-control date_css'
             }
         ))
@@ -289,7 +271,7 @@ class transfer_fund_filter(django_filters.FilterSet):
 
 
 
-from django_filters import DateFilter, DateTimeFilter
+from django_filters import DateFilter, DateFilter
 
 class other_expense_filter(django_filters.FilterSet):
 
@@ -314,19 +296,19 @@ class other_expense_filter(django_filters.FilterSet):
 
     
     
-    entry_date_start = DateTimeFilter(field_name="entry_date", lookup_expr='gte', widget=forms.DateTimeInput(
+    entry_date_start = DateFilter(field_name="entry_date", lookup_expr='gte', widget=forms.DateTimeInput(
             attrs={
                 'id': 'datetimepicker121212121',  # Use a different ID if needed
-                'type': 'datetime-local',  # Change input type to datetime-local
+                'type': 'date',  # Change input type to date
                 'class': 'form-control date_css'
             }
         ),
         initial=timezone.now().replace(hour=0, minute=0, second=0, microsecond=0))
     
-    entry_date_end = DateTimeFilter(field_name="entry_date", lookup_expr='lte', widget=forms.DateTimeInput(
+    entry_date_end = DateFilter(field_name="entry_date", lookup_expr='lte', widget=forms.DateTimeInput(
             attrs={
                 'id': 'datetimepicker1212',  # Use a different ID if needed
-                'type': 'datetime-local',  # Change input type to datetime-local
+                'type': 'date',  # Change input type to date
                 'class': 'form-control date_css'
             }
         ))
@@ -355,19 +337,19 @@ class fund_filter(django_filters.FilterSet):
 
     
     
-    entry_date_start = DateTimeFilter(field_name="entry_date", lookup_expr='gte', widget=forms.DateTimeInput(
+    entry_date_start = DateFilter(field_name="entry_date", lookup_expr='gte', widget=forms.DateTimeInput(
             attrs={
                 'id': 'datetimepicker121212121',  # Use a different ID if needed
-                'type': 'datetime-local',  # Change input type to datetime-local
+                'type': 'date',  # Change input type to date
                 'class': 'form-control date_css'
             }
         ),
         initial=timezone.now().replace(hour=0, minute=0, second=0, microsecond=0))
     
-    entry_date_end = DateTimeFilter(field_name="entry_date", lookup_expr='lte', widget=forms.DateTimeInput(
+    entry_date_end = DateFilter(field_name="entry_date", lookup_expr='lte', widget=forms.DateTimeInput(
             attrs={
                 'id': 'datetimepicker1212',  # Use a different ID if needed
-                'type': 'datetime-local',  # Change input type to datetime-local
+                'type': 'date',  # Change input type to date
                 'class': 'form-control date_css'
             }
         ))
@@ -383,7 +365,7 @@ class fund_filter(django_filters.FilterSet):
    
 
 
-from django_filters import DateFilter, DateTimeFilter
+from django_filters import DateFilter, DateFilter
 
 class salary_filter(django_filters.FilterSet):
 
@@ -408,36 +390,36 @@ class salary_filter(django_filters.FilterSet):
 
     
     
-    salary_of_date_start = DateTimeFilter(field_name="salary_of_date", lookup_expr='gte', widget=forms.DateTimeInput(
+    salary_of_date_start = DateFilter(field_name="salary_of_date", lookup_expr='gte', widget=forms.DateTimeInput(
             attrs={
                 'id': 'datetimepicker121212121',  # Use a different ID if needed
-                'type': 'datetime-local',  # Change input type to datetime-local
+                'type': 'date',  # Change input type to date
                 'class': 'form-control date_css'
             }
         ),
         initial=timezone.now().replace(hour=0, minute=0, second=0, microsecond=0))
     
-    salary_of_date_end = DateTimeFilter(field_name="salary_of_date", lookup_expr='lte', widget=forms.DateTimeInput(
+    salary_of_date_end = DateFilter(field_name="salary_of_date", lookup_expr='lte', widget=forms.DateTimeInput(
             attrs={
                 'id': 'datetimepicker1212',  # Use a different ID if needed
-                'type': 'datetime-local',  # Change input type to datetime-local
+                'type': 'date',  # Change input type to date
                 'class': 'form-control date_css'
             }
         ))
     
-    entry_date_start = DateTimeFilter(field_name="entry_date", lookup_expr='gte', widget=forms.DateTimeInput(
+    entry_date_start = DateFilter(field_name="entry_date", lookup_expr='gte', widget=forms.DateTimeInput(
             attrs={
                 'id': 'datetimepicker121212121',  # Use a different ID if needed
-                'type': 'datetime-local',  # Change input type to datetime-local
+                'type': 'date',  # Change input type to date
                 'class': 'form-control date_css'
             }
         ),
         initial=timezone.now().replace(hour=0, minute=0, second=0, microsecond=0))
     
-    entry_date_end = DateTimeFilter(field_name="entry_date", lookup_expr='lte', widget=forms.DateTimeInput(
+    entry_date_end = DateFilter(field_name="entry_date", lookup_expr='lte', widget=forms.DateTimeInput(
             attrs={
                 'id': 'datetimepicker1212',  # Use a different ID if needed
-                'type': 'datetime-local',  # Change input type to datetime-local
+                'type': 'date',  # Change input type to date
                 'class': 'form-control date_css'
             }
         ))

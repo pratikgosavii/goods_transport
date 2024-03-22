@@ -178,6 +178,7 @@ class builty_filter2(django_filters.FilterSet):
         request = user
         if not request.is_superuser:
             self.filters['district'].queryset = district.objects.filter(office_location = request.office_location)
+            self.filters['to_district'].queryset = district.objects.filter(office_location = request.office_location)
             self.filters['station_from'].queryset = from_station.objects.filter(office_location = request.office_location)
             self.filters['station_to'].queryset = station.objects.filter(office_location = request.office_location)
             self.filters['onaccount'].queryset = onaccount.objects.filter(office_location = request.office_location)
@@ -369,6 +370,7 @@ class builty_filter(django_filters.FilterSet):
 
         if not request.is_superuser:
             self.filters['district'].queryset = district.objects.filter(office_location = request.office_location)
+            self.filters['to_district'].queryset = district.objects.filter(office_location = request.office_location)
             self.filters['station_from'].queryset = from_station.objects.filter(office_location = request.office_location)
             self.filters['station_to'].queryset = station.objects.filter(office_location = request.office_location)
             self.filters['onaccount'].queryset = onaccount.objects.filter(office_location = request.office_location)

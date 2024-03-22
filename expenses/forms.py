@@ -78,10 +78,7 @@ class truck_expense_Form(forms.ModelForm):
             'truck': forms.Select(attrs={
                 'class': 'form-control sele', 'id': 'truck'
             }),
-            
-            
 
-            'payment_date': DateTimeInput(attrs={'type': 'datetime-local', 'class' : 'form-control date_css'}),
             'entry_date': DateTimeInput(attrs={'type': 'datetime-local', 'class' : 'form-control date_css'}),
             
         }
@@ -204,7 +201,6 @@ class transfer_fund_Form(forms.ModelForm):
             
             
 
-            'payment_date': DateTimeInput(attrs={'type': 'datetime-local', 'class' : 'form-control date_css'}),
             'entry_date': DateTimeInput(attrs={'type': 'datetime-local', 'class' : 'form-control date_css'}),
             
         }
@@ -239,7 +235,6 @@ class other_expense_Form(forms.ModelForm):
            
             
             
-            'payment_date': DateTimeInput(attrs={'type': 'datetime-local', 'class' : 'form-control date_css'}),
             'entry_date': DateTimeInput(attrs={'type': 'datetime-local', 'class' : 'form-control date_css'}),
             
         }

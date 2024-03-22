@@ -225,7 +225,7 @@ def add_truck_expense(request):
             instance.user = request.user  # Assign the logged-in user
             instance.save()
 
-            amount = request.POST.get('salary')
+            amount = request.POST.get('amount')
             
             user_instance = request.user
             user_instance.balance = user_instance.balance - float(amount)
@@ -821,6 +821,15 @@ def add_other_expense(request):
             instance = forms.save(commit=False)
             instance.user = request.user  # Assign the logged-in user
             instance.save()
+
+            amount = request.POST.get('amount')
+            
+            user_instance = request.user
+            user_instance.balance = user_instance.balance - float(amount)
+            user_instance.save()
+
+
+
             return redirect('list_other_expense')
         else:
             context = {
@@ -890,8 +899,6 @@ def add_fund_admin(request):
         user_id = request.POST.get('user')
         amount = request.POST.get('amount')
 
-        amount = request.POST.get('salary')
-            
         user_instance = request.user
         user_instance.balance = user_instance.balance - float(amount)
         user_instance.save()

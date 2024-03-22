@@ -905,22 +905,30 @@ def mass_approve_request(request):
         
     return JsonResponse({'status' : 'done'})
 
+
+from store.models import district
+
+
 @user_is_active
 def demo(request):
 
-    from_station11 = from_station.objects.all()
 
-    for from_statio in from_station11:
-            # Check if the FromStation is referenced by AnotherModel
-        che = builty.objects.filter(station_from=from_statio)
-        if  che:
-            # If it's not referenced, delete the FromStation
-            
-            pass
-        
-        else:
+    # Get all districts
+    all_districts = district.objects.all()
 
-            from_statio.delete()
+    # Create a dictionary to store similar districts
+    similar_districts = {}
+
+    # Iterate through each district
+    for district in all_districts:
+        # Get districts with similar names (case-insensitive)
+        similar_districts[district.name] = district.objects.filter(name__icontains=district.name)
+
+    # Print similar districts
+    for district_name, similar_district_list in similar_districts.items():
+        print(f"Similar districts to '{district_name}':")
+        for similar_district in similar_district_list:
+            print(f"- {similar_district.name}")
 
             
 
