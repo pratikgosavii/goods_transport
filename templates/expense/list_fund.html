@@ -105,12 +105,22 @@
                                 <td>{{ i.amount }}</td>
                                 <td>{{ i.note }}</td>
                                 <td>{{ i.entry_date }}</td>
+                                
+                                {% if request.user.is_superuser %}
+                                
+                                
                                 <td>  
-                                   <a href="{% url 'update_driver' i.id %}"> <button id="payment-button"  style="background-color: #05386b; border: green; padding: 10px;border-radius: 12px;" type="submit" class="btn-info ">
+                                   <a href="{% url 'update_fund' i.id %}"> <button id="payment-button"  style="background-color: #05386b; border: green; padding: 10px;border-radius: 12px;" type="submit" class="btn-info ">
                                         <span id="payment-button-amount">View</span>
                                     </button>  </a>
-                                    
-                                </td>
+                             
+                                  <a href="{% url 'delete_fund' i.id %}"> <button id="payment-button"  style="background-color: red; border: green; padding: 10px;border-radius: 12px;" type="submit" class="btn-info ">
+                                       <span id="payment-button-amount">Delete</span>
+                                   </button>  </a>
+                                   
+                               </td>
+
+                                {% endif %}
                                
                                
                             </tr>

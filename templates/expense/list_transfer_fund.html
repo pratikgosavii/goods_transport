@@ -96,8 +96,7 @@
                                 <th>Transfer To</th>
                                 <th>Amount</th>
                                 <th>Note</th>
-                                <th>Expense Date</th>
-                                <th>Entry Date</th>
+                                <th>Date</th>
                                 <th>Actions</th>
                                 
                             </tr>
@@ -111,13 +110,21 @@
                                 <td>{{ i.amount }}</td>
                                 <td>{{ i.note }}</td>
                                 <td>{{ i.entry_date }}</td>
+
+                                {% if request.user.is_superuser %}
+
                                 <td>  
                                    <a href="{% url 'update_transfer_fund' i.id %}"> <button id="payment-button"  style="background-color: #05386b; border: green; padding: 10px;border-radius: 12px;" type="submit" class="btn-info ">
                                         <span id="payment-button-amount">View</span>
                                     </button>  </a>
-                                    
-                                </td>
-                               
+                                 
+                                  <a href="{% url 'delete_transfer_fund' i.id %}"> <button id="payment-button"  style="background-color: red; border: green; padding: 10px;border-radius: 12px;" type="submit" class="btn-info ">
+                                       <span id="payment-button-amount">Delete</span>
+                                   </button>  </a>
+                                   
+                               </td>
+
+                               {% endif %}
                                
                             </tr>
                             {% endfor %}

@@ -19,8 +19,8 @@ urlpatterns = [
     
    
     path('add-truck-expense/', add_truck_expense, name='add_truck_expense'),
-    # path('update-truck-expense/<truck_expense_id>', update_truck_expense, name='update_truck_expense'),
-    # path('delete-truck-expense/<truck_expense_id>', delete_truck_expense, name='delete_truck_expense'),
+    path('update-truck-expense/<truck_expense_id>', update_truck_expense, name='update_truck_expense'),
+    path('delete-truck-expense/<truck_expense_id>', delete_truck_expense, name='delete_truck_expense'),
     path('list-truck-expense/', list_truck_expense, name='list_truck_expense'),
    
     path('add-diesel-expense/', add_diesel_expense, name='add_diesel_expense'),
@@ -41,29 +41,29 @@ urlpatterns = [
     path('list-transfer-fund/', list_transfer_fund, name='list_transfer_fund'),
    
     path('add-employee/', add_employee, name='add_employee'),
-    # path('update-employee/<employee_id>', update_employee, name='update_employee'),
-    # path('delete-employee/<employee_id>', delete_employee, name='delete_employee'),
+    path('update-employee/<employee_id>', update_employee, name='update_employee'),
+    path('delete-employee/<employee_id>', delete_employee, name='delete_employee'),
     path('list-employee/', list_employee, name='list_employee'),
    
     path('add-salary/', add_salary, name='add_salary'),
-    # path('update-salary/<salary_id>', update_salary, name='update_salary'),
-    # path('delete-salary/<salary_id>', delete_salary, name='delete_salary'),
+    path('update-salary/<salary_id>', update_salary, name='update_salary'),
+    path('delete-salary/<salary_id>', delete_salary, name='delete_salary'),
     path('list-salary/', list_salary, name='list_salary'),
    
     path('add-other-expense/', add_other_expense, name='add_other_expense'),
-    # path('update-other_expense/<other_expense_id>', update_other_expense, name='update_other_expense'),
-    # path('delete-other_expense/<other_expense_id>', delete_other_expense, name='delete_other_expense'),
+    path('update-other_expense/<other_expense_id>', update_other_expense, name='update_other_expense'),
+    path('delete-other_expense/<other_expense_id>', delete_other_expense, name='delete_other_expense'),
     path('list-other-expense/', list_other_expense, name='list_other_expense'),
    
 
     path('add-fund_admin/', add_fund_admin, name='add_fund_admin'),
-    # path('update-fund_admin/<fund_admin_id>', update_fund_admin, name='update_fund_admin'),
-    # path('delete-fund_admin/<fund_admin_id>', delete_fund_admin, name='delete_fund_admin'),
+    path('update-fund_admin/<fund_admin_id>', update_fund_admin, name='update_fund_admin'),
+    path('delete-fund_admin/<fund_admin_id>', delete_fund_admin, name='delete_fund_admin'),
     path('list-fund_admin/', list_fund_admin, name='list_fund_admin'),
 
     path('add-fund/', add_fund, name='add_fund'),
-    # path('update-fund/<fund_id>', update_fund, name='update_fund'),
-    # path('delete-fund/<fund_id>', delete_fund, name='delete_fund'),
+    path('update-fund/<fund_id>', update_fund, name='update_fund'),
+    path('delete-fund/<fund_id>', delete_fund, name='delete_fund'),
     path('list-fund/', list_fund, name='list_fund'),
 
 

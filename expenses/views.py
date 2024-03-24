@@ -251,6 +251,74 @@ def add_truck_expense(request):
 
     
     
+def update_truck_expense(request, truck_expense_id):
+
+    instance = truck_expense.objects.get(id = truck_expense_id)
+
+    if request.method == 'POST':
+
+        amount = request.POST.get("amount")
+
+        decide = instance.amount - float(amount)
+
+        print(decide)
+
+        if decide > 0:
+
+            print(1)
+
+            user_instance = request.user
+            user_instance.balance = user_instance.balance + float(decide)
+            user_instance.save()
+
+        else:
+            print(2)
+
+            user_instance = request.user
+            print(user_instance.balance - float(abs(decide)))
+            user_instance.balance = user_instance.balance - float(abs(decide))
+            user_instance.save()
+
+        forms = truck_expense_Form(request.POST, instance = instance)
+
+        if forms.is_valid():
+
+            instance = forms.save(commit=False)
+            instance.user = request.user  # Assign the logged-in user
+            instance.save()
+
+            return redirect('list_truck_expense')
+        
+
+        else:
+            context = {
+                'form': forms
+            }
+            return render(request, 'expense/add_truck_expense.html', context)
+
+    else:
+
+        forms = truck_expense_Form(instance = instance)
+
+
+        context = {
+            'form': forms,
+        }
+            
+        return render(request, 'expense/add_truck_expense.html', context)
+
+
+
+
+def delete_truck_expense(request, truck_expense_id):
+
+
+    truck_expense_instance = truck_expense.objects.get(id = truck_expense_id)
+    truck_expense_instance.deleted = True
+    truck_expense_instance.save()
+
+    return redirect('list_truck_expense')
+    
     
 def list_truck_expense(request):
     
@@ -350,11 +418,28 @@ def update_transfer_fund(request, transfer_fund_id):
     instance = transfer_fund.objects.get(id = transfer_fund_id)
 
     if request.method == 'POST':
-
+        
         amount = request.POST.get('amount')
-        user_instance = request.user
-        user_instance.balance = user_instance.balance + float(instance.amount)
-        user_instance.save()
+
+        decide = instance.amount - float(amount)
+
+        print(decide)
+
+        if decide > 0:
+
+            print(1)
+
+            user_instance = request.user
+            user_instance.balance = user_instance.balance + float(decide)
+            user_instance.save()
+
+        else:
+            print(2)
+
+            user_instance = request.user
+            print(user_instance.balance - float(abs(decide)))
+            user_instance.balance = user_instance.balance - float(abs(decide))
+            user_instance.save()
 
         forms = transfer_fund_Form(request.POST, instance = instance)
 
@@ -725,16 +810,63 @@ def add_employee(request):
 
         
 
+def update_employee(request, employee_id):
+    
+    instance = employee.objects.get(id = employee_id)
+    
+    if request.method == 'POST':
+
+        forms = employee_Form(request.POST, instance = instance)
+
+        if forms.is_valid():
+            instance = forms.save(commit=False)
+            instance.user = request.user  # Assign the logged-in user
+            instance.save()
+
+            amount = request.POST.get('amount')
+            
+            user_instance = request.user
+            user_instance.balance = user_instance.balance - float(amount)
+            user_instance.save()
+
+
+
+            return redirect('list_employee')
+        else:
+            context = {
+                'form': forms
+            }
+            return render(request, 'expense/add_employee.html', context)
+
+    else:
+
+        forms = employee_Form(instance = instance)
+
+        context = {
+            'form': forms
+        }
+        return render(request, 'expense/add_employee.html', context)
+
+        
+def delete_employee(request, employee_id):
+
+
+    employee_instance = employee.objects.get(id = employee_id)
+    employee_instance.deleted = True
+    employee_instance.save()
+
+    return redirect('list_employee')
+
     
     
 def list_employee(request):
     
     data = employee.objects.all()
 
-    
+
 
     page = request.GET.get('page', 1)
-    paginator = Paginator(date, 20)
+    paginator = Paginator(data, 20)
     try:
         data = paginator.page(page)
     except PageNotAnInteger:
@@ -749,6 +881,8 @@ def list_employee(request):
     }
 
     return render(request, 'expense/list_employee.html', context)
+
+
 
 
 
@@ -790,6 +924,74 @@ def add_salary(request):
 
         
 
+        
+def update_salary(request, salary_id):
+
+    instance = salary.objects.get(id = salary_id)
+
+    if request.method == 'POST':
+
+        amount = request.POST.get("salary")
+
+        decide = instance.salary - float(amount)
+
+        print(decide)
+
+        if decide > 0:
+
+            print(1)
+
+            user_instance = request.user
+            user_instance.balance = user_instance.balance + float(decide)
+            user_instance.save()
+
+        else:
+            print(2)
+
+            user_instance = request.user
+            print(user_instance.balance - float(abs(decide)))
+            user_instance.balance = user_instance.balance - float(abs(decide))
+            user_instance.save()
+
+        forms = salary_Form(request.POST, instance = instance)
+
+        if forms.is_valid():
+
+            instance = forms.save(commit=False)
+            instance.user = request.user  # Assign the logged-in user
+            instance.save()
+
+            return redirect('list_salary')
+        
+
+        else:
+            context = {
+                'form': forms
+            }
+            return render(request, 'expense/add_salary.html', context)
+
+    else:
+
+        forms = salary_Form(instance = instance)
+
+
+        context = {
+            'form': forms,
+        }
+            
+        return render(request, 'expense/add_salary.html', context)
+
+
+
+
+def delete_salary(request, salary_id):
+
+
+    salary_instance = salary.objects.get(id = salary_id)
+    salary_instance.deleted = True
+    salary_instance.save()
+
+    return redirect('list_salary')
     
     
 def list_salary(request):
@@ -807,7 +1009,7 @@ def list_salary(request):
 
     filter_data = salary_filters.qs
 
-    total_amount = filter_data.aggregate(total_amount=Sum('amount'))['total_amount']
+    total_amount = filter_data.aggregate(total_amount=Sum('salary'))['total_amount']
 
     page = request.GET.get('page', 1)
     paginator = Paginator(salary_filters.qs, 20)
@@ -867,6 +1069,73 @@ def add_other_expense(request):
 
         
 
+def update_other_expense(request, other_expense_id):
+
+    instance = other_expense.objects.get(id = other_expense_id)
+
+    if request.method == 'POST':
+
+        amount = request.POST.get("amount")
+
+        decide = instance.amount - float(amount)
+
+        print(decide)
+
+        if decide > 0:
+
+            print(1)
+
+            user_instance = request.user
+            user_instance.balance = user_instance.balance + float(decide)
+            user_instance.save()
+
+        else:
+            print(2)
+
+            user_instance = request.user
+            print(user_instance.balance - float(abs(decide)))
+            user_instance.balance = user_instance.balance - float(abs(decide))
+            user_instance.save()
+
+        forms = other_expense_Form(request.POST, instance = instance)
+
+        if forms.is_valid():
+
+            instance = forms.save(commit=False)
+            instance.user = request.user  # Assign the logged-in user
+            instance.save()
+
+            return redirect('list_other_expense')
+        
+
+        else:
+            context = {
+                'form': forms
+            }
+            return render(request, 'expense/add_other_expense.html', context)
+
+    else:
+
+        forms = other_expense_Form(instance = instance)
+
+
+        context = {
+            'form': forms,
+        }
+            
+        return render(request, 'expense/add_other_expense.html', context)
+
+
+
+
+def delete_other_expense(request, other_expense_id):
+
+
+    other_expense_instance = other_expense.objects.get(id = other_expense_id)
+    other_expense_instance.deleted = True
+    other_expense_instance.save()
+
+    return redirect('list_other_expense')
     
     
 def list_other_expense(request):
@@ -953,6 +1222,73 @@ def add_fund_admin(request):
 
         
 
+def update_fund_admin(request, fund_admin_id):
+
+    instance = fund.objects.get(id = fund_admin_id)
+
+    if request.method == 'POST':
+
+        amount = request.POST.get("amount")
+
+        decide = instance.amount - float(amount)
+
+        print(decide)
+
+        if decide > 0:
+
+            print(1)
+
+            user_instance = request.user
+            user_instance.balance = user_instance.balance + float(decide)
+            user_instance.save()
+
+        else:
+            print(2)
+
+            user_instance = request.user
+            print(user_instance.balance - float(abs(decide)))
+            user_instance.balance = user_instance.balance - float(abs(decide))
+            user_instance.save()
+
+        forms = fund_Form(request.POST, instance = instance)
+
+        if forms.is_valid():
+
+            instance = forms.save(commit=False)
+            instance.user = request.user  # Assign the logged-in user
+            instance.save()
+
+            return redirect('list_fund')
+        
+
+        else:
+            context = {
+                'form': forms
+            }
+            return render(request, 'expense/add_fund_admin.html', context)
+
+    else:
+
+        forms = fund_Form(instance = instance)
+
+
+        context = {
+            'form': forms,
+        }
+            
+        return render(request, 'expense/add_fund_admin.html', context)
+
+
+
+
+def delete_fund_admin(request, fund_admin_id):
+
+
+    fund_instance = fund.objects.get(id = fund_admin_id)
+    fund_instance.deleted = True
+    fund_instance.save()
+
+    return redirect('list_fund_admin')
     
     
 def list_fund_admin(request):
@@ -1028,6 +1364,73 @@ def add_fund(request):
         return render(request, 'expense/add_fund.html', context)
 
         
+def update_fund(request, fund_id):
+
+    instance = fund.objects.get(id = fund_id)
+
+    if request.method == 'POST':
+
+        amount = request.POST.get("amount")
+
+        decide = instance.amount - float(amount)
+
+        print(decide)
+
+        if decide > 0:
+
+            print(1)
+
+            user_instance = request.user
+            user_instance.balance = user_instance.balance + float(decide)
+            user_instance.save()
+
+        else:
+            print(2)
+
+            user_instance = request.user
+            print(user_instance.balance - float(abs(decide)))
+            user_instance.balance = user_instance.balance - float(abs(decide))
+            user_instance.save()
+
+        forms = fund_Form(request.POST, instance = instance)
+
+        if forms.is_valid():
+
+            instance = forms.save(commit=False)
+            instance.user = request.user  # Assign the logged-in user
+            instance.save()
+
+            return redirect('list_fund')
+        
+
+        else:
+            context = {
+                'form': forms
+            }
+            return render(request, 'expense/add_fund.html', context)
+
+    else:
+
+        forms = fund_Form(instance = instance)
+
+
+        context = {
+            'form': forms,
+        }
+            
+        return render(request, 'expense/add_fund.html', context)
+
+
+
+
+def delete_fund(request, fund_id):
+
+
+    fund_instance = fund.objects.get(id = fund_id)
+    fund_instance.deleted = True
+    fund_instance.save()
+
+    return redirect('list_fund')
 
     
     
