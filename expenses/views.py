@@ -24,6 +24,8 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render, redirect
 
 
+from django.db.models import Sum
+
 from .forms import *
 
 
@@ -262,6 +264,10 @@ def list_truck_expense(request):
 
     truck_expense_filters = truck_expense_filter(request.GET, queryset=data)
 
+    filter_data = truck_expense_filters.qs
+
+    total_amount = filter_data.aggregate(total_amount=Sum('amount'))['total_amount']
+
     page = request.GET.get('page', 1)
     paginator = Paginator(truck_expense_filters.qs, 20)
     try:
@@ -274,6 +280,7 @@ def list_truck_expense(request):
 
     context = {
         'data': data,
+        'total_amount': total_amount,
         'truck_expense_filters' : truck_expense_filters
     }
 
@@ -416,7 +423,9 @@ def list_transfer_fund(request):
 
     transfer_fund_filters = transfer_fund_filter(request.GET, queryset=data)
 
+    filter_data = transfer_fund_filters.qs
 
+    total_amount = filter_data.aggregate(total_amount=Sum('amount'))['total_amount']
      
 
     page = request.GET.get('page', 1)
@@ -431,6 +440,7 @@ def list_transfer_fund(request):
 
     context = {
         'data': data,
+        'total_amount': total_amount,
         'transfer_fund_filter' : transfer_fund_filters
     }
 
@@ -541,7 +551,10 @@ def list_diesel_expense(request):
     
     diesel_expense_filters = diesel_expense_filter(request.GET, queryset=data)
 
+    filter_data = diesel_expense_filters.qs
 
+    total_amount = filter_data.aggregate(total_amount=Sum('amount'))['total_amount']
+     
     page = request.GET.get('page', 1)
     paginator = Paginator(diesel_expense_filters.qs, 20)
     try:
@@ -556,6 +569,7 @@ def list_diesel_expense(request):
     context = {
         'data': data,  # Pass the filtered queryset
         'rate': rate.amount,
+        'total_amount': total_amount,
         'diesel_expense_filter': diesel_expense_filters,  # If you need the filter form
     }
 
@@ -656,7 +670,9 @@ def list_truck_diesel_expense(request):
 
     truck_diesel_expense_filters = truck_diesel_expense_filter(request.GET, queryset=data)
 
+    filter_data = truck_diesel_expense_filters.qs
 
+    total_amount = filter_data.aggregate(total_amount=Sum('amount'))['total_amount']
     
 
     page = request.GET.get('page', 1)
@@ -674,6 +690,7 @@ def list_truck_diesel_expense(request):
     context = {
         'data': truck_diesel_expense_filters.qs,  # Pass the filtered queryset
         'rate': rate.amount,
+        'total_amount': total_amount,
         'truck_diesel_expense_filter': truck_diesel_expense_filters,  # If you need the filter form
     }
 
@@ -788,8 +805,9 @@ def list_salary(request):
 
     salary_filters = salary_filter(request.GET, queryset=data)
 
+    filter_data = salary_filters.qs
 
-
+    total_amount = filter_data.aggregate(total_amount=Sum('amount'))['total_amount']
 
     page = request.GET.get('page', 1)
     paginator = Paginator(salary_filters.qs, 20)
@@ -804,6 +822,7 @@ def list_salary(request):
 
     context = {
         'data': data,
+        'total_amount': total_amount,
         'salary_filter' : salary_filters
     }
 
@@ -866,6 +885,10 @@ def list_other_expense(request):
     
     
     other_expense_filters = other_expense_filter(request.GET, queryset=data)
+    
+    filter_data = other_expense_filters.qs
+
+    total_amount = filter_data.aggregate(total_amount=Sum('amount'))['total_amount']
 
     page = request.GET.get('page', 1)
     paginator = Paginator(other_expense_filters.qs, 20)
@@ -883,6 +906,7 @@ def list_other_expense(request):
 
     context = {
         'data': data,
+        'total_amount': total_amount,
         'other_expense_filter' : other_expense_filters
     }
 
@@ -937,8 +961,9 @@ def list_fund_admin(request):
 
     fund_filters = fund_filter(request.GET, queryset=data)
 
+    filter_data = fund_filters.qs
 
-   
+    total_amount = filter_data.aggregate(total_amount=Sum('amount'))['total_amount']
 
     page = request.GET.get('page', 1)
     paginator = Paginator(fund_filters.qs, 20)
@@ -954,6 +979,7 @@ def list_fund_admin(request):
 
     context = {
         'data': data,
+        'total_amount': total_amount,
         'fund_filter' : fund_filters
     }
 
@@ -1007,7 +1033,6 @@ def add_fund(request):
     
 def list_fund(request):
     
-    data = fund.objects.all()
 
     data = fund.objects.all()
 
@@ -1024,9 +1049,9 @@ def list_fund(request):
     
     fund_filters = fund_filter(request.GET, queryset=data)
 
+    filter_data = fund_filters.qs
 
-    
-   
+    total_amount = filter_data.aggregate(total_amount=Sum('amount'))['total_amount']
 
     page = request.GET.get('page', 1)
     paginator = Paginator(fund_filters.qs, 20)
@@ -1041,6 +1066,7 @@ def list_fund(request):
 
     context = {
         'data': data,
+        'total_amount': total_amount,
         'fund_filter' : fund_filters
     }
 
