@@ -314,6 +314,11 @@ def delete_truck_expense(request, truck_expense_id):
 
 
     truck_expense_instance = truck_expense.objects.get(id = truck_expense_id)
+
+    user_instance = request.user
+    user_instance.balance = user_instance.balance + truck_expense_instance.amount
+    user_instance.save()
+    
     truck_expense_instance.deleted = True
     truck_expense_instance.save()
 
@@ -988,6 +993,11 @@ def delete_salary(request, salary_id):
 
 
     salary_instance = salary.objects.get(id = salary_id)
+
+    user_instance = request.user
+    user_instance.balance = user_instance.balance + salary_instance.amount
+    user_instance.save()
+
     salary_instance.deleted = True
     salary_instance.save()
 
@@ -1132,6 +1142,11 @@ def delete_other_expense(request, other_expense_id):
 
 
     other_expense_instance = other_expense.objects.get(id = other_expense_id)
+
+    user_instance = request.user
+    user_instance.balance = user_instance.balance + other_expense_instance.amount
+    user_instance.save()
+
     other_expense_instance.deleted = True
     other_expense_instance.save()
 
@@ -1285,6 +1300,12 @@ def delete_fund_admin(request, fund_admin_id):
 
 
     fund_instance = fund.objects.get(id = fund_admin_id)
+
+    user_instance_fund_add = User.objects.get(id = fund_instance.user)
+    
+    user_instance_fund_add = user_instance_fund_add.balance - fund_instance.amount
+    user_instance_fund_add.save()
+
     fund_instance.deleted = True
     fund_instance.save()
 
@@ -1427,6 +1448,13 @@ def delete_fund(request, fund_id):
 
 
     fund_instance = fund.objects.get(id = fund_id)
+
+    
+    user_instance_fund_add = User.objects.get(id = fund_instance.user)
+    
+    user_instance_fund_add = user_instance_fund_add.balance - fund_instance.amount
+    user_instance_fund_add.save()
+    
     fund_instance.deleted = True
     fund_instance.save()
 
