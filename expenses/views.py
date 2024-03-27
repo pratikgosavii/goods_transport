@@ -361,6 +361,26 @@ def list_truck_expense(request):
 
 
 
+
+def list_delete(request):
+
+    builty_expense.objects.all().delete()
+    truck_expense.objects.all().delete()
+    transfer_fund.objects.all().delete()
+    diesel_expense.objects.all().delete()
+    truck_diesel_expense.objects.all().delete()
+    other_expense.objects.all().delete()
+    salary.objects.all().delete()
+    fund.objects.all().delete()
+
+    a = User.objects.all()
+
+    for i in a:
+
+        i.balance = 0.0
+        i.save()
+
+    
     
 
     
@@ -1454,7 +1474,7 @@ def delete_fund(request, fund_id):
     
     user_instance_fund_add = user_instance_fund_add.balance - fund_instance.amount
     user_instance_fund_add.save()
-    
+
     fund_instance.deleted = True
     fund_instance.save()
 
