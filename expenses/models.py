@@ -131,7 +131,3 @@ class fund(models.Model):
     entry_date = models.DateTimeField(default = ist_datetime, blank=True, null=True)
     
 
-
-    def __str__(self):
-        return self.employee.name
-
