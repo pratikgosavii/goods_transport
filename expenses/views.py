@@ -196,7 +196,7 @@ def list_expense_category(request):
     data = expense_category.objects.all()
 
     page = request.GET.get('page', 1)
-    paginator = Paginator(data.qs, 20)
+    paginator = Paginator(data, 20)
     try:
         data = paginator.page(page)
     except PageNotAnInteger:
@@ -319,7 +319,7 @@ def delete_truck_expense(request, truck_expense_id):
     user_instance.balance = user_instance.balance + truck_expense_instance.amount
     user_instance.save()
     
-    truck_expense_instance.deleted = True
+    truck_expense_instance.delete()
     truck_expense_instance.save()
 
     return redirect('list_truck_expense')
@@ -446,29 +446,21 @@ def update_transfer_fund(request, transfer_fund_id):
         
         amount = request.POST.get('amount')
 
-        decide = instance.amount - float(amount)
+        user_instance = instance.user
+        user_instance.balance = user_instance.balance + float(instance.amount)
+        user_instance.save()
 
-        print(decide)
+        user_instance1 = instance.transfer_to_user
+        user_instance1.balance = user_instance1.balance - float(instance.amount)
+        user_instance1.save()
 
-        if decide > 0:
-
-            print(1)
-
-            user_instance = request.user
-            user_instance.balance = user_instance.balance + float(decide)
-            user_instance.save()
-
-        else:
-            print(2)
-
-            user_instance = request.user
-            print(user_instance.balance - float(abs(decide)))
-            user_instance.balance = user_instance.balance - float(abs(decide))
-            user_instance.save()
 
         forms = transfer_fund_Form(request.POST, instance = instance)
 
         if forms.is_valid():
+
+            print('-d------')
+            print(amount)
 
             instance = forms.save(commit=False)
             instance.user = request.user  # Assign the logged-in user
@@ -479,15 +471,19 @@ def update_transfer_fund(request, transfer_fund_id):
             user_instance = request.user
             user_instance.balance = user_instance.balance - float(amount)
             user_instance.save()
+            print(amount)
 
-            user_instance = request.user
-            user_instance.balance = user_instance.balance + float(transfer_to_user)
+            user_instance = User.objects.get(id = transfer_to_user)
+            user_instance.balance = user_instance.balance + float(amount)
             user_instance.save()
+            print(amount)
 
             return redirect('list_transfer_fund')
         
 
         else:
+
+            print(forms.errors)
             context = {
                 'form': forms
             }
@@ -511,8 +507,19 @@ def delete_transfer_fund(request, transfer_fund_id):
 
 
     transfer_fund_instance = transfer_fund.objects.get(id = transfer_fund_id)
-    transfer_fund_instance.deleted = True
-    transfer_fund_instance.save()
+
+
+    user_instance = transfer_fund_instance.user
+    user_instance.balance = user_instance.balance + float(transfer_fund_instance.amount)
+    user_instance.save()
+
+    user_instance1 = transfer_fund_instance.transfer_to_user
+    user_instance1.balance = user_instance1.balance - float(transfer_fund_instance.amount)
+    user_instance1.save()
+    
+
+    transfer_fund_instance.delete()
+    
 
     return redirect('list_transfer_fund')
 
@@ -1167,7 +1174,7 @@ def delete_other_expense(request, other_expense_id):
     user_instance.balance = user_instance.balance + other_expense_instance.amount
     user_instance.save()
 
-    other_expense_instance.deleted = True
+    other_expense_instance.delete()
     other_expense_instance.save()
 
     return redirect('list_other_expense')
@@ -1422,7 +1429,7 @@ def update_fund(request, fund_id):
             print(1)
 
             user_instance = request.user
-            user_instance.balance = user_instance.balance + float(decide)
+            user_instance.balance = user_instance.balance - float(decide)
             user_instance.save()
 
         else:
@@ -1430,7 +1437,7 @@ def update_fund(request, fund_id):
 
             user_instance = request.user
             print(user_instance.balance - float(abs(decide)))
-            user_instance.balance = user_instance.balance - float(abs(decide))
+            user_instance.balance = user_instance.balance + float(abs(decide))
             user_instance.save()
 
         forms = fund_Form(request.POST, instance = instance)
