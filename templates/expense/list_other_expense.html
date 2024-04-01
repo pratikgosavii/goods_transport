@@ -116,6 +116,13 @@
                             {% for i in data %}
                             <tr>
                                 <td class="serial">{{ forloop.counter }}</td>
+                               
+                                {% if request.user.is_superuser %}
+
+                                <td>{{ i.user }}</td>
+
+                                {% endif %}
+                                
                                 <td>{{ i.expense_category }}</td>
                                 <td>{{ i.amount }}</td>
                                 <td>{{ i.note }}</td>
