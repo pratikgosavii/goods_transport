@@ -260,12 +260,20 @@
                         <thead>
                             <tr>
                                 <th class="serial">#</th>
+
+                                {% if request.user.is_superuser %}
+                                <th>User</th>
+                                {% endif %}
+
                                 <th>Builty</th>
                                 <th>Liter</th>
                                 <th>Amount</th>
                                 <th>Note</th>
                                 <th>Date</th>
+                               
+                                {% if request.user.is_superuser %}
                                 <th>Actions</th>
+                                {% endif %}
                                 
                             </tr>
                         </thead>
@@ -274,17 +282,30 @@
                             {% for i in data %}
                             <tr>
                                 <td class="serial">{{ forloop.counter }}</td>
+                               
+                                {% if request.user.is_superuser %}
+
+                                <td>{{ i.user }}</td>
+
+                                {% endif %}
+
                                 <td>{{ i.builty }}</td>
                                 <td>{{ i.liter }}</td>
                                 <td>{{ i.amount }}</td>
                                 <td>{{ i.note }}</td>
                                 <td>{{ i.entry_date }}</td>
+                                
+                                {% if request.user.is_superuser %}
+                                
                                 <td>  
                                    <a href="{% url 'update_diesel_expense' i.id %}"> <button id="payment-button"  style="background-color: #05386b; border: green; padding: 10px;border-radius: 12px;" type="submit" class="btn-info ">
                                         <span id="payment-button-amount">View</span>
                                     </button>  </a>
                                     
                                 </td>
+
+                                {% endif %}
+
                                
                                
                             </tr>

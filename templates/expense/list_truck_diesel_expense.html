@@ -240,12 +240,20 @@
                         <thead>
                             <tr>
                                 <th class="serial">#</th>
+                                
+                                {% if request.user.is_superuser %}
+                                <th>User</th>
+                                {% endif %}
+
                                 <th>Truck</th>
                                 <th>Liter</th>
                                 <th>Amount</th>
                                 <th>Note</th>
                                 <th>Date</th>
+                                
+                                {% if request.user.is_superuser %}
                                 <th>Actions</th>
+                                {% endif %}
                                 
                             </tr>
                         </thead>
@@ -254,6 +262,13 @@
                             {% for i in data %}
                             <tr>
                                 <td class="serial">{{ forloop.counter }}</td>
+                               
+                                {% if request.user.is_superuser %}
+
+                                <td>{{ i.user }}</td>
+
+                                {% endif %}
+                                
                                 <td>{{ i.truck }}</td>
                                 <td>{{ i.liter }}</td>
                                 <td>{{ i.amount }}</td>
