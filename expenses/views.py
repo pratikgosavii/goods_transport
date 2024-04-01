@@ -320,7 +320,6 @@ def delete_truck_expense(request, truck_expense_id):
     user_instance.save()
     
     truck_expense_instance.delete()
-    truck_expense_instance.save()
 
     return redirect('list_truck_expense')
     
@@ -647,8 +646,7 @@ def delete_diesel_expense(request, diesel_expense_id):
 
 
     diesel_expense_instance = diesel_expense.objects.get(id = diesel_expense_id)
-    diesel_expense_instance.deleted = True
-    diesel_expense_instance.save()
+    diesel_expense_instance.delete()
 
     return redirect('list_diesel_expense')
 
@@ -765,8 +763,7 @@ def delete_truck_diesel_expense(request, truck_diesel_expense_id):
 
 
     truck_diesel_expense_instance = truck_diesel_expense.objects.get(id = truck_diesel_expense_id)
-    truck_diesel_expense_instance.deleted = True
-    truck_diesel_expense_instance.save()
+    truck_diesel_expense_instance.delete()
 
     return redirect('list_truck_diesel_expense')
 
@@ -884,8 +881,7 @@ def delete_employee(request, employee_id):
 
 
     employee_instance = employee.objects.get(id = employee_id)
-    employee_instance.deleted = True
-    employee_instance.save()
+    employee_instance.delete()
 
     return redirect('list_employee')
 
@@ -1022,11 +1018,10 @@ def delete_salary(request, salary_id):
     salary_instance = salary.objects.get(id = salary_id)
 
     user_instance = request.user
-    user_instance.balance = user_instance.balance + salary_instance.amount
+    user_instance.balance = user_instance.balance + salary_instance.salary
     user_instance.save()
 
-    salary_instance.deleted = True
-    salary_instance.save()
+    salary_instance.delete()
 
     return redirect('list_salary')
     
@@ -1175,7 +1170,6 @@ def delete_other_expense(request, other_expense_id):
     user_instance.save()
 
     other_expense_instance.delete()
-    other_expense_instance.save()
 
     return redirect('list_other_expense')
     
@@ -1332,13 +1326,12 @@ def delete_fund(request, fund_id):
     fund_instance = fund.objects.get(id = fund_id)
 
     
-    user_instance_fund_add = User.objects.get(id = fund_instance.user)
+    user_instance_fund_add = fund_instance.user
     
-    user_instance_fund_add = user_instance_fund_add.balance - fund_instance.amount
+    user_instance_fund_add.balance = user_instance_fund_add.balance - fund_instance.amount
     user_instance_fund_add.save()
 
-    fund_instance.deleted = True
-    fund_instance.save()
+    fund_instance.delete()
 
     return redirect('list_fund')
 
