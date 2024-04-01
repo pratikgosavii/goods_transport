@@ -154,12 +154,6 @@
                                 {{ form.note }}
                             </div>
 
-
-                            <div>
-                                <button id="payment-button" type="submit" class="btn btn-lg btn-info btn-block">
-                                    <span id="payment-button-amount">Submit</span>
-                                </button>
-                            </div>
                         </form>
                     </div>
                 </div>
@@ -187,6 +181,25 @@
             var result = textone * texttwo;
             $('#total_pck').val(result.toFixed(2));
         });
+
+
+
+
+        // Disable text inputs
+document.querySelectorAll('input[type="text"]').forEach(function(input) {
+  input.setAttribute('readonly', true);
+});
+
+
+// Disable select dropdowns
+document.querySelectorAll('select').forEach(function(select) {
+  select.setAttribute('disabled', true);
+});
+
+
+
+
+
         </script>
 
     {% endblock js %}

@@ -29,6 +29,8 @@ from django.db.models import Sum
 from .forms import *
 
 
+import copy
+
 
 
 
@@ -258,34 +260,28 @@ def update_truck_expense(request, truck_expense_id):
     if request.method == 'POST':
 
         amount = request.POST.get("amount")
+        
+        instance_old = copy.copy(instance.user.id) 
 
-        decide = instance.amount - float(amount)
+        user_instance = instance.user
+        user_instance.balance = user_instance.balance + float(instance.amount)
+        user_instance.save()
 
-        print(decide)
-
-        if decide > 0:
-
-            print(1)
-
-            user_instance = request.user
-            user_instance.balance = user_instance.balance + float(decide)
-            user_instance.save()
-
-        else:
-            print(2)
-
-            user_instance = request.user
-            print(user_instance.balance - float(abs(decide)))
-            user_instance.balance = user_instance.balance - float(abs(decide))
-            user_instance.save()
-
+        
         forms = truck_expense_Form(request.POST, instance = instance)
 
         if forms.is_valid():
 
+            instance_old = User.objects.get(id = instance_old)
+
             instance = forms.save(commit=False)
-            instance.user = request.user  # Assign the logged-in user
+            instance.user = instance_old  # Assign the logged-in user
             instance.save()
+
+            user_instance1 = instance_old
+            user_instance1.balance = user_instance1.balance - float(amount)
+            user_instance1.save()
+
 
             return redirect('list_truck_expense')
         
@@ -451,43 +447,42 @@ def add_transfer_fund(request):
 
 def update_transfer_fund(request, transfer_fund_id):
 
-    instance = transfer_fund.objects.get(id = transfer_fund_id)
+    instance_main = transfer_fund.objects.get(id = transfer_fund_id)
+
+    instance_old = copy.copy(instance_main.user.id) 
 
     if request.method == 'POST':
         
         amount = request.POST.get('amount')
 
-        user_instance = instance.user
-        user_instance.balance = user_instance.balance + float(instance.amount)
+        user_instance = instance_main.user
+        user_instance.balance = user_instance.balance + float(instance_main.amount)
         user_instance.save()
 
-        user_instance1 = instance.transfer_to_user
-        user_instance1.balance = user_instance1.balance - float(instance.amount)
+        user_instance1 = instance_main.transfer_to_user
+        user_instance1.balance = user_instance1.balance - float(instance_main.amount)
         user_instance1.save()
 
 
-        forms = transfer_fund_Form(request.POST, instance = instance)
+        forms = transfer_fund_Form(request.POST, instance = instance_main)
 
         if forms.is_valid():
 
-            print('-d------')
-            print(amount)
+            instance_old = User.objects.get(id = instance_old)
 
             instance = forms.save(commit=False)
-            instance.user = request.user  # Assign the logged-in user
+            instance.user = instance_old  # Assign the logged-in user
             instance.save()
 
             transfer_to_user = request.POST.get('transfer_to_user')
             
-            user_instance = request.user
+            user_instance = instance_old
             user_instance.balance = user_instance.balance - float(amount)
             user_instance.save()
-            print(amount)
 
             user_instance = User.objects.get(id = transfer_to_user)
             user_instance.balance = user_instance.balance + float(amount)
             user_instance.save()
-            print(amount)
 
             return redirect('list_transfer_fund')
         
@@ -502,7 +497,7 @@ def update_transfer_fund(request, transfer_fund_id):
 
     else:
 
-        forms = transfer_fund_Form(instance = instance)
+        forms = transfer_fund_Form(instance = instance_main)
 
 
         context = {
@@ -621,14 +616,18 @@ def update_diesel_expense(request, diesel_expense_id):
 
     instance = diesel_expense.objects.get(id = diesel_expense_id)
 
+    instance_old = copy.copy(instance.user.id)
+
     if request.method == 'POST':
 
         forms = diesel_expense_Form(request.POST, instance = instance)
 
         if forms.is_valid():
 
+            instance_old = User.objects.get(id = instance_old)
+
             instance = forms.save(commit=False)
-            instance.user = request.user  # Assign the logged-in user
+            instance.user = instance_old  # Assign the logged-in user
             instance.save()
 
             return redirect('list_diesel_expense')
@@ -738,14 +737,18 @@ def update_truck_diesel_expense(request, truck_diesel_expense_id):
 
     instance = truck_diesel_expense.objects.get(id = truck_diesel_expense_id)
 
+    instance_old = copy.copy(instance.user.id)
+
     if request.method == 'POST':
 
         forms = truck_diesel_expense_Form(request.POST, instance = instance)
 
         if forms.is_valid():
 
+            instance_old = User.objects.get(id = instance_old)
+
             instance = forms.save(commit=False)
-            instance.user = request.user  # Assign the logged-in user
+            instance.user = instance_old  # Assign the logged-in user
             instance.save()
 
             return redirect('list_truck_diesel_expense')
@@ -973,33 +976,26 @@ def update_salary(request, salary_id):
 
         amount = request.POST.get("salary")
 
-        decide = instance.salary - float(amount)
+        instance_old = copy.copy(instance.user.id) 
 
-        print(decide)
-
-        if decide > 0:
-
-            print(1)
-
-            user_instance = request.user
-            user_instance.balance = user_instance.balance + float(decide)
-            user_instance.save()
-
-        else:
-            print(2)
-
-            user_instance = request.user
-            print(user_instance.balance - float(abs(decide)))
-            user_instance.balance = user_instance.balance - float(abs(decide))
-            user_instance.save()
-
+        user_instance = instance.user
+        user_instance.balance = user_instance.balance + float(instance.salary)
+        user_instance.save()
+       
         forms = salary_Form(request.POST, instance = instance)
 
         if forms.is_valid():
 
+            instance_old = User.objects.get(id = instance_old)
+
             instance = forms.save(commit=False)
-            instance.user = request.user  # Assign the logged-in user
+            instance.user = instance_old  # Assign the logged-in user
             instance.save()
+
+            user_instance1 = instance_old
+            user_instance1.balance = user_instance1.balance - float(amount)
+            user_instance1.save()
+
 
             return redirect('list_salary')
         
@@ -1121,33 +1117,25 @@ def update_other_expense(request, other_expense_id):
 
         amount = request.POST.get("amount")
 
-        decide = instance.amount - float(amount)
+        instance_old = copy.copy(instance.user.id) 
 
-        print(decide)
-
-        if decide > 0:
-
-            print(1)
-
-            user_instance = request.user
-            user_instance.balance = user_instance.balance + float(decide)
-            user_instance.save()
-
-        else:
-            print(2)
-
-            user_instance = request.user
-            print(user_instance.balance - float(abs(decide)))
-            user_instance.balance = user_instance.balance - float(abs(decide))
-            user_instance.save()
+        user_instance = instance.user
+        user_instance.balance = user_instance.balance + float(instance.amount)
+        user_instance.save()
 
         forms = other_expense_Form(request.POST, instance = instance)
 
         if forms.is_valid():
 
+            instance_old = User.objects.get(id = instance_old)
+
             instance = forms.save(commit=False)
-            instance.user = request.user  # Assign the logged-in user
+            instance.user = instance_old  # Assign the logged-in user
             instance.save()
+
+            user_instance1 = instance_old
+            user_instance1.balance = user_instance1.balance - float(amount)
+            user_instance1.save()
 
             return redirect('list_other_expense')
         
@@ -1281,33 +1269,26 @@ def update_fund(request, fund_id):
 
         amount = request.POST.get("amount")
 
-        decide = instance.amount - float(amount)
+        instance_old = copy.copy(instance.user.id) 
 
-        print(decide)
-
-        if decide > 0:
-
-            print(1)
-
-            user_instance = request.user
-            user_instance.balance = user_instance.balance - float(decide)
-            user_instance.save()
-
-        else:
-            print(2)
-
-            user_instance = request.user
-            print(user_instance.balance - float(abs(decide)))
-            user_instance.balance = user_instance.balance + float(abs(decide))
-            user_instance.save()
+        user_instance = instance.user
+        user_instance.balance = user_instance.balance - float(instance.amount)
+        user_instance.save()
 
         forms = fund_Form(request.POST, instance = instance)
 
         if forms.is_valid():
+            
+            instance_old = User.objects.get(id = instance_old)
 
             instance = forms.save(commit=False)
-            instance.user = request.user  # Assign the logged-in user
+            instance.user = instance_old  # Assign the logged-in user
             instance.save()
+
+            user_instance1 = instance_old
+            user_instance1.balance = user_instance1.balance + float(amount)
+            user_instance1.save()
+        
 
             return redirect('list_fund')
         

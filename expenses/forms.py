@@ -126,7 +126,7 @@ class truck_diesel_expense_Form(forms.ModelForm):
         fields = '__all__'
         widgets = {
             'truck': forms.Select(attrs={
-                'class': 'form-control', 'id': 'truck'
+                'class': 'form-control sele', 'id': 'truck'
             }),
             'note': forms.TextInput(attrs={
                 'class': 'form-control', 'id': 'note'

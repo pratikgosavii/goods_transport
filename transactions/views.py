@@ -107,8 +107,8 @@ def add_transaction(request):
 
             diesel_amount = diesel_amount.amount * float(diesel_liter)
 
-            diesel_expense.objects.get_or_create(builty = forms.instance, liter = diesel_liter, amount = diesel_amount, user = request.user)
-            builty_expense.objects.get_or_create(builty = forms.instance, amount = less_advance_amount, user = request.user)
+            diesel_expense.objects.create(builty = forms.instance, liter = diesel_liter, amount = diesel_amount, user = request.user)
+            builty_expense.objects.create(builty = forms.instance, amount = less_advance_amount, user = request.user)
 
 
             user_instance = request.user
@@ -278,6 +278,25 @@ def update_builty(request, bulity_id):
         if forms.is_valid():
 
             forms.save()
+
+            diesel_liter = request.POST.get('diesel')
+            less_advance_amount = request.POST.get('less_advance')
+
+
+            diesel_amount = diesel_rate.objects.get(id = 1)
+
+            diesel_amount = diesel_amount.amount * float(diesel_liter)
+
+            diesel_expense_instance = diesel_expense.objects.get(builty = forms.instance)
+            diesel_expense_instance.liter = diesel_liter 
+            diesel_expense_instance.amount = diesel_amount
+            diesel_expense_instance.save()
+
+            builty_expense_instance = builty_expense.objects.get(builty = forms.instance)
+            builty_expense_instance.amount = less_advance_amount
+            builty_expense_instance.save()
+            
+
 
             return redirect('list_transaction')
 

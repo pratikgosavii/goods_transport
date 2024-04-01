@@ -120,9 +120,9 @@
                                 <td class="serial">{{ forloop.counter }}</td>
                                 
                                 {% if request.user.is_superuser %}
-                                <th>User</th>
+                                <td>{{ i.user }}</td>
                                 {% endif %}
-                                
+
                                 <td>{{ i.employee }}</td>
                                 <td>{{ i.salary }}</td>
                                 <td>{{ i.note }}</td>
