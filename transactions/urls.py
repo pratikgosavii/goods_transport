@@ -36,6 +36,9 @@ urlpatterns = [
 
     path('demo', demo, name='demo'),
 
+    path('downald-data/', downalo_data, name='downalo_data'),
+
+
     path('get_district', get_district, name='get_district'),
     path('get_owner', get_owner, name='get_owner'),
     path('get_taluka_district', get_taluka_district, name='get_taluka_district'),

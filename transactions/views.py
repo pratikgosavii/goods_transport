@@ -934,6 +934,45 @@ def demo(request):
 
 
 
+
+import csv
+
+
+import csv
+from datetime import datetime
+
+
+def downalo_data(request):
+    # Open a file in write mode
+    with open('builty_data.csv', 'w', newline='', encoding='utf-8') as csvfile:
+        # Get all field names of the model
+        fieldnames = [field.name for field in builty._meta.fields]
+
+        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+
+        # Write headers to the CSV file
+        writer.writeheader()
+
+        # Iterate over each builty object
+        for builty_obj in builty.objects.all():
+            # Convert foreign key IDs to values
+            data = {}
+            for field in fieldnames:
+                value = getattr(builty_obj, field)
+                if hasattr(value, 'name'):  # Check if it's a foreign key field
+                    data[field] = getattr(value, 'name')  # Replace 'name' with the actual field name you want to export
+                elif isinstance(value, datetime):  # Check if it's a datetime field
+                    data[field] = value.strftime('%Y-%m-%d %H:%M:%S') if value else ''
+                else:
+                    data[field] = value
+
+            # Write the data to the CSV file
+            writer.writerow(data)
+
+
+
+
+
 from django.core import serializers
 
 @user_is_active

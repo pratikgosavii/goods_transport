@@ -58,11 +58,6 @@ urlpatterns = [
     path('list-other-expense/', list_other_expense, name='list_other_expense'),
    
 
-    path('add-fund_admin/', add_fund_admin, name='add_fund_admin'),
-    path('update-fund_admin/<fund_admin_id>', update_fund_admin, name='update_fund_admin'),
-    path('delete-fund_admin/<fund_admin_id>', delete_fund_admin, name='delete_fund_admin'),
-    path('list-fund_admin/', list_fund_admin, name='list_fund_admin'),
-
     path('add-fund/', add_fund, name='add_fund'),
     path('update-fund/<fund_id>', update_fund, name='update_fund'),
     path('delete-fund/<fund_id>', delete_fund, name='delete_fund'),
