@@ -380,7 +380,19 @@ def list_delete(request):
         i.save()
 
     
+def check_balance(request):
+
+    data = User.objects.all()
+
+    total_amount = User.objects.aggregate(total_balance=Sum('balance'))['total_balance'] or 0
+
+    context = {
+        'data': data,
+        'total_amount': total_amount,
+    }
     
+    return render(request, 'expense/list_balance.html', context)
+
 
     
 def add_diesel_rate(request):

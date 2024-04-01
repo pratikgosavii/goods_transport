@@ -13,7 +13,11 @@
                
                 <li class="menu-title">Transactions</li><!-- /.menu-title -->
                 
-               
+                <li class="menu-item-has-children dropdown">
+                    <a href="{% url 'check_balance' %}"><i class="menu-icon fa fa-th"></i> User Balance </a>
+                    
+                </li>
+                
                 <li class="menu-item-has-children dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-users"></i>Funds</a>
                     <ul class="sub-menu children dropdown-menu">
@@ -30,14 +34,10 @@
                     </ul>
                 </li>
 
-
                 <li class="menu-item-has-children dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-users"></i>Builty Expense</a>
-                    <ul class="sub-menu children dropdown-menu">
-                        <li><i class="fa fa-th"></i><a href="{% url 'list_builty_expense' %}">View</a></li>
-                    </ul>
+                    <a href="{% url 'list_builty_expense' %}"><i class="menu-icon fa fa-th"></i> Builty Expense </a>
+                    
                 </li>
-
 
                 <li class="menu-item-has-children dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-users"></i>Truck Expense</a>
