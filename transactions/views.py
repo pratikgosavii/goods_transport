@@ -287,14 +287,28 @@ def update_builty(request, bulity_id):
 
             diesel_amount = diesel_amount.amount * float(diesel_liter)
 
-            diesel_expense_instance = diesel_expense.objects.get(builty = forms.instance)
-            diesel_expense_instance.liter = diesel_liter 
-            diesel_expense_instance.amount = diesel_amount
-            diesel_expense_instance.save()
+            try:
 
-            builty_expense_instance = builty_expense.objects.get(builty = forms.instance)
-            builty_expense_instance.amount = less_advance_amount
-            builty_expense_instance.save()
+                diesel_expense_instance = diesel_expense.objects.get(builty = forms.instance)
+                diesel_expense_instance.liter = diesel_liter 
+                diesel_expense_instance.amount = diesel_amount
+                diesel_expense_instance.save()
+
+            
+            except diesel_expense.DoesNotExist:
+
+                pass
+
+
+            try:
+
+                builty_expense_instance = builty_expense.objects.get(builty = forms.instance)
+                builty_expense_instance.amount = less_advance_amount
+                builty_expense_instance.save()
+
+            except builty_expense.DoesNotExist:
+
+                pass
             
 
 
