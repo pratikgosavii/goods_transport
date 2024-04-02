@@ -187,8 +187,14 @@
 
     <div class="container" style="margin: 0;">
       {% csrf_token %}
+      
       <label for="financialYear">Financial Year:</label>
-      <select id="financialYear"></select>
+      
+      <select id="financialYear">
+        <option value="2023-2024">2023-2024</option>
+        <option value="2024-2025">2024-2025</option>
+      </select>
+      
       <button id="submitBtn">Submit</button>
     </div>
     
@@ -688,23 +694,10 @@ function getFinancialYears() {
 }
 
 // Function to populate financial year options dynamically
-function populateFinancialYears() {
-  const [startYear, endYear] = getFinancialYears();
-  
-  const optionStartYear = document.createElement('option');
-  optionStartYear.value = startYear;
-  optionStartYear.textContent = startYear;
-  financialYearSelect.appendChild(optionStartYear);
 
-  const optionEndYear = document.createElement('option');
-  optionEndYear.value = endYear;
-  optionEndYear.textContent = endYear;
-  financialYearSelect.appendChild(optionEndYear);
-}
 
 
 // Invoke the function to populate financial years
-populateFinancialYears();
 
 // Event listener for submit button click
 submitBtn.addEventListener('click', function() {
