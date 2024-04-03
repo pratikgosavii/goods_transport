@@ -1443,7 +1443,13 @@ def truck_report_excel(request):
     data = builty_filters.qs
 
     truck_owner_va = request.GET.get("truck_owner")
-    truck_owner_instance = truck_owner.objects.get(id = truck_owner_va)
+
+
+    if truck_owner_va:
+
+        print(truck_owner_va)
+        truck_owner_instance = truck_owner.objects.get(id = truck_owner_va)
+        
     date_from_va = request.GET.get("date_from")
     date_to_va = request.GET.get("date_to")
     
@@ -1530,8 +1536,16 @@ def truck_report_excel(request):
 
     vals1 = []
 
-    temp_onwer = "Owner :- " + str(truck_owner_instance.owner_name)
-    temp_onwer1 = str(truck_owner_instance.owner_name)
+    if truck_owner_va:
+
+        temp_onwer = "Owner :- " + str(truck_owner_instance.owner_name)
+        temp_onwer1 = str(truck_owner_instance.owner_name)
+
+    else:
+
+        temp_onwer = "Owner :- Other "
+        temp_onwer1 = "Other"
+
     vals1.append(temp_onwer)
     vals1.append("")
     vals1.append("")
@@ -1569,7 +1583,15 @@ def truck_report_excel(request):
 
     vals1 = []
 
-    pan_no = truck_owner_instance.pan_card
+
+    if truck_owner_va:
+
+        pan_no = truck_owner_instance.pan_card
+
+    else:
+
+        pan_no = "Other"
+
 
     vals1.append("")
     vals1.append("")
