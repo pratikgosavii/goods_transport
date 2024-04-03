@@ -366,7 +366,6 @@ class builty_filter(django_filters.FilterSet):
     def __init__(self, user, *args, **kwargs):
         super(builty_filter,self).__init__(*args, **kwargs)
         request = user
-        logger.debug("Select all except one filter dfdfdfd")
 
         if not request.is_superuser:
             self.filters['district'].queryset = district.objects.filter(office_location = request.office_location)
@@ -377,7 +376,6 @@ class builty_filter(django_filters.FilterSet):
             self.filters['consignor'].queryset = consignor.objects.filter(office_location = request.office_location)
             self.filters['article'].queryset = article.objects.filter(office_location = request.office_location)
             self.filters['builty_no'].queryset = builty.objects.filter(user = request)
-            logger.debug("Select all except one filter dfdfdfd")
 
 
 

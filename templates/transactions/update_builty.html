@@ -1843,7 +1843,11 @@
         let less_advance = document.getElementById('less_advance').value;
         let less_freight = document.getElementById('freight').value;
 
+        
+        
         let rate = document.getElementById('rate').value;
+        
+        global_freight =  parseFloat((global_mt * rate).toFixed(2));
 
         let balance = parseFloat((global_freight - less_advance).toFixed(2));
 

@@ -241,6 +241,7 @@ def add_transaction(request):
 
 
     
+import copy
 
 
 @user_is_active
@@ -303,12 +304,21 @@ def update_builty(request, bulity_id):
             try:
 
                 builty_expense_instance = builty_expense.objects.get(builty = forms.instance)
+                builty_expense_copy = copy.copy(builty_expense_instance.amount)
                 builty_expense_instance.amount = less_advance_amount
                 builty_expense_instance.save()
 
+                user_instance = request.user
+                user_instance.balance = user_instance.balance + float(builty_expense_copy)
+                user_instance.save()
+
+                user_instance = request.user
+                user_instance.balance = user_instance.balance - float(less_advance_amount)
+                user_instance.save()
+
             except builty_expense.DoesNotExist:
 
-                pass
+                print('not here')
             
 
 
