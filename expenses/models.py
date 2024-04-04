@@ -10,7 +10,6 @@ from transactions.models import *
 from django.utils import timezone
 
 # Create an aware datetime object in Indian Standard Time
-datetime.now = timezone.localtime(timezone.now())
 
 
 class expense_category(models.Model):
