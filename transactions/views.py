@@ -243,7 +243,6 @@ def add_transaction(request):
     
 import copy
 
-
 @user_is_active
 def update_builty(request, bulity_id):
 
@@ -1186,6 +1185,8 @@ def voucher_payment(request):
     builty_filters = builty_filter(request.user, request.GET, queryset=data)
     
     data = builty_filters.qs
+
+    print(data.count)
 
     for i in data:
 
