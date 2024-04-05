@@ -146,6 +146,7 @@ def list_builty_expense(request):
 
     builty_expense_filters = builty_expense_filter(request.GET, queryset=data)
 
+    total_amount = builty_expense_filters.aggregate(total_amount=Sum('amount'))['total_amount']
 
     page = request.GET.get('page', 1)
     paginator = Paginator(builty_expense_filters.qs, 20)
@@ -159,6 +160,7 @@ def list_builty_expense(request):
 
     context = {
         'data': data,
+        'total_amount': total_amount,
         'expense_builty_filter' : builty_expense_filters,
 
     }
