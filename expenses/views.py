@@ -1402,7 +1402,7 @@ def master_report(request):
         truck_expense_data =  truck_expense.objects.filter(user = z)
         transfer_fund_data =  transfer_fund.objects.filter(user = z)	
 
-
+        
 
         fund_data =  fund.objects.filter(user = z)	
         incoming_transfer_fund_data =  transfer_fund.objects.filter(transfer_to_user = z)
@@ -1411,34 +1411,63 @@ def master_report(request):
 
         for i in fund_data:
 
-            fund_add = fund_add + i.amount
+           fund_add += i.amount
             
         for i in incoming_transfer_fund_data:
 
-            fund_add = fund_add + i.amount
+           fund_add += i.amount
 
-        
+        print(z)
+        print(fund_add)
+        print('--')
+
         expense_total = 0
+
+        builty_tot = 0
         
         for i in builty_expense_data:
 
-            expense_total = expense_total + i.amount
+            expense_total += i.amount
+            builty_tot = builty_tot + i.amount
+        
+        print(builty_tot)
+
+        
+        other_exp_tot = 0
         
         for i in other_expense_data:
 
-            expense_total = expense_total + i.amount
+            expense_total += i.amount
+            other_exp_tot = other_exp_tot + i.amount
+        
+        print(other_exp_tot)
+
+        sa_exp_tot = 0
         
         for i in salary_data:
 
-            expense_total = expense_total + i.salary
+            expense_total += i.salary
+            sa_exp_tot = sa_exp_tot + i.amount
+
+        print(sa_exp_tot)
+        
+        tr_exp_tot = 0
         
         for i in truck_expense_data:
 
-            expense_total = expense_total + i.amount
+            expense_total += i.amount
+            tr_exp_tot = tr_exp_tot + i.amount
         
+        print(tr_exp_tot)
+
+        tra_exp_tot = 0
+
         for i in transfer_fund_data:
 
-            expense_total = expense_total + i.amount
+            expense_total += i.amount
+            tra_exp_tot = tra_exp_tot + i.amount
+        
+        print(tra_exp_tot)
 
 
         asas = fund_add - expense_total
