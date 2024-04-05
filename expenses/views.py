@@ -1447,7 +1447,6 @@ def master_report(request):
         for i in salary_data:
 
             expense_total += i.salary
-            sa_exp_tot = sa_exp_tot + i.amount
 
         print(sa_exp_tot)
         
