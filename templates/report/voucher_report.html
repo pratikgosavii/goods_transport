@@ -223,9 +223,7 @@
             <div class="form-group" style="display: flex;
             gap: 14px;">
 
-            <label for="name" class="control-label mb-1" style="margin-left : 0px;">Builty No</label>
-                    {{ builty_filter.form.builty_no }}
-                        
+           
                     
                     <label for="name" class="control-label mb-1" style="margin-left : 0px;">Truck No</label>
 
@@ -663,67 +661,38 @@ function report(){
   
   }
   
-
-
-
-
-function appendURLParamsToFormAction() {
-  // Extract URL parameters
-  var urlParams = new URLSearchParams(window.location.search);
-
-  // Get the form element
-  var form = document.getElementById('voucher_payment1');
-
-  // Append URL parameters to the form action
-  form.action += '?' + urlParams.toString();
-
-  alert(form.action)
-
-}
-
-// Call the function when the page loads
-window.addEventListener('load', function() {
-  appendURLParamsToFormAction();
-});
-
-// Or call the function when the modal popup is shown
-$('#myModal').on('shown.bs.modal', function () {
-  alert("Asasas")
-  appendURLParamsToFormAction();
-});
-
-
-// Add an event listener to the form submission
-// Add an event listener to the form submission
+  
+/// Add an event listener to the form submission
 document.getElementById('voucher_payment1').addEventListener('submit', function(event) {
   // Prevent the form from submitting normally
   event.preventDefault();
 
+  // Get the form element
+  var form = this;
+
   // Serialize the form data into a URL-encoded string
-  var formData = new URLSearchParams(new FormData(this)).toString();
+  var formData = new URLSearchParams(new FormData(form)).toString();
 
-  // Get the URL parameters from the form action
-  var urlParams = window.location.search.substring(1); // Exclude the leading '?'
+  // Get the current URL
+  var currentUrl = window.location.href;
 
-  // Append the URL parameters to the serialized form data
-  if (urlParams) {
-      formData += '&' + urlParams;
-  }
+  // Parse the current URL
+  var urlObject = new URL(currentUrl);
 
-  // Alert the combined form data
-  alert('Form data sent to server:\n' + formData);
+  // Get the base URL without query parameters
+  var baseUrlWithoutQuery = currentUrl.split('?')[0];
 
-  // Alternatively, you can log the combined form data to the console
-  console.log('Form data sent to server:', formData);
+  // Generate the new base URL using Django template tag
+  var newBaseUrl = "{% url 'voucher_payment' %}";
 
-  // Now you can submit the form programmatically if needed
-  // Uncomment the following line if you want to submit the form
-  // this.submit();
+  // Construct the new URL
+  var newUrl = newBaseUrl + (formData ? '?' + formData : '') + urlObject.search;
 
-  this.submit();
-
-  
+  // Navigate to the new URL
+  window.location.href = newUrl;
 });
+
+
 
 
 

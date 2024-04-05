@@ -65,5 +65,7 @@ urlpatterns = [
     path('delete-fund/<fund_id>', delete_fund, name='delete_fund'),
     path('list-fund/', list_fund, name='list_fund'),
 
+    path('master-report/', master_report, name='master_report'),
+
 
 ]

@@ -61,8 +61,8 @@ class builty(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     voucher_payment_status = models.BooleanField(default=False)
     voucher_payment_mode = models.CharField(max_length=50, choices=mode1, default="cash", null = True, blank = True)
-    voucher_payment_bank_ac_no = models.IntegerField(default = 0, null = True, blank = True)
-    voucher_payment_bank_ac_ifsc = models.IntegerField(default = 0, null = True, blank = True)
+    voucher_payment_bank_ac_no = models.CharField(max_length=50, null = True, blank = True)
+    voucher_payment_bank_ac_ifsc = models.CharField(max_length=50, null = True, blank = True)
     
 
     def __str__(self):

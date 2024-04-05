@@ -41,6 +41,7 @@ class builty_expense(models.Model):
     builty = models.ForeignKey(builty, on_delete=models.CASCADE)
     amount = models.FloatField()
     is_advance = models.BooleanField(default=False)
+    is_porch = models.BooleanField(default=False)
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
     entry_date = models.DateTimeField(default = datetime.now, blank=True, null=True)
 

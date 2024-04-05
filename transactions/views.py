@@ -108,7 +108,7 @@ def add_transaction(request):
             diesel_amount = diesel_amount.amount * float(diesel_liter)
 
             diesel_expense.objects.create(builty = forms.instance, liter = diesel_liter, amount = diesel_amount, user = request.user)
-            builty_expense.objects.create(builty = forms.instance, amount = less_advance_amount, user = request.user)
+            builty_expense.objects.create(builty = forms.instance, amount = less_advance_amount, is_advance = True, user = request.user)
 
 
             user_instance = request.user
@@ -1186,34 +1186,144 @@ def voucher_payment(request):
     
     data = builty_filters.qs
 
-    print(data.count)
+    print('------------------')
+    print(request.GET)
+    print(data.count())
+
+    report_data = []
 
     for i in data:
 
-        ack_instance = ack.objects.filter(builty = i)
+        try:
+            ack_instance = ack.objects.get(builty = i)
 
-        if ack_instance:
+            if ack_instance and i.voucher_payment_status == False:
 
+                user_instance = request.user
+                user_instance.balance = user_instance.balance - i.balance
+                user_instance.save()
 
-
-
-            i.voucher_payment_status = True
-            i.voucher_payment_mode = voucher_payment_mode
-            i.voucher_payment_bank_ac_no = voucher_payment_bank_ac_no
-            i.voucher_payment_bank_ac_ifsc = voucher_payment_bank_ac_ifsc
-            i.save()
+                builty_expense.objects.create(builty = i, amount = i.balance, is_porch = True, user = request.user)
 
 
+
+                i.voucher_payment_status = True
+                i.voucher_payment_mode = voucher_payment_mode
+                i.voucher_payment_bank_ac_no = voucher_payment_bank_ac_no
+                i.voucher_payment_bank_ac_ifsc = voucher_payment_bank_ac_ifsc
+                i.save()
+
+                temp = []
+
+                temp.append(i.builty_no)
+                temp.append(i.DC_date)
+                temp.append(i.truck_details.truck_number)
+                temp.append(i.truck_owner.owner_name)
+                temp.append(ack_instance.challan_number)
+                temp.append(ack_instance.challan_date)
+                temp.append(i.station_to.name)
+                temp.append(i.mt)
+                temp.append(i.rate)
+                temp.append(i.freight)
+                temp.append(i.less_advance)
+                temp.append(i.balance)
+
+                print(temp)
+
+                report_data.append(temp)
+
+
+
+        except ack.DoesNotExist:
+
+            pass
+
+    vals = []
+
+    vals1 = []
+
+    total_mt = 0
+    total_freight = 0
+    total_advance = 0
+    total_balance = 0
+
+
+        
+    vals.append([''])
+    vals.append(['Dispatch REPORT'])
+    vals.append([''])
+    vals.append([''])
+
+
+    
+    vals1.append("Sr No")
+    vals1.append("Builty No")
+    vals1.append("Builty Date")
+    vals1.append("Truck No")
+    vals1.append("Truck Owner")
+    vals1.append("Challan No")
+    vals1.append("Challan Date")
+    vals1.append("To")
+    vals1.append("MT")
+    vals1.append("Rate")
+    vals1.append("Freight")
+    vals1.append("Advance")
+    vals1.append("Balance")
+    vals.append(vals1)
+
+    counteer = 1
+
+
+    
+    for i in report_data:
+        vals1 = []
+        vals1.append(counteer)
+        counteer = counteer + 1
+        vals1.append(i[0])
+        vals1.append('%s/%s/%s' % (i[1].month, i[1].day, i[1].year))
+        vals1.append(i[2])
+        vals1.append(i[3])
+        vals1.append(i[4])
+        if i[5]:
+            vals1.append('%s/%s/%s' % (i[5].month, i[5].day, i[5].year))
+        else:
+            vals1.append("None")
+
+        vals1.append(i[6])
+        vals1.append(i[7])
+        vals1.append(i[8])
+        vals1.append(i[9])
+        vals1.append(i[10])
+        vals1.append(i[11])
+        vals.append(vals1)
+
+
+        total_mt = total_mt + i[7]
+        total_freight = total_freight + i[9]
+        total_advance = total_advance + i[10]
+        total_balance = total_balance + i[11]
+
+    vals.append('')
+    vals.append(['total', '','','','','','', '',total_mt,'', total_freight,total_advance, total_balance])
+        
+    
+    name = "Report.csv"
+    path = os.path.join(BASE_DIR, 'static', 'csv', name)
+
+    with open(path, 'w', newline="") as f:
+        writer = csv.writer(f)
+        writer.writerows(vals)
+
+    link = os.path.join(BASE_DIR, 'static', 'csv', name)
+
+    mime_type = mimetypes.guess_type(link)[0]
+    with open(path, 'rb') as f:
+        response = HttpResponse(f.read(), content_type=mime_type)
+        response['Content-Disposition'] = 'attachment;filename=' + name
+        return response
     
     voucher_report_url = reverse('voucher_report')
 
-    if request.GET:
-        voucher_report_url += '?' + request.GET.urlencode()
-
-    # Perform the redirect
-    pass
-
-    
 
 
 def voucher_report(request):

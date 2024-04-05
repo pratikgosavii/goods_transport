@@ -1371,3 +1371,9 @@ def list_fund(request):
 
     return render(request, 'expense/list_fund.html', context)
 
+
+
+
+def master_report(request):
+
+    pass
