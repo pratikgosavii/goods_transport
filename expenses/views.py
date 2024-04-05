@@ -1376,4 +1376,75 @@ def list_fund(request):
 
 def master_report(request):
 
-    pass
+    # date_from = request.GET.get('date_from')
+    # date_to = request.GET.get('date_to')
+    
+
+    # if request.user.is_superuser():
+
+    #     user_instance = request.GET.get('user')
+    
+    # else:
+
+    #     user_instance = request.user
+
+    users_data = User.objects.all()
+
+    for z in users_data:
+
+        builty_expense_data = builty_expense.objects.filter(user = z)	
+        other_expense_data =  other_expense.objects.filter(user = z)	
+        salary_data =  salary.objects.filter(user = z)	
+        truck_expense_data =  truck_expense.objects.filter(user = z)
+        transfer_fund_data =  transfer_fund.objects.filter(user = z)	
+
+
+
+        fund_data =  fund.objects.filter(user = z)	
+        incoming_transfer_fund_data =  transfer_fund.objects.filter(transfer_to_user = z)
+
+        fund_add = 0
+
+        for i in fund_data:
+
+            fund_add = fund_add + i.amount
+            
+        for i in incoming_transfer_fund_data:
+
+            fund_add = fund_add + i.amount
+
+        
+        expense_total = 0
+        
+        for i in builty_expense_data:
+
+            expense_total = expense_total + i.amount
+        
+        for i in other_expense_data:
+
+            expense_total = expense_total + i.amount
+        
+        for i in salary_data:
+
+            expense_total = expense_total + i.salary
+        
+        for i in truck_expense_data:
+
+            expense_total = expense_total + i.amount
+        
+        for i in transfer_fund_data:
+
+            expense_total = expense_total + i.amount
+
+
+        asas = fund_add - expense_total
+
+        z.balance = asas
+        z.save()
+
+
+
+
+
+
+
