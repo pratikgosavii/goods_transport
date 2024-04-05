@@ -21,6 +21,15 @@ class builty_expense_filter(django_filters.FilterSet):
                 'id' : 'builty'
             })
     )
+    
+    is_advance = django_filters.BooleanFilter(
+        widget=forms.CheckboxInput(attrs={'id': 'is_advance'})
+    )
+    
+    is_porch = django_filters.BooleanFilter(
+        widget=forms.CheckboxInput(attrs={'id': 'is_porch'})
+    )
+
 
     
     user = django_filters.ModelChoiceFilter(

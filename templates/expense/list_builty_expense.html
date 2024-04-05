@@ -207,7 +207,14 @@
         {% csrf_token %}
 
         <div class="form-group" style="display: flex;gap: 14px;">
-
+          
+          <label for="name" class="control-label mb-1" style="margin-left : 0px;">Advance</label>
+          {{ expense_builty_filter.form.is_advance }}
+          
+          <label for="name" class="control-label mb-1" style="margin-left : 0px;">Porch</label>
+          {{ expense_builty_filter.form.is_porch }}
+    
+        </div>
 
     {% if request.user.is_superuser %}
             
