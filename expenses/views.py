@@ -1448,7 +1448,6 @@ def master_report(request):
 
             expense_total += i.salary
 
-        print(sa_exp_tot)
         
         tr_exp_tot = 0
         
