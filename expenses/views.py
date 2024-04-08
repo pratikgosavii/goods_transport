@@ -1377,105 +1377,60 @@ def list_fund(request):
 
 
 
+import os
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+import csv
+import mimetypes
+from django.http import FileResponse, HttpResponse, JsonResponse
+import pandas as pd
+from django.db.models import Q
+from io import StringIO
+import io
+
 
 def master_report(request):
 
-    # date_from = request.GET.get('date_from')
-    # date_to = request.GET.get('date_to')
-    
+    combined_data = []
 
-    # if request.user.is_superuser():
+    entry_date_from = '2024-01-08'
+    entry_date_to = '2024-04-08'
 
-    #     user_instance = request.GET.get('user')
-    
-    # else:
+        # Query and append data from each table
+    builty_expenses = builty_expense.objects.filter(entry_date__range=[entry_date_from, entry_date_to])
+    for expense in builty_expenses:
+        combined_data.append(('builty_expense', expense.amount, expense.entry_date, expense.is_advance, expense.is_porch, expense.user))
 
-    #     user_instance = request.user
+    truck_expenses = truck_expense.objects.filter(entry_date__range=[entry_date_from, entry_date_to])
+    for expense in truck_expenses:
+        combined_data.append(('truck_expense', expense.amount, expense.entry_date, expense.note, expense.user))
 
-    users_data = User.objects.all()
+    transfer_funds = transfer_fund.objects.filter(entry_date__range=[entry_date_from, entry_date_to])
+    for expense in transfer_funds:
+        combined_data.append(('transfer_fund', expense.amount, expense.entry_date, expense.note, expense.user))
 
-    for z in users_data:
+    other_expenses = other_expense.objects.filter(entry_date__range=[entry_date_from, entry_date_to])
+    for expense in other_expenses:
+        combined_data.append(('other_expense', expense.amount, expense.entry_date, expense.note, expense.expense_category, expense.user))
 
-        builty_expense_data = builty_expense.objects.filter(user = z)	
-        other_expense_data =  other_expense.objects.filter(user = z)	
-        salary_data =  salary.objects.filter(user = z)	
-        truck_expense_data =  truck_expense.objects.filter(user = z)
-        transfer_fund_data =  transfer_fund.objects.filter(user = z)	
+    salaries = salary.objects.filter(entry_date__range=[entry_date_from, entry_date_to])
+    for expense in salaries:
+        combined_data.append(('salary', expense.salary, expense.entry_date, expense.note, expense.salary_of_date, expense.employee, expense.user))
 
-        
+    funds = fund.objects.filter(entry_date__range=[entry_date_from, entry_date_to])
+    for expense in funds:
+        combined_data.append(('fund', expense.amount, expense.entry_date, expense.note, expense.user))
 
-        fund_data =  fund.objects.filter(user = z)	
-        incoming_transfer_fund_data =  transfer_fund.objects.filter(transfer_to_user = z)
+    # Sort combined data by entry_date
+    combined_data.sort(key=lambda x: x[2])
 
-        fund_add = 0
+    # Generate CSV in memory
+    csv_buffer = StringIO()
+    csv_writer = csv.writer(csv_buffer)
+    csv_writer.writerow(['Table Name', 'Amount/Salary', 'Entry Date', 'Note', 'Additional Fields'])
+    for row in combined_data:
+        csv_writer.writerow(row)
 
-        for i in fund_data:
-
-           fund_add += i.amount
-            
-        for i in incoming_transfer_fund_data:
-
-           fund_add += i.amount
-
-        print(z)
-        print(fund_add)
-        print('--')
-
-        expense_total = 0
-
-        builty_tot = 0
-        
-        for i in builty_expense_data:
-
-            expense_total += i.amount
-            builty_tot = builty_tot + i.amount
-        
-        print(builty_tot)
-
-        
-        other_exp_tot = 0
-        
-        for i in other_expense_data:
-
-            expense_total += i.amount
-            other_exp_tot = other_exp_tot + i.amount
-        
-        print(other_exp_tot)
-
-        sa_exp_tot = 0
-        
-        for i in salary_data:
-
-            expense_total += i.salary
-
-        
-        tr_exp_tot = 0
-        
-        for i in truck_expense_data:
-
-            expense_total += i.amount
-            tr_exp_tot = tr_exp_tot + i.amount
-        
-        print(tr_exp_tot)
-
-        tra_exp_tot = 0
-
-        for i in transfer_fund_data:
-
-            expense_total += i.amount
-            tra_exp_tot = tra_exp_tot + i.amount
-        
-        print(tra_exp_tot)
-
-
-        asas = fund_add - expense_total
-
-        z.balance = asas
-        z.save()
-
-
-
-
-
-
-
+    # Create HTTP response with CSV file
+    response = HttpResponse(csv_buffer.getvalue(), content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="combined_expenses.csv"'
+    return response

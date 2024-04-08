@@ -130,4 +130,3 @@ class fund(models.Model):
     note = models.CharField(max_length=500)
     entry_date = models.DateTimeField(default = datetime.now, blank=True, null=True)
     
-

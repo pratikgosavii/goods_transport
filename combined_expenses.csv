@@ -1,0 +1,362 @@
+Table Name,Amount/Salary,Entry Date,Note,Additional Fields
+transfer_fund,50000.0,2024-04-01 05:41:38.704905+00:00,AKOLA OFFICE,sgt@manoj
+other_expense,50.0,2024-04-01 05:41:38.704905+00:00,office   sweeping,Other,Ram
+fund,49000.0,2024-04-01 05:41:38.704905+00:00,Opening Balance,Ram
+fund,169740.0,2024-04-01 05:41:38.704905+00:00,OPENING BALANCE,ramakanth
+other_expense,92690.0,2024-04-01 08:24:29+00:00,SIDDESH CHOKHANDE,Other Transportation Payment and Advances,ramakanth
+transfer_fund,72690.0,2024-04-01 08:24:29.060855+00:00,Phonepe,SGT
+other_expense,2000.0,2024-04-01 08:24:29.060855+00:00,HOUSE EXP,J S Sahani Exp,sgt@manoj
+other_expense,45400.0,2024-04-01 08:24:29.060855+00:00,RAVINDRA SHINDE,Other Transportation Payment and Advances,ramakanth
+other_expense,3100.0,2024-04-01 08:24:29.060855+00:00,"MH17T8808 - 1500, MH28B8136 - 1600",Other Transportation Payment and Advances,ramakanth
+other_expense,100.0,2024-04-01 08:24:29.060855+00:00,1/04/2024,Tea,ramakanth
+other_expense,2000.0,2024-04-01 08:24:29.060855+00:00,MH30AB4597 - WANKHADE,Truck Driver Advance,ramakanth
+other_expense,700.0,2024-04-01 08:24:29.060855+00:00,MOBIL BILL,Manoj Hand Loan,sgt@manoj
+other_expense,1500.0,2024-04-01 08:24:29.060855+00:00,SAYED OFFICE,Other,sgt@manoj
+other_expense,1100.0,2024-04-01 08:24:29.060855+00:00,OFFCE KEY BORD  2 PIC,Other,sgt@manoj
+other_expense,17950.0,2024-04-01 08:24:29.060855+00:00,Transportation Payment,Other Transportation Payment and Advances,Ram
+other_expense,710.0,2024-04-01 08:24:29.060855+00:00,"1945,3745,0563,0983,0646,0067,8090,4767,0985",Bhatta Exp,Ram
+other_expense,300.0,2024-04-01 08:24:29.060855+00:00,MH30L2820 Local Trip,Bhatta Exp,Ram
+other_expense,300.0,2024-04-01 08:24:29.060855+00:00,MH30L2820 Local Trip,Bhatta Exp,Ram
+other_expense,300.0,2024-04-01 08:24:29.060855+00:00,MH30L4124 Local Trip,Bhatta Exp,Ram
+other_expense,300.0,2024-04-01 08:24:29.060855+00:00,MH30AB3075,Bhatta Exp,Ram
+other_expense,300.0,2024-04-01 08:24:29.060855+00:00,MH18AA7034,Bhatta Exp,Ram
+fund,15440.0,2024-04-01 08:24:29.060855+00:00,Transportation Santosh Sawji,SGT
+fund,72690.0,2024-04-01 08:24:29.060855+00:00,Hdfc Phonpe,SGT
+salary,4200.0,2024-04-01 08:46:00+00:00,2024-04-01 08:24:29.060855+00:00,AKOLA OFFICE,SHAIKH JAHEER 3075,sgt@manoj
+salary,4200.0,2024-04-01 08:47:00+00:00,2024-04-01 08:24:29.060855+00:00,AKOLA OFFICE,SHYAM KHANDARE 1945,sgt@manoj
+salary,4200.0,2024-04-01 08:48:00+00:00,2024-04-01 08:24:29.060855+00:00,AKOLA OFFICE,SK NAZIR QURESHI,sgt@manoj
+salary,2600.0,2024-04-01 09:19:00+00:00,2024-04-01 08:24:29.060855+00:00,AKOLA OFFICE,YOGESH BHAU,sgt@manoj
+salary,4200.0,2024-04-01 09:21:00+00:00,2024-04-01 08:24:29.060855+00:00,AKOLA OFFICE,RAJA BHAI 4684,sgt@manoj
+salary,2600.0,2024-04-01 09:21:00+00:00,2024-04-01 08:24:29.060855+00:00,AKOLA OFFICE,JAMIL 985 (JAMU),sgt@manoj
+salary,9500.0,2024-04-01 09:22:00+00:00,2024-04-01 08:24:29.060855+00:00,AKOLA OFFICE,RAM BHIYA,sgt@manoj
+salary,2600.0,2024-04-01 09:22:00+00:00,2024-04-01 08:24:29.060855+00:00,AKOLA OFFICE,SWAPNIL DONGRE,sgt@manoj
+salary,4200.0,2024-04-01 09:23:00+00:00,2024-04-01 08:24:29.060855+00:00,AKOLA OFFICE,MH307034,sgt@manoj
+salary,4200.0,2024-04-01 09:31:00+00:00,2024-04-01 08:24:29.060855+00:00,AKOLA OFFICE,BABAN 3745,sgt@manoj
+salary,4500.0,2024-04-01 14:06:00+00:00,2024-04-01 08:24:29.060855+00:00,car driver,Jaydev Damodar Car Driver,Ram
+builty_expense,4090.0,2024-04-01 22:13:45.961385+00:00,True,False,Ram
+builty_expense,0.0,2024-04-01 22:13:45.961385+00:00,True,False,Ram
+builty_expense,8000.0,2024-04-01 22:13:45.961385+00:00,True,False,Ram
+builty_expense,2070.0,2024-04-01 22:13:45.961385+00:00,True,False,Ram
+builty_expense,7000.0,2024-04-01 22:13:45.961385+00:00,True,False,Ram
+builty_expense,4040.0,2024-04-01 22:13:45.961385+00:00,True,False,Ram
+builty_expense,3720.0,2024-04-01 22:13:45.961385+00:00,True,False,Ram
+builty_expense,5000.0,2024-04-01 22:13:45.961385+00:00,True,False,Ram
+builty_expense,4700.0,2024-04-01 22:13:45.961385+00:00,True,False,Ram
+builty_expense,3000.0,2024-04-01 22:13:45.961385+00:00,True,False,Ram
+builty_expense,7500.0,2024-04-01 22:13:45.961385+00:00,True,False,Ram
+builty_expense,6000.0,2024-04-01 22:13:45.961385+00:00,True,False,Ram
+builty_expense,5000.0,2024-04-01 22:13:45.961385+00:00,True,False,Ram
+builty_expense,2960.0,2024-04-01 22:13:45.961385+00:00,True,False,Ram
+builty_expense,4500.0,2024-04-01 22:13:45.961385+00:00,True,False,Ram
+builty_expense,4500.0,2024-04-01 22:13:45.961385+00:00,True,False,Ram
+builty_expense,4000.0,2024-04-01 22:13:45.961385+00:00,True,False,Ram
+builty_expense,3000.0,2024-04-01 22:13:45.961385+00:00,True,False,Ram
+builty_expense,7000.0,2024-04-01 22:13:45.961385+00:00,True,False,Ram
+builty_expense,7500.0,2024-04-01 22:13:45.961385+00:00,True,False,Ram
+builty_expense,3010.0,2024-04-01 22:13:45.961385+00:00,True,False,Ram
+builty_expense,0.0,2024-04-01 22:13:45.961385+00:00,True,False,Ram
+builty_expense,7500.0,2024-04-01 22:13:45.961385+00:00,True,False,Ram
+builty_expense,1960.0,2024-04-01 22:13:45.961385+00:00,True,False,Ram
+builty_expense,2140.0,2024-04-01 22:13:45.961385+00:00,True,False,Ram
+builty_expense,0.0,2024-04-01 22:13:45.961385+00:00,True,False,Ram
+builty_expense,4090.0,2024-04-01 22:13:45.961385+00:00,True,False,Ram
+builty_expense,3000.0,2024-04-01 22:13:45.961385+00:00,True,False,Ram
+builty_expense,2000.0,2024-04-01 22:13:45.961385+00:00,True,False,Ram
+builty_expense,3010.0,2024-04-01 22:13:45.961385+00:00,True,False,Ram
+builty_expense,0.0,2024-04-01 22:13:45.961385+00:00,True,False,Ram
+builty_expense,2000.0,2024-04-01 22:13:45.961385+00:00,True,False,Ram
+builty_expense,2140.0,2024-04-01 22:13:45.961385+00:00,True,False,Ram
+builty_expense,0.0,2024-04-01 22:13:45.961385+00:00,True,False,Ram
+builty_expense,3010.0,2024-04-01 22:13:45.961385+00:00,True,False,Ram
+builty_expense,7000.0,2024-04-01 22:13:45.961385+00:00,True,False,Ram
+builty_expense,7000.0,2024-04-01 22:13:45.961385+00:00,True,False,Ram
+builty_expense,7000.0,2024-04-01 22:13:45.961385+00:00,True,False,Ram
+builty_expense,7000.0,2024-04-01 22:13:45.961385+00:00,True,False,Ram
+builty_expense,10000.0,2024-04-01 22:13:45.961385+00:00,True,False,Ram
+builty_expense,9000.0,2024-04-01 22:13:45.961385+00:00,True,False,Ram
+builty_expense,3850.0,2024-04-01 22:13:45.961385+00:00,True,False,Ram
+builty_expense,11000.0,2024-04-01 22:13:45.961385+00:00,True,False,Ram
+builty_expense,7000.0,2024-04-01 22:13:45.961385+00:00,True,False,Ram
+other_expense,2000.0,2024-04-01 22:13:45.961385+00:00,self,Rimpi Exp,SGT
+builty_expense,6500.0,2024-04-02 06:13:30.334179+00:00,True,False,Ram
+builty_expense,0.0,2024-04-02 06:13:30.334179+00:00,True,False,Ram
+builty_expense,5000.0,2024-04-02 06:13:30.334179+00:00,True,False,Ram
+builty_expense,5000.0,2024-04-02 06:13:30.334179+00:00,True,False,Ram
+builty_expense,5000.0,2024-04-02 06:13:30.334179+00:00,True,False,Ram
+builty_expense,2910.0,2024-04-02 06:13:30.334179+00:00,True,False,Ram
+builty_expense,13000.0,2024-04-02 06:13:30.334179+00:00,True,False,Ram
+builty_expense,13000.0,2024-04-02 06:13:30.334179+00:00,True,False,Ram
+builty_expense,3670.0,2024-04-02 06:13:30.334179+00:00,True,False,Ram
+builty_expense,0.0,2024-04-02 06:13:30.334179+00:00,True,False,Ram
+builty_expense,1100.0,2024-04-02 06:13:30.334179+00:00,True,False,Ram
+builty_expense,4000.0,2024-04-02 06:13:30.334179+00:00,True,False,Ram
+builty_expense,5500.0,2024-04-02 06:13:30.334179+00:00,True,False,Ram
+builty_expense,0.0,2024-04-02 06:13:30.334179+00:00,True,False,Ram
+builty_expense,7000.0,2024-04-02 06:13:30.334179+00:00,True,False,Ram
+builty_expense,7000.0,2024-04-02 06:13:30.334179+00:00,True,False,Ram
+builty_expense,1000.0,2024-04-02 06:13:30.334179+00:00,True,False,Ram
+builty_expense,8500.0,2024-04-02 06:13:30.334179+00:00,True,False,Ram
+builty_expense,500.0,2024-04-02 06:13:30.334179+00:00,True,False,Ram
+builty_expense,7000.0,2024-04-02 06:13:30.334179+00:00,True,False,Ram
+builty_expense,1500.0,2024-04-02 06:13:30.334179+00:00,True,False,Ram
+transfer_fund,250000.0,2024-04-02 06:13:30.334179+00:00,AKOLA OFFICE,sgt@manoj
+transfer_fund,100000.0,2024-04-02 06:13:30.334179+00:00,AKOLA OFFICE,sgt@manoj
+other_expense,3000.0,2024-04-02 06:13:30.334179+00:00,MANOJ,Bank Daily Recurring Exp,sgt@manoj
+salary,5000.0,2024-04-02 06:56:00+00:00,2024-04-02 13:58:16.821844+00:00,April Month,SAYED OFFICE,Ram
+builty_expense,0.0,2024-04-02 08:42:48.794597+00:00,True,False,deepak
+builty_expense,0.0,2024-04-02 08:42:48.794597+00:00,True,False,deepak
+builty_expense,3000.0,2024-04-02 08:42:48.794597+00:00,True,False,Ram
+builty_expense,0.0,2024-04-02 08:42:48.794597+00:00,True,False,deepak
+builty_expense,0.0,2024-04-02 08:42:48.794597+00:00,True,False,deepak
+builty_expense,0.0,2024-04-02 08:42:48.794597+00:00,True,False,deepak
+builty_expense,0.0,2024-04-02 08:42:48.794597+00:00,True,False,deepak
+builty_expense,0.0,2024-04-02 08:42:48.794597+00:00,True,False,deepak
+builty_expense,0.0,2024-04-02 08:42:48.794597+00:00,True,False,deepak
+builty_expense,0.0,2024-04-02 08:42:48.794597+00:00,True,False,deepak
+builty_expense,4000.0,2024-04-02 08:42:48.794597+00:00,True,False,Ram
+builty_expense,0.0,2024-04-02 08:42:48.794597+00:00,True,False,deepak
+builty_expense,0.0,2024-04-02 08:42:48.794597+00:00,True,False,deepak
+builty_expense,0.0,2024-04-02 08:42:48.794597+00:00,True,False,deepak
+builty_expense,0.0,2024-04-02 08:42:48.794597+00:00,True,False,deepak
+builty_expense,2500.0,2024-04-02 08:42:48.794597+00:00,True,False,Ram
+builty_expense,9000.0,2024-04-02 08:42:48.794597+00:00,True,False,Ram
+builty_expense,4500.0,2024-04-02 08:42:48.794597+00:00,True,False,Ram
+builty_expense,4000.0,2024-04-02 08:42:48.794597+00:00,True,False,Ram
+builty_expense,5500.0,2024-04-02 08:42:48.794597+00:00,True,False,Ram
+builty_expense,1500.0,2024-04-02 08:42:48.794597+00:00,True,False,Ram
+builty_expense,2070.0,2024-04-02 08:42:48.794597+00:00,True,False,Ram
+builty_expense,10000.0,2024-04-02 08:42:48.794597+00:00,True,False,Ram
+builty_expense,2140.0,2024-04-02 08:42:48.794597+00:00,True,False,Ram
+builty_expense,5500.0,2024-04-02 08:42:48.794597+00:00,True,False,Ram
+builty_expense,2300.0,2024-04-02 08:42:48.794597+00:00,True,False,Ram
+builty_expense,4500.0,2024-04-02 08:42:48.794597+00:00,True,False,Ram
+builty_expense,6500.0,2024-04-02 08:42:48.794597+00:00,True,False,Ram
+builty_expense,4500.0,2024-04-02 08:42:48.794597+00:00,True,False,Ram
+builty_expense,6000.0,2024-04-02 08:42:48.794597+00:00,True,False,Ram
+builty_expense,4500.0,2024-04-02 08:42:48.794597+00:00,True,False,Ram
+builty_expense,5000.0,2024-04-02 08:42:48.794597+00:00,True,False,Ram
+builty_expense,6000.0,2024-04-02 08:42:48.794597+00:00,True,False,Ram
+builty_expense,3500.0,2024-04-02 08:42:48.794597+00:00,True,False,Ram
+builty_expense,6500.0,2024-04-02 08:42:48.794597+00:00,True,False,Ram
+builty_expense,8000.0,2024-04-02 08:42:48.794597+00:00,True,False,Ram
+builty_expense,0.0,2024-04-02 08:42:48.794597+00:00,True,False,Ram
+builty_expense,13000.0,2024-04-02 08:42:48.794597+00:00,True,False,Ram
+builty_expense,4040.0,2024-04-02 08:42:48.794597+00:00,True,False,Ram
+builty_expense,0.0,2024-04-02 08:42:48.794597+00:00,True,False,Ram
+builty_expense,5000.0,2024-04-02 08:42:48.794597+00:00,True,False,Ram
+builty_expense,2140.0,2024-04-02 08:42:48.794597+00:00,True,False,Ram
+builty_expense,9000.0,2024-04-02 08:42:48.794597+00:00,True,False,Ram
+builty_expense,13000.0,2024-04-02 08:42:48.794597+00:00,True,False,Ram
+builty_expense,4700.0,2024-04-02 08:42:48.794597+00:00,True,False,Ram
+builty_expense,7500.0,2024-04-02 08:42:48.794597+00:00,True,False,Ram
+builty_expense,2910.0,2024-04-02 08:42:48.794597+00:00,True,False,Ram
+builty_expense,0.0,2024-04-02 08:42:48.794597+00:00,True,False,Ram
+builty_expense,0.0,2024-04-02 08:42:48.794597+00:00,True,False,Ram
+builty_expense,10500.0,2024-04-02 08:42:48.794597+00:00,True,False,Ram
+builty_expense,3010.0,2024-04-02 08:42:48.794597+00:00,True,False,Ram
+builty_expense,6500.0,2024-04-02 08:42:48.794597+00:00,True,False,Ram
+builty_expense,3500.0,2024-04-02 08:42:48.794597+00:00,True,False,Ram
+builty_expense,2800.0,2024-04-02 08:42:48.794597+00:00,True,False,Ram
+builty_expense,2000.0,2024-04-02 08:42:48.794597+00:00,True,False,Ram
+builty_expense,4000.0,2024-04-02 08:42:48.794597+00:00,True,False,Ram
+builty_expense,1200.0,2024-04-02 08:42:48.794597+00:00,True,False,Ram
+builty_expense,10500.0,2024-04-02 08:42:48.794597+00:00,True,False,Ram
+builty_expense,5500.0,2024-04-02 08:42:48.794597+00:00,True,False,Ram
+builty_expense,4200.0,2024-04-02 08:42:48.794597+00:00,True,False,Ram
+builty_expense,500.0,2024-04-02 08:42:48.794597+00:00,True,False,Ram
+builty_expense,10000.0,2024-04-02 08:42:48.794597+00:00,True,False,Ram
+builty_expense,4040.0,2024-04-02 08:42:48.794597+00:00,True,False,Ram
+builty_expense,0.0,2024-04-02 08:42:48.794597+00:00,True,False,Ram
+builty_expense,2910.0,2024-04-02 08:42:48.794597+00:00,True,False,Ram
+builty_expense,3900.0,2024-04-02 08:42:48.794597+00:00,True,False,Ram
+other_expense,14300.0,2024-04-02 08:42:48.794597+00:00,RAVINDRA SHINDE,Other Transportation Payment and Advances,ramakanth
+other_expense,2920.0,2024-04-02 08:42:48.794597+00:00,"MH19Z3718 - 1500, MH27BX8131 - 1420",Other Transportation Payment and Advances,ramakanth
+other_expense,100.0,2024-04-02 08:42:48.794597+00:00,2/04/2024,Tea,ramakanth
+builty_expense,8500.0,2024-04-02 13:13:49.040736+00:00,True,False,Ram
+builty_expense,0.0,2024-04-02 13:15:49.802687+00:00,True,False,Ram
+builty_expense,7200.0,2024-04-02 13:15:49.802687+00:00,True,False,Ram
+builty_expense,8000.0,2024-04-02 13:15:49.802687+00:00,True,False,Ram
+builty_expense,0.0,2024-04-02 13:15:49.802687+00:00,True,False,Ram
+builty_expense,0.0,2024-04-02 13:15:49.802687+00:00,True,False,Ram
+builty_expense,2910.0,2024-04-02 13:58:16.821844+00:00,True,False,Ram
+builty_expense,0.0,2024-04-02 13:58:16.821844+00:00,True,False,Ram
+builty_expense,7500.0,2024-04-02 13:58:16.821844+00:00,True,False,Ram
+builty_expense,1500.0,2024-04-02 13:58:16.821844+00:00,True,False,Ram
+builty_expense,3770.0,2024-04-02 13:58:16.821844+00:00,True,False,Ram
+builty_expense,1000.0,2024-04-02 13:58:16.821844+00:00,True,False,ramakanth
+builty_expense,4040.0,2024-04-02 13:58:16.821844+00:00,True,False,Ram
+builty_expense,1000.0,2024-04-02 13:58:16.821844+00:00,True,False,ramakanth
+builty_expense,6500.0,2024-04-02 13:58:16.821844+00:00,True,False,Ram
+builty_expense,2000.0,2024-04-02 13:58:16.821844+00:00,True,False,Ram
+builty_expense,0.0,2024-04-02 13:58:16.821844+00:00,True,False,ramakanth
+builty_expense,2140.0,2024-04-02 13:58:16.821844+00:00,True,False,Ram
+builty_expense,3770.0,2024-04-02 13:58:16.821844+00:00,True,False,Ram
+builty_expense,4000.0,2024-04-02 13:58:16.821844+00:00,True,False,Ram
+builty_expense,1800.0,2024-04-02 13:58:16.821844+00:00,True,False,Ram
+builty_expense,3500.0,2024-04-02 13:58:16.821844+00:00,True,False,Ram
+builty_expense,1500.0,2024-04-02 13:58:16.821844+00:00,True,False,Ram
+builty_expense,5000.0,2024-04-02 13:58:16.821844+00:00,True,False,Ram
+builty_expense,2140.0,2024-04-02 13:58:16.821844+00:00,True,False,Ram
+builty_expense,2910.0,2024-04-02 13:58:16.821844+00:00,True,False,Ram
+builty_expense,15500.0,2024-04-02 13:58:16.821844+00:00,True,False,Ram
+builty_expense,10000.0,2024-04-02 13:58:16.821844+00:00,True,False,Ram
+builty_expense,7500.0,2024-04-02 13:58:16.821844+00:00,True,False,Ram
+builty_expense,5500.0,2024-04-02 13:58:16.821844+00:00,True,False,Ram
+builty_expense,1000.0,2024-04-02 13:58:16.821844+00:00,True,False,Ram
+builty_expense,7000.0,2024-04-02 13:58:16.821844+00:00,True,False,Ram
+builty_expense,1300.0,2024-04-02 13:58:16.821844+00:00,True,False,ramakanth
+builty_expense,1000.0,2024-04-02 13:58:16.821844+00:00,True,False,ramakanth
+builty_expense,9500.0,2024-04-02 13:58:16.821844+00:00,True,False,Ram
+builty_expense,500.0,2024-04-02 13:58:16.821844+00:00,True,False,Ram
+builty_expense,3990.0,2024-04-02 13:58:16.821844+00:00,True,False,Ram
+builty_expense,0.0,2024-04-02 13:58:16.821844+00:00,True,False,Ram
+other_expense,2930.0,2024-04-02 13:58:16.821844+00:00,Dt 02-04-2024,Other Transportation Payment and Advances,Ram
+other_expense,1000.0,2024-04-02 13:58:16.821844+00:00,02-04-2024,Bank Daily Recurring Exp,Ram
+other_expense,2140.0,2024-04-02 13:58:16.821844+00:00,Ashish BMS,Hamali Exp,Ram
+other_expense,920.0,2024-04-02 13:58:16.821844+00:00,Darshan Umri,Hamali Exp,Ram
+other_expense,800.0,2024-04-02 13:58:16.821844+00:00,garderner/Mali,Other,Ram
+other_expense,1200.0,2024-04-02 13:58:16.821844+00:00,02-04-2024,Dinesh Exp,Ram
+other_expense,800.0,2024-04-02 13:58:16.821844+00:00,Mobile Recharge,Chandu office Exp,Ram
+other_expense,800.0,2024-04-02 13:58:16.821844+00:00,MH30L4684,Bhatta Exp,Ram
+other_expense,250.0,2024-04-02 13:58:16.821844+00:00,MH30L0564,Bhatta Exp,Ram
+other_expense,300.0,2024-04-02 13:58:16.821844+00:00,Akola,Ramakant Exp,Ram
+other_expense,50.0,2024-04-02 13:58:16.821844+00:00,Gm Panchayat Receipt MH30L3745,Other,Ram
+other_expense,100.0,2024-04-02 13:58:16.821844+00:00,Sayyed office,Other,Ram
+other_expense,600.0,2024-04-02 13:58:16.821844+00:00,office Lunch Exp,Other,Ram
+other_expense,100.0,2024-04-02 13:58:16.821844+00:00,Mukka and Sattar,Other,Ram
+fund,100000.0,2024-04-02 13:58:16.821844+00:00,Hdfc Atm,Ram
+fund,100000.0,2024-04-02 13:58:16.821844+00:00,Pride Sales and Service,Ram
+fund,2900.0,2024-04-02 13:58:16.821844+00:00,Local Trip,Ram
+fund,10800.0,2024-04-02 13:58:16.821844+00:00,Local Trip,Ram
+salary,5000.0,2024-04-03 07:19:00+00:00,2024-04-04 05:05:11.664213+00:00,Ad,Jaydev Damodar Car Driver,Ram
+builty_expense,3010.0,2024-04-03 09:47:50.428933+00:00,True,False,Ram
+builty_expense,0.0,2024-04-03 09:47:50.428933+00:00,True,False,Ram
+builty_expense,5000.0,2024-04-03 09:47:50.428933+00:00,True,False,Ram
+builty_expense,0.0,2024-04-03 09:47:50.428933+00:00,True,False,Ram
+builty_expense,2910.0,2024-04-03 09:47:50.428933+00:00,True,False,Ram
+builty_expense,1000.0,2024-04-03 09:47:50.428933+00:00,True,False,ramakanth
+builty_expense,8500.0,2024-04-03 09:47:50.428933+00:00,True,False,Ram
+builty_expense,13000.0,2024-04-03 09:47:50.428933+00:00,True,False,Ram
+builty_expense,18000.0,2024-04-03 09:47:50.428933+00:00,True,False,Ram
+builty_expense,3900.0,2024-04-03 09:47:50.428933+00:00,True,False,Ram
+builty_expense,4700.0,2024-04-03 09:47:50.428933+00:00,True,False,Ram
+builty_expense,2910.0,2024-04-03 09:47:50.428933+00:00,True,False,Ram
+builty_expense,5000.0,2024-04-03 09:47:50.428933+00:00,True,False,Ram
+builty_expense,5000.0,2024-04-03 09:47:50.428933+00:00,True,False,Ram
+builty_expense,14000.0,2024-04-03 09:47:50.428933+00:00,True,False,Ram
+builty_expense,1500.0,2024-04-03 09:47:50.428933+00:00,True,False,Ram
+builty_expense,1000.0,2024-04-03 09:47:50.428933+00:00,True,False,ramakanth
+builty_expense,1000.0,2024-04-03 09:47:50.428933+00:00,True,False,ramakanth
+transfer_fund,100000.0,2024-04-03 09:47:50.428933+00:00,AKOLA OFFICE,sgt@manoj
+transfer_fund,50000.0,2024-04-03 09:47:50.428933+00:00,AKOLA OFFICE,sgt@manoj
+other_expense,2500.0,2024-04-03 09:47:50.428933+00:00,self,Rimpi Exp,SGT
+other_expense,1550.0,2024-04-03 09:47:50.428933+00:00,MH21X7855,Other Transportation Payment and Advances,ramakanth
+other_expense,100.0,2024-04-03 09:47:50.428933+00:00,3/4/2024,Tea,ramakanth
+other_expense,600.0,2024-04-03 09:47:50.428933+00:00,"WATER CAN - 500, LUNCH - 100",Office Water Exp,ramakanth
+other_expense,3000.0,2024-04-03 09:47:50.428933+00:00,MANOJ,Bank Daily Recurring Exp,sgt@manoj
+other_expense,100000.0,2024-04-03 09:47:50.428933+00:00,LONE RETAN,Pride Hand Loan,sgt@manoj
+other_expense,1000.0,2024-04-03 09:47:50.428933+00:00,BANK,Bank Daily Recurring Exp,Ram
+other_expense,900.0,2024-04-03 09:47:50.428933+00:00,GRUKRUPA UTCL HAMALI,Hamali Exp,Ram
+other_expense,900.0,2024-04-03 09:47:50.428933+00:00,GURUKRUPA UTCL,Hamali Exp,Ram
+other_expense,1250.0,2024-04-03 09:47:50.428933+00:00,INDIA CEMENT UTCL,Hamali Exp,Ram
+other_expense,600.0,2024-04-03 09:47:50.428933+00:00,TYRE BILLS ANNA,Other,Ram
+other_expense,100.0,2024-04-03 09:47:50.428933+00:00,RAM PETROL,Other,Ram
+other_expense,100.0,2024-04-03 09:47:50.428933+00:00,TEJAS PETROL,Other,Ram
+other_expense,100.0,2024-04-03 09:47:50.428933+00:00,MATTHA,Other,Ram
+other_expense,80.0,2024-04-03 09:47:50.428933+00:00,4124,Bhatta Exp,Ram
+other_expense,80.0,2024-04-03 09:47:50.428933+00:00,4767,Bhatta Exp,Ram
+other_expense,50.0,2024-04-03 09:47:50.428933+00:00,985,Bhatta Exp,Ram
+other_expense,50.0,2024-04-03 09:47:50.428933+00:00,983,Bhatta Exp,Ram
+other_expense,50.0,2024-04-03 09:47:50.428933+00:00,MUKKA,Other,Ram
+other_expense,280.0,2024-04-03 09:47:50.428933+00:00,Chicken,J S Sahani Exp,SGT
+fund,400000.0,2024-04-03 09:47:50.428933+00:00,HDFC BANK,sgt@manoj
+builty_expense,5000.0,2024-04-04 05:05:11.664213+00:00,True,False,Ram
+builty_expense,9500.0,2024-04-04 05:05:11.664213+00:00,True,False,Ram
+builty_expense,1000.0,2024-04-04 05:05:11.664213+00:00,True,False,ramakanth
+builty_expense,2500.0,2024-04-04 05:05:11.664213+00:00,True,False,Ram
+builty_expense,2140.0,2024-04-04 05:05:11.664213+00:00,True,False,Ram
+builty_expense,0.0,2024-04-04 05:05:11.664213+00:00,True,False,Ram
+builty_expense,1000.0,2024-04-04 05:05:11.664213+00:00,True,False,ramakanth
+builty_expense,14500.0,2024-04-04 05:05:11.664213+00:00,True,False,Ram
+builty_expense,1000.0,2024-04-04 05:05:11.664213+00:00,True,False,ramakanth
+builty_expense,3990.0,2024-04-04 05:05:11.664213+00:00,True,False,Ram
+truck_expense,100.0,2024-04-04 05:05:11.664213+00:00,Air Filter,Ram
+transfer_fund,100000.0,2024-04-04 05:05:11.664213+00:00,cash transfer dated 0304-2024,SGT
+transfer_fund,50000.0,2024-04-04 05:05:11.664213+00:00,AKOLA OFFICE,sgt@manoj
+transfer_fund,50000.0,2024-04-04 05:05:11.664213+00:00,AKOLA OFFICE,sgt@manoj
+other_expense,2000.0,2024-04-04 05:05:11.664213+00:00,"keshavnagar MH37B1340 DT 28-03-24 , Builty no 913,914 and 915",Other Transportation Payment and Advances,Ram
+other_expense,3000.0,2024-04-04 05:05:11.664213+00:00,MANOJ,Bank Daily Recurring Exp,sgt@manoj
+other_expense,110.0,2024-04-04 05:05:11.664213+00:00,4/4/2024,Tea,ramakanth
+other_expense,7000.0,2024-04-04 05:05:11.664213+00:00,JAIKISAN BULLDING MATERIAL,Other Transportation Payment and Advances,ramakanth
+other_expense,1000.0,2024-04-04 05:05:11.664213+00:00,OFFICE,Other,sgt@manoj
+other_expense,500.0,2024-04-04 05:05:11.664213+00:00,Self,Rimpi Exp,SGT
+other_expense,200.0,2024-04-04 05:05:11.664213+00:00,HOUSE EXP,J S Sahani Exp,sgt@manoj
+other_expense,150.0,2024-04-04 05:05:11.664213+00:00,WATTER BOX,Office Water Exp,sgt@manoj
+fund,100000.0,2024-04-04 05:05:11.664213+00:00,Hdfc Atm Dt 03-04-24,SGT
+salary,3500.0,2024-04-04 09:12:00+00:00,2024-04-04 05:05:11.664213+00:00,EID BONAS,SHAIKH JAHEER 3075,sgt@manoj
+salary,3500.0,2024-04-04 09:12:00+00:00,2024-04-04 05:05:11.664213+00:00,EID BONAS,SHAIKH ZAKIR 2820,sgt@manoj
+salary,3500.0,2024-04-04 09:13:00+00:00,2024-04-04 05:05:11.664213+00:00,EID BONAS,RAJA BHAI 4684,sgt@manoj
+salary,3500.0,2024-04-04 09:14:00+00:00,2024-04-04 05:05:11.664213+00:00,EID BONAS,YUNUS KHAN 4767,sgt@manoj
+salary,3500.0,2024-04-04 09:14:00+00:00,2024-04-04 05:05:11.664213+00:00,EID BONAS,SK RIYAZ 0646,sgt@manoj
+salary,3500.0,2024-04-04 09:15:00+00:00,2024-04-04 05:05:11.664213+00:00,EID BONAS,SK NAZIR QURESHI,sgt@manoj
+salary,3500.0,2024-04-04 09:15:00+00:00,2024-04-04 05:05:11.664213+00:00,EID BONAS,SAMEER KHAN 0067,sgt@manoj
+salary,3500.0,2024-04-04 09:16:00+00:00,2024-04-04 05:05:11.664213+00:00,EID BONAS,MH307034,sgt@manoj
+salary,2800.0,2024-04-04 09:16:00+00:00,2024-04-04 05:05:11.664213+00:00,EID BONAS,JAMIL 985 (JAMU),sgt@manoj
+salary,3000.0,2024-04-04 13:09:00+00:00,2024-04-04 05:05:11.664213+00:00,EID BONAS,SATTAR,sgt@manoj
+salary,3000.0,2024-04-04 13:09:00+00:00,2024-04-04 05:05:11.664213+00:00,EID BONAS,AKTAR BHAI,sgt@manoj
+salary,3000.0,2024-04-04 13:10:00+00:00,2024-04-04 05:05:11.664213+00:00,EID BONAS,GIREES,sgt@manoj
+salary,2800.0,2024-04-04 13:23:00+00:00,2024-04-04 05:05:11.664213+00:00,EID BONAS,RAJA 983,sgt@manoj
+builty_expense,1000.0,2024-04-05 04:44:40.263977+00:00,True,False,ramakanth
+builty_expense,1000.0,2024-04-05 04:51:15.624395+00:00,True,False,ramakanth
+builty_expense,1000.0,2024-04-05 04:52:42.655412+00:00,True,False,ramakanth
+builty_expense,1000.0,2024-04-05 05:11:45.096129+00:00,True,False,ramakanth
+builty_expense,1000.0,2024-04-05 05:25:49.445405+00:00,True,False,ramakanth
+builty_expense,1910.0,2024-04-05 05:31:52.351140+00:00,True,False,Ram
+builty_expense,0.0,2024-04-05 05:32:41.067838+00:00,True,False,Ram
+builty_expense,1300.0,2024-04-05 06:11:23.887395+00:00,True,False,ramakanth
+builty_expense,1000.0,2024-04-05 06:13:35.438204+00:00,True,False,ramakanth
+transfer_fund,20000.0,2024-04-05 06:25:12.111150+00:00,AKOLA OFFICE    04/04/2024,sgt@manoj
+fund,100000.0,2024-04-05 06:25:45.976446+00:00,HDFC BANK,sgt@manoj
+builty_expense,1000.0,2024-04-05 07:24:19.902657+00:00,True,False,ramakanth
+salary,3000.0,2024-04-05 08:18:00+00:00,2024-04-05 08:18:22.812016+00:00,AKOLA OFFICE,GAJANAN,sgt@manoj
+salary,4200.0,2024-04-05 08:18:00+00:00,2024-04-05 08:18:51.677081+00:00,AKOLA OFFICE,YUNUS KHAN 4767,sgt@manoj
+salary,4200.0,2024-04-05 08:19:00+00:00,2024-04-05 08:19:19.875531+00:00,AKOLA OFFICE,NANDA GAWAI 4124,sgt@manoj
+salary,8200.0,2024-04-05 08:20:00+00:00,2024-04-05 08:20:24.987494+00:00,AKOLA OFFICE,SK RIYAZ 0646,sgt@manoj
+salary,4200.0,2024-04-05 08:20:00+00:00,2024-04-05 08:20:46.285417+00:00,AKOLA OFFICE,SAMEER KHAN 0067,sgt@manoj
+salary,4200.0,2024-04-05 08:21:00+00:00,2024-04-05 08:21:18.945154+00:00,AKOLA OFFICE,SHAIKH ZAKIR 2820,sgt@manoj
+salary,2600.0,2024-04-05 08:21:00+00:00,2024-04-05 08:21:43.389633+00:00,AKOLA OFFICE,RAJA 983,sgt@manoj
+salary,4200.0,2024-04-05 08:22:00+00:00,2024-04-05 08:22:07.101990+00:00,AKOLA OFFICE,BABAN 3745,sgt@manoj
+salary,4200.0,2024-04-05 08:22:00+00:00,2024-04-05 08:22:24.668269+00:00,AKOLA OFFICE,AATISH HORE,sgt@manoj
+transfer_fund,50000.0,2024-04-05 08:26:20.282041+00:00,AKOLA OFFICE,sgt@manoj
+builty_expense,1000.0,2024-04-05 08:29:09.075755+00:00,True,False,ramakanth
+other_expense,3000.0,2024-04-05 10:07:02.531044+00:00,MANOJ,Bank Daily Recurring Exp,sgt@manoj
+salary,4200.0,2024-04-05 10:23:00+00:00,2024-04-05 10:23:35.861929+00:00,AKOLA OFFICE,RAJA BHAI 4684,sgt@manoj
+salary,2600.0,2024-04-05 10:24:00+00:00,2024-04-05 10:24:51.920226+00:00,AKOLA OFFICE,JAMIL 985 (JAMU),sgt@manoj
+truck_expense,0.0,2024-04-05 11:24:53.501653+00:00,"Remould Tyre No S0083605012, K0019733921",SGT
+builty_expense,0.0,2024-04-05 11:25:43.554900+00:00,True,False,ramakanth
+other_expense,100.0,2024-04-05 12:24:46.488369+00:00,5/4/2024,Tea,ramakanth
+other_expense,59920.0,2024-04-05 12:25:53.036109+00:00,BHAVANI HW,Other Transportation Payment and Advances,ramakanth
+other_expense,10460.0,2024-04-05 12:28:45.387102+00:00,"TODKAR - 1400, SOMESH - 7460",Other Transportation Payment and Advances,ramakanth
+other_expense,150.0,2024-04-05 12:31:00.145636+00:00,MH29T0948 GREESING & AIR CHECK,Chillar Exp,ramakanth
+other_expense,1000.0,2024-04-05 12:33:36.172180+00:00,Self,Rimpi Exp,SGT
+builty_expense,1000.0,2024-04-06 04:07:46.858243+00:00,True,False,ramakanth
+builty_expense,1000.0,2024-04-06 05:03:05.428506+00:00,True,False,ramakanth
+builty_expense,1000.0,2024-04-06 06:04:09.754377+00:00,True,False,ramakanth
+builty_expense,1000.0,2024-04-06 06:05:08.702521+00:00,True,False,ramakanth
+builty_expense,1000.0,2024-04-06 07:53:33.773887+00:00,True,False,ramakanth
+builty_expense,0.0,2024-04-06 09:33:57.953170+00:00,True,False,ramakanth
+builty_expense,1000.0,2024-04-06 10:04:30.279147+00:00,True,False,ramakanth
+builty_expense,1000.0,2024-04-06 10:05:49.972024+00:00,True,False,ramakanth
+builty_expense,1950.0,2024-04-06 11:08:48.485253+00:00,True,False,ramakanth
+builty_expense,0.0,2024-04-06 11:10:13.597048+00:00,True,False,ramakanth
+fund,250000.0,2024-04-06 12:47:38.531391+00:00,AXIS BANK -CHEQUE NO.-346950,ramakanth
+other_expense,167440.0,2024-04-06 12:48:40.994280+00:00,JAIKISAN BULLDING MATERIAL,Other Transportation Payment and Advances,ramakanth
+other_expense,180.0,2024-04-06 12:49:28.084342+00:00,6/4/2024,Tea,ramakanth
+other_expense,530.0,2024-04-06 12:53:17.292686+00:00,ELECTRIC ITEMS &  NEW SIM CARD,Chillar Exp,ramakanth
+builty_expense,1000.0,2024-04-07 04:57:21.611569+00:00,True,False,ramakanth
+builty_expense,4500.0,2024-04-07 05:14:17.353545+00:00,True,False,Ram
+builty_expense,1500.0,2024-04-07 05:15:12.785181+00:00,True,False,Ram
+builty_expense,2670.0,2024-04-07 06:23:00.962679+00:00,True,False,Ram
+builty_expense,0.0,2024-04-07 06:25:55.334199+00:00,True,False,ramakanth
+builty_expense,1000.0,2024-04-07 06:40:08.300483+00:00,True,False,ramakanth
+builty_expense,2670.0,2024-04-07 06:49:50.634856+00:00,True,False,Ram
