@@ -677,7 +677,7 @@ def list_diesel_expense(request):
 
         data = diesel_expense.objects.filter(user = request.user)
 
-    rate = diesel_rate.objects.get(id=1)
+    rate = diesel_rate.objects.get(id=2)
     
     diesel_expense_filters = diesel_expense_filter(request.GET, queryset=data)
 
@@ -791,7 +791,7 @@ def delete_truck_diesel_expense(request, truck_diesel_expense_id):
 
 def list_truck_diesel_expense(request):
     
-    rate = diesel_rate.objects.get(id=1)
+    rate = diesel_rate.objects.get(id=2)
 
     if request.user.is_superuser:
 
