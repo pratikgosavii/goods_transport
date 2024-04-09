@@ -68,6 +68,7 @@ urlpatterns = [
     path('list-fund/', list_fund, name='list_fund'),
 
     path('master-report/', master_report, name='master_report'),
+    path('master-report-list/', master_report_list, name='master_report_list'),
 
 
 ]

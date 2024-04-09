@@ -1343,41 +1343,18 @@ import csv
 def voucher_report(request):
 
 
-    if request.user.is_superuser:
-        data = builty.objects.filter(deleted = False).order_by('id')
-    else:
-        data = builty.objects.filter(user = request.user, deleted = False).order_by('id')
-
-    builty_filters = builty_filter(request.user, request.GET, queryset=data)
-    
-    data = builty_filters.qs
-
-    total_mt = data.aggregate(Sum('mt'))['mt__sum']
-
-    # date_from = request.GET.get('DC_date_start__date')
-    # date_to = request.GET.get('DC_date_end__date')
-
-    
    
-    # params = {
-    #     'data': data,
-    #     'total_mt': total_mt,
-    #     'date_today' : date.today(),
-    #     'date_from' : date_from,
-    #     'date_to' : date_to
-    # }
-    
-    # file = render_to_file('transactions/dispatch_report_pdf.html', params)
+
+    if request.user.is_superuser:
+        data = ack.objects.all().order_by('id')
+    else:
+        data = ack.objects.filter(user = request.user).order_by('id')
 
 
-    # with open(file, 'rb') as fh:
-        
-    #     return HttpResponse(fh, content_type='application/pdf')
+    builty_filters = ack_filter(request.GET, queryset=data)
+  
 
-
-
-
-    builty_filters_data1 = list(builty_filters.qs.values_list('builty_no', 'DC_date', 'truck_details__truck_number', 'truck_owner__owner_name', 'have_ack__challan_number', 'have_ack__challan_date', 'station_to__name', 'mt', 'rate', 'freight', 'less_advance', 'balance'))
+    builty_filters_data1 = list(builty_filters.qs.values_list('builty__builty_no', 'builty__DC_date', 'builty__truck_details__truck_number', 'builty__truck_owner__owner_name', 'challan_number', 'challan_date', 'builty__station_to__name', 'builty__mt', 'builty__rate', 'builty__freight', 'builty__less_advance', 'builty__balance'))
     builty_filters_data = list(map(list, builty_filters_data1))
     
 
@@ -1393,7 +1370,7 @@ def voucher_report(request):
 
         
     vals.append([''])
-    vals.append(['Dispatch REPORT'])
+    vals.append(['VOUCHER REPORT'])
     vals.append([''])
     vals.append([''])
 
@@ -1469,12 +1446,12 @@ def voucher_report_list(request):
 
 
     if request.user.is_superuser:
-        data = builty.objects.filter(deleted = False).order_by('id')
+        data = ack.objects.all().order_by('id')
     else:
-        data = builty.objects.filter(user = request.user, deleted = False).order_by('id')
+        data = ack.objects.filter(user = request.user).order_by('id')
 
 
-    builty_filters = builty_filter2(request.user, request.GET, queryset=data)
+    builty_filters = ack_filter(request.GET, queryset=data)
   
     data = builty_filters.qs
 
@@ -1486,10 +1463,11 @@ def voucher_report_list(request):
 
    
 
-    total_freight = data.aggregate(Sum('freight'))['freight__sum']
-    total_advance = data.aggregate(Sum('less_advance'))['less_advance__sum']
-    total_mt = data.aggregate(Sum('mt'))['mt__sum']
-    total_balance = data.filter(have_ack__isnull = True).aggregate(Sum('balance'))['balance__sum']
+    
+    total_freight = data.aggregate(total_freight=Sum('builty__freight'))['total_freight'] or 0
+    total_advance = data.aggregate(total_advance=Sum('builty__less_advance'))['total_advance'] or 0
+    total_mt = data.aggregate(total_mt=Sum('builty__mt'))['total_mt'] or 0
+    total_balance = data.aggregate(total_balance=Sum('builty__balance'))['total_balance'] or 0
 
 
     page = request.GET.get('page', 1)
@@ -1512,7 +1490,7 @@ def voucher_report_list(request):
     if total_mt:
         total_mt = round(total_mt, 2)
 
-    has_filter = any(field in request.GET for field in set(builty_filter2.get_fields()))
+    has_filter = any(field in request.GET for field in set(ack_filter.get_fields()))
 
 
 

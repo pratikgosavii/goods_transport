@@ -1450,3 +1450,51 @@ def master_report(request):
     response = HttpResponse(csv_buffer.getvalue(), content_type='text/csv')
     response['Content-Disposition'] = 'attachment; filename="combined_expenses.csv"'
     return response
+
+
+
+def master_report_list(request):
+
+    combined_data = []
+
+    entry_date_from = '2024-01-08'
+    entry_date_to = '2024-04-08'
+
+        # Query and append data from each table
+    builty_expenses = builty_expense.objects.filter(entry_date__range=[entry_date_from, entry_date_to])
+    for expense in builty_expenses:
+        combined_data.append(('builty_expense', expense.amount, expense.entry_date, expense.is_advance, expense.is_porch, expense.user))
+
+    truck_expenses = truck_expense.objects.filter(entry_date__range=[entry_date_from, entry_date_to])
+    for expense in truck_expenses:
+        combined_data.append(('truck_expense', expense.amount, expense.entry_date, expense.note, expense.user))
+
+    transfer_funds = transfer_fund.objects.filter(entry_date__range=[entry_date_from, entry_date_to])
+    for expense in transfer_funds:
+        combined_data.append(('transfer_fund', expense.amount, expense.entry_date, expense.note, expense.user))
+
+    other_expenses = other_expense.objects.filter(entry_date__range=[entry_date_from, entry_date_to])
+    for expense in other_expenses:
+        combined_data.append(('other_expense', expense.amount, expense.entry_date, expense.note, expense.expense_category, expense.user))
+
+    salaries = salary.objects.filter(entry_date__range=[entry_date_from, entry_date_to])
+    for expense in salaries:
+        combined_data.append(('salary', expense.salary, expense.entry_date, expense.note, expense.salary_of_date, expense.employee, expense.user))
+
+    funds = fund.objects.filter(entry_date__range=[entry_date_from, entry_date_to])
+    for expense in funds:
+        combined_data.append(('fund', expense.amount, expense.entry_date, expense.note, expense.user))
+
+    # Sort combined data by entry_date
+    combined_data.sort(key=lambda x: x[2])
+
+
+
+    
+    context = {
+        'combined_data': combined_data,
+
+    }
+
+    return render(request, 'report/master_report.html', context)
+

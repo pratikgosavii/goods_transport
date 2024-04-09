@@ -217,104 +217,108 @@
     <div class="card card-body" style="width: fit-content;">
       
 
-        <form method="get" action="" style="padding:15px;">
+      <form method="get" action="" style="padding:15px;">
 
-            {% csrf_token %}
-            <div class="form-group" style="display: flex;
-            gap: 14px;">
 
-           
-                    
-                    <label for="name" class="control-label mb-1" style="margin-left : 0px;">Truck No</label>
-
-                    <select class="sele" name="truck_details" id="truck_details" multiple="multiple">
-                      {% for id, name in form.truck_details.field.choices %}
-          
-                      {% if name != '---------' %}
-            <option value="{{ id }}"> {{ name }} </option>
-            {% endif %}
-
+        {% csrf_token %}
+  
+        <div class="form-group" style="display: flex;gap: 14px;">
+  
+          <label for="name" class="control-label mb-1" style="margin-left : 0px;">Builty No</label>
+                  {{ builty_filter.form.builty__builty_no }}
+                      
+                  
+          <label for="name" class="control-label mb-1" style="margin-left : 0px;">Station From</label>
+                  {{ builty_filter.form.builty__station_from }}
+                      
+                
+          <label for="name" class="control-label mb-1" style="margin-left : 0px;">Truck No</label>
+  
+          <select class="sele" name="truck_details" id="truck_details" multiple="multiple">
+            {% for id, name in form.truck_details.field.choices %}
+  
+            {% if name != '---------' %}
+              <option value="{{ id }}"> {{ name }} </option>
+              {% endif %}
+  
               {% endfor %}
-                      
-                    </select> <input id="select_all_truck_details" type="checkbox" >
-
-                    <label for="name" class="control-label mb-1" style="margin-left : 0px;">Truck Owner</label>
-                {{ builty_filter.form.truck_owner }}
-                      
-                
-                <label for="name" class="control-label mb-1 la">District</label>
-                {{ builty_filter.form.district }}
-                
-                
-                
-                
-              </div>
-              <div class-"form-group" style="display: flex;
-              gap: 14px;">
-
-              <label for="name" class="control-label mb-1 la">Station From</label>
-              {{ builty_filter.form.station_from }}
+            
+          </select><input id="select_all_truck_details" type="checkbox" >
+                                  
+        </div>
+  
+  
+        <div class="form-group" style="display: flex;gap: 14px;">
+  
+          <label for="name" class="control-label mb-1" style="margin-left : 0px;">Consignor</label>
+          <select class="sele" name="consignor" id="consignor" multiple="multiple">
               
-              
-              <label for="name" class="control-label mb-1" style="margin-left : 0px;">Consginor</label>
-        <select class="sele" name="consignor" id="consignor" multiple="multiple">
-          {% for id, name in form.consignor.field.choices %}
-
-          {% if name != '---------' %}
+            {% for id, name in form.consignor.field.choices %}
+  
+            {% if name != '---------' %}
             <option value="{{ id }}"> {{ name }} </option>
             {% endif %}
-
-            {% endfor %}
-
-         
-        </select> <input id="select_all_consignor" type="checkbox" >
-
-        <label for="name" class="control-label mb-1 la">Onaccount</label>
-        {{ builty_filter.form.onaccount }}
+            
+              {% endfor %}
         
-              
-              <label for="name" class="control-label mb-1 la">Article</label>
-              {{ builty_filter.form.article }}
-
-            </div><br>
-                    <div class-"form-group" style="display: flex;
-                    gap: 14px;">
-                                        
-                    <label for="name" class="control-label mb-1" style="margin-left : 0px;">Date From</label>
-                    {{ builty_filter.form.DC_date_start__date }}
+          </select><input id="select_all_consignor" type="checkbox" >
+          
+          <label for="name" class="control-label mb-1" style="margin-left : 0px;">Truck Owner</label>
+          <select class="sele" name="truck_owner" id="truck_owner" multiple="multiple">
+            
+            {% for id, name in form.truck_owner.field.choices %}
+  
+            {% if name != '---------' %}
+            <option value="{{ id }}"> {{ name }} </option>
+            {% endif %}
                 
-
-
-                <label for="name" class="control-label mb-1">Date To</label>
-                {{ builty_filter.form.DC_date_end__date }}
-
-
-                {% if request.user.is_superuser %}
-
-                <label for="name" class="control-label mb-1 la">User</label>
-                {{ builty_filter.form.user }}
+            {% endfor %}
+            
+          </select><input id="select_all_truck_owner" type="checkbox" >
         
-                {% endif %}
-
-
-            </div>
-
-            <div class-"form-group" style="display: flex;
-        gap: 14px;">
-                          
-        <label for="name" class="control-label mb-1" style="margin-left : 0px;">Challan Date From</label>
-        {{ builty_filter.form.challan_date_start__date }}
+          <label for="name" class="control-label mb-1 la">Article</label>
+          {{ builty_filter.form.builty__article }}
+  
+            
+        </div><br>
+        
+        <div class-"form-group" style="display: flex;gap: 14px;">
+                                    
+          <label for="name" class="control-label mb-1" style="margin-left : 0px;">Builty Date From</label>
+          {{ builty_filter.form.builty__DC_date_start__date }}
+      
+  
+  
+          <label for="name" class="control-label mb-1">Builty Date To</label>
+          {{ builty_filter.form.builty__DC_date_end__date }}
+  
+  
+  
+  
+  
+        </div><br>
+        
+                <div class-"form-group" style="display: flex;
+                gap: 14px;">
+                                    
+                <label for="name" class="control-label mb-1" style="margin-left : 0px;">Challan Date From</label>
+                {{ builty_filter.form.challan_date_start__date }}
+            
+  
+  
+            <label for="name" class="control-label mb-1">Challan Date To</label>
+            {{ builty_filter.form.challan_date_end__date }}
+  
+            {% if request.user.is_superuser %}
+  
+            <label for="name" class="control-label mb-1 la">User</label>
+            {{ builty_filter.form.builty__user }}
     
-
-
-        <label for="name" class="control-label mb-1">Challan Date To</label>
-        {{ builty_filter.form.challan_date_end__date }}
-
-
-
-
-
-      </div>
+            {% endif %}
+    
+  
+        </div>
+  
 
 
             <br>
@@ -348,7 +352,7 @@
     <div class="col-xl-12">
         <div class="card">
             <div class="card-body">
-                <h4 class="box-title">Transport Dispatch List </h4>
+                <h4 class="box-title">Voucher Report </h4>
             </div>
             <div class="card-body--">
                 <div class="table-stats order-table ov-h">
@@ -370,7 +374,10 @@
                                 <th>Rate</th>
                                 <th>Freight</th>
                                 <th>Advance</th>
-                                <th>Balance</th>
+                                <th>Old Balance</th>
+                                <th>Voucher payment mode</th>
+                                <th>Voucher payment bank ac no</th>
+                                <th>Voucher payment bank ac ifsc</th>
                                 <th>#</th>
                                 
                             </tr>
@@ -379,35 +386,28 @@
                             {% if data %}
                             {% for i in data %}
 
-                            {% if i.voucher_payment_status == True %}
-
-                            <tr style="background: #98e698;">
-                            
-                              {% else %}
 
                             <tr>
 
-                              {% endif %}
-
-
-                             
-
                                 <td class="serial" style="">{{ forloop.counter }}</td>
-                                <td>{{ i.builty_no }}</td>
-                                <td>{{ i.DC_date }}</td>
-                                <td>{{ i.truck_details }}</td>
-                                <td>{{ i.truck_owner }}</td>
-                                <td>{{ i.station_from }}</td>
-                                <td>{{ i.station_to }}</td>
-                                <td>{{ i.district }}</td>
-                                <td>{{ i.consignor }}</td>
-                                <td>{{ i.onaccount }}</td>
-                                <td>{{ i.have_ack.all.0.challan_date }}</td>
-                                <td>{{ i.mt }}</td>
-                                <td>{{ i.rate }}</td>
-                                <td>{{ i.freight }}</td>
-                                <td>{{ i.less_advance }}</td>
-                                <td>{{ i.balance }}</td>
+                                <td>{{ i.builty.builty_no }}</td>
+                                <td>{{ i.builty.DC_date }}</td>
+                                <td>{{ i.builty.truck_details }}</td>
+                                <td>{{ i.builty.truck_owner }}</td>
+                                <td>{{ i.builty.station_from }}</td>
+                                <td>{{ i.builty.station_to }}</td>
+                                <td>{{ i.builty.district }}</td>
+                                <td>{{ i.builty.consignor }}</td>
+                                <td>{{ i.builty.onaccount }}</td>
+                                <td>{{ i.challan_date }}</td>
+                                <td>{{ i.builty.mt }}</td>
+                                <td>{{ i.builty.rate }}</td>
+                                <td>{{ i.builty.freight }}</td>
+                                <td>{{ i.builty.less_advance }}</td>
+                                <td>{{ i.builty.balance }}</td>
+                                <td>{{ i.voucher_payment_mode }}</td>
+                                <td>{{ i.voucher_payment_bank_ac_no }}</td>
+                                <td>{{ i.voucher_payment_bank_ac_ifsc }}</td>
                                 
                                 <td>  
 
@@ -624,46 +624,13 @@ function report(){
   
   url = url[1]
   
-  url = "{% url 'truck_report' %}" + '?' + url
+  url = "{% url 'voucher_report' %}" + '?' + url
   
   window.location = url
   
   }
   
   
-/// Add an event listener to the form submission
-document.getElementById('voucher_payment1').addEventListener('submit', function(event) {
-  // Prevent the form from submitting normally
-  event.preventDefault();
-
-  // Get the form element
-  var form = this;
-
-  // Serialize the form data into a URL-encoded string
-  var formData = new URLSearchParams(new FormData(form)).toString();
-
-  // Get the current URL
-  var currentUrl = window.location.href;
-
-  // Parse the current URL
-  var urlObject = new URL(currentUrl);
-
-  // Get the base URL without query parameters
-  var baseUrlWithoutQuery = currentUrl.split('?')[0];
-
-  // Generate the new base URL using Django template tag
-  var newBaseUrl = "{% url 'voucher_payment' %}";
-
-  // Construct the new URL
-  var newUrl = newBaseUrl + (formData ? '?' + formData : '') + urlObject.search;
-
-  // Navigate to the new URL
-  window.location.href = newUrl;
-});
-
-
-
-
 
 
 
