@@ -59,10 +59,7 @@ class builty(models.Model):
     editable = models.BooleanField(default=False)
     deleted = models.BooleanField(default=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    voucher_payment_status = models.BooleanField(default=False)
-    voucher_payment_mode = models.CharField(max_length=50, choices=mode1, default="cash", null = True, blank = True)
-    voucher_payment_bank_ac_no = models.CharField(max_length=50, null = True, blank = True)
-    voucher_payment_bank_ac_ifsc = models.CharField(max_length=50, null = True, blank = True)
+    
     
 
     def __str__(self):
@@ -71,10 +68,14 @@ class builty(models.Model):
    
 
 class ack(models.Model):
-
+     
     builty = models.ForeignKey(builty, on_delete=models.CASCADE, related_name='have_ack')
     challan_number = models.CharField(max_length=50)
     challan_date = models.DateField(blank = True, null = True, auto_now_add=False)
+    voucher_payment_status = models.BooleanField(default=False)
+    voucher_payment_mode = models.CharField(max_length=50, choices=mode1, default="cash", null = True, blank = True)
+    voucher_payment_bank_ac_no = models.CharField(max_length=50, null = True, blank = True)
+    voucher_payment_bank_ac_ifsc = models.CharField(max_length=50, null = True, blank = True)
 
     def __str__(self):
         return self.builty.builty_no

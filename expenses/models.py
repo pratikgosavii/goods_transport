@@ -57,7 +57,7 @@ class truck_expense(models.Model):
     amount = models.FloatField()
     note = models.CharField(max_length=500)
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
-    entry_date = models.DateTimeField(default = datetime.now)
+    entry_date = models.DateField(default=timezone.now)
 
 
 
@@ -71,7 +71,7 @@ class transfer_fund(models.Model):
     amount = models.FloatField()
     note = models.CharField(max_length=500)
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
-    entry_date = models.DateTimeField(default = datetime.now)
+    entry_date = models.DateField(default=timezone.now)
 
 class diesel_rate(models.Model):
 
@@ -84,7 +84,7 @@ class diesel_expense(models.Model):
     amount = models.FloatField()
     note = models.CharField(max_length=50)
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
-    entry_date = models.DateTimeField(default = datetime.now)
+    entry_date = models.DateField(default=timezone.now)
 
 class truck_diesel_expense(models.Model):
 
@@ -93,7 +93,7 @@ class truck_diesel_expense(models.Model):
     amount = models.FloatField()
     note = models.CharField(max_length=50)
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
-    entry_date = models.DateTimeField(default = datetime.now)
+    entry_date = models.DateField(default=timezone.now)
 
 
 class other_expense(models.Model):
@@ -101,7 +101,7 @@ class other_expense(models.Model):
     expense_category = models.ForeignKey(expense_category, on_delete=models.CASCADE)
     amount = models.FloatField()
     note = models.CharField(max_length=500)
-    entry_date = models.DateTimeField(default = datetime.now)
+    entry_date = models.DateField(default=timezone.now)
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
 
 
@@ -114,7 +114,7 @@ class salary(models.Model):
     salary = models.FloatField()
     note = models.CharField(max_length=500)
     salary_of_date = models.DateTimeField()
-    entry_date = models.DateTimeField(default = datetime.now)
+    entry_date = models.DateField(default=timezone.now)
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
     
 

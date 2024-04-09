@@ -428,11 +428,7 @@
                         </tbody>
                     </table>
 
-                    {% if has_filter %}
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-                      All Voucher Paid
-                    </button>
-                {% endif %}
+                  
                 
 
 
@@ -513,51 +509,6 @@
         </div> <!-- /.card -->
     </div>  <!-- /.col-lg-8 -->
 
-
-
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">New message</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form id="voucher_payment1" method="get" action="{% url 'voucher_payment' %}">
-
-
-          <input type="hidden" id="builty_id">
-
-          <div class="form-group">
-           
-            <label for="challan_number" class="col-form-label">Payment Mode</label>
-            <select class="form-control" id="voucher_payment_mode" name="voucher_payment_mode">
-              <option value="cash" selected>Cash</option>
-              <option value="online">Online</option>
-          </select>
-
-            <label for="challan_number" class="col-form-label">Bank Account No</label>
-            <input type="text" class="form-control" value="0" name="voucher_payment_bank_ac_no" id="voucher_payment_bank_ac_no">
-
-            <label for="challan_number" class="col-form-label">Bank IFSC Code </label>
-            <input type="text" class="form-control" value="0" name="voucher_payment_bank_ac_ifsc" id="voucher_payment_bank_ac_ifsc">
-
-
-
-          </div>
-          
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="submit"  class="btn btn-primary">Submit</button>
-      </div>
-    </form>
-
-    </div>
-  </div>
-</div>
 
 
 

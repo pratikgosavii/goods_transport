@@ -53,6 +53,8 @@ urlpatterns = [
     path('update-salary/<salary_id>', update_salary, name='update_salary'),
     path('delete-salary/<salary_id>', delete_salary, name='delete_salary'),
     path('list-salary/', list_salary, name='list_salary'),
+    
+    path('delete-all/', list_delete, name='list_delete'),
    
     path('add-other-expense/', add_other_expense, name='add_other_expense'),
     path('update-other_expense/<other_expense_id>', update_other_expense, name='update_other_expense'),
