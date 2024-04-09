@@ -397,7 +397,7 @@ def check_balance(request):
     
 def add_diesel_rate(request):
     
-    instance = diesel_rate.objects.get(id = 1)
+    instance = diesel_rate.objects.get(id = 2)
 
     rate_data = request.POST.get('rate')
 
