@@ -1079,17 +1079,17 @@ def list_salary(request):
 def list_delete(request):
 
     
-    expense_category.objects.all().delete
-    employee.objects.all().delete
-    truck_expense.objects.all().delete
-    transfer_fund.objects.all().delete
-    builty_expense.objects.all().delete
-    diesel_expense.objects.all().delete
-    truck_diesel_expense.objects.all().delete
-    salary.objects.all().delete
-    fund.objects.all().delete
-    other_expense.objects.all().delete
-    diesel_rate.objects.all().delete
+    expense_category.objects.all().delete()
+    employee.objects.all().delete()
+    truck_expense.objects.all().delete()
+    transfer_fund.objects.all().delete()
+    builty_expense.objects.all().delete()
+    diesel_expense.objects.all().delete()
+    truck_diesel_expense.objects.all().delete()
+    salary.objects.all().delete()
+    fund.objects.all().delete()
+    other_expense.objects.all().delete()
+    diesel_rate.objects.all().delete()
 
 def add_other_expense(request):
     
