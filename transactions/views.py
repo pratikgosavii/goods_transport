@@ -103,7 +103,7 @@ def add_transaction(request):
 
             forms.save()
 
-            diesel_amount = diesel_rate.objects.get(id = 1)
+            diesel_amount = diesel_rate.objects.get(id = 2)
 
             diesel_amount = diesel_amount.amount * float(diesel_liter)
 
@@ -283,7 +283,7 @@ def update_builty(request, bulity_id):
             less_advance_amount = request.POST.get('less_advance')
 
 
-            diesel_amount = diesel_rate.objects.get(id = 1)
+            diesel_amount = diesel_rate.objects.get(id = 2)
 
             diesel_amount = diesel_amount.amount * float(diesel_liter)
 
