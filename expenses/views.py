@@ -315,7 +315,7 @@ def delete_truck_expense(request, truck_expense_id):
 
     truck_expense_instance = truck_expense.objects.get(id = truck_expense_id)
 
-    user_instance = request.user
+    user_instance = truck_expense_instance.user
     user_instance.balance = user_instance.balance + truck_expense_instance.amount
     user_instance.save()
     
@@ -1029,7 +1029,7 @@ def delete_salary(request, salary_id):
 
     salary_instance = salary.objects.get(id = salary_id)
 
-    user_instance = request.user
+    user_instance = salary_instance.user
     user_instance.balance = user_instance.balance + salary_instance.salary
     user_instance.save()
 
@@ -1185,7 +1185,7 @@ def delete_other_expense(request, other_expense_id):
 
     other_expense_instance = other_expense.objects.get(id = other_expense_id)
 
-    user_instance = request.user
+    user_instance = other_expense_instance.user
     user_instance.balance = user_instance.balance + other_expense_instance.amount
     user_instance.save()
 
