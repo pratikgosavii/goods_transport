@@ -48,9 +48,9 @@
                                 <td class="serial">{{ forloop.counter }}</td>
                                 <td>{{ i.name }}</td>
                                 <td>  
-                                   {% comment %} <a href="{% url 'update_article' i.id %}"> <button id="payment-button"  style="background-color: #05386b; border: green; padding: 10px;border-radius: 12px;" type="submit" class="btn-info ">
+                                   <a href="{% url 'update_expense_category' i.id %}"> <button id="payment-button"  style="background-color: #05386b; border: green; padding: 10px;border-radius: 12px;" type="submit" class="btn-info ">
                                         <span id="payment-button-amount">View</span>
-                                    </button>  </a> {% endcomment %}
+                                    </button>  </a>
                                     
                                 </td>
                                

@@ -197,6 +197,34 @@ def add_expense_category(request):
 
         
 
+def update_expense_category(request, expense_category_id):
+
+    instance = expense_category.objects.get(id = expense_category_id)
+
+    if request.method == 'POST':
+
+        forms = expense_category_Form(request.POST, instance = instance)
+
+        if forms.is_valid():
+            forms.save()
+            return redirect('list_expense_category')
+        else:
+            context = {
+                'form': forms
+            }
+            return render(request, 'expense/add_expense_category.html', context)
+
+    else:
+
+        forms = expense_category_Form(instance = instance)
+
+        context = {
+            'form': forms
+        }
+        return render(request, 'expense/add_expense_category.html', context)
+
+        
+
 def list_expense_category(request):
     
     data = expense_category.objects.all()
