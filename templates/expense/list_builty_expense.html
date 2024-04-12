@@ -286,7 +286,7 @@
                         <tbody>
                             {% if data %}
                             {% for i in data %}
-                            <tr>
+                            <tr id="{{ i.id }}">
                                 <td class="serial">{{ forloop.counter }}</td>
 
                                 {% if request.user.is_superuser %}
