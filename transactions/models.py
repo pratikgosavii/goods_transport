@@ -92,7 +92,7 @@ class ack_history(models.Model):
     builty = models.ForeignKey(builty, on_delete=models.CASCADE, related_name='have_ack3434')
     challan_number_before = models.CharField(max_length=50)
     challan_date_before = models.DateField(blank = True, null = True, auto_now_add=False)
-    update_date = models.DateField(default = ist_datetime, blank=True, null=True)
+    update_date = models.DateField(default = timezone.now, blank=True, null=True)
 
     def __str__(self):
         return self.builty.builty_no
