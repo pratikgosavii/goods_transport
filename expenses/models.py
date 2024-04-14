@@ -46,7 +46,7 @@ class builty_expense(models.Model):
     is_porch = models.BooleanField(default=False)
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
     # entry_date = models.DateTimeField(default = datetime.now, blank=True, null=True)
-    entry_date = models.DateField(default=date.today)
+    entry_date = models.DateField(default=timezone.now)
 
 
 
@@ -131,5 +131,5 @@ class fund(models.Model):
     amount = models.FloatField()
     note = models.CharField(max_length=500)
     # entry_date = models.DateTimeField(default = datetime.now, blank=True, null=True)
-    entry_date = models.DateField(default=date.today)
+    entry_date = models.DateField(default=timezone.now)
     

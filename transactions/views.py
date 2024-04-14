@@ -2274,16 +2274,25 @@ def porch_report_list(request):
 
 from datetime import date
 
-def fixing_data():
+def fixing_data(request):
 
 
     a = builty_expense.objects.all()
     for i in a:
-        if i.entry_date:
+        if  not i.entry_date:
             print(i.id)
     for i in a:
         if i.entry_date:
             i.entry_date = i.entry_date.date()
             i.save()
+    for i in a:
+        if  not i.entry_date:
+            i.entry_date = date.today()
 
+    b = fund.objects.all()
+
+    for i in b:
+        if i.entry_date:
+            i.entry_date = i.entry_date.date()
+            i.save()
 
