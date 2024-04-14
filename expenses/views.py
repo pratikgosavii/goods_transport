@@ -1436,33 +1436,48 @@ def master_report(request):
 
     combined_data = []
 
-    entry_date_from = '2024-01-08'
-    entry_date_to = '2024-04-08'
-
         # Query and append data from each table
-    builty_expenses = builty_expense.objects.filter(entry_date__range=[entry_date_from, entry_date_to])
+    builty_expenses = builty_expense.objects.all()
+    builty_expenses = builty_expense_filter(request.GET, queryset=builty_expenses)
+    builty_expenses = builty_expenses.qs
+
     for expense in builty_expenses:
-        combined_data.append(('builty_expense', expense.amount, expense.entry_date, expense.is_advance, expense.is_porch, expense.user))
+        combined_data.append(('builty_expense', expense.entry_date, expense.amount, expense.user, expense.is_advance, expense.is_porch))
 
-    truck_expenses = truck_expense.objects.filter(entry_date__range=[entry_date_from, entry_date_to])
+    truck_expenses = truck_expense.objects.all()
+    truck_expenses = truck_expense_filter(request.GET, queryset=truck_expenses)
+    truck_expenses = truck_expenses.qs
+
     for expense in truck_expenses:
-        combined_data.append(('truck_expense', expense.amount, expense.entry_date, expense.note, expense.user))
+        combined_data.append(('truck_expense', expense.entry_date, expense.amount, expense.user, expense.note))
 
-    transfer_funds = transfer_fund.objects.filter(entry_date__range=[entry_date_from, entry_date_to])
+    transfer_funds = transfer_fund.objects.all()
+    transfer_funds = transfer_fund_filter(request.GET, queryset=transfer_funds)
+    transfer_funds = transfer_funds.qs
+
     for expense in transfer_funds:
-        combined_data.append(('transfer_fund', expense.amount, expense.entry_date, expense.note, expense.user))
+        combined_data.append(('transfer_fund', expense.entry_date, expense.amount, expense.user, expense.note))
 
-    other_expenses = other_expense.objects.filter(entry_date__range=[entry_date_from, entry_date_to])
+    other_expenses = other_expense.objects.all()
+    other_expenses = other_expense_filter(request.GET, queryset=other_expenses)
+    other_expenses = other_expenses.qs
+
     for expense in other_expenses:
-        combined_data.append(('other_expense', expense.amount, expense.entry_date, expense.note, expense.expense_category, expense.user))
+        combined_data.append(('other_expense', expense.entry_date, expense.amount, expense.user, expense.note, expense.expense_category))
 
-    salaries = salary.objects.filter(entry_date__range=[entry_date_from, entry_date_to])
+    salaries = salary.objects.all()
+    salaries = salary_filter(request.GET, queryset=salaries)
+    salaries = salaries.qs
+
     for expense in salaries:
-        combined_data.append(('salary', expense.salary, expense.entry_date, expense.note, expense.salary_of_date, expense.employee, expense.user))
+        combined_data.append(('salary',  expense.entry_date, expense.salary, expense.user, expense.note, expense.salary_of_date, expense.employee))
 
-    funds = fund.objects.filter(entry_date__range=[entry_date_from, entry_date_to])
+    funds = fund.objects.all()
+    funds = fund_filter(request.GET, queryset=funds)
+    funds = funds.qs
+
     for expense in funds:
-        combined_data.append(('fund', expense.amount, expense.entry_date, expense.note, expense.user))
+        combined_data.append(('fund', expense.entry_date, expense.amount, expense.user, expense.note))
 
     # Sort combined data by entry_date
     combined_data.sort(key=lambda x: x[2])
@@ -1470,7 +1485,7 @@ def master_report(request):
     # Generate CSV in memory
     csv_buffer = StringIO()
     csv_writer = csv.writer(csv_buffer)
-    csv_writer.writerow(['Table Name', 'Amount/Salary', 'Entry Date', 'Note', 'Additional Fields'])
+    csv_writer.writerow(['Table Name', 'Entry Date', 'Amount/Salary', 'User', 'Note', 'Additional Fields'])
     for row in combined_data:
         csv_writer.writerow(row)
 
@@ -1485,33 +1500,53 @@ def master_report_list(request):
 
     combined_data = []
 
-    entry_date_from = '2024-01-08'
-    entry_date_to = '2024-04-08'
-
         # Query and append data from each table
-    builty_expenses = builty_expense.objects.filter(entry_date__range=[entry_date_from, entry_date_to])
+    builty_expenses = builty_expense.objects.all()
+    builty_expenses = builty_expense_filter(request.GET, queryset=builty_expenses)
+    builty_expenses = builty_expenses.qs
+
+    print('sdsdsd')
+    print(builty_expenses)
+    for i in builty_expenses:
+        print(i)
+
     for expense in builty_expenses:
-        combined_data.append(('builty_expense', expense.amount, expense.entry_date, expense.is_advance, expense.is_porch, expense.user))
+        combined_data.append(('builty_expense', expense.entry_date, expense.amount, expense.user, expense.is_advance, expense.is_porch))
 
-    truck_expenses = truck_expense.objects.filter(entry_date__range=[entry_date_from, entry_date_to])
+    truck_expenses = truck_expense.objects.all()
+    truck_expenses = truck_expense_filter(request.GET, queryset=truck_expenses)
+    truck_expenses = truck_expenses.qs
+
     for expense in truck_expenses:
-        combined_data.append(('truck_expense', expense.amount, expense.entry_date, expense.note, expense.user))
+        combined_data.append(('truck_expense', expense.entry_date, expense.amount, expense.user, expense.note))
 
-    transfer_funds = transfer_fund.objects.filter(entry_date__range=[entry_date_from, entry_date_to])
+    transfer_funds = transfer_fund.objects.all()
+    transfer_funds = transfer_fund_filter(request.GET, queryset=transfer_funds)
+    transfer_funds = transfer_funds.qs
+
     for expense in transfer_funds:
-        combined_data.append(('transfer_fund', expense.amount, expense.entry_date, expense.note, expense.user))
+        combined_data.append(('transfer_fund', expense.entry_date, expense.amount, expense.user, expense.note))
 
-    other_expenses = other_expense.objects.filter(entry_date__range=[entry_date_from, entry_date_to])
+    other_expenses = other_expense.objects.all()
+    other_expenses = other_expense_filter(request.GET, queryset=other_expenses)
+    other_expenses = other_expenses.qs
+
     for expense in other_expenses:
-        combined_data.append(('other_expense', expense.amount, expense.entry_date, expense.note, expense.expense_category, expense.user))
+        combined_data.append(('other_expense', expense.entry_date, expense.amount, expense.user, expense.note, expense.expense_category))
 
-    salaries = salary.objects.filter(entry_date__range=[entry_date_from, entry_date_to])
+    salaries = salary.objects.all()
+    salaries = salary_filter(request.GET, queryset=salaries)
+    salaries = salaries.qs
+
     for expense in salaries:
-        combined_data.append(('salary', expense.salary, expense.entry_date, expense.note, expense.salary_of_date, expense.employee, expense.user))
+        combined_data.append(('salary',  expense.entry_date, expense.salary, expense.user, expense.note, expense.salary_of_date, expense.employee))
 
-    funds = fund.objects.filter(entry_date__range=[entry_date_from, entry_date_to])
+    funds = fund.objects.all()
+    funds = fund_filter(request.GET, queryset=funds)
+    funds = funds.qs
+
     for expense in funds:
-        combined_data.append(('fund', expense.amount, expense.entry_date, expense.note, expense.user))
+        combined_data.append(('fund', expense.entry_date, expense.amount, expense.user, expense.note))
 
     # Sort combined data by entry_date
     combined_data.sort(key=lambda x: x[2])
@@ -1521,8 +1556,41 @@ def master_report_list(request):
     
     context = {
         'combined_data': combined_data,
+        # 'builty_expense_filter' : builty_expense_filter()
 
     }
 
     return render(request, 'report/master_report.html', context)
 
+
+
+from django.db.models import Sum
+
+def check_data(request):
+
+    userss = User.objects.all()
+
+    for i in userss:
+
+        incoming = 0
+        outgoing = 0
+        total = 0
+
+        fund_sum = fund.objects.filter(user=i).aggregate(fund_sum=Sum('amount'))['fund_sum'] or 0
+        transfer_fund_sum = transfer_fund.objects.filter(transfer_to_user=i).aggregate(fund_sum=Sum('amount'))['fund_sum'] or 0
+
+        incoming = fund_sum + transfer_fund_sum
+
+        transfer_fund_sum = transfer_fund.objects.filter(user=i).aggregate(transfer_fund_sum=Sum('amount'))['transfer_fund_sum'] or 0
+        builty_expense_sum = builty_expense.objects.filter(user=i).aggregate(builty_expense_sum=Sum('amount'))['builty_expense_sum'] or 0
+        truck_expense_sum = truck_expense.objects.filter(user=i).aggregate(truck_expense_sum=Sum('amount'))['truck_expense_sum'] or 0
+        other_expense_sum = other_expense.objects.filter(user=i).aggregate(other_expense_sum=Sum('amount'))['other_expense_sum'] or 0
+        salary_expense_sum = salary.objects.filter(user=i).aggregate(total_amount=Sum('salary'))['total_amount'] or 0
+
+        outgoing = transfer_fund_sum + builty_expense_sum + truck_expense_sum + other_expense_sum + salary_expense_sum
+
+        total = incoming - outgoing
+
+
+        print(i.username)
+        print(total)

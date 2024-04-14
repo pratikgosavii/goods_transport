@@ -200,22 +200,9 @@
             
                   
            
-                  <label for="name" class="control-label mb-1" style="margin-left : 0px;">User</label>
-                      <select name="user" class="form-control sele" id="user">
- <option value="" selected="">---------</option>
-
- <option value="1">SGT</option>
-
- <option value="2">ramakanth</option>
-
- <option value="3">Ram</option>
-
- <option value="5">deepak</option>
-
- <option value="7">sgt@manoj</option>
-
-</select>
-                
+                  {% comment %} <label for="name" class="control-label mb-1" style="margin-left : 0px;">User</label>
+                     {{ builty_expense_filter.form.user }}
+                 {% endcomment %}
                       
                       
                   
@@ -241,18 +228,6 @@
       <button class="btn btn-primary" type="submit"> Submit </button>
     </form></div>
 
-            <br>
-          
-            <a href="{% url 'porch_report_list' %}"><button class="btn btn-primary" type="button" > Reset </button></a>
-
-            <button class="btn btn-primary" type="submit" > Submit </button>
-
-
-
-
-
-
-
             
         </form>
     </div>
@@ -264,7 +239,7 @@
     {% csrf_token %}
 
     <button class="btn btn-primary" onclick="report();" type="submit">
-        Download Porch Report
+        Download Master Expense Report
     </button> 
 </form>
 
@@ -284,18 +259,11 @@
                         <thead>
                             <tr>
                                 <th class="serial">#</th>
-                                <th>Builty No</th>
-                                <th>Builty Date</th>
-                                <th>Challan No</th>
-                                <th>Challan Date</th>
-                                <th>Truck No</th>
-                                <th>From</th>
-                                <th>To</th>
-                                <th>MT</th>
-                                <th>Rate</th>
-                                <th>Freight</th>
-                                <th>Advance</th>
-                                <th>Balance</th>
+                                <th>Expense Type</th>
+                                <th>Amount/ Salary</th>
+                                <th>Entry Date</th>
+                                <th>Note</th>
+                                <th>Other Fields</th>
                                 
                             </tr>
                         </thead>
@@ -523,7 +491,7 @@ url = url.split('?')
 
 url = url[1]
 
-url = "{% url 'porch_report' %}" + '?' + url
+url = "{% url 'master_report' %}" + '?' + url
 
 window.location = url
 
