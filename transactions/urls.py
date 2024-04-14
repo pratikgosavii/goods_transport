@@ -24,6 +24,8 @@ urlpatterns = [
 
     path('add-ack', add_ack, name='add_ack'),
 
+    path('fixing-data', fixing_data, name='fixing_data'),
+
     path('list-ack-all', list_ack_all, name='list_ack_all'),
     path('list-ack', list_ack, name='list_ack'),
     path('list-not-ack', list_not_ack, name='list_not_ack'),

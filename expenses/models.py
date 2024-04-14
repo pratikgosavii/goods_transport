@@ -45,8 +45,8 @@ class builty_expense(models.Model):
     is_advance = models.BooleanField(default=False)
     is_porch = models.BooleanField(default=False)
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
-    # entry_date = models.DateTimeField(default = datetime.now, blank=True, null=True)
-    entry_date = models.DateField(default=timezone.now)
+    entry_date = models.DateTimeField(default = datetime.now, blank=True, null=True)
+    # entry_date = models.DateField(default=timezone.now)
 
 
 
@@ -108,9 +108,7 @@ class other_expense(models.Model):
     entry_date = models.DateField(default=timezone.now)
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
 
-
     
-
 
 class salary(models.Model):
 
@@ -132,6 +130,6 @@ class fund(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
     amount = models.FloatField()
     note = models.CharField(max_length=500)
-    # entry_date = models.DateTimeField(default = datetime.now, blank=True, null=True)
-    entry_date = models.DateField(default=timezone.now)
+    entry_date = models.DateTimeField(default = datetime.now, blank=True, null=True)
+    # entry_date = models.DateField(default=timezone.now)
     

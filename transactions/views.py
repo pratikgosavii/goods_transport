@@ -2271,3 +2271,19 @@ def porch_report_list(request):
 
     return render(request, 'report/porch_report.html', context)
 
+
+from datetime import date
+
+def fixing_data():
+
+
+    a = builty_expense.objects.all()
+    for i in a:
+        if i.entry_date:
+            print(i.id)
+    for i in a:
+        if i.entry_date:
+            i.entry_date = i.entry_date.date()
+            i.save()
+
+
