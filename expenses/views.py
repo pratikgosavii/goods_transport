@@ -1241,6 +1241,16 @@ def list_other_expense(request):
     
     filter_data = other_expense_filters.qs
 
+    print(filter_data.count())
+
+    total = 0
+
+    for i in filter_data:
+
+        total = total + i.amount
+
+    print(total)
+
     total_amount = filter_data.aggregate(total_amount=Sum('amount'))['total_amount']
 
     page = request.GET.get('page', 1)
@@ -1434,11 +1444,50 @@ import io
 
 def master_report(request):
 
+
+    print(request.GET)
+
+    print('------------')
+
+    user_instance = request.GET.get('user')
+
+    combined_data1 = []
+
+    if user_instance:
+
+        print('------------------------')
+
+        transfer_fund_expenses = transfer_fund.objects.filter(transfer_to_user = user_instance)
+    
+
+
+        print(transfer_fund_expenses)
+
+        for expense in transfer_fund_expenses:
+            combined_data1.append(('transfer_fund_expense', expense.entry_date, expense.amount, expense.user, expense.note))
+
+    funds = fund.objects.all()
+    funds = truck_expense_filter(request.GET, queryset=funds)
+    funds = funds.qs
+
+    for expense in funds:
+        combined_data1.append(('fund', expense.entry_date, expense.amount, expense.user, expense.note))
+
+    combined_data1.sort(key=lambda x: x[2])
+
+
+
+
+
+
+
+
+
     combined_data = []
 
         # Query and append data from each table
     builty_expenses = builty_expense.objects.all()
-    builty_expenses = builty_expense_filter(request.GET, queryset=builty_expenses)
+    builty_expenses = builty_expense_filter1(request.GET, queryset=builty_expenses)
     builty_expenses = builty_expenses.qs
 
     for expense in builty_expenses:
@@ -1482,12 +1531,43 @@ def master_report(request):
     # Sort combined data by entry_date
     combined_data.sort(key=lambda x: x[2])
 
+
+        # Calculate total amount for combined_data
+    total_amount_combined_data = sum(row[2] for row in combined_data)
+
+    # Calculate total amount for combined_data1
+    total_amount_combined_data1 = sum(row[2] for row in combined_data1)
+
     # Generate CSV in memory
     csv_buffer = StringIO()
     csv_writer = csv.writer(csv_buffer)
-    csv_writer.writerow(['Table Name', 'Entry Date', 'Amount/Salary', 'User', 'Note', 'Additional Fields'])
+    csv_writer.writerow(['Expense Type', 'Entry Date', 'Amount/Salary', 'User', 'Note', 'Additional Fields'])
+    
     for row in combined_data:
         csv_writer.writerow(row)
+
+            
+    # Add empty row as a separator
+    csv_writer.writerow([])
+
+    # Write total amount for combined_data
+    csv_writer.writerow(['Total Amount for combined_data:', '', total_amount_combined_data, '', '', ''])
+
+   
+
+    empty_row = [''] * 6  # Adjust the number of empty columns as needed
+    csv_writer.writerow(empty_row * 2) 
+
+    for row in combined_data1:
+        csv_writer.writerow(row)
+
+         # Add empty row as a separator
+    csv_writer.writerow([])
+
+    # Write headers for the right side
+    csv_writer.writerow(['Total Amount for combined_data:', '', total_amount_combined_data1, '', '', ''])
+
+
 
     # Create HTTP response with CSV file
     response = HttpResponse(csv_buffer.getvalue(), content_type='text/csv')
@@ -1497,6 +1577,8 @@ def master_report(request):
 
 
 def master_report_list(request):
+
+    print(request.GET)
 
     combined_data = []
 
@@ -1556,7 +1638,7 @@ def master_report_list(request):
     
     context = {
         'combined_data': combined_data,
-        # 'builty_expense_filter' : builty_expense_filter()
+        'builty_expense_filter' : builty_expense_filter()
 
     }
 

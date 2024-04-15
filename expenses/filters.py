@@ -37,7 +37,62 @@ class builty_expense_filter(django_filters.FilterSet):
         widget=forms.Select(
             attrs={
                 'class' : 'form-control sele',
-                'id' : 'user'
+                'id' : 'user',
+                'name' : 'user',
+            })
+    )
+
+    
+    
+
+
+    entry_date_start__date = DateFilter(field_name="entry_date", lookup_expr='gte', widget=forms.DateInput(
+            attrs={
+                'id': 'datepicker1212',
+                'type': 'date',
+                'class' : 'form-control date_css'
+            }
+        ))
+
+
+    entry_date_end__date = DateFilter(field_name="entry_date", lookup_expr='lte', widget=forms.DateInput(
+            attrs={
+            'id': 'datepicker1212',
+            'type': 'date',
+                'class' : 'form-control date_css'
+            }
+        ))
+    
+    
+
+
+    class Meta:
+        model = builty_expense
+        fields = '__all__'
+       
+   
+
+
+class builty_expense_filter1(django_filters.FilterSet):
+
+    builty = django_filters.ModelChoiceFilter(
+        queryset=builty.objects.all(),
+       widget=forms.Select(
+            attrs={
+                'class' : 'form-control sele',
+                'id' : 'builty'
+            })
+    )
+
+
+    
+    user = django_filters.ModelChoiceFilter(
+        queryset=User.objects.all(),
+        widget=forms.Select(
+            attrs={
+                'class' : 'form-control sele',
+                'id' : 'user',
+                'name' : 'user',
             })
     )
 
@@ -250,6 +305,45 @@ class transfer_fund_filter(django_filters.FilterSet):
     )
 
     
+    
+    entry_date_start = DateFilter(field_name="entry_date", lookup_expr='gte', widget=forms.DateTimeInput(
+            attrs={
+                'id': 'datetimepicker121212121',  # Use a different ID if needed
+                'type': 'date',  # Change input type to date
+                'class': 'form-control date_css'
+            }
+        ),
+        initial=timezone.now().replace(hour=0, minute=0, second=0, microsecond=0))
+    
+    entry_date_end = DateFilter(field_name="entry_date", lookup_expr='lte', widget=forms.DateTimeInput(
+            attrs={
+                'id': 'datetimepicker1212',  # Use a different ID if needed
+                'type': 'date',  # Change input type to date
+                'class': 'form-control date_css'
+            }
+        ))
+
+
+
+
+
+    class Meta:
+        model = transfer_fund
+        fields = '__all__'
+       
+
+class transfer_fund1_filter(django_filters.FilterSet):
+
+    transfer_to_user = django_filters.ModelChoiceFilter(
+        queryset=User.objects.all(),
+       widget=forms.Select(
+            attrs={
+                'class' : 'form-control sele',
+                'id' : 'transfer_to_user'
+            })
+    )
+
+   
     
     entry_date_start = DateFilter(field_name="entry_date", lookup_expr='gte', widget=forms.DateTimeInput(
             attrs={
