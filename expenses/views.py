@@ -1521,12 +1521,7 @@ def master_report(request):
     for expense in salaries:
         combined_data.append(('salary',  expense.entry_date, expense.salary, expense.user, expense.note, expense.salary_of_date, expense.employee))
 
-    funds = fund.objects.all()
-    funds = fund_filter(request.GET, queryset=funds)
-    funds = funds.qs
-
-    for expense in funds:
-        combined_data.append(('fund', expense.entry_date, expense.amount, expense.user, expense.note))
+   
 
     # Sort combined data by entry_date
     combined_data.sort(key=lambda x: x[2])
@@ -1623,13 +1618,7 @@ def master_report_list(request):
     for expense in salaries:
         combined_data.append(('salary',  expense.entry_date, expense.salary, expense.user, expense.note, expense.salary_of_date, expense.employee))
 
-    funds = fund.objects.all()
-    funds = fund_filter(request.GET, queryset=funds)
-    funds = funds.qs
-
-    for expense in funds:
-        combined_data.append(('fund', expense.entry_date, expense.amount, expense.user, expense.note))
-
+  
     # Sort combined data by entry_date
     combined_data.sort(key=lambda x: x[2])
 
