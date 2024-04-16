@@ -243,7 +243,64 @@
     </button> 
 </form>
 
+<div class="col-12" style="display: flex;
+margin-top: 30px;
+gap: 14px;">
 
+  <div class="card col-2">
+    <div class="card-body">
+        <h4 class="box-title">Fund Total </h4> </br>
+        <h4 class="box-title"> {{ fund_total }} </h4>
+    </div>
+
+</div>
+
+  <div class="card col-2">
+    <div class="card-body">
+        <h4 class="box-title">Transfer Fund Total </h4> </br>
+        <h4 class="box-title"> {{ transfer_fund_total }} </h4>
+    </div>
+
+</div>
+</div>
+
+<div class="col-12" style="display: flex;
+margin-top: 30px;
+gap: 14px;">
+
+  <div class="card col-2">
+    <div class="card-body">
+        <h4 class="box-title">Builty Expense Total </h4> </br>
+        <h4 class="box-title"> {{ builty_expenses_total }} </h4>
+    </div>
+
+</div>
+
+  <div class="card col-2">
+    <div class="card-body">
+        <h4 class="box-title">Truck Expense Total </h4> </br>
+        <h4 class="box-title"> {{ truck_expenses_total }} </h4>
+    </div>
+
+</div>
+
+  <div class="card col-2">
+    <div class="card-body">
+        <h4 class="box-title">Other Expense Total </h4> </br>
+        <h4 class="box-title"> {{ other_expenses_total }} </h4>
+    </div>
+
+</div>
+
+  <div class="card col-2">
+    <div class="card-body">
+        <h4 class="box-title">Salary Expense Total </h4> </br>
+        <h4 class="box-title"> {{ salaries_total }} </h4>
+    </div>
+
+</div>
+
+</div>
 
 <br>
 
@@ -262,6 +319,7 @@
                                 <th>Expense Type</th>
                                 <th>Entry Date</th>
                                 <th>Amount/ Salary</th>
+                                <th>User</th>
                                 <th>Note</th>
                                 <th>Other Fields</th>
                                 
@@ -277,6 +335,7 @@
                                 <td class="serial" style="">{{ forloop.counter }}</td>
                                 <td>{{ i.0 }}</td>
                                 <td>{{ i.1 }}</td>
+                                <td>{{ i.2 }}</td>
                                 <td>{{ i.3 }}</td>
                                 <td>{{ i.4 }}</td>
                                 <td>{{ i.5 }}</td>

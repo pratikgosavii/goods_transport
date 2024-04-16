@@ -1490,12 +1490,16 @@ def master_report(request):
     builty_expenses = builty_expense_filter1(request.GET, queryset=builty_expenses)
     builty_expenses = builty_expenses.qs
 
+    builty_expenses_total = builty_expenses.aggregate(builty_expenses_total=Sum('amount'))['builty_expenses_total']
+
     for expense in builty_expenses:
         combined_data.append(('builty_expense', expense.entry_date, expense.amount, expense.user, expense.is_advance, expense.is_porch))
 
     truck_expenses = truck_expense.objects.all()
     truck_expenses = truck_expense_filter(request.GET, queryset=truck_expenses)
     truck_expenses = truck_expenses.qs
+
+    truck_expenses_total = truck_expenses.aggregate(truck_expenses_total=Sum('amount'))['truck_expenses_total']
 
     for expense in truck_expenses:
         combined_data.append(('truck_expense', expense.entry_date, expense.amount, expense.user, expense.note))
@@ -1504,6 +1508,8 @@ def master_report(request):
     transfer_funds = transfer_fund_filter(request.GET, queryset=transfer_funds)
     transfer_funds = transfer_funds.qs
 
+    transfer_funds_total = transfer_funds.aggregate(transfer_funds_total=Sum('amount'))['transfer_funds_total']
+
     for expense in transfer_funds:
         combined_data.append(('transfer_fund', expense.entry_date, expense.amount, expense.user, expense.note))
 
@@ -1511,12 +1517,16 @@ def master_report(request):
     other_expenses = other_expense_filter(request.GET, queryset=other_expenses)
     other_expenses = other_expenses.qs
 
+    other_expenses_total = other_expenses.aggregate(other_expenses_total=Sum('amount'))['other_expenses_total']
+
     for expense in other_expenses:
         combined_data.append(('other_expense', expense.entry_date, expense.amount, expense.user, expense.note, expense.expense_category))
 
     salaries = salary.objects.all()
     salaries = salary_filter(request.GET, queryset=salaries)
     salaries = salaries.qs
+
+    salaries_total = salaries.aggregate(salaries_total=Sum('amount'))['salaries_total']
 
     for expense in salaries:
         combined_data.append(('salary',  expense.entry_date, expense.salary, expense.user, expense.note, expense.salary_of_date, expense.employee))
@@ -1577,15 +1587,44 @@ def master_report_list(request):
 
     combined_data = []
 
+
+    
+    user_instance = request.GET.get('user')
+
+    combined_data1 = []
+
+    if user_instance:
+
+        transfer_fund_expenses = transfer_fund.objects.filter(transfer_to_user = user_instance)
+
+        for expense in transfer_fund_expenses:
+            combined_data1.append(('transfer_fund_expense', expense.entry_date, expense.amount, expense.user, expense.note))
+    
+        transfer_fund_total = transfer_fund_expenses.aggregate(transfer_fund_total=Sum('amount'))['transfer_fund_total']
+    
+    else:
+
+        transfer_fund_total = 0
+
+    funds = fund.objects.all()
+    funds = truck_expense_filter(request.GET, queryset=funds)
+    funds = funds.qs
+
+    fund_total = funds.aggregate(fund_total=Sum('amount'))['fund_total']
+
+    for expense in funds:
+        combined_data1.append(('fund', expense.entry_date, expense.amount, expense.user, expense.note))
+
+    combined_data1.sort(key=lambda x: x[2])
+
+
         # Query and append data from each table
     builty_expenses = builty_expense.objects.all()
     builty_expenses = builty_expense_filter(request.GET, queryset=builty_expenses)
     builty_expenses = builty_expenses.qs
 
-    print('sdsdsd')
-    print(builty_expenses)
-    for i in builty_expenses:
-        print(i)
+    builty_expenses_total = builty_expenses.aggregate(builty_expenses_total=Sum('amount'))['builty_expenses_total']
+    
 
     for expense in builty_expenses:
         combined_data.append(('builty_expense', expense.entry_date, expense.amount, expense.user, expense.is_advance, expense.is_porch))
@@ -1594,12 +1633,16 @@ def master_report_list(request):
     truck_expenses = truck_expense_filter(request.GET, queryset=truck_expenses)
     truck_expenses = truck_expenses.qs
 
+    truck_expenses_total = truck_expenses.aggregate(truck_expenses_total=Sum('amount'))['truck_expenses_total']
+
     for expense in truck_expenses:
         combined_data.append(('truck_expense', expense.entry_date, expense.amount, expense.user, expense.note))
 
     transfer_funds = transfer_fund.objects.all()
     transfer_funds = transfer_fund_filter(request.GET, queryset=transfer_funds)
     transfer_funds = transfer_funds.qs
+    
+    transfer_funds_total = transfer_funds.aggregate(transfer_funds_total=Sum('amount'))['transfer_funds_total']
 
     for expense in transfer_funds:
         combined_data.append(('transfer_fund', expense.entry_date, expense.amount, expense.user, expense.note))
@@ -1608,6 +1651,8 @@ def master_report_list(request):
     other_expenses = other_expense_filter(request.GET, queryset=other_expenses)
     other_expenses = other_expenses.qs
 
+    other_expenses_total = other_expenses.aggregate(other_expenses_total=Sum('amount'))['other_expenses_total']
+    
     for expense in other_expenses:
         combined_data.append(('other_expense', expense.entry_date, expense.amount, expense.user, expense.note, expense.expense_category))
 
@@ -1615,6 +1660,8 @@ def master_report_list(request):
     salaries = salary_filter(request.GET, queryset=salaries)
     salaries = salaries.qs
 
+    salaries_total = salaries.aggregate(salaries_total=Sum('salary'))['salaries_total']
+    
     for expense in salaries:
         combined_data.append(('salary',  expense.entry_date, expense.salary, expense.user, expense.note, expense.salary_of_date, expense.employee))
 
@@ -1623,10 +1670,21 @@ def master_report_list(request):
     combined_data.sort(key=lambda x: x[2])
 
 
-
+    print(builty_expenses_total),
+    print(truck_expenses_total)
+    print(transfer_funds_total)
+    print(other_expenses_total)
+    print(salaries_total)
     
     context = {
         'data': combined_data,
+        'transfer_fund_total': transfer_fund_total,
+        'fund_total': fund_total,
+        'builty_expenses_total': builty_expenses_total,
+        'truck_expenses_total': truck_expenses_total,
+        'transfer_funds_total': transfer_funds_total,
+        'other_expenses_total': other_expenses_total,
+        'salaries_total': salaries_total,
         'builty_expense_filter' : builty_expense_filter()
 
     }
