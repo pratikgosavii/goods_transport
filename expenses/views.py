@@ -1567,7 +1567,7 @@ def master_report(request):
     # Write headers for the right side
     csv_writer.writerow(['Total Amount for combined_data:', '', total_amount_combined_data1, '', '', ''])
 
-
+    print(combined_data)
 
     # Create HTTP response with CSV file
     response = HttpResponse(csv_buffer.getvalue(), content_type='text/csv')
@@ -1637,7 +1637,7 @@ def master_report_list(request):
 
     
     context = {
-        'combined_data': combined_data,
+        'data': combined_data,
         'builty_expense_filter' : builty_expense_filter()
 
     }
