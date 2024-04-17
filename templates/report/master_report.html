@@ -317,128 +317,120 @@ gap: 14px;">
                 <h4 class="box-title">Master Report </h4>
             </div>
             <div class="card-body--">
-                <div class="table-stats order-table ov-h">
-                    <table class="table ">
-                        <thead>
-                            <tr>
-                                <th class="serial">#</th>
-                                <th>Expense Type</th>
-                                <th>Entry Date</th>
-                                <th>Amount/ Salary</th>
-                                <th>User</th>
-                                <th>Note</th>
-                                <th>Other Fields</th>
-                                
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% if data %}
-                            {% for i in data %}
-                            <tr>
-
-                             
-
-                                <td class="serial" style="">{{ forloop.counter }}</td>
-                                <td>{{ i.0 }}</td>
-                                <td>{{ i.1 }}</td>
-                                <td>{{ i.2 }}</td>
-                                <td>{{ i.3 }}</td>
-                                <td>{{ i.4 }}</td>
-                                <td>{{ i.5 }}</td>
-                                
-                            
-                               
-                            </tr>
-                            {% endfor %}
-                            {% else %}
-                                <tr><td>No Product Data</td></tr>
-                            {% endif %}
-                        </tbody>
-                    </table>
-                    <footer class="site-footer">
-                      <div class="footer-inner bg-white" style="float: right;">
-                          <div class="row" style="float: right;">
-                              <p style="font-weight: 700;
-                              color: black;;margin-left:30px;border : 1px solid grey;padding : 10px;"> Total MT : {{ total_mt }} RS</p>
-                              <p style="font-weight: 700;
-                              color: black;;margin-left:30px;border : 1px solid grey;padding : 10px;"> Total Freight : {{ total_freight }} </p>
-                              <p style="font-weight: 700;
-                              color: black;margin-left:30px;border : 1px solid grey;padding : 10px;">  Advance : {{ total_advance }} RS</p><br>
-                              <p style="font-weight: 700;
-                              color: black;;margin-left:30px;border : 1px solid grey;padding : 10px;">  Balance : {{ total_balance }} RS</p>
-                            </div>
+              <div class="table-stats order-table ov-h">
+                  <table class="table ">
+                      <thead>
+                          <tr>
+                              <th class="serial">#</th>
+                              <th>Expense Type</th>
+                              <th>Entry Date</th>
+                              <th>Amount/ Salary</th>
+                              <th>User</th>
+                              <th>Note</th>
+                              <th>Other Fields</th>
+                              
+                          </tr>
+                      </thead>
+                      <tbody>
+                          {% if data %}
+                          {% for i in data %}
+                          <tr>
 
                             
-                          <div class="row" style="float: left; width : 100%">
 
-
-                        </div>
-                        </div>
-                  </footer>
-
+                              <td class="serial" style="">{{ forloop.counter }}</td>
+                              <td>{{ i.0 }}</td>
+                              <td>{{ i.1 }}</td>
+                              <td>{{ i.2 }}</td>
+                              <td>{{ i.3 }}</td>
+                              <td>{{ i.4 }}</td>
+                              <td>{{ i.5 }}</td>
+                              
                           
-     <br>
+                              
+                          </tr>
+                          {% endfor %}
+                          {% else %}
+                              <tr><td>No Product Data</td></tr>
+                          {% endif %}
+                      </tbody>
+                  </table>
+                  <footer class="site-footer">
+                    <div class="footer-inner bg-white" style="float: right;">
+                      <div class="row" style="float: right;">
+                        <p style="font-weight: 700;
+                        color: black;;margin-left:30px;border : 1px solid grey;padding : 10px;"> Total MT : {{ total_mt }} RS</p>
+                        <p style="font-weight: 700;
+                        color: black;;margin-left:30px;border : 1px solid grey;padding : 10px;"> Total Freight : {{ total_freight }} </p>
+                        <p style="font-weight: 700;
+                        color: black;margin-left:30px;border : 1px solid grey;padding : 10px;">  Advance : {{ total_advance }} RS</p><br>
+                        <p style="font-weight: 700;
+                        color: black;;margin-left:30px;border : 1px solid grey;padding : 10px;">  Balance : {{ total_balance }} RS</p>
+                      </div>
+
+                        
+                      <div class="row" style="float: left; width : 100%">
+
+
+                      </div>
+                    </div>
+                  </footer>
+                  <br>
                    <br>
                    <br>
                    <br>
-                            <nav aria-label="Page navigation example" style="float:left; margin-left : 100px;">
-                              <ul class="pagination justify-content-center">
-                              {% if data.has_previous %}
-                                  <li class="page-item">
-                                  <a class="page-link" onclick="pagination({{ data.previous_page_number }})">Previous</a>
-                                </li>
-                              {% else %}
-                                  <li class="page-item disabled">
-                                  <a class="page-link" href="#" tabindex="-1" aria-disabled="True">Previous</a>
-                                </li>
-                              {% endif %}
-                      
-                              {% if data.number|add:'-4' > 1 %}
-                                  <li class="page-item"><a class="page-link" onclick="pagination({{ data.number }})">&hellip;</a></li>
-                              {% endif %}
-                      
-                              {% for i in data.paginator.page_range %}
-                                  {% if data.number == i %}
-                                      <li class="page-item active" aria-current="page">
-                                    <span class="page-link">
-                                      {{ i }}
-                                      <span class="sr-only">(current)</span>
-                                    </span>
-                                  </li>
-                                  {% elif i > data.number|add:'-5' and i < data.number|add:'5' %}
-                                       <li class="page-item"><a class="page-link" onclick="pagination({{ i }})">{{ i }}</a></li>
-                                  {% endif %}
-                              {% endfor %}
-                      
-                              {% if data.paginator.num_pages > data.number|add:'4' %}
-                                 <li class="page-item"><a class="page-link" onclick="pagination({{ data.number|add:'5' }})">&hellip;</a></li>
-                              {% endif %}
-                      
-                              {% if data.has_next %}
-                                  <li class="page-item">
-                                  <a class="page-link" onclick="pagination({{ data.next_page_number }}">Next</a>
-                                </li>
-                              {% else %}
-                                  <li class="page-item disabled">
-                                  <a class="page-link" href="#" tabindex="-1" aria-disabled="True">Next</a>
-                                </li>
-                              {% endif %}
-                            </ul>
-                          </nav>
+                  <nav aria-label="Page navigation example" style="float:left; margin-left : 100px;">
+                    <ul class="pagination justify-content-center">
+                    {% if data.has_previous %}
+                        <li class="page-item">
+                        <a class="page-link" onclick="pagination({{ data.previous_page_number }})">Previous</a>
+                      </li>
+                    {% else %}
+                        <li class="page-item disabled">
+                        <a class="page-link" href="#" tabindex="-1" aria-disabled="True">Previous</a>
+                      </li>
+                    {% endif %}
+            
+                    {% if data.number|add:'-4' > 1 %}
+                        <li class="page-item"><a class="page-link" onclick="pagination({{ data.number }})">&hellip;</a></li>
+                    {% endif %}
+            
+                    {% for i in data.paginator.page_range %}
+                        {% if data.number == i %}
+                            <li class="page-item active" aria-current="page">
+                          <span class="page-link">
+                            {{ i }}
+                            <span class="sr-only">(current)</span>
+                          </span>
+                        </li>
+                        {% elif i > data.number|add:'-5' and i < data.number|add:'5' %}
+                              <li class="page-item"><a class="page-link" onclick="pagination({{ i }})">{{ i }}</a></li>
+                        {% endif %}
+                    {% endfor %}
+            
+                    {% if data.paginator.num_pages > data.number|add:'4' %}
+                        <li class="page-item"><a class="page-link" onclick="pagination({{ data.number|add:'5' }})">&hellip;</a></li>
+                    {% endif %}
+            
+                    {% if data.has_next %}
+                        <li class="page-item">
+                        <a class="page-link" onclick="pagination({{ data.next_page_number }}">Next</a>
+                      </li>
+                    {% else %}
+                        <li class="page-item disabled">
+                        <a class="page-link" href="#" tabindex="-1" aria-disabled="True">Next</a>
+                      </li>
+                    {% endif %}
+                  </ul>
+                </nav>
 
-
-
-
-
-
-
-                </div> <!-- /.table-stats -->
+              </div> <!-- /.table-stats -->
             </div>
-        </div> <!-- /.card -->
-    </div>  <!-- /.col-lg-8 -->
+          </div> <!-- /.card -->
+        </div>  <!-- /.col-lg-8 -->
 
     
-</div>
+        </div>
 
 
 

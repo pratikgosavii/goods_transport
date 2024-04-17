@@ -46,7 +46,7 @@ class builty_expense_filter(django_filters.FilterSet):
     
 
 
-    entry_date_start__date = DateFilter(field_name="entry_date", lookup_expr='gte', widget=forms.DateInput(
+    entry_date_start = DateFilter(field_name="entry_date", lookup_expr='gte', widget=forms.DateInput(
             attrs={
                 'id': 'datepicker1212',
                 'type': 'date',
@@ -55,7 +55,7 @@ class builty_expense_filter(django_filters.FilterSet):
         ))
 
 
-    entry_date_end__date = DateFilter(field_name="entry_date", lookup_expr='lte', widget=forms.DateInput(
+    entry_date_end = DateFilter(field_name="entry_date", lookup_expr='lte', widget=forms.DateInput(
             attrs={
             'id': 'datepicker1212',
             'type': 'date',

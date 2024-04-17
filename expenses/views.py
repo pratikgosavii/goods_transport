@@ -1607,9 +1607,9 @@ def master_report_list(request):
         transfer_fund_total = 0
 
     funds = fund.objects.all()
-    funds = truck_expense_filter(request.GET, queryset=funds)
+    funds = fund_filter(request.GET, queryset=funds)
     funds = funds.qs
-
+    
     fund_total = funds.aggregate(fund_total=Sum('amount'))['fund_total']
 
     for expense in funds:
@@ -1678,6 +1678,7 @@ def master_report_list(request):
     
     context = {
         'data': combined_data,
+        'data1': combined_data1,
         'transfer_fund_total': transfer_fund_total,
         'fund_total': fund_total,
         'builty_expenses_total': builty_expenses_total,
