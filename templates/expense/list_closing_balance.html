@@ -1,0 +1,235 @@
+{% extends 'expense/base_main.html' %}
+
+{% block title %}Product List{% endblock title %}
+
+{% block breadcrumbs %}
+<div class="breadcrumbs">
+    <div class="breadcrumbs-inner">
+        <div class="row m-0">
+            
+            {% comment %} <div class="col-sm-8">
+                <div class="page-header float-right">
+                    <div class="page-title">
+                        <ol class="breadcrumb text-right">
+                            <li><a href="#">Dashboard</a></li>
+                            <li><a href="#">Product</a></li>
+                            <li class="active">List</li>
+                        </ol>
+                    </div>
+                </div>
+            </div> {% endcomment %}
+        </div>
+    </div>
+</div>
+{% endblock breadcrumbs %}
+
+{% block content %}
+
+
+<br>
+
+ <p>
+     
+     <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+       Filters
+     </button>
+   </p>
+   <div class="collapse" id="collapseExample">
+     <div class="card card-body" style="width: fit-content;">
+       
+ 
+       <form method="get" action="" style="padding:15px;">
+ 
+         {% csrf_token %}
+ 
+         <div class="form-group" style="display: flex;gap: 14px;">
+             
+            {% if request.user.is_superuser %}
+            
+            <label for="name" class="control-label mb-1" style="margin-left : 0px;">User</label>
+                {{ filter_data.form.user }}
+          
+                
+                {% endif %}
+                   
+         </div>
+         
+         <div class="form-group" style="display: flex;gap: 14px;">
+
+               <label for="name" class="control-label mb-1" style="margin-left : 0px;">Closing Date From</label>
+               {{ filter_data.form.date_start }}
+           
+       
+       
+               <label for="name" class="control-label mb-1">Closing Date To</label>
+               {{ filter_data.form.date_end }}
+       
+               
+       </div>
+ 
+       <br>
+ 
+       <a href="{% url 'list_fund' %}"><button class="btn btn-primary" type="button" > Reset </button></a>
+ 
+       <button class="btn btn-primary" type="submit" > Submit </button>
+     </div>
+ 
+   </form>
+ </div>
+
+
+<div class="row">
+    <div class="col-xl-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="box-title"> List Closing User Balance</h4>
+            </div>
+            <div class="card-body--">
+                <div class="table-stats order-table ov-h">
+                    <table class="table ">
+                        <thead>
+                            <tr>
+                                <th class="serial">#</th>
+                                {% if request.user.is_superuser %}
+                                <th>User</th>
+                                {% endif %}
+                                <th>Amount</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% if data %}
+                            {% for i in data %}
+                            <tr>
+                                <td class="serial">{{ forloop.counter }}</td>
+
+                                {% if request.user.is_superuser %}
+
+                                <td>{{ i.user }}</td>
+
+                                {% endif %}
+
+                                <td>{{ i.closing_balance }}</td>
+                                <td>{{ i.date }}</td>
+                               
+                            </tr>
+                            {% endfor %}
+                            {% else %}
+                                <tr><td>No Product Data</td></tr>
+                            {% endif %}
+                        </tbody>
+                    </table>
+
+                    <br>
+                    <br>
+                             <nav aria-label="Page navigation example">
+                               <ul class="pagination justify-content-center">
+                               {% if data.has_previous %}
+                                   <li class="page-item">
+                                   <a class="page-link" onclick="pagination({{ data.previous_page_number }})">Previous</a>
+                                 </li>
+                               {% else %}
+                                   <li class="page-item disabled">
+                                   <a class="page-link" href="#" tabindex="-1" aria-disabled="True">Previous</a>
+                                 </li>
+                               {% endif %}
+                       
+                               {% if data.number|add:'-4' > 1 %}
+                                   <li class="page-item"><a class="page-link" onclick="pagination({{ data.number }})">&hellip;</a></li>
+                               {% endif %}
+                       
+                               {% for i in data.paginator.page_range %}
+                                   {% if data.number == i %}
+                                       <li class="page-item active" aria-current="page">
+                                     <span class="page-link">
+                                       {{ i }}
+                                       <span class="sr-only">(current)</span>
+                                     </span>
+                                   </li>
+                                   {% elif i > data.number|add:'-5' and i < data.number|add:'5' %}
+                                        <li class="page-item"><a class="page-link" onclick="pagination({{ i }})">{{ i }}</a></li>
+                                   {% endif %}
+                               {% endfor %}
+                       
+                               {% if data.paginator.num_pages > data.number|add:'4' %}
+                                  <li class="page-item"><a class="page-link" onclick="pagination({{ data.number|add:'5' }})">&hellip;</a></li>
+                               {% endif %}
+                       
+                               {% if data.has_next %}
+                                   <li class="page-item">
+                                   <a class="page-link" onclick="pagination({{ data.next_page_number }}">Next</a>
+                                 </li>
+                               {% else %}
+                                   <li class="page-item disabled">
+                                   <a class="page-link" href="#" tabindex="-1" aria-disabled="True">Next</a>
+                                 </li>
+                               {% endif %}
+                             </ul>
+                           </nav>
+ 
+ 
+                           <footer class="site-footer">
+                            <div class="footer-inner bg-white" style="float: right;">
+                                <div class="row" style="float: right;">
+                                    <p style="font-weight: 700;
+                                    color: black;;margin-left:30px;border : 1px solid grey;padding : 10px;"> Total Amount : {{ total_amount }}</p>
+                                  </div>
+                              </div>
+                        </footer>
+
+
+                </div> <!-- /.table-stats -->
+            </div>
+        </div> <!-- /.card -->
+    </div>  <!-- /.col-lg-8 -->
+
+    
+</div>
+{% endblock content %}
+
+
+
+{% block js %}
+
+<script>
+
+
+
+  
+  function pagination(page_no){
+
+
+    url = new URL(window.location.href);
+
+    var search_params = url.searchParams;
+
+    // new value of "id" is set to "101"
+    search_params.set('page', page_no);
+
+    // change the search property of the main url
+    url.search = search_params.toString();
+
+    // the new url string
+    var new_url = url.toString();
+
+    // output : http://demourl.com/path?id=101&topic=main
+    window.location.href = new_url;
+            
+    window.location.search = jQuery.query.set("page", page_no);
+
+
+
+}
+
+
+
+
+
+</script>
+
+
+
+
+{% endblock js %}
+
+

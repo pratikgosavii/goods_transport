@@ -80,7 +80,7 @@ def add_builty_expense(request):
             amount = request.POST.get('amount')
 
             user_instance = request.user
-            user_instance.balance = user_instance.balance - float(amount)
+            user_instance.balance = round(user_instance.balance + float(amount), 2)
             user_instance.save()
 
             return redirect('list_builty_expense')
@@ -264,7 +264,7 @@ def add_truck_expense(request):
             amount = request.POST.get('amount')
             
             user_instance = request.user
-            user_instance.balance = user_instance.balance - float(amount)
+            user_instance.balance = round(user_instance.balance + float(amount), 2)
             user_instance.save()
 
             return redirect('list_truck_expense')
@@ -296,7 +296,7 @@ def update_truck_expense(request, truck_expense_id):
         instance_old = copy.copy(instance.user.id) 
 
         user_instance = instance.user
-        user_instance.balance = user_instance.balance + float(instance.amount)
+        user_instance.balance = round(user_instance.balance + float(instance.amount), 2)
         user_instance.save()
 
         
@@ -311,7 +311,7 @@ def update_truck_expense(request, truck_expense_id):
             instance.save()
 
             user_instance1 = instance_old
-            user_instance1.balance = user_instance1.balance - float(amount)
+            user_instance1.balance = round(user_instance1.balance - float(amount), 2)
             user_instance1.save()
 
 
@@ -451,11 +451,11 @@ def add_transfer_fund(request):
             amount = request.POST.get('amount')
             transfer_to_user = request.POST.get('transfer_to_user')
             user_instance = request.user
-            user_instance.balance = user_instance.balance - float(amount)
+            user_instance.balance = round(user_instance.balance + float(amount), 2)
             user_instance.save()
 
             user_instance1 = User.objects.get(id = transfer_to_user)
-            user_instance1.balance = user_instance1.balance + float(amount)
+            user_instance1.balance = round(user_instance1.balance - float(amount), 2)
             user_instance1.save()
 
 
@@ -488,11 +488,11 @@ def update_transfer_fund(request, transfer_fund_id):
         amount = request.POST.get('amount')
 
         user_instance = instance_main.user
-        user_instance.balance = user_instance.balance + float(instance_main.amount)
+        user_instance.balance = round(user_instance.balance + float(instance_main.amount), 2)
         user_instance.save()
 
         user_instance1 = instance_main.transfer_to_user
-        user_instance1.balance = user_instance1.balance - float(instance_main.amount)
+        user_instance1.balance = round(user_instance1.balance - float(instance_main.amount), 2)
         user_instance1.save()
 
 
@@ -509,11 +509,11 @@ def update_transfer_fund(request, transfer_fund_id):
             transfer_to_user = request.POST.get('transfer_to_user')
             
             user_instance = instance_old
-            user_instance.balance = user_instance.balance - float(amount)
+            user_instance.balance = round(user_instance.balance + float(amount), 2)
             user_instance.save()
 
             user_instance = User.objects.get(id = transfer_to_user)
-            user_instance.balance = user_instance.balance + float(amount)
+            user_instance.balance = round(user_instance.balance + float(amount), 2)
             user_instance.save()
 
             return redirect('list_transfer_fund')
@@ -548,11 +548,11 @@ def delete_transfer_fund(request, transfer_fund_id):
 
 
     user_instance = transfer_fund_instance.user
-    user_instance.balance = user_instance.balance + float(transfer_fund_instance.amount)
+    user_instance.balance = round(user_instance.balance + float(transfer_fund_instance.amount), 2)
     user_instance.save()
 
     user_instance1 = transfer_fund_instance.transfer_to_user
-    user_instance1.balance = user_instance1.balance - float(transfer_fund_instance.amount)
+    user_instance1.balance = round(user_instance.balance + float(transfer_fund_instance.amount), 2)
     user_instance1.save()
     
 
@@ -902,7 +902,7 @@ def update_employee(request, employee_id):
             amount = request.POST.get('amount')
             
             user_instance = request.user
-            user_instance.balance = user_instance.balance - float(amount)
+            user_instance.balance = round(user_instance.balance + float(amount), 2)
             user_instance.save()
 
 
@@ -976,7 +976,7 @@ def add_salary(request):
             amount = request.POST.get('salary')
             
             user_instance = request.user
-            user_instance.balance = user_instance.balance - float(amount)
+            user_instance.balance = round(user_instance.balance + float(amount), 2)
             user_instance.save()
             
             return redirect('list_salary')
@@ -1011,7 +1011,7 @@ def update_salary(request, salary_id):
         instance_old = copy.copy(instance.user.id) 
 
         user_instance = instance.user
-        user_instance.balance = user_instance.balance + float(instance.salary)
+        user_instance.balance = round(user_instance.balance + float(instance.salary), 2)
         user_instance.save()
        
         forms = salary_Form(request.POST, instance = instance)
@@ -1025,7 +1025,7 @@ def update_salary(request, salary_id):
             instance.save()
 
             user_instance1 = instance_old
-            user_instance1.balance = user_instance1.balance - float(amount)
+            user_instance1.balance = round(user_instance1.balance - float(amount), 2)
             user_instance1.save()
 
 
@@ -1134,7 +1134,7 @@ def add_other_expense(request):
             amount = request.POST.get('amount')
             
             user_instance = request.user
-            user_instance.balance = user_instance.balance - float(amount)
+            user_instance.balance = round(user_instance.balance + float(amount), 2)
             user_instance.save()
 
 
@@ -1168,7 +1168,7 @@ def update_other_expense(request, other_expense_id):
         instance_old = copy.copy(instance.user.id) 
 
         user_instance = instance.user
-        user_instance.balance = user_instance.balance + float(instance.amount)
+        user_instance.balance = round(user_instance.balance + float(instance.amount), 2)
         user_instance.save()
 
         forms = other_expense_Form(request.POST, instance = instance)
@@ -1182,7 +1182,7 @@ def update_other_expense(request, other_expense_id):
             instance.save()
 
             user_instance1 = instance_old
-            user_instance1.balance = user_instance1.balance - float(amount)
+            user_instance1.balance = round(user_instance1.balance - float(amount))
             user_instance1.save()
 
             return redirect('list_other_expense')
@@ -1288,7 +1288,7 @@ def add_fund(request):
         user_instance = request.user
 
 
-        user_instance.balance = user_instance.balance + float(amount)
+        user_instance.balance = round(user_instance.balance + float(amount))
 
         user_instance.save()
 
@@ -1330,7 +1330,7 @@ def update_fund(request, fund_id):
         instance_old = copy.copy(instance.user.id) 
 
         user_instance = instance.user
-        user_instance.balance = user_instance.balance - float(instance.amount)
+        user_instance.balance = round(user_instance.balance - float(instance.amount), 2)
         user_instance.save()
 
         forms = fund_Form(request.POST, instance = instance)
@@ -1344,7 +1344,7 @@ def update_fund(request, fund_id):
             instance.save()
 
             user_instance1 = instance_old
-            user_instance1.balance = user_instance1.balance + float(amount)
+            user_instance1.balance = round(user_instance1.balance - float(amount), 2)
             user_instance1.save()
         
 
@@ -1428,6 +1428,53 @@ def list_fund(request):
     }
 
     return render(request, 'expense/list_fund.html', context)
+
+
+
+
+
+def add_close_balance(request):
+
+
+    closing_balance.objects.create(user = request.user, closing_balance = request.user.balance)
+
+    return redirect('list_close_balance')
+
+
+def list_close_balance(request):
+
+    if request.user.is_superuser:
+
+        data = closing_balance.objects.all()
+
+    else:
+
+        data = closing_balance.objects.filter(user = request.user)
+
+
+    filter_data = closing_balance_filter(request.GET, queryset=data)
+
+    data = filter_data.qs
+
+    page = request.GET.get('page', 1)
+    paginator = Paginator(data, 20)
+    try:
+        data = paginator.page(page)
+    except PageNotAnInteger:
+        data = paginator.page(1)
+    except EmptyPage:
+        data = paginator.page(paginator.num_pages)
+
+
+    context = {
+        'data': data,
+        'closing_filter' : filter_data
+    }
+
+    return render(request, 'expense/list_closing_balance.html', context)
+
+
+
 
 
 

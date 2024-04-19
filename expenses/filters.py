@@ -455,11 +455,48 @@ class fund_filter(django_filters.FilterSet):
     class Meta:
         model = fund
         fields = '__all__'
+
+class closing_balance_filter(django_filters.FilterSet):
+
+    
+    user = django_filters.ModelChoiceFilter(
+        queryset=User.objects.all(),
+        widget=forms.Select(
+            attrs={
+                'class' : 'form-control sele',
+                'id' : 'user'
+            })
+    )
+
+    
+    
+    date_start = DateFilter(field_name="date", lookup_expr='gte', widget=forms.DateTimeInput(
+            attrs={
+                'id': 'datetimepicker121212121',  # Use a different ID if needed
+                'type': 'date',  # Change input type to date
+                'class': 'form-control date_css'
+            }
+        ),
+        initial=timezone.now().replace(hour=0, minute=0, second=0, microsecond=0))
+    
+    date_end = DateFilter(field_name="date", lookup_expr='lte', widget=forms.DateTimeInput(
+            attrs={
+                'id': 'datetimepicker1212',  # Use a different ID if needed
+                'type': 'date',  # Change input type to date
+                'class': 'form-control date_css'
+            }
+        ))
+
+
+
+
+
+    class Meta:
+        model = closing_balance
+        fields = '__all__'
        
    
 
-
-from django_filters import DateFilter, DateFilter
 
 class salary_filter(django_filters.FilterSet):
 

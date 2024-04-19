@@ -67,6 +67,9 @@ urlpatterns = [
     path('delete-fund/<fund_id>', delete_fund, name='delete_fund'),
     path('list-fund/', list_fund, name='list_fund'),
 
+    path('add-close-balance/', add_close_balance, name='add_close_balance'),
+    path('list-close-balance/', list_close_balance, name='list_close_balance'),
+
     path('master-report/', master_report, name='master_report'),
     path('master-report-list/', master_report_list, name='master_report_list'),
     path('master-fund-report/', master_fund_report, name='master_fund_report'),

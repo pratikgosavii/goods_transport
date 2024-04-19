@@ -134,3 +134,11 @@ class fund(models.Model):
     entry_date = models.DateField(default=timezone.now, blank=True, null=True)
 
     
+
+class closing_balance(models.Model):
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
+    closing_balance = models.FloatField()
+    date = models.DateField(default=timezone.now, blank=True, null=True)
+
+    

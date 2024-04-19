@@ -35,6 +35,23 @@ class employee_Form(forms.ModelForm):
             
         }
 
+class closing_balance_Form(forms.ModelForm):
+    class Meta:
+        model = closing_balance
+        fields = '__all__'
+        widgets = {
+            'user': forms.Select(attrs={
+                'class': 'form-control', 'id': 'user'
+            }),
+            'closing_balance': forms.TextInput(attrs={
+                'class': 'form-control', 'id': 'closing_balance'
+            }),
+            
+            'date': DateTimeInput(attrs={'type': 'datetime-local', 'class' : 'form-control date_css'}),
+
+            
+        }
+
 
 
 class builty_expense_Form(forms.ModelForm):
