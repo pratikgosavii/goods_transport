@@ -242,7 +242,7 @@
     {% csrf_token %}
 
     <button class="btn btn-primary" onclick="report();" type="submit">
-        Download Master Expense Report
+        Download Master Fund Report
     </button> 
 </form>
 
@@ -267,48 +267,6 @@ gap: 14px;">
     </div>
 
 </div>
-</div>
-
-<div class="col-12" style="display: flex;
-margin-top: 30px;
-gap: 14px;">
-
-  <div class="card col-2" style="border: 1px solid black;
-    box-shadow: none !important;">
-    <div class="card-body">
-        <h4 class="box-title">Builty Expense Total </h4> </br>
-        <h4 class="box-title"> {{ builty_expenses_total }} </h4>
-    </div>
-
-</div>
-
-  <div class="card col-2" style="border: 1px solid black;
-    box-shadow: none !important;">
-    <div class="card-body">
-        <h4 class="box-title">Truck Expense Total </h4> </br>
-        <h4 class="box-title"> {{ truck_expenses_total }} </h4>
-    </div>
-
-</div>
-
-  <div class="card col-2" style="border: 1px solid black;
-    box-shadow: none !important;">
-    <div class="card-body">
-        <h4 class="box-title">Other Expense Total </h4> </br>
-        <h4 class="box-title"> {{ other_expenses_total }} </h4>
-    </div>
-
-</div>
-
-  <div class="card col-2" style="border: 1px solid black;
-    box-shadow: none !important;">
-    <div class="card-body">
-        <h4 class="box-title">Salary Expense Total </h4> </br>
-        <h4 class="box-title"> {{ salaries_total }} </h4>
-    </div>
-
-</div>
-
 </div>
 
 <br>
@@ -524,7 +482,7 @@ url = url.split('?')
 
 url = url[1]
 
-url = "{% url 'master_report' %}" + '?' + url
+url = "{% url 'master_fund_report' %}" + '?' + url
 
 window.location = url
 

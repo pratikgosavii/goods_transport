@@ -69,6 +69,8 @@ urlpatterns = [
 
     path('master-report/', master_report, name='master_report'),
     path('master-report-list/', master_report_list, name='master_report_list'),
+    path('master-fund-report/', master_fund_report, name='master_fund_report'),
+    path('master-fund-report-list/', master_fund_report_list, name='master_fund_report_list'),
 
 
 ]

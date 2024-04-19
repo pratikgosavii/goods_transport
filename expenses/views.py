@@ -1458,7 +1458,8 @@ def master_report(request):
         print('------------------------')
 
         transfer_fund_expenses = transfer_fund.objects.filter(transfer_to_user = user_instance)
-    
+        transfer_fund_expenses = transfer_fund1_filter(request.GET, queryset=transfer_fund_expenses)
+        transfer_fund_expenses = transfer_fund_expenses.qs
 
 
         print(transfer_fund_expenses)
@@ -1591,15 +1592,11 @@ def master_report_list(request):
     
     user_instance = request.GET.get('user')
 
-    combined_data1 = []
 
     if user_instance:
 
         transfer_fund_expenses = transfer_fund.objects.filter(transfer_to_user = user_instance)
 
-        for expense in transfer_fund_expenses:
-            combined_data1.append(('transfer_fund_expense', expense.entry_date, expense.amount, expense.user, expense.note))
-    
         transfer_fund_total = transfer_fund_expenses.aggregate(transfer_fund_total=Sum('amount'))['transfer_fund_total']
     
     else:
@@ -1612,16 +1609,10 @@ def master_report_list(request):
     
     fund_total = funds.aggregate(fund_total=Sum('amount'))['fund_total']
 
-    for expense in funds:
-        combined_data1.append(('fund', expense.entry_date, expense.amount, expense.user, expense.note))
-
-    combined_data1.sort(key=lambda x: x[2])
-
-
         # Query and append data from each table
     builty_expenses = builty_expense.objects.all()
-    builty_expenses = builty_expense_filter(request.GET, queryset=builty_expenses)
-    builty_expenses = builty_expenses.qs
+    builty_expense_filters = builty_expense_filter(request.GET, queryset=builty_expenses)
+    builty_expenses = builty_expense_filters.qs
 
     builty_expenses_total = builty_expenses.aggregate(builty_expenses_total=Sum('amount'))['builty_expenses_total']
     
@@ -1670,6 +1661,19 @@ def master_report_list(request):
     combined_data.sort(key=lambda x: x[2])
 
 
+  # Paginate the combined data
+    paginator = Paginator(combined_data, 20)  # 10 items per page
+    page = request.GET.get('page')
+    try:
+        data = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        data = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range, deliver last page of results.
+        data = paginator.page(paginator.num_pages)
+
+
     print(builty_expenses_total),
     print(truck_expenses_total)
     print(transfer_funds_total)
@@ -1677,8 +1681,7 @@ def master_report_list(request):
     print(salaries_total)
     
     context = {
-        'data': combined_data,
-        'data1': combined_data1,
+        'data': data,
         'transfer_fund_total': transfer_fund_total,
         'fund_total': fund_total,
         'builty_expenses_total': builty_expenses_total,
@@ -1686,11 +1689,151 @@ def master_report_list(request):
         'transfer_funds_total': transfer_funds_total,
         'other_expenses_total': other_expenses_total,
         'salaries_total': salaries_total,
-        'builty_expense_filter' : builty_expense_filter()
+        'builty_expense_filter' : builty_expense_filters
 
     }
 
     return render(request, 'report/master_report.html', context)
+
+
+
+def master_fund_report_list(request):
+
+
+    user_instance = request.GET.get('user')
+
+    combined_data1 = []
+
+    if user_instance:
+
+        print('inedfdfdef')
+
+
+        transfer_fund_expenses = transfer_fund.objects.filter(transfer_to_user = user_instance)
+        print(transfer_fund_expenses)
+        transfer_fund_expenses = transfer_fund1_filter(request.GET, queryset=transfer_fund_expenses)
+        transfer_fund_expenses = transfer_fund_expenses.qs
+        print(transfer_fund_expenses)
+
+        for expense in transfer_fund_expenses:
+            combined_data1.append(('transfer_fund_expense', expense.entry_date, expense.amount, expense.user, expense.note))
+    
+        transfer_fund_total = transfer_fund_expenses.aggregate(transfer_fund_total=Sum('amount'))['transfer_fund_total']
+    
+    else:
+
+        print('in else')
+
+        print(user_instance)
+
+        transfer_fund_total = 0
+
+    funds = fund.objects.all()
+    funds_filters = fund_filter(request.GET, queryset=funds)
+    funds = funds_filters.qs
+    
+    fund_total = funds.aggregate(fund_total=Sum('amount'))['fund_total']
+
+    for expense in funds:
+        combined_data1.append(('fund', expense.entry_date, expense.amount, expense.user, expense.note))
+
+    combined_data1.sort(key=lambda x: x[2])
+
+
+    
+  # Paginate the combined data
+    paginator = Paginator(combined_data1, 20)  # 10 items per page
+    page = request.GET.get('page')
+    try:
+        data = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        data = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range, deliver last page of results.
+        data = paginator.page(paginator.num_pages)
+
+
+    context = {
+        'data': data,
+        'transfer_fund_total': transfer_fund_total,
+        'fund_total': fund_total,
+        'builty_expense_filter': funds_filters,
+
+    }
+
+    return render(request, 'report/master_fund_report.html', context)
+
+
+
+
+def master_fund_report(request):
+
+
+    print(request.GET)
+
+    print('------------')
+
+    user_instance = request.GET.get('user')
+
+    combined_data1 = []
+
+    if user_instance:
+
+        print('------------------------')
+
+        transfer_fund_expenses = transfer_fund.objects.filter(transfer_to_user = user_instance)
+    
+        transfer_fund_expenses = transfer_fund1_filter(request.GET, queryset=transfer_fund_expenses)
+        transfer_fund_expenses = transfer_fund_expenses.qs
+
+        print(transfer_fund_expenses)
+
+        for expense in transfer_fund_expenses:
+            combined_data1.append(('transfer_fund_expense', expense.entry_date, expense.amount, expense.user, expense.note))
+
+    funds = fund.objects.all()
+    funds = fund_filter(request.GET, queryset=funds)
+    funds = funds.qs
+
+    for expense in funds:
+        combined_data1.append(('fund', expense.entry_date, expense.amount, expense.user, expense.note))
+
+    combined_data1.sort(key=lambda x: x[2])
+
+
+
+
+
+    # Sort combined data by entry_date
+    combined_data1.sort(key=lambda x: x[2])
+
+
+
+    # Calculate total amount for combined_data1
+    total_amount_combined_data1 = sum(row[2] for row in combined_data1)
+
+    # Generate CSV in memory
+    csv_buffer = StringIO()
+    csv_writer = csv.writer(csv_buffer)
+    csv_writer.writerow(['Expense Type', 'Entry Date', 'Amount/Salary', 'User', 'Note', 'Additional Fields'])
+    
+    for row in combined_data1:
+        csv_writer.writerow(row)
+
+            
+    # Add empty row as a separator
+    csv_writer.writerow([])
+
+    # Write total amount for combined_data
+    csv_writer.writerow(['Total Amount for combined_data:', '', total_amount_combined_data1, '', '', ''])
+
+   
+    # Create HTTP response with CSV file
+    response = HttpResponse(csv_buffer.getvalue(), content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="combined_expenses.csv"'
+    return response
+
 
 
 

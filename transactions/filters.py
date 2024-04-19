@@ -447,6 +447,10 @@ class ack_filter(django_filters.FilterSet):
                 'id' : 'truck_details'
             })
     )
+
+    select_all_except_one = django_filters.BooleanFilter(label='Select all except one', method='filter_select_all_except_one')
+
+
     builty__truck_owner = django_filters.ModelChoiceFilter(
         queryset=truck_owner.objects.all(),
         widget=forms.Select(
@@ -520,9 +524,44 @@ class ack_filter(django_filters.FilterSet):
 
     class Meta:
         model = ack
-        fields = '__all__'
+        fields = [
+            'builty__consignor',
+            'builty__user',
+            'builty__article',
+            'builty__truck_details',
+            'select_all_except_one',
+            'builty__truck_owner',
+            'builty__station_from',
+            'builty__petrol_pump',
+            'builty__builty_no',
+            'builty__DC_date_start__date',
+            'builty__DC_date_end__date',
+            'challan_date_start__date',
+            'challan_date_end__date',
+        ]
        
    
+
+   
+    def filter_select_all_except_one(self, queryset, name, value):
+        if value:
+            # Get the truck owner object to be excluded by ID
+            truck_owner_to_exclude = truck_owner.objects.get(id=1)
+
+            # Log a debug message
+            logger.debug("Select all except one filter activated")
+
+            # Exclude the truck owner from the queryset
+            return queryset.exclude(builty__truck_owner=truck_owner_to_exclude)
+        else:
+
+            logger.debug("Select all except one filter dfdfdfd")
+
+            return queryset  # Return the queryset unchanged if the checkbox is not checked
+
+    
+
+
 
 class request_edit_filter(django_filters.FilterSet):
 

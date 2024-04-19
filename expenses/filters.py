@@ -334,15 +334,6 @@ class transfer_fund_filter(django_filters.FilterSet):
 
 class transfer_fund1_filter(django_filters.FilterSet):
 
-    transfer_to_user = django_filters.ModelChoiceFilter(
-        queryset=User.objects.all(),
-       widget=forms.Select(
-            attrs={
-                'class' : 'form-control sele',
-                'id' : 'transfer_to_user'
-            })
-    )
-
    
     
     entry_date_start = DateFilter(field_name="entry_date", lookup_expr='gte', widget=forms.DateTimeInput(
@@ -368,7 +359,7 @@ class transfer_fund1_filter(django_filters.FilterSet):
 
     class Meta:
         model = transfer_fund
-        fields = '__all__'
+        fields = ['entry_date_start', 'entry_date_end']
        
    
 

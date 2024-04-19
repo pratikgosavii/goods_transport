@@ -276,6 +276,10 @@
 
             <div class-"form-group" style="display: flex; gap :10px;">
 
+              <input type="checkbox" id="select_all_except_one" name="select_all_except_one" value="true">
+              <label for="select_all_except_one">Other truck owners</label>
+              
+              
               <label for="name" class="control-label mb-1" style="margin-left : 0px;">Truck Owner</label>
         <select class="sele" name="truck_owner" id="truck_owner" multiple="multiple">
           {% for id, name in form.truck_owner.field.choices %}
