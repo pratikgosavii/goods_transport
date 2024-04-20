@@ -225,21 +225,22 @@
               {% endif %}
               
           
-        </div>
 
       <div class="form-group" style="display: flex;gap: 14px;">
 
       
               
         <label for="name" class="control-label mb-1 la">Entry Date From</label>
-        {{ expense_builty_filter.form.entry_date_start__date }}
+        {{ expense_builty_filter.form.entry_date_start }}
               
         <label for="name" class="control-label mb-1 la">Entry Date To</label>
-        {{ expense_builty_filter.form.entry_date_end__date }}
+        {{ expense_builty_filter.form.entry_date_end }}
               
       
               
       </div><br>
+
+    </div>
 
 
       <a href="{% url 'list_builty_expense' %}"><button class="btn btn-primary" type="button" > Reset </button></a>
