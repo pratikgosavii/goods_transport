@@ -305,24 +305,7 @@ def update_builty(request, bulity_id):
 
                 builty_expense_advance_instance = builty_expense.objects.get(builty = forms.instance, is_advance = True)
 
-                try:
-                    builty_expense_proch_instance = builty_expense.objects.get(builty = forms.instance, is_porch = True)
-
-                    builty_expense_proch_instance_copy = copy.copy(builty_expense_proch_instance.amount)
-                    builty_expense_proch_instance.amount = balance_amount
-                    builty_expense_proch_instance.save()
-
-                    user_instance = request.user
-                    user_instance.balance = user_instance.balance + float(builty_expense_proch_instance_copy)
-                    user_instance.save()
-
-                    user_instance = request.user
-                    user_instance.balance = user_instance.balance - float(balance_amount)
-                    user_instance.save()
-
-                except builty_expense.DoesNotExist:
-
-                    pass
+               
         
                 
                 builty_expense_advance_instance_copy = copy.copy(builty_expense_advance_instance.amount)
@@ -341,6 +324,25 @@ def update_builty(request, bulity_id):
             except builty_expense.DoesNotExist:
 
                 print('not here')
+
+            try:
+                builty_expense_proch_instance = builty_expense.objects.get(builty = forms.instance, is_porch = True)
+
+                builty_expense_proch_instance_copy = copy.copy(builty_expense_proch_instance.amount)
+                builty_expense_proch_instance.amount = balance_amount
+                builty_expense_proch_instance.save()
+
+                user_instance = request.user
+                user_instance.balance = user_instance.balance + float(builty_expense_proch_instance_copy)
+                user_instance.save()
+
+                user_instance = request.user
+                user_instance.balance = user_instance.balance - float(balance_amount)
+                user_instance.save()
+
+            except builty_expense.DoesNotExist:
+
+                pass
             
 
 

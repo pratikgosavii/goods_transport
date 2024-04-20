@@ -421,6 +421,29 @@ def check_balance(request):
     
     return render(request, 'expense/list_balance.html', context)
 
+    
+def cross_check(request):
+
+    data = builty_expense.objects.all()
+
+    for i in data:
+
+        if i.is_advance:
+
+
+            if not i.amount == i.builty.less_advance:
+
+                print(i.id)
+
+        else:
+
+
+            if not i.amount == i.builty.balance:
+
+                print(i.id)
+
+
+
 
     
 def add_diesel_rate(request):

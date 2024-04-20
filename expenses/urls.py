@@ -26,6 +26,8 @@ urlpatterns = [
     path('list-delete/', list_delete, name='list_delete'),
 
     path('check-balance/', check_balance, name='check_balance'),
+
+    path('cross-check/', cross_check, name='cross_check'),
    
     path('add-diesel-expense/', add_diesel_expense, name='add_diesel_expense'),
     path('update-diesel-expense/<diesel_expense_id>', update_diesel_expense, name='update_diesel_expense'),
