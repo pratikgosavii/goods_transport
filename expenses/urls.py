@@ -23,7 +23,6 @@ urlpatterns = [
     path('delete-truck-expense/<truck_expense_id>', delete_truck_expense, name='delete_truck_expense'),
     path('list-truck-expense/', list_truck_expense, name='list_truck_expense'),
     
-    path('list-delete/', list_delete, name='list_delete'),
 
     path('check-balance/', check_balance, name='check_balance'),
 
