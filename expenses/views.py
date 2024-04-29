@@ -1634,8 +1634,8 @@ def master_report_list(request):
 
         # Query and append data from each table
     builty_expenses = builty_expense.objects.all()
-    builty_expense_filters = builty_expense_filter1(request.GET, queryset=builty_expenses)
-    builty_expenses = builty_expense_filters.qs
+    builty_expense_filters1 = builty_expense_filter1(request.GET, queryset=builty_expenses)
+    builty_expenses = builty_expense_filters1.qs
 
     builty_expenses_total = builty_expenses.aggregate(builty_expenses_total=Sum('amount'))['builty_expenses_total']
     
