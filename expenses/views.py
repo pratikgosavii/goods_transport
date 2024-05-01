@@ -1516,6 +1516,15 @@ def master_report(request):
 
     builty_expenses_total = builty_expenses.aggregate(builty_expenses_total=Sum('amount'))['builty_expenses_total']
 
+
+    builty_expense_filters1 = builty_expense_filter1(request.GET, queryset=builty_expenses)
+    builty_expenses1 = builty_expense_filters1.qs
+
+    builty_expenses_total_owned = builty_expenses1.filter(builty__truck_owner__id='1')
+    builty_expenses_total_owned = builty_expenses_total_owned.aggregate(builty_expenses_total_owned=Sum('amount'))['builty_expenses_total_owned'] or 0
+    print('builty_expenses_total_owned')
+    print(builty_expenses_total_owned)
+
     for expense in builty_expenses:
         combined_data.append(('builty_expense', expense.entry_date, expense.amount, expense.user, expense.is_advance, expense.is_porch))
 
@@ -1550,7 +1559,7 @@ def master_report(request):
     salaries = salary_filter(request.GET, queryset=salaries)
     salaries = salaries.qs
 
-    salaries_total = salaries.aggregate(salaries_total=Sum('amount'))['salaries_total']
+    salaries_total = salaries.aggregate(salaries_total=Sum('salary'))['salaries_total']
 
     for expense in salaries:
         combined_data.append(('salary',  expense.entry_date, expense.salary, expense.user, expense.note, expense.salary_of_date, expense.employee))

@@ -166,6 +166,26 @@
             font-size: 21px;
           }
           
+          .card-body{
+            padding : 5px 5px 5px 10px !important;
+          }
+
+          .box-title{
+            margin-bottom : 10px !important;
+            color: grey !important;
+          }
+
+          .title_price_g{
+            color: green !important;
+            font-weight: 800 !important;
+            
+          }
+
+          .title_price_r{
+            color: red !important;
+            font-weight: 800 !important;
+
+          }
 
     </style>
 
@@ -253,8 +273,8 @@ gap: 14px;">
   <div class="card col-2" style="border: 1px solid black;
     box-shadow: none !important;">
     <div class="card-body">
-        <h4 class="box-title">Fund Total </h4> </br>
-        <h4 class="box-title"> {{ fund_total }} </h4>
+        <h4 class="box-title">Fund Total </h4>
+        <h4 class="box-title title_price_g"> + {{ fund_total }} </h4>
     </div>
 
 </div>
@@ -262,8 +282,8 @@ gap: 14px;">
   <div class="card col-2" style="border: 1px solid black;
     box-shadow: none !important;">
     <div class="card-body">
-        <h4 class="box-title">Transfer Fund Total </h4> </br>
-        <h4 class="box-title"> {{ transfer_fund_total }} </h4>
+        <h4 class="box-title">Transfer Fund Total </h4>
+        <h4 class="box-title title_price_g"> + {{ transfer_fund_total }} </h4>
     </div>
 
 </div>
@@ -276,8 +296,8 @@ gap: 14px;">
   <div class="card col-2" style="border: 1px solid black;
     box-shadow: none !important;">
     <div class="card-body">
-        <h4 class="box-title">Builty Expense Total </h4> </br>
-        <h4 class="box-title"> {{ builty_expenses_total }} </h4>
+        <h4 class="box-title">Builty Expense Total </h4>
+        <h4 class="box-title title_price_r"> - {{ builty_expenses_total }} </h4>
     </div>
 
 </div>
@@ -285,8 +305,8 @@ gap: 14px;">
   <div class="card col-2" style="border: 1px solid black;
     box-shadow: none !important;">
     <div class="card-body">
-        <h4 class="box-title">Builty Expense Other Total </h4> </br>
-        <h4 class="box-title"> {{ builty_expenses_total_other }} </h4>
+        <h4 class="box-title">Builty Expense Other Total </h4>
+        <h4 class="box-title title_price_r"> - {{ builty_expenses_total_other }} </h4>
     </div>
 
 </div>
@@ -294,8 +314,8 @@ gap: 14px;">
   <div class="card col-2" style="border: 1px solid black;
     box-shadow: none !important;">
     <div class="card-body">
-        <h4 class="box-title">Builty Expense Owned Total </h4> </br>
-        <h4 class="box-title"> {{ builty_expenses_total_owned }} </h4>
+        <h4 class="box-title">Builty Expense Owned Total </h4>
+        <h4 class="box-title title_price_r"> - {{ builty_expenses_total_owned }} </h4>
     </div>
 
 </div>
@@ -303,8 +323,8 @@ gap: 14px;">
   <div class="card col-2" style="border: 1px solid black;
     box-shadow: none !important;">
     <div class="card-body">
-        <h4 class="box-title">Truck Expense Total </h4> </br>
-        <h4 class="box-title"> {{ truck_expenses_total }} </h4>
+        <h4 class="box-title">Truck Expense Total </h4>
+        <h4 class="box-title title_price_r"> - {{ truck_expenses_total }} </h4>
     </div>
 
 </div>
@@ -312,8 +332,8 @@ gap: 14px;">
   <div class="card col-2" style="border: 1px solid black;
     box-shadow: none !important;">
     <div class="card-body">
-        <h4 class="box-title">Other Expense Total </h4> </br>
-        <h4 class="box-title"> {{ other_expenses_total }} </h4>
+        <h4 class="box-title">Other Expense Total </h4>
+        <h4 class="box-title title_price_r"> - {{ other_expenses_total }} </h4>
     </div>
 
 </div>
@@ -321,8 +341,8 @@ gap: 14px;">
   <div class="card col-2" style="border: 1px solid black;
     box-shadow: none !important;">
     <div class="card-body">
-        <h4 class="box-title">Salary Expense Total </h4> </br>
-        <h4 class="box-title"> {{ salaries_total }} </h4>
+        <h4 class="box-title">Salary Expense Total </h4>
+        <h4 class="box-title title_price_r"> - {{ salaries_total }} </h4>
     </div>
 
 </div>
