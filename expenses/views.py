@@ -1629,11 +1629,17 @@ def master_report_list(request):
 
         transfer_fund_expenses = transfer_fund.objects.filter(transfer_to_user = user_instance)
 
-        transfer_fund_total = transfer_fund_expenses.aggregate(transfer_fund_total=Sum('amount'))['transfer_fund_total']
-    
+        transfer_fund_data =  transfer_fund1_filter(request.GET, queryset=transfer_fund_expenses)
+        
+        transfer_fund_total = transfer_fund_data.qs.aggregate(transfer_fund_total=Sum('amount'))['transfer_fund_total']
+
+
+        
     else:
 
         transfer_fund_total = 0
+
+
 
     funds = fund.objects.all()
     funds = fund_filter(request.GET, queryset=funds)
@@ -1719,7 +1725,12 @@ def master_report_list(request):
     print(transfer_funds_total)
     print(other_expenses_total)
     print(salaries_total)
+
+    total_incoming = fund_total + transfer_fund_total
+    total_outgoing = builty_expenses_total + truck_expenses_total+ transfer_funds_total + other_expenses_total+ salaries_total 
     
+    total_balance = total_incoming - total_outgoing
+
     context = {
         'data': data,
         'transfer_fund_total': transfer_fund_total,
@@ -1731,8 +1742,11 @@ def master_report_list(request):
         'transfer_funds_total': transfer_funds_total,
         'other_expenses_total': other_expenses_total,
         'salaries_total': salaries_total,
-        'builty_expense_filter' : builty_expense_filters
-
+        'builty_expense_filter' : builty_expense_filters,
+        'total_incoming' : total_incoming,
+        'total_outgoing' : total_outgoing,
+        'total_balance' : total_balance,
+    
     }
 
     return render(request, 'report/master_report.html', context)
