@@ -87,48 +87,14 @@
                     
                 </li>
 
-                {% comment %} <li class="">
-                    <a href="{% url 'list_ack' %}"><i class="menu-icon fa fa-laptop"></i> Acknowledgement </a>
-                </li> {% endcomment %}
-                
-{% comment %}
-                <li class="menu-item-has-children dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-users"></i>Outward</a>
-                    <ul class="sub-menu children dropdown-menu">
-                        <li><i class="fa fa-id-card-o"></i><a href="{% url 'add_outward' %}">Add</a></li>
-                        <li><i class="fa fa-th"></i><a href="{% url 'list_outward' %}">View</a></li>
-                    </ul>
-                </li>
-
-                <li class="menu-item-has-children dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-paper-plane"></i>Supply Return</a>
-                    <ul class="sub-menu children dropdown-menu">
-                        <li><i class="fa fa-id-card-o"></i><a href="{% url 'add_return' %}">Add</a></li>
-                        <li><i class="fa fa-th"></i><a href="{% url 'list_return' %}">View</a></li>
-                    </ul>
-                </li>
-
-              
-                <li class="menu-title">Stock</li><!-- /.menu-title -->
-                <li class="menu-item-has-children dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-archive"></i>Stock</a>
-                    <ul class="sub-menu children dropdown-menu">
-                        <li><i class="fa fa-th"></i><a href="{% url 'list_stock' %}">View</a></li>
-                    </ul>
-                </li>
-
-                <li class="menu-item-has-children dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-archive"></i>Delete Dashboard</a>
-                    <ul class="sub-menu children dropdown-menu">
-                        <li><i class="fa fa-th"></i><a href="{% url 'delete_dashboard' %}">View</a></li>
-                    </ul>
-                </li> {% endcomment %}
-
 
 
                 <li class="menu-title">Reports</li><!-- /.menu-title -->
 
                 
+                {% if request.user.is_superuser %}
+
+
                 <li class="menu-item-has-children dropdown">
                     <a href="{% url 'master_report_list' %}"><i class="menu-icon fa fa-laptop"></i> Master Expense report </a>
                     
@@ -138,6 +104,15 @@
                     <a href="{% url 'master_fund_report_list' %}"><i class="menu-icon fa fa-laptop"></i> Master Fund report </a>
                     
                 </li>
+
+                {% else %}
+
+                <li class="menu-item-has-children dropdown">
+                    <a href="{% url 'master_report_normal_list' %}"><i class="menu-icon fa fa-laptop"></i> Master Expense report </a>
+                    
+                </li>
+
+                {% endif %}
                 
                 <li class="menu-item-has-children dropdown">
                     <a href="{% url 'diesel_report_list' %}"><i class="menu-icon fa fa-laptop"></i> Diesel </a>

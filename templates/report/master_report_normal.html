@@ -1,0 +1,619 @@
+{% extends 'expense/base_main.html' %}
+
+{% block title %}Product List{% endblock title %}
+
+
+{% block head %}
+
+<head>
+{% comment %} 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script> {% endcomment %}
+
+
+
+    
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>    <!-- imp -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/js/select2.min.js"></script> 
+
+
+
+    <style>
+
+
+
+      select {
+        border: 1px solid gray !important;
+        border-radius: 6px !important;
+        position: relative !important;
+        width: 231px !important;
+        margin: 10px !important;
+        line-height: 6ex !important;
+        padding-left: 14px !important;
+        height: 46px !important;
+      }
+
+      
+        .menu-nav {
+       
+            display: flex;
+            justify-content: space-between;
+          }
+          
+          .menu-item {
+            color: #FCC;
+            padding: 3px;
+          }
+          
+          .three-dots:after {
+            cursor: pointer;
+            color: #444;
+            content: '\2807';
+            font-size: 20px;
+            padding: 0 5px;
+          }
+          
+          a {
+            text-decoration: none;
+            color: white;
+          }
+          
+          a div {
+            padding: 2px;
+          }
+         
+         
+          .logged-in {
+            color: orange;
+            font-size: 21px;
+          }
+          
+
+    
+
+          .select2-container {
+             min-width: 200px !important;
+             max-width: 200px !important;
+          }
+          
+
+          
+
+          .selection{
+            height: 50px;
+        display: grid;
+          }
+
+
+          .select2-results__option {
+            padding-right: 20px;
+            vertical-align: middle;
+          }
+          .select2-results__option:before {
+            content: "";
+            display: inline-block;
+            position: relative;
+            height: 20px;
+            width: 20px;
+            border: 2px solid #e9e9e9;
+            border-radius: 4px;
+            background-color: #fff;
+            margin-right: 20px;
+            vertical-align: middle;
+          }
+          .select2-results__option[aria-selected=true]:before {
+            font-family:fontAwesome;
+            content: "\f00c";
+            color: #fff;
+            background-color: #f77750;
+            border: 0;
+            display: inline-block;
+            padding-left: 3px;
+          }
+          .select2-container--default .select2-results__option[aria-selected=true] {
+            background-color: #fff;
+          }
+          .select2-container--default .select2-results__option--highlighted[aria-selected] {
+            background-color: #eaeaeb;
+            color: #272727;
+          }
+          .select2-container--default .select2-selection--multiple {
+            margin-bottom: 10px;
+          }
+          .select2-container--default.select2-container--open.select2-container--below .select2-selection--multiple {
+            border-radius: 4px;
+          }
+          .select2-container--default.select2-container--focus .select2-selection--multiple {
+            border-color: #f77750;
+            border-width: 2px;
+          }
+          .select2-container--default .select2-selection--multiple {
+            border-width: 2px;
+          }
+          .select2-container--open .select2-dropdown--below {
+            
+            border-radius: 6px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.5);
+            width: max-content !important;
+          }
+          .select2-selection .select2-selection--multiple:after {
+            content: 'hhghgh';
+          }
+          /* select with icons badges single*/
+          .select-icon .select2-selection__placeholder .badge {
+            display: none;
+          }
+          .select-icon .placeholder {
+            display: none;
+          }
+          .select-icon .select2-results__option:before,
+          .select-icon .select2-results__option[aria-selected=true]:before {
+            display: none !important;
+            /* content: "" !important; */
+          }
+          .select-icon  .select2-search--dropdown {
+            display: none;
+          }
+
+
+
+          .select2-container .select2-selection--single {
+            height: 38px;
+          }
+
+          .logged-in {
+            color: orange;
+            font-size: 21px;
+          }
+          
+          .card-body{
+            padding : 5px 5px 5px 10px !important;
+          }
+
+          .box-title{
+            margin-bottom : 10px !important;
+            color: grey !important;
+          }
+
+          .title_price_g{
+            color: green !important;
+            font-weight: 800 !important;
+            
+          }
+
+          .title_price_r{
+            color: red !important;
+            font-weight: 800 !important;
+
+          }
+
+          #seprate_table {
+            border-collapse: separate;
+            border-spacing: 10px; /* Adjust this value for the desired gap between columns */
+            border: 2px solid black; /* Border around the entire table */
+
+            margin-left : 100px;
+          }
+          
+          .s_th {
+            border: 1px solid black; /* Border around each cell */
+            padding: 10px; /* Adjust padding as needed */
+          }
+
+          .s_td {
+            border: 1px solid black; /* Border around each cell */
+            padding: 10px; /* Adjust padding as needed */
+          }
+          
+
+    </style>
+
+
+
+</head>
+
+{% endblock head %}
+
+{% block content %}
+
+
+<p>
+    
+    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+      Filter
+    </button>
+  </p>
+  <div class="collapse" id="collapseExample">
+    <div class="card card-body" style="width: fit-content;">
+       
+ 
+      <form method="get" action="" style="padding:15px;">
+
+        <input type="hidden" name="csrfmiddlewaretoken" value="I5l4JkfkYMt5orwdtryvqVbvvHTJkqRpGzx9fNF9htNqrhnWmDGyV4grIZJGXcud">
+
+        <div class="form-group" style="display: flex;gap: 14px;">
+
+       
+</select>
+                      
+            
+                  
+           
+                  <label for="name" class="control-label mb-1" style="margin-left : 0px;">User</label>
+                     {{ builty_expense_filter.form.user }}
+                
+                      
+                      
+                  
+        </div>
+        
+        <div class="form-group" style="display: flex;gap: 14px;">
+
+              <label for="name" class="control-label mb-1" style="margin-left : 0px;">Entry Date From</label>
+              {{ builty_expense_filter.form.entry_date_start }}
+
+              
+          
+      
+      
+              <label for="name" class="control-label mb-1">Entry Date To</label>
+              {{ builty_expense_filter.form.entry_date_end }}
+
+      
+              
+      </div>
+
+      <br>
+
+      <a href="/expenses/list-truck-expense/"><button class="btn btn-primary" type="button"> Reset </button></a>
+
+      <button class="btn btn-primary" type="submit"> Submit </button>
+    </form></div>
+
+            
+        </form>
+    </div>
+  </div>
+  
+
+
+
+    {% csrf_token %}
+
+    <button class="btn btn-primary" onclick="report();" type="submit">
+        Download Master Expense Report
+    </button> 
+</form>
+
+<div class="col-12" style="display: flex;
+margin-top: 30px;
+gap: 14px;">
+
+  <div class="card col-2" style="border: 1px solid black;
+    box-shadow: none !important;">
+    <div class="card-body">
+        <h4 class="box-title">Fund Total </h4>
+        <h4 class="box-title title_price_g"> + {{ fund_total }} </h4>
+    </div>
+
+</div>
+
+  <div class="card col-2" style="border: 1px solid black;
+    box-shadow: none !important;">
+    <div class="card-body">
+        <h4 class="box-title">Transfer Fund Total </h4>
+        <h4 class="box-title title_price_g"> + {{ transfer_fund_total }} </h4>
+    </div>
+
+</div>
+
+<table id="seprate_table">
+  <tr  class="s_tr">
+    <th class="s_th">Label </th>
+    <th class="s_th" >Amount </th>
+  </tr>
+  <tr  class="s_tr">
+    <td  class="s_th"> Total Incoming Amount </td>
+    <td  class="s_th"> {{ total_incoming}} </td>
+  </tr>
+  <tr  class="s_tr">
+    <td  class="s_th"> Total Outgoing Amount </td>
+    <td  class="s_th"> {{ total_outgoing}} </td>
+  </tr>
+  <tr  class="s_tr">
+    <td  class="s_th"> Balance Amount </td>
+    <td  class="s_th"> {{ total_balance}} </td>
+  </tr>
+  
+</table>
+
+
+</div>
+
+
+<div class="col-12" style="display: flex;
+margin-top: 30px;
+gap: 14px;">
+
+  <div class="card col-2" style="border: 1px solid black;
+    box-shadow: none !important;">
+    <div class="card-body">
+        <h4 class="box-title">Builty Expense Total </h4>
+        <h4 class="box-title title_price_r"> - {{ builty_expenses_total }} </h4>
+    </div>
+
+</div>
+
+  <div class="card col-2" style="border: 1px solid black;
+    box-shadow: none !important;">
+    <div class="card-body">
+        <h4 class="box-title">Builty Expense Other Total </h4>
+        <h4 class="box-title title_price_r"> - {{ builty_expenses_total_other }} </h4>
+    </div>
+
+</div>
+
+  <div class="card col-2" style="border: 1px solid black;
+    box-shadow: none !important;">
+    <div class="card-body">
+        <h4 class="box-title">Builty Expense Owned Total </h4>
+        <h4 class="box-title title_price_r"> - {{ builty_expenses_total_owned }} </h4>
+    </div>
+
+</div>
+
+  <div class="card col-2" style="border: 1px solid black;
+    box-shadow: none !important;">
+    <div class="card-body">
+        <h4 class="box-title">Truck Expense Total </h4>
+        <h4 class="box-title title_price_r"> - {{ truck_expenses_total }} </h4>
+    </div>
+
+</div>
+
+  <div class="card col-2" style="border: 1px solid black;
+    box-shadow: none !important;">
+    <div class="card-body">
+        <h4 class="box-title">Other Expense Total </h4>
+        <h4 class="box-title title_price_r"> - {{ other_expenses_total }} </h4>
+    </div>
+
+</div>
+
+  <div class="card col-2" style="border: 1px solid black;
+    box-shadow: none !important;">
+    <div class="card-body">
+        <h4 class="box-title">Salary Expense Total </h4>
+        <h4 class="box-title title_price_r"> - {{ salaries_total }} </h4>
+    </div>
+
+</div>
+
+</div>
+
+
+<br>
+
+<div class="row">
+    <div class="col-xl-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="box-title">Master Report </h4>
+            </div>
+            <div class="card-body--">
+              <div class="table-stats order-table ov-h">
+                  <table class="table ">
+                      <thead>
+                          <tr>
+                              <th class="serial">#</th>
+                              <th>Expense Type</th>
+                              <th>Entry Date</th>
+                              <th>Amount/ Salary</th>
+                              <th>User</th>
+                              <th>Note</th>
+                              <th>Other Fields</th>
+                              
+                          </tr>
+                      </thead>
+                      <tbody>
+                          {% if data %}
+                          {% for i in data %}
+                          <tr>
+
+                            
+
+                              <td class="serial" style="">{{ forloop.counter }}</td>
+                              <td>{{ i.0 }}</td>
+                              <td>{{ i.1 }}</td>
+                              <td>{{ i.2 }}</td>
+                              <td>{{ i.3 }}</td>
+                              <td>{{ i.4 }}</td>
+                              <td>{{ i.5 }}</td>
+                              
+                          
+                              
+                          </tr>
+                          {% endfor %}
+                          {% else %}
+                              <tr><td>No Product Data</td></tr>
+                          {% endif %}
+                      </tbody>
+                  </table>
+              
+                  <br>
+                   <br>
+                   <br>
+                   <br>
+                  <nav aria-label="Page navigation example" style="float:left; margin-left : 100px;">
+                    <ul class="pagination justify-content-center">
+                    {% if data.has_previous %}
+                        <li class="page-item">
+                        <a class="page-link" onclick="pagination({{ data.previous_page_number }})">Previous</a>
+                      </li>
+                    {% else %}
+                        <li class="page-item disabled">
+                        <a class="page-link" href="#" tabindex="-1" aria-disabled="True">Previous</a>
+                      </li>
+                    {% endif %}
+            
+                    {% if data.number|add:'-4' > 1 %}
+                        <li class="page-item"><a class="page-link" onclick="pagination({{ data.number }})">&hellip;</a></li>
+                    {% endif %}
+            
+                    {% for i in data.paginator.page_range %}
+                        {% if data.number == i %}
+                            <li class="page-item active" aria-current="page">
+                          <span class="page-link">
+                            {{ i }}
+                            <span class="sr-only">(current)</span>
+                          </span>
+                        </li>
+                        {% elif i > data.number|add:'-5' and i < data.number|add:'5' %}
+                              <li class="page-item"><a class="page-link" onclick="pagination({{ i }})">{{ i }}</a></li>
+                        {% endif %}
+                    {% endfor %}
+            
+                    {% if data.paginator.num_pages > data.number|add:'4' %}
+                        <li class="page-item"><a class="page-link" onclick="pagination({{ data.number|add:'5' }})">&hellip;</a></li>
+                    {% endif %}
+            
+                    {% if data.has_next %}
+                        <li class="page-item">
+                        <a class="page-link" onclick="pagination({{ data.next_page_number }}">Next</a>
+                      </li>
+                    {% else %}
+                        <li class="page-item disabled">
+                        <a class="page-link" href="#" tabindex="-1" aria-disabled="True">Next</a>
+                      </li>
+                    {% endif %}
+                </nav>
+
+              </div> <!-- /.table-stats -->
+            </div>
+          </div> <!-- /.card -->
+        </div>  <!-- /.col-lg-8 -->
+
+    
+        </div>
+
+
+
+<script>
+
+        
+  $('.sele').select2();
+
+
+  
+  $('#truck_details').select2({
+    closeOnSelect : false,
+  });
+  $('#truck_owner').select2({
+    closeOnSelect : false,
+  });
+  $('#consignor').select2({
+    closeOnSelect : false,
+  });
+    
+    
+  function pagination(page_no){
+
+
+    url = new URL(window.location.href);
+
+    var search_params = url.searchParams;
+
+    // new value of "id" is set to "101"
+    search_params.set('page', page_no);
+
+    // change the search property of the main url
+    url.search = search_params.toString();
+
+    // the new url string
+    var new_url = url.toString();
+
+    // output : http://demourl.com/path?id=101&topic=main
+    window.location.href = new_url;
+            
+    window.location.search = jQuery.query.set("page", page_no);
+
+
+
+}
+
+
+
+
+$("#select_all_truck_owner").click(function(){
+  if($("#select_all_truck_owner").is(':checked')){
+      $("#truck_owner > option").prop("selected", "selected");
+      $("#truck_owner").trigger("change");
+      $('#truck_owner').select2('open');
+
+  } else {
+      $('#truck_owner').select2('destroy').find('option').prop('selected', false).end().select2();
+      $('#truck_owner').select2('open');
+  }
+});
+
+$("#select_all_truck_details").click(function(){
+  if($("#select_all_truck_details").is(':checked')){
+      $("#truck_details > option").prop("selected", "selected");
+      $("#truck_details").trigger("change");
+      $('#truck_details').select2('open');
+  } else {
+      $('#truck_details').select2('destroy').find('option').prop('selected', false).end().select2();
+      $('#truck_details').select2('open');
+  }
+});
+
+$("#select_all_consignor").click(function(){
+  if($("#select_all_consignor").is(':checked')){
+      $("#consignor > option").prop("selected", "selected");
+      $("#consignor").trigger("change");
+      $('#consignor').select2('open');
+  } else {
+      $('#consignor').select2('destroy').find('option').prop('selected', false).end().select2();
+      $('#consignor').select2('open');
+  }
+});
+
+
+
+
+url = new URL(window.location.href);
+console.log(url)
+
+truck_details_options = url.searchParams.getAll("truck_details");
+
+$("#truck_details").val(truck_details_options).trigger('change');
+
+truck_owner_options = url.searchParams.getAll("truck_owner");
+
+$("#truck_owner").val(truck_owner_options).trigger('change');
+
+consignor_options = url.searchParams.getAll("consignor");
+
+$("#consignor").val(consignor_options).trigger('change');
+
+
+function report(){
+
+url = window.location.href
+
+url = url.split('?')
+
+url = url[1]
+
+url = "{% url 'master_report' %}" + '?' + url
+
+window.location = url
+
+}
+
+    
+</script>
+
+
+
+{% endblock content %}
