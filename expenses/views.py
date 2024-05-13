@@ -1908,22 +1908,20 @@ def master_report_normal_list(request):
 
 
     
-    user_instance = request.GET.get('user')
+    user_instance = request.user
 
 
-    if user_instance:
+    
 
-        transfer_fund_expenses = transfer_fund.objects.filter(transfer_to_user = user_instance)
+    transfer_fund_expenses = transfer_fund.objects.filter(transfer_to_user = user_instance)
 
-        transfer_fund_data =  transfer_fund1_filter(request.GET, queryset=transfer_fund_expenses)
+    transfer_fund_data =  transfer_fund1_filter(request.GET, queryset=transfer_fund_expenses)
+    
+    transfer_fund_total = transfer_fund_data.qs.aggregate(transfer_fund_total=Sum('amount'))['transfer_fund_total'] or 0
+
+
         
-        transfer_fund_total = transfer_fund_data.qs.aggregate(transfer_fund_total=Sum('amount'))['transfer_fund_total']
-
-
-        
-    else:
-
-        transfer_fund_total = 0
+  
 
 
 
