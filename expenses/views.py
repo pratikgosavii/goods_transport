@@ -1670,7 +1670,7 @@ def master_report_list(request):
     truck_expenses = truck_expense_filter(request.GET, queryset=truck_expenses)
     truck_expenses = truck_expenses.qs
 
-    truck_expenses_total = truck_expenses.aggregate(truck_expenses_total=Sum('amount'))['truck_expenses_total']
+    truck_expenses_total = truck_expenses.aggregate(truck_expenses_total=Sum('amount'))['truck_expenses_total'] or 0
 
     for expense in truck_expenses:
         combined_data.append(('truck_expense', expense.entry_date, expense.amount, expense.user, expense.note))
@@ -1679,7 +1679,7 @@ def master_report_list(request):
     transfer_funds = transfer_fund_filter(request.GET, queryset=transfer_funds)
     transfer_funds = transfer_funds.qs
     
-    transfer_funds_total = transfer_funds.aggregate(transfer_funds_total=Sum('amount'))['transfer_funds_total']
+    transfer_funds_total = transfer_funds.aggregate(transfer_funds_total=Sum('amount'))['transfer_funds_total'] or 0
 
     for expense in transfer_funds:
         combined_data.append(('transfer_fund', expense.entry_date, expense.amount, expense.user, expense.note))
@@ -1688,7 +1688,7 @@ def master_report_list(request):
     other_expenses = other_expense_filter(request.GET, queryset=other_expenses)
     other_expenses = other_expenses.qs
 
-    other_expenses_total = other_expenses.aggregate(other_expenses_total=Sum('amount'))['other_expenses_total']
+    other_expenses_total = other_expenses.aggregate(other_expenses_total=Sum('amount'))['other_expenses_total'] or 0
     
     for expense in other_expenses:
         combined_data.append(('other_expense', expense.entry_date, expense.amount, expense.user, expense.note, expense.expense_category))
@@ -1697,7 +1697,7 @@ def master_report_list(request):
     salaries = salary_filter(request.GET, queryset=salaries)
     salaries = salaries.qs
 
-    salaries_total = salaries.aggregate(salaries_total=Sum('salary'))['salaries_total']
+    salaries_total = salaries.aggregate(salaries_total=Sum('salary'))['salaries_total'] or 0
     
     for expense in salaries:
         combined_data.append(('salary',  expense.entry_date, expense.salary, expense.user, expense.note, expense.salary_of_date, expense.employee))
