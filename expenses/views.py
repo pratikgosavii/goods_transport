@@ -1645,7 +1645,7 @@ def master_report_list(request):
     funds = fund_filter(request.GET, queryset=funds)
     funds = funds.qs
     
-    fund_total = funds.aggregate(fund_total=Sum('amount'))['fund_total']
+    fund_total = funds.aggregate(fund_total=Sum('amount'))['fund_total'] or 0
 
         # Query and append data from each table
     builty_expenses = builty_expense.objects.all()
