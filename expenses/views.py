@@ -1631,7 +1631,7 @@ def master_report_list(request):
 
         transfer_fund_data =  transfer_fund1_filter(request.GET, queryset=transfer_fund_expenses)
         
-        transfer_fund_total = transfer_fund_data.qs.aggregate(transfer_fund_total=Sum('amount'))['transfer_fund_total']
+        transfer_fund_total = transfer_fund_data.qs.aggregate(transfer_fund_total=Sum('amount'))['transfer_fund_total'] or 0
 
 
         
