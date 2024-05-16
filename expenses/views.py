@@ -1719,8 +1719,8 @@ def master_report_list(request):
         # If page is out of range, deliver last page of results.
         data = paginator.page(paginator.num_pages)
 
-
-    print(builty_expenses_total),
+    print('-------------------1111')
+    print(builty_expenses_total)
     print(truck_expenses_total)
     print(transfer_funds_total)
     print(other_expenses_total)
