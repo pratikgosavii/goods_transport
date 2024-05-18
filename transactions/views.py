@@ -728,7 +728,7 @@ def list_ack(request):
     else:
         data = ack.objects.filter(builty__deleted=False, builty__user=request.user).order_by(Substr('builty__builty_no', 5))
 
-    builty_filters = ack_filter(request.GET, queryset=data)
+    builty_filters = ack_filter(request.user, request.GET, queryset=data)
     data = builty_filters.qs
 
     total_freight = data.aggregate(total_freight=Sum('builty__freight'))['total_freight'] or 0
@@ -1376,7 +1376,7 @@ def voucher_report(request):
         data = ack.objects.filter(user = request.user).order_by('id')
 
 
-    builty_filters = ack_filter(request.GET, queryset=data)
+    builty_filters = ack_filter(request.user, request.GET, queryset=data)
   
 
     builty_filters_data1 = list(builty_filters.qs.values_list('builty__builty_no', 'builty__DC_date', 'builty__truck_details__truck_number', 'builty__truck_owner__owner_name', 'challan_number', 'challan_date', 'builty__station_to__name', 'builty__mt', 'builty__rate', 'builty__freight', 'builty__less_advance', 'builty__balance'))
@@ -1476,7 +1476,7 @@ def voucher_report_list(request):
         data = ack.objects.filter(user = request.user).order_by('id')
 
 
-    builty_filters = ack_filter(request.GET, queryset=data)
+    builty_filters = ack_filter(request.user, request.GET, queryset=data)
   
     data = builty_filters.qs
 

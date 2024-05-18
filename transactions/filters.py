@@ -184,7 +184,7 @@ class builty_filter2(django_filters.FilterSet):
             self.filters['onaccount'].queryset = onaccount.objects.filter(office_location = request.office_location)
             self.filters['consignor'].queryset = consignor.objects.filter(office_location = request.office_location)
             self.filters['article'].queryset = article.objects.filter(office_location = request.office_location)
-            self.filters['builty_no'].queryset = builty.objects.filter(user = request)
+            self.filters['builty_no'].queryset = builty.objects.filter(user = request).exclude(have_ack__isnull=True)
 
 
 import logging
@@ -375,7 +375,7 @@ class builty_filter(django_filters.FilterSet):
             self.filters['onaccount'].queryset = onaccount.objects.filter(office_location = request.office_location)
             self.filters['consignor'].queryset = consignor.objects.filter(office_location = request.office_location)
             self.filters['article'].queryset = article.objects.filter(office_location = request.office_location)
-            self.filters['builty_no'].queryset = builty.objects.filter(user = request)
+            self.filters['builty_no'].queryset = builty.objects.filter(user = request).exclude(have_ack__isnull=True)
 
 
 
@@ -540,7 +540,15 @@ class ack_filter(django_filters.FilterSet):
             'challan_date_end__date',
         ]
        
-   
+    
+    def __init__(self, user, *args, **kwargs):
+        super(ack_filter,self).__init__(*args, **kwargs)
+        request = user
+
+        if not request.is_superuser:
+          
+            self.filters['builty__builty_no'].queryset = builty.objects.filter(user = request).exclude(have_ack__isnull=True)
+
 
    
     def filter_select_all_except_one(self, queryset, name, value):
