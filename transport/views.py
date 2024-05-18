@@ -26,6 +26,8 @@ from django.db.models import Sum
 @login_required(login_url='login')
 def dashboard(request):
 
+    financial_year = request.session.get('financial_year', '2023-2024')
+
     if request.user.is_superuser:
 
         builty_count = builty.objects.all().count()
@@ -72,7 +74,7 @@ def dashboard(request):
         total1_balance = builty_data.filter(have_ack__isnull = True).aggregate(Sum('balance'))['balance__sum']
 
 
-        builty_filters = builty_filter(request.user, request.GET, queryset=builty_data)
+        builty_filters = builty_filter(request.user, request.GET, queryset=builty_data, request=request)
         
         data = builty_filters.qs
 
@@ -126,6 +128,7 @@ def dashboard(request):
     context = {
         
         'data': data,
+        'financial_year': financial_year,
         'builty_filter' : builty_filters,
         'truck_count': truck_count,
         'builty_count': builty_count,

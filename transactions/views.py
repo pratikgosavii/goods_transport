@@ -450,7 +450,7 @@ def list_transaction(request):
 
         queryset_data = builty.objects.filter(user = request.user, deleted = False).order_by('-id')
 
-    builty_filters = builty_filter(request.user, request.GET, queryset=queryset_data)
+    builty_filters = builty_filter(request.user, request.GET, queryset=queryset_data, request=request)
 
     filter_data = builty_filters.qs
 
@@ -526,7 +526,7 @@ def save_financial_year(request):
     if request.method == 'POST':
         financial_year = request.POST.get('financial_year')
         request.session['financial_year'] = financial_year
-        return JsonResponse({'message': 'Financial year saved successfully'}, status=200)
+        return JsonResponse({'data': financial_year}, status=200)
     return JsonResponse({'error': 'Invalid request'}, status=400)
 
 
@@ -678,7 +678,7 @@ def list_ack_all(request):
     else:
         data = builty.objects.filter(user=request.user, deleted=False).order_by('-id')
 
-    builty_filters = builty_filter(request.user, request.GET, queryset=data)
+    builty_filters = builty_filter(request.user, request.GET, queryset=data, request=request)
     data = builty_filters.qs
 
     # Calculate totals using aggregation functions
@@ -728,7 +728,7 @@ def list_ack(request):
     else:
         data = ack.objects.filter(builty__deleted=False, builty__user=request.user).order_by(Substr('builty__builty_no', 5))
 
-    builty_filters = ack_filter(request.user, request.GET, queryset=data)
+    builty_filters = ack_filter(request.user, request.GET, queryset=data, request=request)
     data = builty_filters.qs
 
     total_freight = data.aggregate(total_freight=Sum('builty__freight'))['total_freight'] or 0
@@ -774,7 +774,7 @@ def list_not_ack(request):
     else:
         data = builty.objects.filter(user=request.user, deleted=False).order_by('-id')
 
-    builty_filters = builty_filter(request.user, request.GET, queryset=data)
+    builty_filters = builty_filter(request.user, request.GET, queryset=data, request=request)
     data = builty_filters.qs
 
     # Calculate totals using aggregation functions
@@ -1376,7 +1376,7 @@ def voucher_report(request):
         data = ack.objects.filter(user = request.user).order_by('id')
 
 
-    builty_filters = ack_filter(request.user, request.GET, queryset=data)
+    builty_filters = ack_filter(request.user, request.GET, queryset=data, request=request)
   
 
     builty_filters_data1 = list(builty_filters.qs.values_list('builty__builty_no', 'builty__DC_date', 'builty__truck_details__truck_number', 'builty__truck_owner__owner_name', 'challan_number', 'challan_date', 'builty__station_to__name', 'builty__mt', 'builty__rate', 'builty__freight', 'builty__less_advance', 'builty__balance'))
@@ -1476,7 +1476,7 @@ def voucher_report_list(request):
         data = ack.objects.filter(user = request.user).order_by('id')
 
 
-    builty_filters = ack_filter(request.user, request.GET, queryset=data)
+    builty_filters = ack_filter(request.user, request.GET, queryset=data, request=request)
   
     data = builty_filters.qs
 
@@ -1546,7 +1546,7 @@ def truck_report(request):
     else:
         data = builty.objects.filter(user = request.user, deleted = False).order_by('id')
 
-    builty_filters = builty_filter(request.user, request.GET, queryset=data)
+    builty_filters = builty_filter(request.user, request.GET, queryset=data, request=request)
 
     data = builty_filters.qs
 
@@ -1576,7 +1576,7 @@ def truck_report_excel(request):
     else:
         data = builty.objects.filter(user = request.user, deleted = False).order_by('id')
 
-    builty_filters = builty_filter(request.user, request.GET, queryset=data)
+    builty_filters = builty_filter(request.user, request.GET, queryset=data, request=request)
     
     data = builty_filters.qs
 
@@ -1916,7 +1916,7 @@ def truck_report_list(request):
         data = builty.objects.filter(user = request.user, deleted = False).order_by('id')
 
 
-    builty_filters = builty_filter(request.user, request.GET, queryset=data)
+    builty_filters = builty_filter(request.user, request.GET, queryset=data, request=request)
   
     data = builty_filters.qs
 
@@ -1981,7 +1981,7 @@ def diesel_report(request):
         data = builty.objects.filter(user = request.user, deleted = False).order_by('-id')
 
 
-    builty_filters = builty_filter(request.user, request.GET, queryset=data)
+    builty_filters = builty_filter(request.user, request.GET, queryset=data, request=request)
     builty_filters_data1 = list(builty_filters.qs.values_list('builty_no', 'DC_date', 'truck_details__truck_number', 'station_from__name', 'station_to__name', 'consignor__name', 'onaccount__name', 'diesel', 'petrol_pump__name'))
     builty_filters_data = list(map(list, builty_filters_data1))
     
@@ -2082,7 +2082,7 @@ def diesel_report_list(request):
         data = builty.objects.filter(user = request.user, deleted = False).order_by('-id')
 
 
-    builty_filters = builty_filter(request.user, request.GET, queryset=data)
+    builty_filters = builty_filter(request.user, request.GET, queryset=data, request=request)
     
     data = builty_filters.qs
     
@@ -2130,7 +2130,7 @@ def porch_report(request):
 
         data = builty.objects.filter(~Q(have_ack__challan_number = None), user = request.user, deleted = False).order_by('id')
 
-    builty_filters = builty_filter(request.user, request.GET, queryset=data)
+    builty_filters = builty_filter(request.user, request.GET, queryset=data, request=request)
     builty_filters_data1 = list(builty_filters.qs.values_list('builty_no', 'DC_date', 'have_ack__challan_number', 'have_ack__challan_date', 'truck_details__truck_number', 'station_to__name', 'mt', 'rate', 'freight', 'less_advance', 'balance'))
     builty_filters_data = list(map(list, builty_filters_data1))
     
@@ -2228,7 +2228,7 @@ def porch_report_list(request):
 
         data = builty.objects.filter(~Q(have_ack__challan_number = None), user = request.user, deleted = False).order_by('-id')
 
-    builty_filters = builty_filter(request.user, request.GET, queryset=data)
+    builty_filters = builty_filter(request.user, request.GET, queryset=data, request=request)
     
     total_diesel = 0
 

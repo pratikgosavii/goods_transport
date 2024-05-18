@@ -365,19 +365,36 @@ class builty_filter(django_filters.FilterSet):
        
     def __init__(self, user, *args, **kwargs):
         super(builty_filter,self).__init__(*args, **kwargs)
-        request = user
+        user_intance = user
 
-        if not request.is_superuser:
-            self.filters['district'].queryset = district.objects.filter(office_location = request.office_location)
-            self.filters['to_district'].queryset = district.objects.filter(office_location = request.office_location)
-            self.filters['station_from'].queryset = from_station.objects.filter(office_location = request.office_location)
-            self.filters['station_to'].queryset = station.objects.filter(office_location = request.office_location)
-            self.filters['onaccount'].queryset = onaccount.objects.filter(office_location = request.office_location)
-            self.filters['consignor'].queryset = consignor.objects.filter(office_location = request.office_location)
-            self.filters['article'].queryset = article.objects.filter(office_location = request.office_location)
-            self.filters['builty_no'].queryset = builty.objects.filter(user = request).exclude(have_ack__isnull=True)
+        if not user_intance.is_superuser:
+            self.filters['district'].queryset = district.objects.filter(office_location = user_intance.office_location)
+            self.filters['to_district'].queryset = district.objects.filter(office_location = user_intance.office_location)
+            self.filters['station_from'].queryset = from_station.objects.filter(office_location = user_intance.office_location)
+            self.filters['station_to'].queryset = station.objects.filter(office_location = user_intance.office_location)
+            self.filters['onaccount'].queryset = onaccount.objects.filter(office_location = user_intance.office_location)
+            self.filters['consignor'].queryset = consignor.objects.filter(office_location = user_intance.office_location)
+            self.filters['article'].queryset = article.objects.filter(office_location = user_intance.office_location)
+            self.filters['builty_no'].queryset = builty.objects.filter(user = user_intance).exclude(have_ack__isnull=True)
 
+            financial_year = self.request.session.get('financial_year')
+            if financial_year:
+                year_1, year_2 = financial_year.split('-')
+                start_date = datetime(int(year_1), 4, 1)
+                end_date = datetime(int(year_2), 3, 31)
+            else:
+                # Set default values if financial year is not in session
+                start_date = datetime.min
+                end_date = datetime.max
 
+            # Filter Builty objects based on user, date range, and excluding those with related Ack objects
+            queryset = builty.objects.filter(
+                user=self.request.user,
+                DC_date__gte=start_date,
+                DC_date__lte=end_date
+            )
+
+            self.filters['builty_no'].queryset = queryset
 
        
     def filter_select_all_except_one(self, queryset, name, value):
@@ -543,11 +560,26 @@ class ack_filter(django_filters.FilterSet):
     
     def __init__(self, user, *args, **kwargs):
         super(ack_filter,self).__init__(*args, **kwargs)
-        request = user
+        user_intance = user
 
-        if not request.is_superuser:
-          
-            self.filters['builty__builty_no'].queryset = builty.objects.filter(user = request).exclude(have_ack__isnull=True)
+        financial_year = self.request.session.get('financial_year')
+        if financial_year:
+            year_1, year_2 = financial_year.split('-')
+            start_date = datetime(int(year_1), 4, 1)
+            end_date = datetime(int(year_2), 3, 31)
+        else:
+            # Set default values if financial year is not in session
+            start_date = datetime.min
+            end_date = datetime.max
+
+        # Filter Builty objects based on user, date range, and excluding those with related Ack objects
+        queryset = builty.objects.filter(
+            user=self.request.user,
+            DC_date__gte=start_date,
+            DC_date__lte=end_date
+        )
+
+        self.filters['builty_no'].queryset = queryset
 
 
    

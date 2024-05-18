@@ -49,7 +49,7 @@ def main_dashboard(request):
 
     queryset_data = builty.objects.filter(user = request.user, deleted = False).order_by('-id')
 
-    builty_filters = builty_filter(request.user, request.GET, queryset=queryset_data)
+    builty_filters = builty_filter(request.user, request.GET, queryset=queryset_data, request=request)
     
     context = {
         
