@@ -579,7 +579,7 @@ class ack_filter(django_filters.FilterSet):
             DC_date__lte=end_date
         )
 
-        self.filters['builty_no'].queryset = queryset
+        self.filters['builty__builty_no'].queryset = queryset
 
 
    
