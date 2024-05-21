@@ -291,26 +291,36 @@ def update_truck_expense(request, truck_expense_id):
 
     if request.method == 'POST':
 
+        print('here')
+
         amount = request.POST.get("amount")
         
-        instance_old = copy.copy(instance.user.id) 
+        instance_old = copy.copy(instance) 
 
-        user_instance = instance.user
-        user_instance.balance = user_instance.balance + float(instance.amount)
-        user_instance.save()
+      
 
         
         forms = truck_expense_Form(request.POST, instance = instance)
 
         if forms.is_valid():
 
-            instance_old = User.objects.get(id = instance_old)
+            print('here1')
+
+            print(instance_old.amount)
+            print(instance.amount)
+
+
 
             instance = forms.save(commit=False)
-            instance.user = instance_old  # Assign the logged-in user
+            instance.user = instance_old.user  # Assign the logged-in user
             instance.save()
 
-            user_instance1 = instance_old
+            user_instance = instance.user
+            user_instance.balance = user_instance.balance + float(instance_old.amount)
+            user_instance.save()
+
+
+            user_instance1 = instance_old.user
             user_instance1.balance = user_instance1.balance - float(amount)
             user_instance1.save()
 
@@ -504,34 +514,35 @@ def update_transfer_fund(request, transfer_fund_id):
 
     instance_main = transfer_fund.objects.get(id = transfer_fund_id)
 
-    instance_old = copy.copy(instance_main.user.id) 
+    instance_old = copy.copy(instance_main) 
 
     if request.method == 'POST':
         
         amount = request.POST.get('amount')
 
-        user_instance = instance_main.user
-        user_instance.balance = user_instance.balance + float(instance_main.amount)
-        user_instance.save()
-
-        user_instance1 = instance_main.transfer_to_user
-        user_instance1.balance = user_instance1.balance - float(instance_main.amount)
-        user_instance1.save()
-
+        
 
         forms = transfer_fund_Form(request.POST, instance = instance_main)
 
         if forms.is_valid():
 
-            instance_old = User.objects.get(id = instance_old)
 
             instance = forms.save(commit=False)
-            instance.user = instance_old  # Assign the logged-in user
+            instance.user = instance_old.user  # Assign the logged-in user
             instance.save()
 
             transfer_to_user = request.POST.get('transfer_to_user')
+
+            user_instance = instance_old.user
+            user_instance.balance = user_instance.balance + float(instance_old.amount)
+            user_instance.save()
+
+            user_instance1 = instance_old.transfer_to_user
+            user_instance1.balance = user_instance1.balance - float(instance_old.amount)
+            user_instance1.save()
+
             
-            user_instance = instance_old
+            user_instance = instance_old.user
             user_instance.balance = user_instance.balance - float(amount)
             user_instance.save()
 
@@ -1031,23 +1042,24 @@ def update_salary(request, salary_id):
 
         amount = request.POST.get("salary")
 
-        instance_old = copy.copy(instance.user.id) 
+        instance_old = copy.copy(instance) 
 
-        user_instance = instance.user
-        user_instance.balance = user_instance.balance + float(instance.salary)
-        user_instance.save()
+       
        
         forms = salary_Form(request.POST, instance = instance)
 
         if forms.is_valid():
 
-            instance_old = User.objects.get(id = instance_old)
 
             instance = forms.save(commit=False)
-            instance.user = instance_old  # Assign the logged-in user
+            instance.user = instance_old.user  # Assign the logged-in user
             instance.save()
 
-            user_instance1 = instance_old
+            user_instance = instance_old.user
+            user_instance.balance = user_instance.balance + float(instance_old.salary)
+            user_instance.save()
+
+            user_instance1 = instance_old.user
             user_instance1.balance = user_instance1.balance - float(amount)
             user_instance1.save()
 
@@ -1188,23 +1200,23 @@ def update_other_expense(request, other_expense_id):
 
         amount = request.POST.get("amount")
 
-        instance_old = copy.copy(instance.user.id) 
+        instance_old = copy.copy(instance) 
 
-        user_instance = instance.user
-        user_instance.balance = user_instance.balance + float(instance.amount)
-        user_instance.save()
-
+       
         forms = other_expense_Form(request.POST, instance = instance)
 
         if forms.is_valid():
 
-            instance_old = User.objects.get(id = instance_old)
 
             instance = forms.save(commit=False)
-            instance.user = instance_old  # Assign the logged-in user
+            instance.user = instance_old.user  # Assign the logged-in user
             instance.save()
 
-            user_instance1 = instance_old
+            user_instance = instance.user
+            user_instance.balance = user_instance.balance + float(instance_old.amount)
+            user_instance.save()
+
+            user_instance1 = instance_old.user
             user_instance1.balance = user_instance1.balance - float(amount)
             user_instance1.save()
 
@@ -1350,23 +1362,24 @@ def update_fund(request, fund_id):
 
         amount = request.POST.get("amount")
 
-        instance_old = copy.copy(instance.user.id) 
+        instance_old = copy.copy(instance) 
 
-        user_instance = instance.user
-        user_instance.balance = user_instance.balance - float(instance.amount)
-        user_instance.save()
+       
 
         forms = fund_Form(request.POST, instance = instance)
 
         if forms.is_valid():
             
-            instance_old = User.objects.get(id = instance_old)
 
             instance = forms.save(commit=False)
-            instance.user = instance_old  # Assign the logged-in user
+            instance.user = instance_old.user  # Assign the logged-in user
             instance.save()
 
-            user_instance1 = instance_old
+            user_instance = instance_old.user
+            user_instance.balance = user_instance.balance - float(instance_old.amount)
+            user_instance.save()
+
+            user_instance1 = instance_old.user
             user_instance1.balance = user_instance1.balance + float(amount)
             user_instance1.save()
         
