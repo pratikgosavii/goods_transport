@@ -1190,6 +1190,72 @@ def add_other_expense(request):
         }
         return render(request, 'expense/add_other_expense.html', context)
 
+
+
+import json
+
+def add_other_expense_json(request):
+    
+    
+    if request.method == 'POST':
+
+         # Create a list to store form data for multiple entries
+        form_data_list = []
+        
+        
+        # Extracting the fields from the request
+        expense_categories = request.POST.getlist('expense_category')
+        amounts = [request.POST.get(f'amount{i}') for i in range(10)]
+        notes = [request.POST.get(f'note{i}') for i in range(10)]
+        
+        for i in range(10):
+            if expense_categories[i] or amounts[i] or notes[i]:
+                data = {
+                    'expense_category': expense_categories[i],
+                    'amount': amounts[i],
+                    'note': notes[i]
+                }
+                form_data_list.append(data)
+
+        # Process each set of form data
+        for data in form_data_list:
+            form = other_expense_Form(data)
+            if form.is_valid():
+
+                print(data)
+
+                instance = form.save(commit=False)
+                instance.user = request.user  # Assign the logged-in user
+                instance.save()
+                print('ssas')
+                form.save()  # Save each form entry
+
+                amount = data["amount"]
+                
+                user_instance = request.user
+                user_instance.balance = user_instance.balance - float(amount)
+                user_instance.save()
+
+            else:
+
+                print(form.errors)
+
+
+        return JsonResponse(json.dumps({'status' : 'done'}), safe=False, content_type="application/json")
+    
+        
+        
+
+
+    else:
+
+        forms = other_expense_Form()
+
+        context = {
+            'form': forms
+        }
+        return render(request, 'expense/add_other_expense_json.html', context)
+
         
 
 def update_other_expense(request, other_expense_id):

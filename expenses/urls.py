@@ -61,6 +61,7 @@ urlpatterns = [
     path('check-data/', check_data, name='check_data'),
    
     path('add-other-expense/', add_other_expense, name='add_other_expense'),
+    path('add-other-expense-json/', add_other_expense_json, name='add_other_expense_json'),
     path('update-other_expense/<other_expense_id>', update_other_expense, name='update_other_expense'),
     path('delete-other_expense/<other_expense_id>', delete_other_expense, name='delete_other_expense'),
     path('list-other-expense/', list_other_expense, name='list_other_expense'),
