@@ -1544,6 +1544,16 @@ from io import StringIO
 import io
 
 
+
+
+def is_invalid_get_params(get_params):
+    # Check if 'undefined' exists and has no value, or if the GET request is empty
+    return not get_params or ('undefined' in get_params and len(get_params['undefined']) == 0)
+
+
+    
+
+
 def master_report(request):
 
 
@@ -1555,12 +1565,35 @@ def master_report(request):
 
     combined_data1 = []
 
+
+    # Function to check if request.GET is either empty or contains 'undefined'
+   
+    # Check if request.GET is empty
+    if is_invalid_get_params(request.GET):
+        # Create a mutable copy of request.GET
+        default_params = QueryDict(mutable=True)
+        
+        # Set default parameters
+        default_params.update({
+            'entry_date_start': date.today(),
+            'entry_date_end': date.today()
+        })
+
+
+    else:
+
+        default_params = request.GET
+        
+
+
+
+
     if user_instance:
 
         print('------------------------')
 
         transfer_fund_expenses = transfer_fund.objects.filter(transfer_to_user = user_instance)
-        transfer_fund_expenses = transfer_fund1_filter(request.GET, queryset=transfer_fund_expenses)
+        transfer_fund_expenses = transfer_fund1_filter(default_params, queryset=transfer_fund_expenses)
         transfer_fund_expenses = transfer_fund_expenses.qs
 
 
@@ -1570,7 +1603,7 @@ def master_report(request):
             combined_data1.append(('transfer_fund_expense', expense.entry_date, expense.amount, expense.user, expense.note))
 
     funds = fund.objects.all()
-    funds = truck_expense_filter(request.GET, queryset=funds)
+    funds = truck_expense_filter(default_params, queryset=funds)
     funds = funds.qs
 
     for expense in funds:
@@ -1590,13 +1623,13 @@ def master_report(request):
 
         # Query and append data from each table
     builty_expenses = builty_expense.objects.all()
-    builty_expenses = builty_expense_filter1(request.GET, queryset=builty_expenses)
+    builty_expenses = builty_expense_filter1(default_params, queryset=builty_expenses)
     builty_expenses = builty_expenses.qs
 
     builty_expenses_total = builty_expenses.aggregate(builty_expenses_total=Sum('amount'))['builty_expenses_total']
 
 
-    builty_expense_filters1 = builty_expense_filter1(request.GET, queryset=builty_expenses)
+    builty_expense_filters1 = builty_expense_filter1(default_params, queryset=builty_expenses)
     builty_expenses1 = builty_expense_filters1.qs
 
     builty_expenses_total_owned = builty_expenses1.filter(builty__truck_owner__id='1')
@@ -1608,7 +1641,7 @@ def master_report(request):
         combined_data.append(('builty_expense', expense.entry_date, expense.amount, expense.user, expense.is_advance, expense.is_porch))
 
     truck_expenses = truck_expense.objects.all()
-    truck_expenses = truck_expense_filter(request.GET, queryset=truck_expenses)
+    truck_expenses = truck_expense_filter(default_params, queryset=truck_expenses)
     truck_expenses = truck_expenses.qs
 
     truck_expenses_total = truck_expenses.aggregate(truck_expenses_total=Sum('amount'))['truck_expenses_total']
@@ -1617,7 +1650,7 @@ def master_report(request):
         combined_data.append(('truck_expense', expense.entry_date, expense.amount, expense.user, expense.note))
 
     transfer_funds = transfer_fund.objects.all()
-    transfer_funds = transfer_fund_filter(request.GET, queryset=transfer_funds)
+    transfer_funds = transfer_fund_filter(default_params, queryset=transfer_funds)
     transfer_funds = transfer_funds.qs
 
     transfer_funds_total = transfer_funds.aggregate(transfer_funds_total=Sum('amount'))['transfer_funds_total']
@@ -1626,7 +1659,7 @@ def master_report(request):
         combined_data.append(('transfer_fund', expense.entry_date, expense.amount, expense.user, expense.note))
 
     other_expenses = other_expense.objects.all()
-    other_expenses = other_expense_filter(request.GET, queryset=other_expenses)
+    other_expenses = other_expense_filter(default_params, queryset=other_expenses)
     other_expenses = other_expenses.qs
 
     other_expenses_total = other_expenses.aggregate(other_expenses_total=Sum('amount'))['other_expenses_total']
@@ -1635,7 +1668,7 @@ def master_report(request):
         combined_data.append(('other_expense', expense.entry_date, expense.amount, expense.user, expense.note, expense.expense_category))
 
     salaries = salary.objects.all()
-    salaries = salary_filter(request.GET, queryset=salaries)
+    salaries = salary_filter(default_params, queryset=salaries)
     salaries = salaries.qs
 
     salaries_total = salaries.aggregate(salaries_total=Sum('salary'))['salaries_total']
@@ -1684,7 +1717,6 @@ def master_report(request):
     # Write headers for the right side
     csv_writer.writerow(['Total Amount for combined_data:', '', total_amount_combined_data1, '', '', ''])
 
-    print(combined_data)
 
     # Create HTTP response with CSV file
     response = HttpResponse(csv_buffer.getvalue(), content_type='text/csv')
@@ -1692,10 +1724,28 @@ def master_report(request):
     return response
 
 
+from django.http import QueryDict
 
 def master_report_list(request):
 
-    print(request.GET)
+
+
+    
+    # Check if request.GET is empty
+    if not request.GET:
+        # Create a mutable copy of request.GET
+        default_params = QueryDict(mutable=True)
+        
+        # Set default parameters
+        default_params.update({
+            'entry_date_start': date.today(),  # Replace 'date_field' with the actual field you're filtering by
+            'entry_date_end': date.today()  # Replace 'date_field' with the actual field you're filtering by
+        })
+
+    else:
+
+        default_params = request.GET
+        
 
     combined_data = []
 
@@ -1708,7 +1758,7 @@ def master_report_list(request):
 
         transfer_fund_expenses = transfer_fund.objects.filter(transfer_to_user = user_instance)
 
-        transfer_fund_data =  transfer_fund1_filter(request.GET, queryset=transfer_fund_expenses)
+        transfer_fund_data =  transfer_fund1_filter(default_params, queryset=transfer_fund_expenses)
         
         transfer_fund_total = transfer_fund_data.qs.aggregate(transfer_fund_total=Sum('amount'))['transfer_fund_total'] or 0
 
@@ -1721,17 +1771,17 @@ def master_report_list(request):
 
 
     funds = fund.objects.all()
-    funds = fund_filter(request.GET, queryset=funds)
+    funds = fund_filter(default_params, queryset=funds)
     funds = funds.qs
     
     fund_total = funds.aggregate(fund_total=Sum('amount'))['fund_total'] or 0
 
         # Query and append data from each table
     builty_expenses = builty_expense.objects.all()
-    builty_expense_filters = builty_expense_filter1(request.GET, queryset=builty_expenses)
+    builty_expense_filters = builty_expense_filter1(default_params, queryset=builty_expenses)
     builty_expenses = builty_expense_filters.qs
 
-    builty_expense_filters1 = builty_expense_filter1(request.GET, queryset=builty_expenses)
+    builty_expense_filters1 = builty_expense_filter1(default_params, queryset=builty_expenses)
     builty_expenses1 = builty_expense_filters1.qs
 
     builty_expenses_total = builty_expenses.aggregate(builty_expenses_total=Sum('amount'))['builty_expenses_total'] or 0
@@ -1742,14 +1792,12 @@ def master_report_list(request):
     
     builty_expenses_total_owned = builty_expenses1.filter(builty__truck_owner__id='1')
     builty_expenses_total_owned = builty_expenses_total_owned.aggregate(builty_expenses_total_owned=Sum('amount'))['builty_expenses_total_owned'] or 0
-    print('builty_expenses_total_owned')
-    print(builty_expenses_total_owned)
-
+   
     for expense in builty_expenses:
         combined_data.append(('builty_expense', expense.entry_date, expense.amount, expense.user, expense.is_advance, expense.is_porch))
 
     truck_expenses = truck_expense.objects.all()
-    truck_expenses = truck_expense_filter(request.GET, queryset=truck_expenses)
+    truck_expenses = truck_expense_filter(default_params, queryset=truck_expenses)
     truck_expenses = truck_expenses.qs
 
     truck_expenses_total = truck_expenses.aggregate(truck_expenses_total=Sum('amount'))['truck_expenses_total'] or 0
@@ -1758,7 +1806,7 @@ def master_report_list(request):
         combined_data.append(('truck_expense', expense.entry_date, expense.amount, expense.user, expense.note))
 
     transfer_funds = transfer_fund.objects.all()
-    transfer_funds = transfer_fund_filter(request.GET, queryset=transfer_funds)
+    transfer_funds = transfer_fund_filter(default_params, queryset=transfer_funds)
     transfer_funds = transfer_funds.qs
     
     transfer_funds_total = transfer_funds.aggregate(transfer_funds_total=Sum('amount'))['transfer_funds_total'] or 0
@@ -1767,7 +1815,7 @@ def master_report_list(request):
         combined_data.append(('transfer_fund', expense.entry_date, expense.amount, expense.user, expense.note))
 
     other_expenses = other_expense.objects.all()
-    other_expenses = other_expense_filter(request.GET, queryset=other_expenses)
+    other_expenses = other_expense_filter(default_params, queryset=other_expenses)
     other_expenses = other_expenses.qs
 
     other_expenses_total = other_expenses.aggregate(other_expenses_total=Sum('amount'))['other_expenses_total'] or 0
@@ -1776,7 +1824,7 @@ def master_report_list(request):
         combined_data.append(('other_expense', expense.entry_date, expense.amount, expense.user, expense.note, expense.expense_category))
 
     salaries = salary.objects.all()
-    salaries = salary_filter(request.GET, queryset=salaries)
+    salaries = salary_filter(default_params, queryset=salaries)
     salaries = salaries.qs
 
     salaries_total = salaries.aggregate(salaries_total=Sum('salary'))['salaries_total'] or 0
@@ -1791,7 +1839,7 @@ def master_report_list(request):
 
   # Paginate the combined data
     paginator = Paginator(combined_data, 20)  # 10 items per page
-    page = request.GET.get('page')
+    page = default_params.get('page')
     try:
         data = paginator.page(page)
     except PageNotAnInteger:
@@ -1835,6 +1883,8 @@ def master_report_list(request):
 
     return render(request, 'report/master_report.html', context)
 
+
+
 def master_report_normal(request):
 
 
@@ -1846,12 +1896,30 @@ def master_report_normal(request):
 
     combined_data1 = []
 
+
+    
+    # Check if request.GET is empty
+    if not request.GET:
+        # Create a mutable copy of request.GET
+        default_params = QueryDict(mutable=True)
+        
+        # Set default parameters
+        default_params.update({
+            'entry_date_start': date.today(),  # Replace 'date_field' with the actual field you're filtering by
+            'entry_date_end': date.today()  # Replace 'date_field' with the actual field you're filtering by
+        })
+
+    else:
+
+        default_params = request.GET
+        
+
     if user_instance:
 
         print('------------------------')
 
         transfer_fund_expenses = transfer_fund.objects.filter(transfer_to_user = user_instance)
-        transfer_fund_expenses = transfer_fund1_filter(request.GET, queryset=transfer_fund_expenses)
+        transfer_fund_expenses = transfer_fund1_filter(default_params, queryset=transfer_fund_expenses)
         transfer_fund_expenses = transfer_fund_expenses.qs
 
 
@@ -1861,7 +1929,7 @@ def master_report_normal(request):
             combined_data1.append(('transfer_fund_expense', expense.entry_date, expense.amount, expense.user, expense.note))
 
     funds = fund.objects.all()
-    funds = truck_expense_filter(request.GET, queryset=funds)
+    funds = truck_expense_filter(default_params, queryset=funds)
     funds = funds.qs
 
     for expense in funds:
@@ -1881,13 +1949,13 @@ def master_report_normal(request):
 
         # Query and append data from each table
     builty_expenses = builty_expense.objects.all()
-    builty_expenses = builty_expense_filter1(request.GET, queryset=builty_expenses)
+    builty_expenses = builty_expense_filter1(default_params, queryset=builty_expenses)
     builty_expenses = builty_expenses.qs
 
     builty_expenses_total = builty_expenses.aggregate(builty_expenses_total=Sum('amount'))['builty_expenses_total'] or 0
 
 
-    builty_expense_filters1 = builty_expense_filter1(request.GET, queryset=builty_expenses)
+    builty_expense_filters1 = builty_expense_filter1(default_params, queryset=builty_expenses)
     builty_expenses1 = builty_expense_filters1.qs
 
     builty_expenses_total_owned = builty_expenses1.filter(builty__truck_owner__id='1')
@@ -1899,7 +1967,7 @@ def master_report_normal(request):
         combined_data.append(('builty_expense', expense.entry_date, expense.amount, expense.user, expense.is_advance, expense.is_porch))
 
     truck_expenses = truck_expense.objects.all()
-    truck_expenses = truck_expense_filter(request.GET, queryset=truck_expenses)
+    truck_expenses = truck_expense_filter(default_params, queryset=truck_expenses)
     truck_expenses = truck_expenses.qs
 
     truck_expenses_total = truck_expenses.aggregate(truck_expenses_total=Sum('amount'))['truck_expenses_total'] or 0
@@ -1908,7 +1976,7 @@ def master_report_normal(request):
         combined_data.append(('truck_expense', expense.entry_date, expense.amount, expense.user, expense.note))
 
     transfer_funds = transfer_fund.objects.all()
-    transfer_funds = transfer_fund_filter(request.GET, queryset=transfer_funds)
+    transfer_funds = transfer_fund_filter(default_params, queryset=transfer_funds)
     transfer_funds = transfer_funds.qs
 
     transfer_funds_total = transfer_funds.aggregate(transfer_funds_total=Sum('amount'))['transfer_funds_total'] or 0
@@ -1917,7 +1985,7 @@ def master_report_normal(request):
         combined_data.append(('transfer_fund', expense.entry_date, expense.amount, expense.user, expense.note))
 
     other_expenses = other_expense.objects.all()
-    other_expenses = other_expense_filter(request.GET, queryset=other_expenses)
+    other_expenses = other_expense_filter(default_params, queryset=other_expenses)
     other_expenses = other_expenses.qs
 
     other_expenses_total = other_expenses.aggregate(other_expenses_total=Sum('amount'))['other_expenses_total'] or 0
@@ -1926,7 +1994,7 @@ def master_report_normal(request):
         combined_data.append(('other_expense', expense.entry_date, expense.amount, expense.user, expense.note, expense.expense_category))
 
     salaries = salary.objects.all()
-    salaries = salary_filter(request.GET, queryset=salaries)
+    salaries = salary_filter(default_params, queryset=salaries)
     salaries = salaries.qs
 
     salaries_total = salaries.aggregate(salaries_total=Sum('salary'))['salaries_total'] or 0
@@ -1986,7 +2054,6 @@ def master_report_normal(request):
 
 def master_report_normal_list(request):
 
-    print(request.GET)
 
     combined_data = []
 
