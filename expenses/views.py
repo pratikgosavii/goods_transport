@@ -1737,6 +1737,9 @@ def master_report_list(request):
     builty_expenses_total = builty_expenses.aggregate(builty_expenses_total=Sum('amount'))['builty_expenses_total'] or 0
     
 
+    builty_expenses_porch_total = builty_expenses.filter(is_porch = True).aggregate(builty_expenses_total=Sum('amount'))['builty_expenses_total'] or 0
+    builty_expenses_advance_total = builty_expenses.filter(is_advance = True).aggregate(builty_expenses_total=Sum('amount'))['builty_expenses_total'] or 0
+    
     builty_expenses_total_owned = builty_expenses1.filter(builty__truck_owner__id='1')
     builty_expenses_total_owned = builty_expenses_total_owned.aggregate(builty_expenses_total_owned=Sum('amount'))['builty_expenses_total_owned'] or 0
     print('builty_expenses_total_owned')
@@ -1825,6 +1828,8 @@ def master_report_list(request):
         'total_incoming' : total_incoming,
         'total_outgoing' : total_outgoing,
         'total_balance' : total_balance,
+        'builty_expenses_porch_total' : builty_expenses_porch_total,
+        'builty_expenses_advance_total' : builty_expenses_advance_total,
     
     }
 
@@ -2019,6 +2024,9 @@ def master_report_normal_list(request):
     builty_expenses1 = builty_expense_filters1.qs
 
     builty_expenses_total = builty_expenses.aggregate(builty_expenses_total=Sum('amount'))['builty_expenses_total'] or 0
+
+    builty_expenses_porch_total = builty_expenses.filter(is_porch = True).aggregate(builty_expenses_total=Sum('amount'))['builty_expenses_total'] or 0
+    builty_expenses_advance_total = builty_expenses.filter(is_advance = True).aggregate(builty_expenses_total=Sum('amount'))['builty_expenses_total'] or 0
     
 
     builty_expenses_total_owned = builty_expenses1.filter(builty__truck_owner__id='1')
@@ -2109,6 +2117,8 @@ def master_report_normal_list(request):
         'total_incoming' : total_incoming,
         'total_outgoing' : total_outgoing,
         'total_balance' : total_balance,
+        'builty_expenses_porch_total' : builty_expenses_porch_total,
+        'builty_expenses_advance_total' : builty_expenses_advance_total,
     
     }
 
