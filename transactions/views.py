@@ -103,12 +103,12 @@ def add_transaction(request):
 
             forms.save()
 
-            diesel_amount = diesel_rate.objects.get(id = 2)
+            # diesel_amount = diesel_rate.objects.get(id = 2)
 
-            diesel_amount = diesel_amount.amount * float(diesel_liter)
+            # diesel_amount = diesel_amount.amount * float(diesel_liter)
 
-            diesel_expense.objects.create(builty = forms.instance, liter = diesel_liter, amount = diesel_amount, user = request.user)
-            builty_expense.objects.create(builty = forms.instance, amount = less_advance_amount, is_advance = True, user = request.user)
+            # diesel_expense.objects.create(builty = forms.instance, liter = diesel_liter, amount = diesel_amount, user = request.user)
+            # builty_expense.objects.create(builty = forms.instance, amount = less_advance_amount, is_advance = True, user = request.user)
 
 
             user_instance = request.user
