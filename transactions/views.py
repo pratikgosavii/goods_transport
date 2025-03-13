@@ -1115,6 +1115,7 @@ from threading import Thread, activeCount
 from io import BytesIO
 from django.http import HttpResponse
 from django.template.loader import get_template
+import xhtml2pdf.pisa as pisa
 import os
 from random import randint
 
@@ -1125,6 +1126,54 @@ import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+
+def render_to_file(path: str, params: dict):
+
+    template = get_template(path)
+    html = template.render(params)
+    file_path = os.path.join(BASE_DIR) + 'bill.pdf'
+    
+    with open(file_path, 'wb') as pdf:
+        pisa.pisaDocument(BytesIO(html.encode("UTF-8")), pdf)
+        return file_path
+
+       
+def GeneratePdf(request, builty_id):
+
+    data = builty.objects.get(id = builty_id)
+    params = {
+        'data': data,
+    }
+    file = render_to_file('transactions/generate_bill.html', params)
+
+
+
+
+
+    
+    with open(file, 'rb') as fh:
+        
+        return HttpResponse(fh, content_type='application/pdf')
+
+       
+def GeneratePdf_akola(request, builty_id):
+
+    data = builty.objects.get(id = builty_id)
+    params = {
+        'data': data,
+    }
+    file = render_to_file('transactions/generate_bill_akola.html', params)
+
+
+
+
+
+    
+    with open(file, 'rb') as fh:
+        
+        return HttpResponse(fh, content_type='application/pdf')
+
 
 
 
