@@ -42,7 +42,6 @@ INSTALLED_APPS = [
     'store',
     'transactions',
     'expenses',
-    'dbbackup',
 ]
 
 MIDDLEWARE = [
