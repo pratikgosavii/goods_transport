@@ -103,12 +103,12 @@ def add_transaction(request):
 
             forms.save()
 
-            # diesel_amount = diesel_rate.objects.get(id = 2)
+            diesel_amount = diesel_rate.objects.get(id = 2)
 
-            # diesel_amount = diesel_amount.amount * float(diesel_liter)
+            diesel_amount = diesel_amount.amount * float(diesel_liter)
 
-            # diesel_expense.objects.create(builty = forms.instance, liter = diesel_liter, amount = diesel_amount, user = request.user)
-            # builty_expense.objects.create(builty = forms.instance, amount = less_advance_amount, is_advance = True, user = request.user)
+            diesel_expense.objects.create(builty = forms.instance, liter = diesel_liter, amount = diesel_amount, user = request.user)
+            builty_expense.objects.create(builty = forms.instance, amount = less_advance_amount, is_advance = True, user = request.user)
 
 
             user_instance = request.user
@@ -1115,7 +1115,7 @@ from threading import Thread, activeCount
 from io import BytesIO
 from django.http import HttpResponse
 from django.template.loader import get_template
-# import xhtml2pdf.pisa as pisa
+import xhtml2pdf.pisa as pisa
 import os
 from random import randint
 
@@ -1128,51 +1128,51 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
-# def render_to_file(path: str, params: dict):
+def render_to_file(path: str, params: dict):
 
-#     template = get_template(path)
-#     html = template.render(params)
-#     file_path = os.path.join(BASE_DIR) + 'bill.pdf'
+    template = get_template(path)
+    html = template.render(params)
+    file_path = os.path.join(BASE_DIR) + 'bill.pdf'
     
-#     with open(file_path, 'wb') as pdf:
-#         pisa.pisaDocument(BytesIO(html.encode("UTF-8")), pdf)
-#         return file_path
+    with open(file_path, 'wb') as pdf:
+        pisa.pisaDocument(BytesIO(html.encode("UTF-8")), pdf)
+        return file_path
 
        
-# def GeneratePdf(request, builty_id):
+def GeneratePdf(request, builty_id):
 
-#     data = builty.objects.get(id = builty_id)
-#     params = {
-#         'data': data,
-#     }
-#     file = render_to_file('transactions/generate_bill.html', params)
+    data = builty.objects.get(id = builty_id)
+    params = {
+        'data': data,
+    }
+    file = render_to_file('transactions/generate_bill.html', params)
 
 
 
 
 
     
-#     with open(file, 'rb') as fh:
+    with open(file, 'rb') as fh:
         
-#         return HttpResponse(fh, content_type='application/pdf')
+        return HttpResponse(fh, content_type='application/pdf')
 
        
-# def GeneratePdf_akola(request, builty_id):
+def GeneratePdf_akola(request, builty_id):
 
-#     data = builty.objects.get(id = builty_id)
-#     params = {
-#         'data': data,
-#     }
-#     file = render_to_file('transactions/generate_bill_akola.html', params)
+    data = builty.objects.get(id = builty_id)
+    params = {
+        'data': data,
+    }
+    file = render_to_file('transactions/generate_bill_akola.html', params)
 
 
 
 
 
     
-#     with open(file, 'rb') as fh:
+    with open(file, 'rb') as fh:
         
-#         return HttpResponse(fh, content_type='application/pdf')
+        return HttpResponse(fh, content_type='application/pdf')
 
 
 
@@ -1562,10 +1562,10 @@ def truck_report(request):
         'date_to' : date_to
     }
     
-    # file = render_to_file('transactions/dispatch_report_pdf.html', params)
-    # with open(file, 'rb') as fh:
+    file = render_to_file('transactions/dispatch_report_pdf.html', params)
+    with open(file, 'rb') as fh:
         
-    #     return HttpResponse(fh, content_type='application/pdf')
+        return HttpResponse(fh, content_type='application/pdf')
 
 
 def truck_report_excel(request):

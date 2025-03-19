@@ -46,9 +46,9 @@ urlpatterns = [
     path('get_taluka_district', get_taluka_district, name='get_taluka_district'),
 
 
-    # path('generate_bill/<builty_id>', GeneratePdf, name='generate_bill'),
+    path('generate_bill/<builty_id>', GeneratePdf, name='generate_bill'),
 
-    # path('generate_bill-akola/<builty_id>', GeneratePdf_akola, name='generate_bill_akola'),
+    path('generate_bill-akola/<builty_id>', GeneratePdf_akola, name='generate_bill_akola'),
 
     path('download', download, name='download'),
 
